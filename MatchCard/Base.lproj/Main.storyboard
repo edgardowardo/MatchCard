@@ -17,12 +17,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="SIC-GE-BBi">
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1vQ-IB-GIz">
+                                <rect key="frame" x="16" y="616" width="150" height="100"/>
+                                <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="hnl-ba-Dp8"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="160" id="leh-XZ-N15"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="hnl-ba-Dp8"/>
+                                        <exclude reference="leh-XZ-N15"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="hnl-ba-Dp8"/>
+                                        <include reference="leh-XZ-N15"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="SIC-GE-BBi">
                                 <rect key="frame" x="207" y="616" width="150" height="100"/>
                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="ETE-IE-7Bz"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="mZ8-Zq-Ima"/>
+                                    <constraint firstAttribute="height" constant="100" id="shc-Oi-8Nq"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="160" id="zbD-83-bft"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="rY5-L9-5ER">
                                     <size key="itemSize" width="70" height="70"/>
@@ -49,39 +69,51 @@
                                         </view>
                                     </collectionViewCell>
                                 </cells>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="shc-Oi-8Nq"/>
+                                        <exclude reference="zbD-83-bft"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="shc-Oi-8Nq"/>
+                                        <include reference="zbD-83-bft"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <outlet property="dataSource" destination="vXZ-lx-hvc" id="b46-5x-lDt"/>
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="lAJ-O5-LVR"/>
                                 </connections>
                             </collectionView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1vQ-IB-GIz">
-                                <rect key="frame" x="16" y="616" width="150" height="100"/>
-                                <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="10P-Z7-uR8"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="rxp-wP-Bgz"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="SIC-GE-BBi" firstAttribute="leading" secondItem="1vQ-IB-GIz" secondAttribute="trailing" id="2Wz-Qd-UQy"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="SIC-GE-BBi" secondAttribute="trailing" id="E3Q-m7-CJI"/>
-                            <constraint firstItem="1vQ-IB-GIz" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="HMN-7a-ZFv"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="SIC-GE-BBi" secondAttribute="bottom" constant="20" id="cKc-yY-Eav"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="1vQ-IB-GIz" secondAttribute="bottom" constant="20" id="dok-Os-oc2"/>
-                            <constraint firstItem="1vQ-IB-GIz" firstAttribute="width" secondItem="SIC-GE-BBi" secondAttribute="width" id="hw5-1w-XIT"/>
+                            <constraint firstItem="1vQ-IB-GIz" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="0Ga-rg-7k0"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="SIC-GE-BBi" secondAttribute="bottom" id="3cg-KW-enx"/>
+                            <constraint firstItem="SIC-GE-BBi" firstAttribute="width" secondItem="1vQ-IB-GIz" secondAttribute="width" id="HKB-6f-Qrk"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="1vQ-IB-GIz" secondAttribute="bottom" id="e9m-lb-9gR"/>
+                            <constraint firstItem="SIC-GE-BBi" firstAttribute="leading" secondItem="1vQ-IB-GIz" secondAttribute="trailing" id="r30-Wb-smL"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="SIC-GE-BBi" secondAttribute="trailing" constant="-16" id="vDM-bC-c1P"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="hw5-1w-XIT"/>
-                                <exclude reference="E3Q-m7-CJI"/>
+                                <exclude reference="0Ga-rg-7k0"/>
+                                <exclude reference="HKB-6f-Qrk"/>
+                                <exclude reference="r30-Wb-smL"/>
+                                <exclude reference="vDM-bC-c1P"/>
+                                <exclude reference="3cg-KW-enx"/>
+                                <exclude reference="e9m-lb-9gR"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="constraints">
-                                <include reference="hw5-1w-XIT"/>
-                                <include reference="E3Q-m7-CJI"/>
+                                <include reference="0Ga-rg-7k0"/>
+                                <include reference="HKB-6f-Qrk"/>
+                                <include reference="r30-Wb-smL"/>
+                                <include reference="vDM-bC-c1P"/>
+                                <include reference="3cg-KW-enx"/>
+                                <include reference="e9m-lb-9gR"/>
                             </mask>
                         </variation>
                     </view>
