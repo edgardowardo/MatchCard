@@ -8,11 +8,14 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+let reuseIdentifier = "AwayPlayerViewCell"
+
+let array = ["Edgar", "Slawo", "Rountree", "Edgar", "Slawo", "Rountree"]
+
+class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,5 +24,26 @@ class ViewController: UIViewController {
     }
 
 
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return array.count
+    }
+    
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! UICollectionViewCell
+        let name = cell.viewWithTag(100) as! UILabel
+        
+        name.text = array[indexPath.row]
+        
+        cell.layer.borderWidth = 2
+        cell.layer.borderColor = UIColor.whiteColor().CGColor
+        cell.layer.cornerRadius = 10
+        
+        return cell
+    }
 }
 

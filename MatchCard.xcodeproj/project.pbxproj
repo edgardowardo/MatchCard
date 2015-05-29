@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		77BE570B1B17B4A400E88630 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BE570A1B17B4A400E88630 /* Player.swift */; };
 		77D69B4E1B16394E0053EB10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D69B4D1B16394E0053EB10 /* AppDelegate.swift */; };
 		77D69B501B16394E0053EB10 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D69B4F1B16394E0053EB10 /* ViewController.swift */; };
 		77D69B531B16394E0053EB10 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77D69B511B16394E0053EB10 /* Main.storyboard */; };
 		77D69B551B16394E0053EB10 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77D69B541B16394E0053EB10 /* Images.xcassets */; };
 		77D69B581B16394E0053EB10 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77D69B561B16394E0053EB10 /* LaunchScreen.xib */; };
 		77D69B641B16394E0053EB10 /* MatchCardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D69B631B16394E0053EB10 /* MatchCardTests.swift */; };
+		B543514E4F1418C41BDAC0EA /* Pods_MatchCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8FD260B4B1249FB3F441E3F /* Pods_MatchCard.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +28,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		02EA6AD91C2F3833AAE93969 /* Pods-MatchCard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MatchCard.release.xcconfig"; path = "Pods/Target Support Files/Pods-MatchCard/Pods-MatchCard.release.xcconfig"; sourceTree = "<group>"; };
+		77BE570A1B17B4A400E88630 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		77D69B481B16394E0053EB10 /* MatchCard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MatchCard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77D69B4C1B16394E0053EB10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77D69B4D1B16394E0053EB10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +40,8 @@
 		77D69B5D1B16394E0053EB10 /* MatchCardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MatchCardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		77D69B621B16394E0053EB10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77D69B631B16394E0053EB10 /* MatchCardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchCardTests.swift; sourceTree = "<group>"; };
+		B927FA666368235DAA5E4C56 /* Pods-MatchCard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MatchCard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MatchCard/Pods-MatchCard.debug.xcconfig"; sourceTree = "<group>"; };
+		C8FD260B4B1249FB3F441E3F /* Pods_MatchCard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MatchCard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B543514E4F1418C41BDAC0EA /* Pods_MatchCard.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,12 +63,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		77BE57071B17A45300E88630 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				77BE570A1B17B4A400E88630 /* Player.swift */,
+			);
+			name = DataModel;
+			sourceTree = "<group>";
+		};
 		77D69B3F1B16394E0053EB10 = {
 			isa = PBXGroup;
 			children = (
 				77D69B4A1B16394E0053EB10 /* MatchCard */,
 				77D69B601B16394E0053EB10 /* MatchCardTests */,
 				77D69B491B16394E0053EB10 /* Products */,
+				B48A9EF4F6FEF4735E020DB6 /* Pods */,
+				898FF5D0D149CA4846A472FB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -77,6 +94,7 @@
 		77D69B4A1B16394E0053EB10 /* MatchCard */ = {
 			isa = PBXGroup;
 			children = (
+				77BE57071B17A45300E88630 /* DataModel */,
 				77D69B4D1B16394E0053EB10 /* AppDelegate.swift */,
 				77D69B4F1B16394E0053EB10 /* ViewController.swift */,
 				77D69B511B16394E0053EB10 /* Main.storyboard */,
@@ -112,6 +130,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		898FF5D0D149CA4846A472FB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C8FD260B4B1249FB3F441E3F /* Pods_MatchCard.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B48A9EF4F6FEF4735E020DB6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B927FA666368235DAA5E4C56 /* Pods-MatchCard.debug.xcconfig */,
+				02EA6AD91C2F3833AAE93969 /* Pods-MatchCard.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -119,9 +154,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 77D69B671B16394E0053EB10 /* Build configuration list for PBXNativeTarget "MatchCard" */;
 			buildPhases = (
+				404B401752317C1EB90ED504 /* Check Pods Manifest.lock */,
 				77D69B441B16394E0053EB10 /* Sources */,
 				77D69B451B16394E0053EB10 /* Frameworks */,
 				77D69B461B16394E0053EB10 /* Resources */,
+				E6F2D8F3B1328965734E14B3 /* Embed Pods Frameworks */,
+				0ADFE77CABF6F1D864D25662 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -207,12 +245,61 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0ADFE77CABF6F1D864D25662 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MatchCard/Pods-MatchCard-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		404B401752317C1EB90ED504 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E6F2D8F3B1328965734E14B3 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MatchCard/Pods-MatchCard-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		77D69B441B16394E0053EB10 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				77D69B501B16394E0053EB10 /* ViewController.swift in Sources */,
+				77BE570B1B17B4A400E88630 /* Player.swift in Sources */,
 				77D69B4E1B16394E0053EB10 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -338,6 +425,7 @@
 		};
 		77D69B681B16394E0053EB10 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B927FA666368235DAA5E4C56 /* Pods-MatchCard.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = MatchCard/Info.plist;
@@ -348,6 +436,7 @@
 		};
 		77D69B691B16394E0053EB10 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 02EA6AD91C2F3833AAE93969 /* Pods-MatchCard.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = MatchCard/Info.plist;
@@ -409,6 +498,7 @@
 				77D69B691B16394E0053EB10 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		77D69B6A1B16394E0053EB10 /* Build configuration list for PBXNativeTarget "MatchCardTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +507,7 @@
 				77D69B6C1B16394E0053EB10 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
