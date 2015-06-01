@@ -8,16 +8,20 @@
 
 import UIKit
 
-
 class ViewController: UIViewController {
     
     @IBOutlet weak var awayPlayersCollectionView: UICollectionView?
+    @IBOutlet weak var homePlayersCollectionView: UICollectionView?
     let awayPlayersController = PlayersController ()
+    let homePlayersController = PlayersController ()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         awayPlayersCollectionView?.delegate = awayPlayersController
         awayPlayersCollectionView?.dataSource = awayPlayersController
+        homePlayersCollectionView?.delegate = awayPlayersController
+        homePlayersCollectionView?.dataSource = awayPlayersController
+        //homePlayersCollectionView!.transform = CGAffineTransformMakeScale(-1, 1) // right align
     }
 
     override func didReceiveMemoryWarning() {

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "82304584FB6A6B824ABD8A90"
+               BlueprintIdentifier = "CF1882D5598DCDFC3BEB2216"
                BuildableName = "Parse.framework"
                BlueprintName = "Pods-MatchCard-Parse"
                ReferencedContainer = "container:Pods.xcodeproj">

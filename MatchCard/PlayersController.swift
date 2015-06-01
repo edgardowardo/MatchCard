@@ -16,7 +16,10 @@ var array = [PlayerModel] ()
 class PlayersController : NSObject, UICollectionViewDataSource,  UICollectionViewDelegate {
     
     override init(){
-        super.init()
+        super.init()        
+        array.append(PlayerModel(name: "Edgar", image: nil))
+        array.append(PlayerModel(name: "Slawomir", image: nil))
+        array.append(PlayerModel(name: "Baby", image: nil))
         array.append(PlayerModel(isAddme: true, name: "Add", image: nil))
     }
 

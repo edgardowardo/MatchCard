@@ -12,7 +12,7 @@ import Parse
 class PlayerModel : PFObject, PFSubclassing {
     
     static func parseClassName() -> String {
-        return "PlayerModel"
+        return "Player"
     }
 
     override init () {
@@ -26,7 +26,7 @@ class PlayerModel : PFObject, PFSubclassing {
         }
     }
     
-    init(isAddme : Bool, name : String, image : UIImage?)
+    init(isAddme : Bool = false, name : String, image : UIImage?)
     {
         super.init()
         self.IsAddme = isAddme

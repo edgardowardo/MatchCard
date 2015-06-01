@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		77BC54C51B1C9BC80046F3C4 /* RightAlignedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BC54C41B1C9BC80046F3C4 /* RightAlignedCollectionViewCell.swift */; };
 		77BE570B1B17B4A400E88630 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BE570A1B17B4A400E88630 /* PlayerModel.swift */; };
 		77D69B4E1B16394E0053EB10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D69B4D1B16394E0053EB10 /* AppDelegate.swift */; };
 		77D69B501B16394E0053EB10 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D69B4F1B16394E0053EB10 /* ViewController.swift */; };
@@ -14,6 +15,7 @@
 		77D69B551B16394E0053EB10 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77D69B541B16394E0053EB10 /* Images.xcassets */; };
 		77D69B581B16394E0053EB10 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77D69B561B16394E0053EB10 /* LaunchScreen.xib */; };
 		77D69B641B16394E0053EB10 /* MatchCardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D69B631B16394E0053EB10 /* MatchCardTests.swift */; };
+		77EFCA381B1BEAFC00779BAF /* MatchCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EFCA371B1BEAFC00779BAF /* MatchCardModel.swift */; };
 		77F4D05C1B1BAE00003B9096 /* PlayersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D05B1B1BAE00003B9096 /* PlayersController.swift */; };
 		B543514E4F1418C41BDAC0EA /* Pods_MatchCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8FD260B4B1249FB3F441E3F /* Pods_MatchCard.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
@@ -30,6 +32,8 @@
 
 /* Begin PBXFileReference section */
 		02EA6AD91C2F3833AAE93969 /* Pods-MatchCard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MatchCard.release.xcconfig"; path = "Pods/Target Support Files/Pods-MatchCard/Pods-MatchCard.release.xcconfig"; sourceTree = "<group>"; };
+		77BC54C21B1C8D0E0046F3C4 /* MatchCard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MatchCard-Bridging-Header.h"; sourceTree = "<group>"; };
+		77BC54C41B1C9BC80046F3C4 /* RightAlignedCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightAlignedCollectionViewCell.swift; sourceTree = "<group>"; };
 		77BE570A1B17B4A400E88630 /* PlayerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
 		77D69B481B16394E0053EB10 /* MatchCard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MatchCard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77D69B4C1B16394E0053EB10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -41,6 +45,7 @@
 		77D69B5D1B16394E0053EB10 /* MatchCardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MatchCardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		77D69B621B16394E0053EB10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77D69B631B16394E0053EB10 /* MatchCardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchCardTests.swift; sourceTree = "<group>"; };
+		77EFCA371B1BEAFC00779BAF /* MatchCardModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchCardModel.swift; sourceTree = "<group>"; };
 		77F4D05B1B1BAE00003B9096 /* PlayersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayersController.swift; sourceTree = "<group>"; };
 		B927FA666368235DAA5E4C56 /* Pods-MatchCard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MatchCard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MatchCard/Pods-MatchCard.debug.xcconfig"; sourceTree = "<group>"; };
 		C8FD260B4B1249FB3F441E3F /* Pods_MatchCard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MatchCard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,10 +70,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		77BC54C31B1C99890046F3C4 /* Players */ = {
+			isa = PBXGroup;
+			children = (
+				77F4D05B1B1BAE00003B9096 /* PlayersController.swift */,
+				77BC54C41B1C9BC80046F3C4 /* RightAlignedCollectionViewCell.swift */,
+			);
+			name = Players;
+			sourceTree = "<group>";
+		};
 		77BE57071B17A45300E88630 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
 				77BE570A1B17B4A400E88630 /* PlayerModel.swift */,
+				77EFCA371B1BEAFC00779BAF /* MatchCardModel.swift */,
 			);
 			name = DataModel;
 			sourceTree = "<group>";
@@ -96,10 +111,10 @@
 		77D69B4A1B16394E0053EB10 /* MatchCard */ = {
 			isa = PBXGroup;
 			children = (
+				77BC54C31B1C99890046F3C4 /* Players */,
 				77BE57071B17A45300E88630 /* DataModel */,
 				77D69B4D1B16394E0053EB10 /* AppDelegate.swift */,
 				77D69B4F1B16394E0053EB10 /* ViewController.swift */,
-				77F4D05B1B1BAE00003B9096 /* PlayersController.swift */,
 				77D69B511B16394E0053EB10 /* Main.storyboard */,
 				77D69B541B16394E0053EB10 /* Images.xcassets */,
 				77D69B561B16394E0053EB10 /* LaunchScreen.xib */,
@@ -111,6 +126,7 @@
 		77D69B4B1B16394E0053EB10 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				77BC54C21B1C8D0E0046F3C4 /* MatchCard-Bridging-Header.h */,
 				77D69B4C1B16394E0053EB10 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -302,9 +318,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				77D69B501B16394E0053EB10 /* ViewController.swift in Sources */,
+				77EFCA381B1BEAFC00779BAF /* MatchCardModel.swift in Sources */,
 				77BE570B1B17B4A400E88630 /* PlayerModel.swift in Sources */,
 				77F4D05C1B1BAE00003B9096 /* PlayersController.swift in Sources */,
 				77D69B4E1B16394E0053EB10 /* AppDelegate.swift in Sources */,
+				77BC54C51B1C9BC80046F3C4 /* RightAlignedCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,9 +450,12 @@
 			baseConfigurationReference = B927FA666368235DAA5E4C56 /* Pods-MatchCard.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = MatchCard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MatchCard/MatchCard-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -443,9 +464,11 @@
 			baseConfigurationReference = 02EA6AD91C2F3833AAE93969 /* Pods-MatchCard.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = MatchCard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MatchCard/MatchCard-Bridging-Header.h";
 			};
 			name = Release;
 		};
