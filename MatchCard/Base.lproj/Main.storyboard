@@ -17,73 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1vQ-IB-GIz">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yuu-pX-kQc" userLabel="Home Collection View">
                                 <rect key="frame" x="16" y="616" width="150" height="100"/>
-                                <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="hnl-ba-Dp8"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="160" id="leh-XZ-N15"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="hnl-ba-Dp8"/>
-                                        <exclude reference="leh-XZ-N15"/>
-                                    </mask>
-                                </variation>
-                                <variation key="widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="hnl-ba-Dp8"/>
-                                        <include reference="leh-XZ-N15"/>
-                                    </mask>
-                                </variation>
-                            </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="SIC-GE-BBi" userLabel="Away Collection View">
-                                <rect key="frame" x="207" y="616" width="150" height="100"/>
-                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="shc-Oi-8Nq"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="160" id="zbD-83-bft"/>
-                                </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="rY5-L9-5ER">
-                                    <size key="itemSize" width="70" height="70"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AwayPlayerViewCell" id="pir-KB-AOq">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="igL-i9-YYx">
-                                                    <rect key="frame" x="0.0" y="49" width="70" height="21"/>
-                                                    <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="15"/>
-                                                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </collectionViewCell>
-                                </cells>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="shc-Oi-8Nq"/>
-                                        <exclude reference="zbD-83-bft"/>
-                                    </mask>
-                                </variation>
-                                <variation key="widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="shc-Oi-8Nq"/>
-                                        <include reference="zbD-83-bft"/>
-                                    </mask>
-                                </variation>
-                            </collectionView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yuu-pX-kQc" userLabel="Home Collection View">
-                                <rect key="frame" x="48" y="476" width="150" height="100"/>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="gr3-j1-VAU"/>
@@ -96,7 +31,7 @@
                                     <inset key="sectionInset" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AwayPlayerViewCell" id="ZvR-XL-c9c">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PlayerViewCell" id="ZvR-XL-c9c" customClass="RightAlignedCollectionViewCell" customModule="MatchCard" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -127,40 +62,66 @@
                                     </mask>
                                 </variation>
                             </collectionView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="SIC-GE-BBi" userLabel="Away Collection View">
+                                <rect key="frame" x="166" y="616" width="150" height="100"/>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="shc-Oi-8Nq"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="160" id="zbD-83-bft"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="rY5-L9-5ER">
+                                    <size key="itemSize" width="70" height="70"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PlayerViewCell" id="pir-KB-AOq">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="igL-i9-YYx">
+                                                    <rect key="frame" x="0.0" y="49" width="70" height="21"/>
+                                                    <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="15"/>
+                                                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="shc-Oi-8Nq"/>
+                                        <exclude reference="zbD-83-bft"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="shc-Oi-8Nq"/>
+                                        <include reference="zbD-83-bft"/>
+                                    </mask>
+                                </variation>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="1vQ-IB-GIz" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="0Ga-rg-7k0"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="SIC-GE-BBi" secondAttribute="bottom" id="3cg-KW-enx"/>
-                            <constraint firstItem="SIC-GE-BBi" firstAttribute="width" secondItem="1vQ-IB-GIz" secondAttribute="width" id="HKB-6f-Qrk"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="1vQ-IB-GIz" secondAttribute="bottom" id="e9m-lb-9gR"/>
-                            <constraint firstItem="SIC-GE-BBi" firstAttribute="leading" secondItem="1vQ-IB-GIz" secondAttribute="trailing" id="r30-Wb-smL"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="SIC-GE-BBi" secondAttribute="trailing" constant="-16" id="vDM-bC-c1P"/>
+                            <constraint firstItem="yuu-pX-kQc" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="DbE-Cx-Yyk"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="SIC-GE-BBi" secondAttribute="bottom" id="Wss-7s-mKN"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="yuu-pX-kQc" secondAttribute="bottom" id="fYK-BL-wvm"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="SIC-GE-BBi" secondAttribute="trailing" constant="-16" id="pgl-11-4w3"/>
+                            <constraint firstItem="SIC-GE-BBi" firstAttribute="width" secondItem="yuu-pX-kQc" secondAttribute="width" id="xdW-eu-YHb"/>
+                            <constraint firstItem="SIC-GE-BBi" firstAttribute="leading" secondItem="yuu-pX-kQc" secondAttribute="trailing" id="yOV-ye-wgP"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="0Ga-rg-7k0"/>
-                                <exclude reference="HKB-6f-Qrk"/>
-                                <exclude reference="r30-Wb-smL"/>
-                                <exclude reference="vDM-bC-c1P"/>
-                                <exclude reference="3cg-KW-enx"/>
-                                <exclude reference="e9m-lb-9gR"/>
-                            </mask>
-                        </variation>
-                        <variation key="widthClass=compact">
-                            <mask key="constraints">
-                                <include reference="0Ga-rg-7k0"/>
-                                <include reference="HKB-6f-Qrk"/>
-                                <include reference="r30-Wb-smL"/>
-                                <include reference="vDM-bC-c1P"/>
-                                <include reference="3cg-KW-enx"/>
-                                <include reference="e9m-lb-9gR"/>
-                            </mask>
-                        </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
                         <outlet property="awayPlayersCollectionView" destination="SIC-GE-BBi" id="wkV-pt-wL9"/>
+                        <outlet property="homePlayersCollectionView" destination="yuu-pX-kQc" id="Nqo-je-PYd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

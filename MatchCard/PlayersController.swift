@@ -8,7 +8,7 @@
 
 import UIKit
 
-let reuseIdentifier = "AwayPlayerViewCell"
+let reuseIdentifier = "PlayerViewCell"
 
 //let array = ["Edgar", "Michael", "John" , "Barbara", "Add"]
 var array = [PlayerModel] ()

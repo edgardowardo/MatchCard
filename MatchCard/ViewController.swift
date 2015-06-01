@@ -19,9 +19,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         awayPlayersCollectionView?.delegate = awayPlayersController
         awayPlayersCollectionView?.dataSource = awayPlayersController
-        homePlayersCollectionView?.delegate = awayPlayersController
-        homePlayersCollectionView?.dataSource = awayPlayersController
-        //homePlayersCollectionView!.transform = CGAffineTransformMakeScale(-1, 1) // right align
+        homePlayersCollectionView?.delegate = homePlayersController
+        homePlayersCollectionView?.dataSource = homePlayersController
+        homePlayersCollectionView!.transform = CGAffineTransformMakeScale(-1, 1) // right align
     }
 
     override func didReceiveMemoryWarning() {
