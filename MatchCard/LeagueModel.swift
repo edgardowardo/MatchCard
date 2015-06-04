@@ -1,20 +1,20 @@
 //
-//  Player.swift
+//  LeagueModel.swift
 //  MatchCard
 //
-//  Created by EDGARDO AGNO on 28/05/2015.
+//  Created by EDGARDO AGNO on 03/06/2015.
 //  Copyright (c) 2015 EDGARDO AGNO. All rights reserved.
 //
 
 import Foundation
 import Parse
 
-class PlayerModel : PFObjectImaged, PFSubclassing {
+class LeagueModel : PFObjectImaged, PFSubclassing {
     
     static func parseClassName() -> String {
-        return "Player"
+        return "League"
     }
-
+    
     override init () {
         super.init()
     }
@@ -25,4 +25,4 @@ class PlayerModel : PFObjectImaged, PFSubclassing {
             self.registerSubclass()
         }
     }
-} 
+}

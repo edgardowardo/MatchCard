@@ -17,10 +17,9 @@ class MatchCardModel : PFObject, PFSubclassing {
     
     override init () {
         super.init()
-        self.Home = ""
-        self.HomeTotal = 0
-        self.Away = ""
-        self.AwayTotal = 0
+        self.Division = 1
+        self.Date = NSDate()
+        self.Location = ""
     }
     
     override class func initialize() {
@@ -30,10 +29,13 @@ class MatchCardModel : PFObject, PFSubclassing {
         }
     }
     
-    @NSManaged var Home : String
-    @NSManaged var HomeTotal : Int
-    @NSManaged var Away : String
-    @NSManaged var AwayTotal : Int
-    @NSManaged var HomePlayers : [PlayerModel]
-    @NSManaged var AwayPlayers : [PlayerModel]
+    @NSManaged var League : LeagueModel
+    @NSManaged var Division : Int
+    @NSManaged var Date : NSDate
+    @NSManaged var Location : String
+    
+    @NSManaged var HomeSummary : TeamInMatchModel
+    @NSManaged var AwaySummary : TeamInMatchModel // when set, set home or away
+    @NSManaged var MatchEntries : [MatchEntryModel]
+    
 }

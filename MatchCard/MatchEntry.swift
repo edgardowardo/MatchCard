@@ -1,22 +1,24 @@
 //
-//  Player.swift
+//  MatchEntry.swift
 //  MatchCard
 //
-//  Created by EDGARDO AGNO on 28/05/2015.
+//  Created by EDGARDO AGNO on 04/06/2015.
 //  Copyright (c) 2015 EDGARDO AGNO. All rights reserved.
 //
 
 import Foundation
 import Parse
 
-class PlayerModel : PFObjectImaged, PFSubclassing {
+class MatchEntryModel : PFObject, PFSubclassing {
     
     static func parseClassName() -> String {
-        return "Player"
+        return "MatchEntry"
     }
-
+    
     override init () {
         super.init()
+        
+        
     }
     
     override class func initialize() {
@@ -25,4 +27,13 @@ class PlayerModel : PFObjectImaged, PFSubclassing {
             self.registerSubclass()
         }
     }
-} 
+    
+    @NSManaged var HomeKey : String
+    @NSManaged var HomeScore : Int
+    @NSManaged var AwayKey : String
+    @NSManaged var AwayScore : Int
+    
+    func Key() -> String {
+        return self.HomeKey + self.AwayKey
+    }
+}

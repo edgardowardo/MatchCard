@@ -9,14 +9,12 @@
 import UIKit
 
 let reuseIdentifier = "PlayerViewCell"
-
-//let array = ["Edgar", "Michael", "John" , "Barbara", "Add"]
 var array = [PlayerModel] ()
 
 class PlayersController : NSObject, UICollectionViewDataSource,  UICollectionViewDelegate {
     
     override init(){
-        super.init()        
+        super.init()
         array.append(PlayerModel(name: "Edgar", image: nil))
         array.append(PlayerModel(name: "Slawomir", image: nil))
         array.append(PlayerModel(name: "Baby", image: nil))
@@ -35,7 +33,6 @@ class PlayersController : NSObject, UICollectionViewDataSource,  UICollectionVie
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! UICollectionViewCell
         let name = cell.viewWithTag(100) as! UILabel
         name.text = (array[indexPath.row] as PlayerModel).Name
-//        name.text = array[indexPath.row]
         cell.layer.borderWidth = 2
         cell.layer.borderColor = UIColor.whiteColor().CGColor
         cell.layer.cornerRadius = 10
