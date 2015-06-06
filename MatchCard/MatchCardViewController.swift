@@ -18,6 +18,7 @@ class MatchCardViewController : UIViewController {
         super.viewDidLoad()
         matchCardCollectionView?.delegate = matchCardController
         matchCardCollectionView?.dataSource = matchCardController
+        matchCardCollectionView?.backgroundColor = UIColor.whiteColor()
     }
     
     override func didReceiveMemoryWarning() {
