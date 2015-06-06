@@ -9,20 +9,20 @@
 import UIKit
 
 let reuseIdentifier = "PlayerViewCell"
-var array = [PlayerModel] ()
+var players = [PlayerModel] ()
 
 class PlayersController : NSObject, UICollectionViewDataSource,  UICollectionViewDelegate {
     
     override init(){
         super.init()
-        array.append(PlayerModel(name: "Edgar", image: nil))
-        array.append(PlayerModel(name: "Slawomir", image: nil))
-        array.append(PlayerModel(name: "Baby", image: nil))
-        array.append(PlayerModel(isAddme: true, name: "Add", image: nil))
+        players.append(PlayerModel(name: "Edgar", image: nil))
+        players.append(PlayerModel(name: "Slawomir", image: nil))
+        players.append(PlayerModel(name: "Baby", image: nil))
+        players.append(PlayerModel(isAddme: true, name: "Add", image: nil))
     }
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return array.count
+        return players.count
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -32,7 +32,7 @@ class PlayersController : NSObject, UICollectionViewDataSource,  UICollectionVie
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! UICollectionViewCell
         let name = cell.viewWithTag(100) as! UILabel
-        name.text = (array[indexPath.row] as PlayerModel).Name
+        name.text = (players[indexPath.row] as PlayerModel).Name
         cell.layer.borderWidth = 2
         cell.layer.borderColor = UIColor.whiteColor().CGColor
         cell.layer.cornerRadius = 10

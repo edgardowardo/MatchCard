@@ -22,6 +22,9 @@
 		77D69B551B16394E0053EB10 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77D69B541B16394E0053EB10 /* Images.xcassets */; };
 		77D69B581B16394E0053EB10 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77D69B561B16394E0053EB10 /* LaunchScreen.xib */; };
 		77D69B641B16394E0053EB10 /* MatchCardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D69B631B16394E0053EB10 /* MatchCardTests.swift */; };
+		77EB9D921B224B1E00DD93D9 /* MatchEntryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EB9D911B224B1E00DD93D9 /* MatchEntryCollectionViewCell.swift */; };
+		77EB9D941B225A4B00DD93D9 /* MatchCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EB9D931B225A4B00DD93D9 /* MatchCardViewController.swift */; };
+		77EB9D961B225BFA00DD93D9 /* MatchCardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EB9D951B225BFA00DD93D9 /* MatchCardController.swift */; };
 		77EFCA381B1BEAFC00779BAF /* MatchCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EFCA371B1BEAFC00779BAF /* MatchCardModel.swift */; };
 		77F4D05C1B1BAE00003B9096 /* PlayersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D05B1B1BAE00003B9096 /* PlayersController.swift */; };
 		B543514E4F1418C41BDAC0EA /* Pods_MatchCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8FD260B4B1249FB3F441E3F /* Pods_MatchCard.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -59,6 +62,9 @@
 		77D69B5D1B16394E0053EB10 /* MatchCardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MatchCardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		77D69B621B16394E0053EB10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77D69B631B16394E0053EB10 /* MatchCardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchCardTests.swift; sourceTree = "<group>"; };
+		77EB9D911B224B1E00DD93D9 /* MatchEntryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchEntryCollectionViewCell.swift; sourceTree = "<group>"; };
+		77EB9D931B225A4B00DD93D9 /* MatchCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchCardViewController.swift; sourceTree = "<group>"; };
+		77EB9D951B225BFA00DD93D9 /* MatchCardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchCardController.swift; sourceTree = "<group>"; };
 		77EFCA371B1BEAFC00779BAF /* MatchCardModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchCardModel.swift; sourceTree = "<group>"; };
 		77F4D05B1B1BAE00003B9096 /* PlayersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayersController.swift; sourceTree = "<group>"; };
 		B927FA666368235DAA5E4C56 /* Pods-MatchCard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MatchCard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MatchCard/Pods-MatchCard.debug.xcconfig"; sourceTree = "<group>"; };
@@ -132,6 +138,7 @@
 		77D69B4A1B16394E0053EB10 /* MatchCard */ = {
 			isa = PBXGroup;
 			children = (
+				77F6A70A1B20E5C600ADDA57 /* MatchCard */,
 				77BC54C31B1C99890046F3C4 /* Players */,
 				77BE57071B17A45300E88630 /* DataModel */,
 				77D69B4D1B16394E0053EB10 /* AppDelegate.swift */,
@@ -168,6 +175,16 @@
 				77D69B621B16394E0053EB10 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		77F6A70A1B20E5C600ADDA57 /* MatchCard */ = {
+			isa = PBXGroup;
+			children = (
+				77EB9D911B224B1E00DD93D9 /* MatchEntryCollectionViewCell.swift */,
+				77EB9D931B225A4B00DD93D9 /* MatchCardViewController.swift */,
+				77EB9D951B225BFA00DD93D9 /* MatchCardController.swift */,
+			);
+			name = MatchCard;
 			sourceTree = "<group>";
 		};
 		898FF5D0D149CA4846A472FB /* Frameworks */ = {
@@ -344,13 +361,16 @@
 				779C79341B1F42C100EE68AE /* ClubModel.swift in Sources */,
 				777B5E741B20BA7B00F19B8B /* MatchEntry.swift in Sources */,
 				77EFCA381B1BEAFC00779BAF /* MatchCardModel.swift in Sources */,
+				77EB9D941B225A4B00DD93D9 /* MatchCardViewController.swift in Sources */,
 				77BE570B1B17B4A400E88630 /* PlayerModel.swift in Sources */,
 				77F4D05C1B1BAE00003B9096 /* PlayersController.swift in Sources */,
 				779C79361B1F443900EE68AE /* PFObjectImaged.swift in Sources */,
 				779C79381B1F46D600EE68AE /* TeamModel.swift in Sources */,
 				777B5E721B1F6E9400F19B8B /* TeamInMatchModel.swift in Sources */,
 				77D69B4E1B16394E0053EB10 /* AppDelegate.swift in Sources */,
+				77EB9D921B224B1E00DD93D9 /* MatchEntryCollectionViewCell.swift in Sources */,
 				77BC54C51B1C9BC80046F3C4 /* RightAlignedCollectionViewCell.swift in Sources */,
+				77EB9D961B225BFA00DD93D9 /* MatchCardController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

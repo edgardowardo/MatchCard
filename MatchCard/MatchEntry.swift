@@ -15,10 +15,15 @@ class MatchEntryModel : PFObject, PFSubclassing {
         return "MatchEntry"
     }
     
-    override init () {
+    override init() {
         super.init()
-        
-        
+    }
+    
+    convenience init(homeScore : Int, awayScore : Int)
+    {
+        self.init()
+        self.HomeScore = homeScore
+        self.AwayScore = awayScore
     }
     
     override class func initialize() {
