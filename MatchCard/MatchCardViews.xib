@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MatchEntryCell" id="2Lt-XL-Ntb" customClass="MatchEntryCell" customModule="MatchCard" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iSt-dz-SdT" userLabel="Margin View">
+                        <rect key="frame" x="80" y="0.0" width="160" height="40"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="29" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hwe-9q-yVg" userLabel="Away Score">
+                                <rect key="frame" x="98" y="5" width="42" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="22"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="el4-b2-jp0" userLabel="Away Bar View">
+                                <rect key="frame" x="148" y="5" width="4" height="30"/>
+                                <color key="backgroundColor" red="0.59999999999999998" green="1" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="17" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sYd-DD-n5w" userLabel="Home Score">
+                                <rect key="frame" x="20" y="5" width="42" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="22"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pdq-9C-lVi" userLabel="Home Bar View">
+                                <rect key="frame" x="8" y="5" width="4" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.40000000000000002" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ahR-Ri-2aS" userLabel="Under Score View">
+                                <rect key="frame" x="20" y="34" width="120" height="1"/>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="iSt-dz-SdT" secondAttribute="height" multiplier="4:1" id="ld9-7Z-UDv"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <color key="backgroundColor" red="1" green="0.80000000000000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="iSt-dz-SdT" firstAttribute="centerY" secondItem="2Lt-XL-Ntb" secondAttribute="centerY" id="4zo-Tc-ZdN"/>
+                <constraint firstItem="iSt-dz-SdT" firstAttribute="centerX" secondItem="2Lt-XL-Ntb" secondAttribute="centerX" id="EZ2-Wh-HcF"/>
+                <constraint firstItem="iSt-dz-SdT" firstAttribute="top" relation="lessThanOrEqual" secondItem="2Lt-XL-Ntb" secondAttribute="top" priority="750" constant="125" id="JsH-bO-bBO"/>
+                <constraint firstItem="iSt-dz-SdT" firstAttribute="leading" relation="lessThanOrEqual" secondItem="2Lt-XL-Ntb" secondAttribute="leading" priority="750" constant="80" id="Xbv-fw-Cvs"/>
+            </constraints>
+            <size key="customSize" width="331" height="152"/>
+            <connections>
+                <outlet property="awayBar" destination="el4-b2-jp0" id="b3Q-rQ-cDP"/>
+                <outlet property="awayScore" destination="Hwe-9q-yVg" id="Qi8-IX-ktL"/>
+                <outlet property="homeBar" destination="Pdq-9C-lVi" id="zqz-gf-lE2"/>
+                <outlet property="homeScore" destination="sYd-DD-n5w" id="ga5-Vo-y19"/>
+                <outlet property="margin" destination="iSt-dz-SdT" id="Gqe-IW-geu"/>
+            </connections>
+            <point key="canvasLocation" x="177.5" y="64"/>
+        </collectionViewCell>
+    </objects>
+</document>

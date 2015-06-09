@@ -45,7 +45,7 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(MatchEntryCollectionViewCell.constantReuseIdentifier, forIndexPath: indexPath) as! MatchEntryCollectionViewCell
+        var cell = collectionView.dequeueReusableCellWithReuseIdentifier(MatchEntryCell.constantReuseIdentifier, forIndexPath: indexPath) as! MatchEntryCell
         
         let matchEntry = matchCard.MatchEntries[indexPath.row]
         cell.homeScore?.text = "\(matchEntry.HomeScore)"
@@ -53,11 +53,11 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
         cell.awayScore?.text = "\(matchEntry.AwayScore)"
         cell.awayScore?.userInteractionEnabled = false        
         
-        println("cell.frame.width=\(cell.frame.width), collectionView.frame.width=\(collectionView.frame.width)")
         cell.backgroundColor? = UIColor.clearColor()
-//        cell.layer.borderWidth = 2
-//        cell.layer.borderColor = UIColor.whiteColor().CGColor
-//        cell.layer.cornerRadius = 10
+        cell.margin?.backgroundColor = UIColor.clearColor()
+        cell.margin?.layer.borderWidth = 1
+        cell.margin?.layer.cornerRadius = 10
+        cell.margin?.layer.borderColor = UIColor.clearColor().CGColor
         
         if (matchEntry.HomeScore > matchEntry.AwayScore) {
             cell.homeBar?.backgroundColor = UIColor.greenColor()
@@ -72,17 +72,21 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
         return cell
     }
     
-    // TODO: a bit ugly these cell highlights
-    
     func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
-        let cell = collectionView.cellForItemAtIndexPath(indexPath)
-        cell?.backgroundColor = UIColor.lightGrayColor()
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! MatchEntryCell
+        cell.margin?.layer.borderColor = UIColor.lightGrayColor().CGColor
     }
     
     func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
-        let cell = collectionView.cellForItemAtIndexPath(indexPath)
-        cell?.backgroundColor = UIColor.clearColor()
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! MatchEntryCell
+        cell.margin?.layer.borderColor = UIColor.clearColor().CGColor
     }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath){
+        collectionView.setCollectionViewLayout(MatchCardStandardLayout(), animated: true)
+    }
+    
+    
     
 }
 
