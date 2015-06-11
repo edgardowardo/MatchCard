@@ -10,7 +10,8 @@ import Foundation
 import UIKit
 
 class MatchCardViewController : UIViewController {
-    
+
+    @IBOutlet weak var containingView : UIView?
     @IBOutlet weak var matchCardCollectionView : UICollectionView?
     let matchCardController = MatchCardController()
     let matchCardNib = "MatchCardViews"
@@ -21,6 +22,7 @@ class MatchCardViewController : UIViewController {
         matchCardCollectionView?.dataSource = matchCardController
         if Common.ShowColorBounds() == false {
             matchCardCollectionView?.backgroundColor = UIColor.clearColor()
+            containingView?.backgroundColor = UIColor.whiteColor()
         }
 
         let nib = UINib(nibName: matchCardNib, bundle:nil)

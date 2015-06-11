@@ -78,13 +78,9 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
         }
         else {
             cell.backgroundColor? = UIColor.clearColor()
-            cell.margin?.backgroundColor = UIColor.clearColor()
             cell.homeScore?.backgroundColor = UIColor.clearColor()
             cell.awayScore?.backgroundColor = UIColor.clearColor()
         }
-        cell.margin?.layer.borderWidth = 1
-        cell.margin?.layer.cornerRadius = 10
-        cell.margin?.layer.borderColor = UIColor.clearColor().CGColor
         
         if (matchEntry.HomeScore > matchEntry.AwayScore) {
             cell.homeBar?.backgroundColor = UIColor.greenColor()
@@ -100,11 +96,11 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
     }
     func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! MatchEntryCell
-        cell.margin?.layer.borderColor = UIColor.lightGrayColor().CGColor
+        cell.layer.borderColor = UIColor.lightGrayColor().CGColor
     }
     func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! MatchEntryCell
-        cell.margin?.layer.borderColor = UIColor.clearColor().CGColor
+        cell.layer.borderColor = UIColor.clearColor().CGColor
     }
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath){
         var cell = collectionView.cellForItemAtIndexPath(indexPath) as! MatchEntryCell
@@ -116,27 +112,27 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
             picker.selectRow(cell.homeScore!.text.toInt()! , inComponent: 0, animated: true)
             picker.selectRow(cell.awayScore!.text.toInt()! , inComponent: 1, animated: true)
             
-            dispatch_async(dispatch_get_main_queue()) {
-                UIView.animateWithDuration(0.25, animations: { () -> Void in
-                    var size = cell.homeScore?.bounds.size
-                    size?.width = 45
-                    size?.height = 45
-                    cell.homeScore?.bounds.size = size!
-                })
-            }
+//            dispatch_async(dispatch_get_main_queue()) {
+//                UIView.animateWithDuration(0.25, animations: { () -> Void in
+//                    var size = cell.homeScore?.bounds.size
+//                    size?.width = 45
+//                    size?.height = 45
+//                    cell.homeScore?.bounds.size = size!
+//                })
+//            }
         } else if (collectionView.collectionViewLayout.isEqual(self.layouts[.Edit]!)) {
             collectionView.setCollectionViewLayout(self.layouts[.Standard]!, animated: true)
             cell.homeScore!.resignFirstResponder()
             cell.homeScore!.userInteractionEnabled = false
             
-            dispatch_async(dispatch_get_main_queue()) {
-                UIView.animateWithDuration(0.25, animations: { () -> Void in
-                    var size = cell.homeScore?.bounds.size
-                    size?.width = 30
-                    size?.height = 30
-                    cell.homeScore?.bounds.size = size!
-                })
-            }
+//            dispatch_async(dispatch_get_main_queue()) {
+//                UIView.animateWithDuration(0.25, animations: { () -> Void in
+//                    var size = cell.homeScore?.bounds.size
+//                    size?.width = 30
+//                    size?.height = 30
+//                    cell.homeScore?.bounds.size = size!
+//                })
+//            }
             
         }
     }

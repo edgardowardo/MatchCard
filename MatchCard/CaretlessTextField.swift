@@ -13,4 +13,11 @@ class CaretlessTextField : UITextField {
     override func caretRectForPosition(position: UITextPosition!) -> CGRect {
         return CGRectZero
     }
+    
+    override func addGestureRecognizer(gestureRecognizer: UIGestureRecognizer) {
+//        if (gestureRecognizer.isKindOfClass(UILongPressGestureRecognizer)){
+            gestureRecognizer.enabled = false
+//        }
+//        super.addGestureRecognizer(gestureRecognizer)
+    }
 }

@@ -16,30 +16,36 @@ import UIKit
 class MatchCardStandardLayout : UICollectionViewLayout {
 
     var layoutInfo = [String : AnyObject]()
-    
+    var alphaCells : CGFloat {
+        get { return 1.0 }
+    }
     func cellSize() -> CGSize {
-        if (UIDevice.currentDevice().orientation.isLandscape) {
-            return MatchEntryCell.constantLandscapeSize
-        }
-        else {
-            return MatchEntryCell.constantDefaultSize
-        }
+        return MatchEntryCell.constantDefaultSize
     }
     
     override func prepareLayout() {
-        
+        let indexPaths : NSArray = self.collectionView!.indexPathsForSelectedItems()
+        var indexPathSelected = NSIndexPath(forRow: -1, inSection: 0)
+        if (indexPaths.count > 0) {
+            indexPathSelected = indexPaths[0] as! NSIndexPath
+        }
         let numSections = collectionView?.numberOfSections()
         var cellInfo = [NSIndexPath : AnyObject]()
         let cellKind = MatchEntryCell.constantReuseIdentifier
         let cellSize = self.cellSize()
-        
+        let cellOriginX = UIScreen.mainScreen().bounds.size.width / 2  - self.cellSize().width / 2
         for var section = 0; section < numSections; section++ {
             let numItems = collectionView?.numberOfItemsInSection(section)
             var totalHeight = CGFloat(0)
             for var indexItem = 0; indexItem < numItems; indexItem++ {
                 var indexPath = NSIndexPath(forRow: indexItem, inSection: section)
                 var attributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
-                attributes.frame = CGRectMake(CGFloat(0), CGFloat(totalHeight), cellSize.width, cellSize.height)
+                attributes.frame = CGRectMake(cellOriginX, CGFloat(totalHeight), cellSize.width, cellSize.height)
+                if indexPathSelected.isEqual(indexPath) {
+                    attributes.alpha = 1.0
+                } else {
+                    attributes.alpha = self.alphaCells
+                }
                 cellInfo[indexPath] = attributes
                 totalHeight += cellSize.height
             }
@@ -51,7 +57,7 @@ class MatchCardStandardLayout : UICollectionViewLayout {
         let count : Int? = collectionView?.numberOfItemsInSection(0)
         let numSections = collectionView?.numberOfSections()
         let cellSize = self.cellSize()
-        return CGSizeMake(cellSize.width, cellSize.height * CGFloat(count!))
+        return CGSizeMake(UIScreen.mainScreen().bounds.size.width, cellSize.height * CGFloat(count!))
     }
     
     override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes! {
