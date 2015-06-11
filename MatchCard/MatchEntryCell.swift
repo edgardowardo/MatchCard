@@ -16,6 +16,7 @@ class MatchEntryCell : UICollectionViewCell {
     static let constantCellHeight : CGFloat = 40
     static let constantDefaultSize = CGSizeMake(constantCellWidth, constantCellHeight)
     static let constantEditingSize = CGSizeMake(constantCellWidth, constantCellWidth)
+    static let constantLandscapeSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, constantCellHeight)
     
     @IBOutlet weak var margin    : UIView?
     @IBOutlet weak var homeBar   : UIView?

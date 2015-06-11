@@ -14,7 +14,12 @@ class MatchCardStandardLayout : UICollectionViewLayout {
     var layoutInfo = [String : AnyObject]()
     
     func cellSize() -> CGSize {
-        return MatchEntryCell.constantDefaultSize
+        if (UIDevice.currentDevice().orientation.isLandscape) {
+            return MatchEntryCell.constantLandscapeSize
+        }
+        else {
+            return MatchEntryCell.constantDefaultSize
+        }
     }
     
     override func prepareLayout() {
