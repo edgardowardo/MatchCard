@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+/*
+    Although the cells are layed out as simple as using the UICollectionViewFlowLayout instance, the team players supplementary view transforms out completely from the bottom footer view to a matrix column and row heading on the top and left margins of the containing collection view.
+*/
+
 class MatchCardStandardLayout : UICollectionViewLayout {
 
     var layoutInfo = [String : AnyObject]()
