@@ -13,12 +13,16 @@ class MatchCardStandardLayout : UICollectionViewLayout {
 
     var layoutInfo = [String : AnyObject]()
     
+    func cellSize() -> CGSize {
+        return MatchEntryCell.constantDefaultSize
+    }
+    
     override func prepareLayout() {
         
         let numSections = collectionView?.numberOfSections()
         var cellInfo = [NSIndexPath : AnyObject]()
         let cellKind = MatchEntryCell.constantReuseIdentifier
-        var cellSize = MatchEntryCell.constantDefaultSize
+        let cellSize = self.cellSize()
         
         for var section = 0; section < numSections; section++ {
             let numItems = collectionView?.numberOfItemsInSection(section)
@@ -37,7 +41,7 @@ class MatchCardStandardLayout : UICollectionViewLayout {
     override func collectionViewContentSize() -> CGSize {
         let count : Int? = collectionView?.numberOfItemsInSection(0)
         let numSections = collectionView?.numberOfSections()
-        var cellSize = MatchEntryCell.constantDefaultSize
+        let cellSize = self.cellSize()
         return CGSizeMake(cellSize.width, cellSize.height * CGFloat(count!))
     }
     

@@ -15,10 +15,13 @@ class MatchEntryCell : UICollectionViewCell {
     static let constantCellWidth : CGFloat = UIScreen.mainScreen().bounds.size.width
     static let constantCellHeight : CGFloat = 40
     static let constantDefaultSize = CGSizeMake(constantCellWidth, constantCellHeight)
+    static let constantEditingSize = CGSizeMake(constantCellWidth, constantCellWidth)
     
     @IBOutlet weak var margin    : UIView?
     @IBOutlet weak var homeBar   : UIView?
-    @IBOutlet weak var homeScore : UITextField?
+    @IBOutlet weak var homeScore : CaretlessTextField?
     @IBOutlet weak var awayScore : UITextField?
     @IBOutlet weak var awayBar   : UIView?
+    
+    weak var data : MatchEntryModel?
 }

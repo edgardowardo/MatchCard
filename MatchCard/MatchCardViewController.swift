@@ -19,11 +19,15 @@ class MatchCardViewController : UIViewController {
         super.viewDidLoad()
         matchCardCollectionView?.delegate = matchCardController
         matchCardCollectionView?.dataSource = matchCardController
-        matchCardCollectionView?.backgroundColor = UIColor.whiteColor()
-        
+        if Common.ShowColorBounds() == false {
+            matchCardCollectionView?.backgroundColor = UIColor.clearColor()
+        }
+
         let nib = UINib(nibName: matchCardNib, bundle:nil)
         matchCardCollectionView?.registerNib(nib, forCellWithReuseIdentifier: MatchEntryCell.constantReuseIdentifier)
         matchCardCollectionView?.setCollectionViewLayout(MatchCardStandardLayout(), animated: false)
+        
+        matchCardController.matchCollectionView = self.matchCardCollectionView
     }
     
     override func didReceiveMemoryWarning() {

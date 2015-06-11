@@ -9,8 +9,10 @@
 /* Begin PBXBuildFile section */
 		770784B71B24725900C96B40 /* MatchPlayersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770784B61B24725900C96B40 /* MatchPlayersCell.swift */; };
 		770784B91B24EA1F00C96B40 /* MatchCardStandardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770784B81B24EA1F00C96B40 /* MatchCardStandardLayout.swift */; };
+		7771CE801B283D5C00EA3D09 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7771CE7F1B283D5C00EA3D09 /* Config.plist */; };
+		7771CE821B283E0000EA3D09 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7771CE811B283E0000EA3D09 /* Common.swift */; };
 		777B5E721B1F6E9400F19B8B /* TeamInMatchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777B5E711B1F6E9400F19B8B /* TeamInMatchModel.swift */; };
-		777B5E741B20BA7B00F19B8B /* MatchEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777B5E731B20BA7B00F19B8B /* MatchEntry.swift */; };
+		777B5E741B20BA7B00F19B8B /* MatchEntryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777B5E731B20BA7B00F19B8B /* MatchEntryModel.swift */; };
 		779864041B1CC7C400B3B748 /* PlayerInMatchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779864031B1CC7C400B3B748 /* PlayerInMatchModel.swift */; };
 		779C79321B1F394100EE68AE /* LeagueModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779C79311B1F394100EE68AE /* LeagueModel.swift */; };
 		779C79341B1F42C100EE68AE /* ClubModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779C79331B1F42C100EE68AE /* ClubModel.swift */; };
@@ -30,6 +32,8 @@
 		77EB9D961B225BFA00DD93D9 /* MatchCardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EB9D951B225BFA00DD93D9 /* MatchCardController.swift */; };
 		77EFCA381B1BEAFC00779BAF /* MatchCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EFCA371B1BEAFC00779BAF /* MatchCardModel.swift */; };
 		77F4D05C1B1BAE00003B9096 /* PlayersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D05B1B1BAE00003B9096 /* PlayersController.swift */; };
+		77FA4B481B277D4E0093C5CB /* MatchEntryEditLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FA4B471B277D4E0093C5CB /* MatchEntryEditLayout.swift */; };
+		77FA4B4C1B278AD50093C5CB /* CaretlessTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FA4B4B1B278AD50093C5CB /* CaretlessTextField.swift */; };
 		B543514E4F1418C41BDAC0EA /* Pods_MatchCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8FD260B4B1249FB3F441E3F /* Pods_MatchCard.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -47,8 +51,10 @@
 		02EA6AD91C2F3833AAE93969 /* Pods-MatchCard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MatchCard.release.xcconfig"; path = "Pods/Target Support Files/Pods-MatchCard/Pods-MatchCard.release.xcconfig"; sourceTree = "<group>"; };
 		770784B61B24725900C96B40 /* MatchPlayersCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchPlayersCell.swift; sourceTree = "<group>"; };
 		770784B81B24EA1F00C96B40 /* MatchCardStandardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchCardStandardLayout.swift; sourceTree = "<group>"; };
+		7771CE7F1B283D5C00EA3D09 /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
+		7771CE811B283E0000EA3D09 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		777B5E711B1F6E9400F19B8B /* TeamInMatchModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamInMatchModel.swift; sourceTree = "<group>"; };
-		777B5E731B20BA7B00F19B8B /* MatchEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchEntry.swift; sourceTree = "<group>"; };
+		777B5E731B20BA7B00F19B8B /* MatchEntryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchEntryModel.swift; sourceTree = "<group>"; };
 		779864031B1CC7C400B3B748 /* PlayerInMatchModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerInMatchModel.swift; sourceTree = "<group>"; };
 		779C79311B1F394100EE68AE /* LeagueModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeagueModel.swift; sourceTree = "<group>"; };
 		779C79331B1F42C100EE68AE /* ClubModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClubModel.swift; sourceTree = "<group>"; };
@@ -73,6 +79,8 @@
 		77EB9D951B225BFA00DD93D9 /* MatchCardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchCardController.swift; sourceTree = "<group>"; };
 		77EFCA371B1BEAFC00779BAF /* MatchCardModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchCardModel.swift; sourceTree = "<group>"; };
 		77F4D05B1B1BAE00003B9096 /* PlayersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayersController.swift; sourceTree = "<group>"; };
+		77FA4B471B277D4E0093C5CB /* MatchEntryEditLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchEntryEditLayout.swift; sourceTree = "<group>"; };
+		77FA4B4B1B278AD50093C5CB /* CaretlessTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaretlessTextField.swift; sourceTree = "<group>"; };
 		B927FA666368235DAA5E4C56 /* Pods-MatchCard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MatchCard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MatchCard/Pods-MatchCard.debug.xcconfig"; sourceTree = "<group>"; };
 		C8FD260B4B1249FB3F441E3F /* Pods_MatchCard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MatchCard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -99,6 +107,8 @@
 		77ACC7A11B264FED0078C6FA /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				77FA4B4B1B278AD50093C5CB /* CaretlessTextField.swift */,
+				7771CE811B283E0000EA3D09 /* Common.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -123,7 +133,7 @@
 				77BE570A1B17B4A400E88630 /* PlayerModel.swift */,
 				779864031B1CC7C400B3B748 /* PlayerInMatchModel.swift */,
 				77EFCA371B1BEAFC00779BAF /* MatchCardModel.swift */,
-				777B5E731B20BA7B00F19B8B /* MatchEntry.swift */,
+				777B5E731B20BA7B00F19B8B /* MatchEntryModel.swift */,
 			);
 			name = DataModel;
 			sourceTree = "<group>";
@@ -170,6 +180,7 @@
 			children = (
 				77BC54C21B1C8D0E0046F3C4 /* MatchCard-Bridging-Header.h */,
 				77D69B4C1B16394E0053EB10 /* Info.plist */,
+				7771CE7F1B283D5C00EA3D09 /* Config.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -196,6 +207,7 @@
 			children = (
 				770784B61B24725900C96B40 /* MatchPlayersCell.swift */,
 				77EB9D911B224B1E00DD93D9 /* MatchEntryCell.swift */,
+				77FA4B471B277D4E0093C5CB /* MatchEntryEditLayout.swift */,
 				770784B81B24EA1F00C96B40 /* MatchCardStandardLayout.swift */,
 				77ACC7A41B2709CC0078C6FA /* MatchCardViews.xib */,
 				77EB9D931B225A4B00DD93D9 /* MatchCardViewController.swift */,
@@ -307,6 +319,7 @@
 				77D69B531B16394E0053EB10 /* Main.storyboard in Resources */,
 				77ACC7A51B2709CC0078C6FA /* MatchCardViews.xib in Resources */,
 				77D69B581B16394E0053EB10 /* LaunchScreen.xib in Resources */,
+				7771CE801B283D5C00EA3D09 /* Config.plist in Resources */,
 				77D69B551B16394E0053EB10 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,14 +391,17 @@
 				779864041B1CC7C400B3B748 /* PlayerInMatchModel.swift in Sources */,
 				77D69B501B16394E0053EB10 /* ViewController.swift in Sources */,
 				779C79341B1F42C100EE68AE /* ClubModel.swift in Sources */,
-				777B5E741B20BA7B00F19B8B /* MatchEntry.swift in Sources */,
+				777B5E741B20BA7B00F19B8B /* MatchEntryModel.swift in Sources */,
 				77EFCA381B1BEAFC00779BAF /* MatchCardModel.swift in Sources */,
 				77EB9D941B225A4B00DD93D9 /* MatchCardViewController.swift in Sources */,
 				77BE570B1B17B4A400E88630 /* PlayerModel.swift in Sources */,
 				77F4D05C1B1BAE00003B9096 /* PlayersController.swift in Sources */,
 				779C79361B1F443900EE68AE /* PFObjectImaged.swift in Sources */,
 				779C79381B1F46D600EE68AE /* TeamModel.swift in Sources */,
+				77FA4B481B277D4E0093C5CB /* MatchEntryEditLayout.swift in Sources */,
+				7771CE821B283E0000EA3D09 /* Common.swift in Sources */,
 				777B5E721B1F6E9400F19B8B /* TeamInMatchModel.swift in Sources */,
+				77FA4B4C1B278AD50093C5CB /* CaretlessTextField.swift in Sources */,
 				77D69B4E1B16394E0053EB10 /* AppDelegate.swift in Sources */,
 				77EB9D921B224B1E00DD93D9 /* MatchEntryCell.swift in Sources */,
 				770784B71B24725900C96B40 /* MatchPlayersCell.swift in Sources */,

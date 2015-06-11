@@ -11,7 +11,20 @@ import UIKit
 
 var matchCard = MatchCardModel()
 
-class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionViewDataSource {
+enum Layout {
+    case Standard, Edit
+}
+
+class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate {
+    
+    var layouts : [Layout : UICollectionViewLayout] = [.Standard : MatchCardStandardLayout(), .Edit : MatchEntryEditLayout()]
+    var picker = UIPickerView()
+    weak var matchCollectionView : UICollectionView? {
+        didSet {
+            self.matchCollectionView?.setCollectionViewLayout(self.layouts[.Standard]!, animated: false)
+        }
+    }
+    
     override init(){
         super.init()
         matchCard.MatchEntries = [MatchEntryModel]()
@@ -35,26 +48,40 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
         matchCard.MatchEntries.append(MatchEntryModel(homeScore: 17, awayScore: 0))
     }
     
+    //
+    // MARK: Collection View
+    //
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return matchCard.MatchEntries.count
     }
-    
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
-    
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 
         var cell = collectionView.dequeueReusableCellWithReuseIdentifier(MatchEntryCell.constantReuseIdentifier, forIndexPath: indexPath) as! MatchEntryCell
         
         let matchEntry = matchCard.MatchEntries[indexPath.row]
+        cell.data = matchEntry
+        
+        picker.delegate = self
+        picker.dataSource = self
+        cell.homeScore?.inputView = picker
         cell.homeScore?.text = "\(matchEntry.HomeScore)"
         cell.homeScore?.userInteractionEnabled = false
         cell.awayScore?.text = "\(matchEntry.AwayScore)"
-        cell.awayScore?.userInteractionEnabled = false        
-        
-        cell.backgroundColor? = UIColor.clearColor()
-        cell.margin?.backgroundColor = UIColor.clearColor()
+        cell.awayScore?.userInteractionEnabled = false
+        if Common.ShowColorBounds() {
+            cell.layer.borderWidth = 1
+            cell.layer.cornerRadius = 10
+            cell.layer.borderColor = UIColor.redColor().CGColor
+        }
+        else {
+            cell.backgroundColor? = UIColor.clearColor()
+            cell.margin?.backgroundColor = UIColor.clearColor()
+            cell.homeScore?.backgroundColor = UIColor.clearColor()
+            cell.awayScore?.backgroundColor = UIColor.clearColor()
+        }
         cell.margin?.layer.borderWidth = 1
         cell.margin?.layer.cornerRadius = 10
         cell.margin?.layer.borderColor = UIColor.clearColor().CGColor
@@ -71,22 +98,73 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
         }
         return cell
     }
-    
     func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! MatchEntryCell
         cell.margin?.layer.borderColor = UIColor.lightGrayColor().CGColor
     }
-    
     func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! MatchEntryCell
         cell.margin?.layer.borderColor = UIColor.clearColor().CGColor
     }
-    
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath){
-        collectionView.setCollectionViewLayout(MatchCardStandardLayout(), animated: true)
+        var cell = collectionView.cellForItemAtIndexPath(indexPath) as! MatchEntryCell
+        if (collectionView.collectionViewLayout.isEqual(self.layouts[.Standard]!)){
+            collectionView.setCollectionViewLayout(self.layouts[.Edit]!, animated: true)
+            cell.homeScore!.userInteractionEnabled = true
+            cell.homeScore!.becomeFirstResponder()
+            
+            picker.selectRow(cell.homeScore!.text.toInt()! , inComponent: 0, animated: true)
+            picker.selectRow(cell.awayScore!.text.toInt()! , inComponent: 1, animated: true)
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                UIView.animateWithDuration(0.25, animations: { () -> Void in
+                    var size = cell.homeScore?.bounds.size
+                    size?.width = 45
+                    size?.height = 45
+                    cell.homeScore?.bounds.size = size!
+                })
+            }
+        } else if (collectionView.collectionViewLayout.isEqual(self.layouts[.Edit]!)) {
+            collectionView.setCollectionViewLayout(self.layouts[.Standard]!, animated: true)
+            cell.homeScore!.resignFirstResponder()
+            cell.homeScore!.userInteractionEnabled = false
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                UIView.animateWithDuration(0.25, animations: { () -> Void in
+                    var size = cell.homeScore?.bounds.size
+                    size?.width = 30
+                    size?.height = 30
+                    cell.homeScore?.bounds.size = size!
+                })
+            }
+            
+        }
     }
-    
-    
-    
+
+    //
+    // MARK: Picker view
+    //
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 2
+    }
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 31
+    }
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+        return "\(row)"
+    }
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let indexPaths : NSArray = self.matchCollectionView!.indexPathsForSelectedItems()
+        let indexPath : NSIndexPath = indexPaths[0] as! NSIndexPath
+        let cell = self.matchCollectionView?.cellForItemAtIndexPath(indexPath) as! MatchEntryCell
+        let data = cell.data!
+        if component == 0 {
+            data.HomeScore = row
+            cell.homeScore?.text = "\(row)"
+        } else {
+            data.AwayScore = row
+            cell.awayScore?.text = "\(row)"
+        }
+    }
 }
 
