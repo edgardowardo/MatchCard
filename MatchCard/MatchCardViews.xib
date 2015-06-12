@@ -13,6 +13,30 @@
                 <rect key="frame" x="0.0" y="0.0" width="160" height="45"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pdq-9C-lVi" userLabel="Home Bar View">
+                        <rect key="frame" x="8" y="8" width="4" height="30"/>
+                        <color key="backgroundColor" red="1" green="0.40000000000000002" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="4" id="Es2-zL-fx8"/>
+                        </constraints>
+                    </view>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="99" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sYd-DD-n5w" userLabel="Home Score" customClass="CaretlessTextField" customModule="MatchCard" customModuleProvider="target">
+                        <rect key="frame" x="20" y="8" width="30" height="30"/>
+                        <color key="backgroundColor" red="0.80000000000000004" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="5zk-f9-oWR"/>
+                            <constraint firstAttribute="width" constant="30" id="Czf-ic-4LH"/>
+                        </constraints>
+                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="22"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="vs" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S93-vf-DOO" userLabel="Versus Text">
+                        <rect key="frame" x="70" y="9" width="21" height="27"/>
+                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="22"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="99" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hwe-9q-yVg" userLabel="Away Score">
                         <rect key="frame" x="109" y="8" width="30" height="30"/>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -27,34 +51,10 @@
                             <constraint firstAttribute="width" constant="4" id="wmD-cs-eyS"/>
                         </constraints>
                     </view>
-                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="99" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sYd-DD-n5w" userLabel="Home Score" customClass="CaretlessTextField" customModule="MatchCard" customModuleProvider="target">
-                        <rect key="frame" x="20" y="8" width="30" height="30"/>
-                        <color key="backgroundColor" red="0.80000000000000004" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="30" id="5zk-f9-oWR"/>
-                            <constraint firstAttribute="width" constant="30" id="Czf-ic-4LH"/>
-                        </constraints>
-                        <nil key="textColor"/>
-                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="22"/>
-                        <textInputTraits key="textInputTraits"/>
-                    </textField>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pdq-9C-lVi" userLabel="Home Bar View">
-                        <rect key="frame" x="8" y="8" width="4" height="30"/>
-                        <color key="backgroundColor" red="1" green="0.40000000000000002" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="4" id="Es2-zL-fx8"/>
-                        </constraints>
-                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ahR-Ri-2aS" userLabel="Under Score View">
                         <rect key="frame" x="8" y="42" width="144" height="1"/>
                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="vs" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S93-vf-DOO" userLabel="Versus v">
-                        <rect key="frame" x="70" y="9" width="21" height="27"/>
-                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="22"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
