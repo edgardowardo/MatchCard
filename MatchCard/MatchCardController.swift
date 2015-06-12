@@ -108,35 +108,46 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
             collectionView.setCollectionViewLayout(self.layouts[.Edit]!, animated: true)
             cell.homeScore!.userInteractionEnabled = true
             cell.homeScore!.becomeFirstResponder()
-            
             picker.selectRow(cell.homeScore!.text.toInt()! , inComponent: 0, animated: true)
             picker.selectRow(cell.awayScore!.text.toInt()! , inComponent: 1, animated: true)
             
-//            dispatch_async(dispatch_get_main_queue()) {
-//                UIView.animateWithDuration(0.25, animations: { () -> Void in
-//                    var size = cell.homeScore?.bounds.size
-//                    size?.width = 45
-//                    size?.height = 45
-//                    cell.homeScore?.bounds.size = size!
-//                })
-//            }
         } else if (collectionView.collectionViewLayout.isEqual(self.layouts[.Edit]!)) {
             collectionView.setCollectionViewLayout(self.layouts[.Standard]!, animated: true)
             cell.homeScore!.resignFirstResponder()
             cell.homeScore!.userInteractionEnabled = false
-            
-//            dispatch_async(dispatch_get_main_queue()) {
-//                UIView.animateWithDuration(0.25, animations: { () -> Void in
-//                    var size = cell.homeScore?.bounds.size
-//                    size?.width = 30
-//                    size?.height = 30
-//                    cell.homeScore?.bounds.size = size!
-//                })
-//            }
-            
+        }
+        
+        // FIXME: remove this useless code?
+        dispatch_async(dispatch_get_main_queue()) {
+            UIView.animateWithDuration(0.5, animations: { () -> Void in
+                cell.layoutIfNeeded()
+            })
         }
     }
 
+    /*
+    FIXME: unecessary brute force code...
+    
+    dispatch_async(dispatch_get_main_queue()) {
+    UIView.animateWithDuration(0.25, animations: { () -> Void in
+    var size = cell.homeScore?.bounds.size
+    size?.width = 45
+    size?.height = 45
+    cell.homeScore?.bounds.size = size!
+    })
+    }
+    
+    dispatch_async(dispatch_get_main_queue()) {
+    UIView.animateWithDuration(0.25, animations: { () -> Void in
+    var size = cell.homeScore?.bounds.size
+    size?.width = 30
+    size?.height = 30
+    cell.homeScore?.bounds.size = size!
+    })
+    }
+    
+    */
+    
     //
     // MARK: Picker view
     //

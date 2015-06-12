@@ -12,10 +12,10 @@ import UIKit
 class MatchEntryCell : UICollectionViewCell {
 
     static let constantReuseIdentifier = "MatchEntryCell"
-    static let constantCellWidth : CGFloat = UIScreen.mainScreen().bounds.size.width / 2
+    static let constantCellWidth : CGFloat = UIScreen.mainScreen().bounds.size.width / 2.5
     static let constantCellHeight : CGFloat = 40
     static let constantDefaultSize = CGSizeMake(constantCellWidth, constantCellHeight)
-    static let constantEditingSize = CGSizeMake(constantCellWidth, constantCellWidth)
+    static let constantEditingSize = CGSizeMake(constantCellWidth + constantCellWidth / 4, constantCellWidth)
     static let constantLandscapeSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, constantCellHeight)
     
     @IBOutlet weak var homeBar   : UIView?
@@ -30,6 +30,13 @@ class MatchEntryCell : UICollectionViewCell {
         self.layer.borderWidth = 1
         self.layer.cornerRadius = 10
         self.layer.borderColor = UIColor.clearColor().CGColor
+        
+        // FIXME: Supposedly for animating when resizing the parent cell!
+        self.homeBar?.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+        self.homeScore?.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+        self.awayBar?.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+        self.awayScore?.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+        self.autoresizingMask = .FlexibleWidth | .FlexibleHeight
     }
     
 }
