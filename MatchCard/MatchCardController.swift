@@ -66,11 +66,11 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
         
         picker.delegate = self
         picker.dataSource = self
-        cell.homeScore?.inputView = picker
-        cell.homeScore?.text = "\(matchEntry.HomeScore)"
-        cell.homeScore?.userInteractionEnabled = false
-        cell.awayScore?.text = "\(matchEntry.AwayScore)"
-        cell.awayScore?.userInteractionEnabled = false
+        cell.homeScoreField.inputView = picker
+        cell.homeScoreField.text = "\(matchEntry.HomeScore)"
+        cell.homeScoreField.userInteractionEnabled = false
+        cell.homeScore.text = "\(matchEntry.HomeScore)"
+        cell.awayScore.text = "\(matchEntry.AwayScore)"
         if Common.ShowColorBounds() {
             cell.layer.borderWidth = 1
             cell.layer.cornerRadius = 10
@@ -81,17 +81,7 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
             cell.homeScore?.backgroundColor = UIColor.clearColor()
             cell.awayScore?.backgroundColor = UIColor.clearColor()
         }
-        
-        if (matchEntry.HomeScore > matchEntry.AwayScore) {
-            cell.homeBar?.backgroundColor = UIColor.greenColor()
-            cell.awayBar?.backgroundColor = UIColor.clearColor()
-        } else if (matchEntry.HomeScore < matchEntry.AwayScore) {
-            cell.homeBar?.backgroundColor = UIColor.clearColor()
-            cell.awayBar?.backgroundColor = UIColor.greenColor()
-        } else {
-            cell.homeBar?.backgroundColor = UIColor.clearColor()
-            cell.awayBar?.backgroundColor = UIColor.clearColor()
-        }
+        cell.updateBars()
         return cell
     }
     func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
@@ -105,49 +95,25 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath){
         var cell = collectionView.cellForItemAtIndexPath(indexPath) as! MatchEntryCell
         if (collectionView.collectionViewLayout.isEqual(self.layouts[.Standard]!)){
-            collectionView.setCollectionViewLayout(self.layouts[.Edit]!, animated: true)
-            cell.homeScore!.userInteractionEnabled = true
-            cell.homeScore!.becomeFirstResponder()
-            picker.selectRow(cell.homeScore!.text.toInt()! , inComponent: 0, animated: true)
-            picker.selectRow(cell.awayScore!.text.toInt()! , inComponent: 1, animated: true)
-            
-        } else if (collectionView.collectionViewLayout.isEqual(self.layouts[.Edit]!)) {
-            collectionView.setCollectionViewLayout(self.layouts[.Standard]!, animated: true)
-            cell.homeScore!.resignFirstResponder()
-            cell.homeScore!.userInteractionEnabled = false
-        }
-        
-        // FIXME: remove this useless code?
-        dispatch_async(dispatch_get_main_queue()) {
-            UIView.animateWithDuration(0.5, animations: { () -> Void in
-                cell.layoutIfNeeded()
+            // TO EDIT MODE
+            collectionView.setCollectionViewLayout(self.layouts[.Edit]!, animated: true, completion: { (bool) -> Void in
             })
+            cell.layer.borderColor = UIColor.lightGrayColor().CGColor
+            cell.homeScoreField.userInteractionEnabled = true
+            cell.homeScoreField.becomeFirstResponder()
+            picker.selectRow(cell.homeScore.text!.toInt()! , inComponent: 0, animated: true)
+            picker.selectRow(cell.awayScore.text!.toInt()! , inComponent: 1, animated: true)
+            cell.setFontSize(.Edit)
+        } else if (collectionView.collectionViewLayout.isEqual(self.layouts[.Edit]!)) {
+            // TO STANDARD MODE
+            collectionView.setCollectionViewLayout(self.layouts[.Standard]!, animated: true)
+            cell.layer.borderColor = UIColor.clearColor().CGColor
+            cell.homeScoreField.resignFirstResponder()
+            cell.homeScoreField.userInteractionEnabled = false
+            cell.setFontSize(.Standard)
         }
     }
 
-    /*
-    FIXME: unecessary brute force code...
-    
-    dispatch_async(dispatch_get_main_queue()) {
-    UIView.animateWithDuration(0.25, animations: { () -> Void in
-    var size = cell.homeScore?.bounds.size
-    size?.width = 45
-    size?.height = 45
-    cell.homeScore?.bounds.size = size!
-    })
-    }
-    
-    dispatch_async(dispatch_get_main_queue()) {
-    UIView.animateWithDuration(0.25, animations: { () -> Void in
-    var size = cell.homeScore?.bounds.size
-    size?.width = 30
-    size?.height = 30
-    cell.homeScore?.bounds.size = size!
-    })
-    }
-    
-    */
-    
     //
     // MARK: Picker view
     //
@@ -172,6 +138,7 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
             data.AwayScore = row
             cell.awayScore?.text = "\(row)"
         }
+        cell.updateBars()
     }
 }
 

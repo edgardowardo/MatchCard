@@ -14,7 +14,7 @@ class MatchCardViewController : UIViewController {
     @IBOutlet weak var containingView : UIView?
     @IBOutlet weak var matchCardCollectionView : UICollectionView?
     let matchCardController = MatchCardController()
-    let matchCardNib = "MatchCardViews"
+    let matchEntryNib = "MatchEntryCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +25,7 @@ class MatchCardViewController : UIViewController {
             containingView?.backgroundColor = UIColor.whiteColor()
         }
 
-        let nib = UINib(nibName: matchCardNib, bundle:nil)
+        let nib = UINib(nibName: matchEntryNib, bundle:nil)
         matchCardCollectionView?.registerNib(nib, forCellWithReuseIdentifier: MatchEntryCell.constantReuseIdentifier)
         matchCardCollectionView?.setCollectionViewLayout(MatchCardStandardLayout(), animated: false)
         
