@@ -10,14 +10,19 @@ import Foundation
 import UIKit
 
 class MatchEntryEditLayout : MatchCardStandardLayout {
-    
     override func cellSize() -> CGSize {
         return MatchEntryCell.constantEditingSize
     }
-    
     override var alphaCells : CGFloat {
         get {
             return 0.1
         }
     }
+    override func prepareLayoutForSupplementaryViews() {
+        super.prepareLayoutForSupplementaryViews()
+        let awayPlayersKind = MatchPlayersReusableView.constantAwayKind
+        var awayPlayersAttributes = layoutInfo[awayPlayersKind] as! UICollectionViewLayoutAttributes
+        let contentSize = collectionViewContentSize()
+        awayPlayersAttributes.frame.origin.x += awayPlayersAttributes.frame.size.width
+    }    
 }

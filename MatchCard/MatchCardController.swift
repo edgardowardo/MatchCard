@@ -11,13 +11,13 @@ import UIKit
 
 var matchCard = MatchCardModel()
 
-enum Layout {
-    case Standard, Edit
+enum LayoutType {
+    case Standard, Edit, Matrix
 }
 
 class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate {
     
-    var layouts : [Layout : UICollectionViewLayout] = [.Standard : MatchCardStandardLayout(), .Edit : MatchEntryEditLayout()]
+    var layouts : [LayoutType : UICollectionViewLayout] = [.Standard : MatchCardStandardLayout(), .Edit : MatchEntryEditLayout()]
     var picker = UIPickerView()
     weak var matchCollectionView : UICollectionView? {
         didSet {
@@ -71,7 +71,7 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
         cell.homeScoreField.userInteractionEnabled = false
         cell.homeScore.text = "\(matchEntry.HomeScore)"
         cell.awayScore.text = "\(matchEntry.AwayScore)"
-        if Common.ShowColorBounds() {
+        if Common.showColorBounds() {
             cell.layer.borderWidth = 1
             cell.layer.cornerRadius = 10
             cell.layer.borderColor = UIColor.redColor().CGColor
@@ -113,7 +113,20 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
             cell.setFontSize(.Standard)
         }
     }
-
+    //
+    // MARK: Supplementary views
+    //
+    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        switch kind {
+        case MatchPlayersReusableView.constantAwayKind :
+            return collectionView.dequeueReusableSupplementaryViewOfKind(MatchPlayersReusableView.constantAwayKind, withReuseIdentifier: MatchPlayersReusableView.constantReuseIdentifier, forIndexPath: indexPath) as! MatchPlayersReusableView
+        case MatchPlayersReusableView.constantHomeKind :
+            return collectionView.dequeueReusableSupplementaryViewOfKind(MatchPlayersReusableView.constantHomeKind, withReuseIdentifier: MatchPlayersReusableView.constantReuseIdentifier, forIndexPath: indexPath) as! MatchPlayersReusableView
+        default :
+            assertionFailure("")
+            return UICollectionReusableView()
+        }
+    }
     //
     // MARK: Picker view
     //

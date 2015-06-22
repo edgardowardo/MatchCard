@@ -37,7 +37,7 @@ class MatchEntryCell : UICollectionViewCell {
     }
     
     
-    func setFontSize(layout : Layout) {
+    func setFontSize(layout : LayoutType) {
         let scale = true
         
         if (scale) {

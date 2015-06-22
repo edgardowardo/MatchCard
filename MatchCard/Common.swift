@@ -9,7 +9,10 @@
 import Foundation
 
 class Common {
-    static func ShowColorBounds() -> Bool {
+//    static func Is
+    
+    
+    static func showColorBounds() -> Bool {
         var myDict: NSDictionary?
         if let path = NSBundle.mainBundle().pathForResource("Config", ofType: "plist") {
             myDict = NSDictionary(contentsOfFile: path)

@@ -14,19 +14,23 @@ class MatchCardViewController : UIViewController {
     @IBOutlet weak var containingView : UIView?
     @IBOutlet weak var matchCardCollectionView : UICollectionView?
     let matchCardController = MatchCardController()
-    let matchEntryNib = "MatchEntryCell"
+    let matchEntryNib = MatchEntryCell.constantReuseIdentifier
+    let matchPlayersNib = MatchPlayersReusableView.constantReuseIdentifier
     
     override func viewDidLoad() {
         super.viewDidLoad()
         matchCardCollectionView?.delegate = matchCardController
         matchCardCollectionView?.dataSource = matchCardController
-        if Common.ShowColorBounds() == false {
+        if Common.showColorBounds() == false {
             matchCardCollectionView?.backgroundColor = UIColor.clearColor()
             containingView?.backgroundColor = UIColor.whiteColor()
         }
 
-        let nib = UINib(nibName: matchEntryNib, bundle:nil)
-        matchCardCollectionView?.registerNib(nib, forCellWithReuseIdentifier: MatchEntryCell.constantReuseIdentifier)
+        let nibMatchEntry = UINib(nibName: matchEntryNib, bundle:nil)
+        let nibPlayers = UINib(nibName: matchPlayersNib, bundle: nil)
+        matchCardCollectionView?.registerNib(nibMatchEntry, forCellWithReuseIdentifier: MatchEntryCell.constantReuseIdentifier)
+        matchCardCollectionView?.registerNib(nibPlayers, forSupplementaryViewOfKind: MatchPlayersReusableView.constantHomeKind, withReuseIdentifier: MatchPlayersReusableView.constantReuseIdentifier)
+        matchCardCollectionView?.registerNib(nibPlayers, forSupplementaryViewOfKind: MatchPlayersReusableView.constantAwayKind, withReuseIdentifier: MatchPlayersReusableView.constantReuseIdentifier)
         matchCardCollectionView?.setCollectionViewLayout(MatchCardStandardLayout(), animated: false)
         
         matchCardController.matchCollectionView = self.matchCardCollectionView
