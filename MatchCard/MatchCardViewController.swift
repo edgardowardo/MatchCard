@@ -10,30 +10,26 @@ import Foundation
 import UIKit
 
 class MatchCardViewController : UIViewController {
-
     @IBOutlet weak var containingView : UIView?
     @IBOutlet weak var matchCardCollectionView : UICollectionView?
     let matchCardController = MatchCardController()
-    let matchEntryNib = MatchEntryCell.constantReuseIdentifier
-    let matchPlayersNib = MatchPlayersReusableView.constantReuseIdentifier
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        matchCardCollectionView?.delegate = matchCardController
-        matchCardCollectionView?.dataSource = matchCardController
-        if Common.showColorBounds() == false {
-            matchCardCollectionView?.backgroundColor = UIColor.clearColor()
-            containingView?.backgroundColor = UIColor.whiteColor()
-        }
-
+        let matchEntryNib = MatchEntryCell.constantReuseIdentifier
+        let matchPlayersNib = MatchPlayersReusableView.constantReuseIdentifier
         let nibMatchEntry = UINib(nibName: matchEntryNib, bundle:nil)
         let nibPlayers = UINib(nibName: matchPlayersNib, bundle: nil)
+        matchCardCollectionView?.delegate = matchCardController
+        matchCardCollectionView?.dataSource = matchCardController
         matchCardCollectionView?.registerNib(nibMatchEntry, forCellWithReuseIdentifier: MatchEntryCell.constantReuseIdentifier)
         matchCardCollectionView?.registerNib(nibPlayers, forSupplementaryViewOfKind: MatchPlayersReusableView.constantHomeKind, withReuseIdentifier: MatchPlayersReusableView.constantReuseIdentifier)
         matchCardCollectionView?.registerNib(nibPlayers, forSupplementaryViewOfKind: MatchPlayersReusableView.constantAwayKind, withReuseIdentifier: MatchPlayersReusableView.constantReuseIdentifier)
         matchCardCollectionView?.setCollectionViewLayout(MatchCardStandardLayout(), animated: false)
-        
         matchCardController.matchCollectionView = self.matchCardCollectionView
+        if Common.showColorBounds() == false {
+            matchCardCollectionView?.backgroundColor = UIColor.clearColor()
+            containingView?.backgroundColor = UIColor.whiteColor()
+        }
     }
     
     override func didReceiveMemoryWarning() {

@@ -22,13 +22,15 @@ class MatchPlayersReusableView : UICollectionReusableView {
     static let constantCellHeight : CGFloat = 100
     static let constantDefaultSize = CGSizeMake(constantCellWidth, constantCellHeight)
     
-    
+    let playersController = MatchPlayersController ()
     @IBOutlet weak var playersCollectionView: UICollectionView?
-//    let playersController = PlayersController ()
     
     override func awakeFromNib() {
         super.awakeFromNib()
-//        playersCollectionView?.delegate = playersController
-//        playersCollectionView?.dataSource = playersController
+        let playerNib = PlayerViewCell.constantReuseIdentifier
+        let nibPlayer = UINib(nibName: playerNib, bundle: nil)
+        playersCollectionView?.registerNib(nibPlayer, forCellWithReuseIdentifier: PlayerViewCell.constantReuseIdentifier)
+        playersCollectionView?.delegate = playersController
+        playersCollectionView?.dataSource = playersController
     }
 }

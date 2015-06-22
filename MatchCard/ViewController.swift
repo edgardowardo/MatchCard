@@ -12,8 +12,8 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var awayPlayersCollectionView: UICollectionView?
     @IBOutlet weak var homePlayersCollectionView: UICollectionView?
-    let awayPlayersController = PlayersController ()
-    let homePlayersController = PlayersController ()
+    let awayPlayersController = MatchPlayersController ()
+    let homePlayersController = MatchPlayersController ()
     
     override func viewDidLoad() {
         super.viewDidLoad()
