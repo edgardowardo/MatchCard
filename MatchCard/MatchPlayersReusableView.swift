@@ -24,7 +24,11 @@ class MatchPlayersReusableView : UICollectionReusableView {
     
     let playersController = MatchPlayersController ()
     @IBOutlet weak var playersCollectionView: UICollectionView?
-    
+    var elementKind = MatchPlayersReusableView.constantAwayKind {
+        didSet {
+            playersController.elementKind = self.elementKind
+        }
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         let playerNib = PlayerViewCell.constantReuseIdentifier

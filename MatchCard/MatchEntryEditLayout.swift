@@ -24,5 +24,8 @@ class MatchEntryEditLayout : MatchCardStandardLayout {
         var awayPlayersAttributes = layoutInfo[awayPlayersKind] as! UICollectionViewLayoutAttributes
         let contentSize = collectionViewContentSize()
         awayPlayersAttributes.frame.origin.x += awayPlayersAttributes.frame.size.width
+        let homePlayersKind = MatchPlayersReusableView.constantHomeKind
+        var homePlayersAttributes = layoutInfo[homePlayersKind] as! UICollectionViewLayoutAttributes
+        homePlayersAttributes.frame.origin.x -= homePlayersAttributes.frame.size.width
     }    
 }

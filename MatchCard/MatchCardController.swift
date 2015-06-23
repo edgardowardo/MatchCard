@@ -23,8 +23,7 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
         didSet {
             self.matchCollectionView?.setCollectionViewLayout(self.layouts[.Standard]!, animated: false)
         }
-    }
-    
+    }    
     override init(){
         super.init()
         matchCard.MatchEntries = [MatchEntryModel]()
@@ -121,7 +120,10 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
         case MatchPlayersReusableView.constantAwayKind :
             return collectionView.dequeueReusableSupplementaryViewOfKind(MatchPlayersReusableView.constantAwayKind, withReuseIdentifier: MatchPlayersReusableView.constantReuseIdentifier, forIndexPath: indexPath) as! MatchPlayersReusableView
         case MatchPlayersReusableView.constantHomeKind :
-            return collectionView.dequeueReusableSupplementaryViewOfKind(MatchPlayersReusableView.constantHomeKind, withReuseIdentifier: MatchPlayersReusableView.constantReuseIdentifier, forIndexPath: indexPath) as! MatchPlayersReusableView
+            var homePlayers = collectionView.dequeueReusableSupplementaryViewOfKind(MatchPlayersReusableView.constantHomeKind, withReuseIdentifier: MatchPlayersReusableView.constantReuseIdentifier, forIndexPath: indexPath) as! MatchPlayersReusableView
+            homePlayers.elementKind = kind
+            homePlayers.playersCollectionView!.transform = CGAffineTransformMakeScale(-1, 1) // right align
+            return homePlayers
         default :
             assertionFailure("")
             return UICollectionReusableView()

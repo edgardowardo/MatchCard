@@ -99,9 +99,19 @@ class MatchCardStandardLayout : UICollectionViewLayout{
     }
     
     override func targetContentOffsetForProposedContentOffset(proposedContentOffset: CGPoint) -> CGPoint {
+        // FIXME: Can you clean this up. Looks really dirty!!!!
         if let awayPlayersAttrs : AnyObject = self.layoutInfo[MatchPlayersReusableView.constantAwayKind] {
             if let awayPlayersAttrsCast : UICollectionViewLayoutAttributes = awayPlayersAttrs as? UICollectionViewLayoutAttributes {
                 awayPlayersAttrsCast.frame.origin.y = yOfPlayersView(proposedContentOffset: proposedContentOffset)
+            } else {
+                println("self.layoutInfo not found;")
+            }
+        } else {
+            println("self.layoutInfo not found;")
+        }
+        if let homePlayersAttrs : AnyObject = self.layoutInfo[MatchPlayersReusableView.constantHomeKind] {
+            if let homePlayersAttrsCast : UICollectionViewLayoutAttributes = homePlayersAttrs as? UICollectionViewLayoutAttributes {
+                homePlayersAttrsCast.frame.origin.y = yOfPlayersView(proposedContentOffset: proposedContentOffset)
             } else {
                 println("self.layoutInfo not found;")
             }
@@ -143,6 +153,7 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         debugMe(fromMethod: "\(__FUNCTION__)")
     }
     func prepareLayoutForSupplementaryViews() {
+       // Away
         let awayPlayersKind = MatchPlayersReusableView.constantAwayKind
         var awayPlayersAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: awayPlayersKind, withIndexPath: NSIndexPath(forRow: 0, inSection: 0))
         awayPlayersAttributes.alpha = 0.8
@@ -150,6 +161,14 @@ class MatchCardStandardLayout : UICollectionViewLayout{
             yOfPlayersView(), awayPlayersSize().width, awayPlayersSize().height)
         awayPlayersAttributes.zIndex += 1
         layoutInfo[awayPlayersKind] = awayPlayersAttributes
+        // Home
+        let homePlayersKind = MatchPlayersReusableView.constantHomeKind
+        var homePlayersAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: homePlayersKind, withIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+        homePlayersAttributes.alpha = 0.8
+        homePlayersAttributes.frame = CGRectMake(0,
+            yOfPlayersView(), homePlayersSize().width, homePlayersSize().height)
+        homePlayersAttributes.zIndex += 1
+        layoutInfo[homePlayersKind] = homePlayersAttributes
     }
     override func collectionViewContentSize() -> CGSize {
         let count : Int? = collectionView?.numberOfItemsInSection(0)
@@ -165,6 +184,8 @@ class MatchCardStandardLayout : UICollectionViewLayout{
     override func layoutAttributesForSupplementaryViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes! {
         switch elementKind {
         case MatchPlayersReusableView.constantAwayKind :
+            fallthrough
+        case MatchPlayersReusableView.constantHomeKind :
             return self.layoutInfo[elementKind] as! UICollectionViewLayoutAttributes
         default :
             return nil
@@ -182,6 +203,8 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         }
         var awayPlayersAttributes = layoutInfo[MatchPlayersReusableView.constantAwayKind] as! UICollectionViewLayoutAttributes
         elements.append(awayPlayersAttributes)
+        var homePlayersAttributes = layoutInfo[MatchPlayersReusableView.constantHomeKind] as! UICollectionViewLayoutAttributes
+        elements.append(homePlayersAttributes)
         return elements
     }
     override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {

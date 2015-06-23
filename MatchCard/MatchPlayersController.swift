@@ -11,7 +11,7 @@ import UIKit
 var players = [PlayerModel] ()
 
 class MatchPlayersController : NSObject, UICollectionViewDataSource,  UICollectionViewDelegate {
-    
+    var elementKind = MatchPlayersReusableView.constantAwayKind
     override init(){
         super.init()
         players.append(PlayerModel(name: "Edgar", image: nil))
@@ -33,6 +33,9 @@ class MatchPlayersController : NSObject, UICollectionViewDataSource,  UICollecti
         cell.layer.borderWidth = 2
         cell.layer.borderColor = UIColor.whiteColor().CGColor
         cell.layer.cornerRadius = 10
+        if (self.elementKind == MatchPlayersReusableView.constantHomeKind ) {
+            cell.contentView.transform = CGAffineTransformMakeScale(-1, 1)
+        }
         return cell
     }
 }
