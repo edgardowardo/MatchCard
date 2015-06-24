@@ -118,12 +118,19 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         switch kind {
         case MatchPlayersReusableView.constantAwayKind :
-            return collectionView.dequeueReusableSupplementaryViewOfKind(MatchPlayersReusableView.constantAwayKind, withReuseIdentifier: MatchPlayersReusableView.constantReuseIdentifier, forIndexPath: indexPath) as! MatchPlayersReusableView
+            return collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchPlayersReusableView.constantReuseIdentifier, forIndexPath: indexPath) as! MatchPlayersReusableView
         case MatchPlayersReusableView.constantHomeKind :
-            var homePlayers = collectionView.dequeueReusableSupplementaryViewOfKind(MatchPlayersReusableView.constantHomeKind, withReuseIdentifier: MatchPlayersReusableView.constantReuseIdentifier, forIndexPath: indexPath) as! MatchPlayersReusableView
+            var homePlayers = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchPlayersReusableView.constantReuseIdentifier, forIndexPath: indexPath) as! MatchPlayersReusableView
             homePlayers.elementKind = kind
             homePlayers.playersCollectionView!.transform = CGAffineTransformMakeScale(-1, 1) // right align
             return homePlayers
+        case MatchHeaderReusableView.constantKind :
+            var headerView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchHeaderReusableView.constantReuseIdentifier, forIndexPath: indexPath) as! MatchHeaderReusableView
+            headerView.leagueName.text = matchCard.leagueName
+            headerView.division.text = "\(matchCard.Division)"
+            headerView.location.text = "at " + matchCard.Location
+            headerView.date.text = matchCard.dateString
+            return headerView
         default :
             assertionFailure("")
             return UICollectionReusableView()

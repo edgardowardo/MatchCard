@@ -17,6 +17,7 @@ class MatchCardStandardLayout : UICollectionViewLayout{
     //
     // MARK: Properties
     //
+    var totalHeight = CGFloat(0)
     var layoutInfo = [String : AnyObject]()
     var alphaCells : CGFloat {
         get { return 1.0 }
@@ -44,6 +45,14 @@ class MatchCardStandardLayout : UICollectionViewLayout{
             return yPlayers
         }
     }
+    func yOfHeadersView() -> CGFloat {
+        var yHeader = self.collectionView?.contentOffset.y
+        // If pulled upwards pull it upwards. If pulled downwards, don't let it past the screen so it sticks on the CGPointZero
+        if yHeader > CGFloat(0) {
+            yHeader = CGFloat(0)
+        }
+        return yHeader!
+    }
     func cellSize() -> CGSize {
         return MatchEntryCell.constantDefaultSize
     }
@@ -52,6 +61,9 @@ class MatchCardStandardLayout : UICollectionViewLayout{
     }
     func awayPlayersSize() -> CGSize {
         return MatchPlayersReusableView.constantDefaultSize
+    }
+    func headerSummarySize() -> CGSize {
+        return MatchHeaderReusableView.constantDefaultSize
     }
     var layout : LayoutType? {
         get {
@@ -132,31 +144,43 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         let cellKind = MatchEntryCell.constantReuseIdentifier
         let cellSize = self.cellSize()
         let cellOriginX = UIScreen.mainScreen().bounds.size.width / 2  - self.cellSize().width / 2
-        for var section = 0; section < numSections; section++ {
-            let numItems = collectionView?.numberOfItemsInSection(section)
-            var totalHeight = CGFloat(0)
-            for var indexItem = 0; indexItem < numItems; indexItem++ {
-                var indexPath = NSIndexPath(forRow: indexItem, inSection: section)
-                var attributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
-                attributes.frame = CGRectMake(cellOriginX, CGFloat(totalHeight), cellSize.width, cellSize.height)
-                if indexPathSelected.isEqual(indexPath) {
-                    attributes.alpha = 1.0
-                } else {
-                    attributes.alpha = self.alphaCells
-                }
-                cellInfo[indexPath] = attributes
-                totalHeight += cellSize.height
+        let numItems = collectionView?.numberOfItemsInSection(0)
+        self.totalHeight = self.prepareLayoutForHeaderViews()
+        for var indexItem = 0; indexItem < numItems; indexItem++ {
+            var indexPath = NSIndexPath(forRow: indexItem, inSection: 0)
+            var attributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
+            attributes.frame = CGRectMake(cellOriginX, CGFloat(totalHeight), cellSize.width, cellSize.height)
+            if indexPathSelected.isEqual(indexPath) {
+                attributes.alpha = 1.0
+            } else {
+                attributes.alpha = self.alphaCells
             }
-            layoutInfo[cellKind] = cellInfo
+            cellInfo[indexPath] = attributes
+            totalHeight += cellSize.height
         }
+        layoutInfo[cellKind] = cellInfo
         self.prepareLayoutForSupplementaryViews()
         debugMe(fromMethod: "\(__FUNCTION__)")
+    }
+    func prepareLayoutForHeaderViews() -> CGFloat {
+        // Header Summary
+        let headerKind = MatchHeaderReusableView.constantKind
+        var headerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: headerKind, withIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+        headerAttributes.alpha = 1
+        headerAttributes.frame = CGRectMake(0, yOfHeadersView(), headerSummarySize().width, headerSummarySize().height)
+        headerAttributes.zIndex += 1
+        layoutInfo[headerKind] = headerAttributes
+        // Header Home Score
+        // ...
+        // Header Away Score
+        // ...
+        return headerAttributes.frame.size.height
     }
     func prepareLayoutForSupplementaryViews() {
        // Away
         let awayPlayersKind = MatchPlayersReusableView.constantAwayKind
         var awayPlayersAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: awayPlayersKind, withIndexPath: NSIndexPath(forRow: 0, inSection: 0))
-        awayPlayersAttributes.alpha = 0.8
+        awayPlayersAttributes.alpha = 1
         awayPlayersAttributes.frame = CGRectMake(awayPlayersSize().width,
             yOfPlayersView(), awayPlayersSize().width, awayPlayersSize().height)
         awayPlayersAttributes.zIndex += 1
@@ -164,7 +188,7 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         // Home
         let homePlayersKind = MatchPlayersReusableView.constantHomeKind
         var homePlayersAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: homePlayersKind, withIndexPath: NSIndexPath(forRow: 0, inSection: 0))
-        homePlayersAttributes.alpha = 0.8
+        homePlayersAttributes.alpha = 0.9
         homePlayersAttributes.frame = CGRectMake(0,
             yOfPlayersView(), homePlayersSize().width, homePlayersSize().height)
         homePlayersAttributes.zIndex += 1
@@ -174,7 +198,7 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         let count : Int? = collectionView?.numberOfItemsInSection(0)
         let numSections = collectionView?.numberOfSections()
         let cellSize = self.cellSize()
-        return CGSizeMake(UIScreen.mainScreen().bounds.size.width, cellSize.height * CGFloat(count!))
+        return CGSizeMake(UIScreen.mainScreen().bounds.size.width, self.totalHeight + cellSize.height * CGFloat(2.5))
     }
     override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes! {
         let cellKind = MatchEntryCell.constantReuseIdentifier
@@ -182,14 +206,7 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         return cellInfo[indexPath] as! UICollectionViewLayoutAttributes
     }
     override func layoutAttributesForSupplementaryViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes! {
-        switch elementKind {
-        case MatchPlayersReusableView.constantAwayKind :
-            fallthrough
-        case MatchPlayersReusableView.constantHomeKind :
-            return self.layoutInfo[elementKind] as! UICollectionViewLayoutAttributes
-        default :
-            return nil
-        }
+        return self.layoutInfo[elementKind] as! UICollectionViewLayoutAttributes
     }
     override func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]? {
         let cellKind = MatchEntryCell.constantReuseIdentifier
@@ -205,6 +222,10 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         elements.append(awayPlayersAttributes)
         var homePlayersAttributes = layoutInfo[MatchPlayersReusableView.constantHomeKind] as! UICollectionViewLayoutAttributes
         elements.append(homePlayersAttributes)
+        var headerSummaryAttributes = layoutInfo[MatchHeaderReusableView.constantKind] as! UICollectionViewLayoutAttributes
+        if (CGRectIntersectsRect(rect, headerSummaryAttributes.frame)) {
+            elements.append(headerSummaryAttributes)
+        }
         return elements
     }
     override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {

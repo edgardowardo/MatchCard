@@ -12,6 +12,8 @@
 		773BC0FD1B3395000062CC4C /* MatchPlayersReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 773BC0FC1B3395000062CC4C /* MatchPlayersReusableView.xib */; };
 		773BC0FF1B38A4390062CC4C /* PlayerViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 773BC0FE1B38A4390062CC4C /* PlayerViewCell.xib */; };
 		773BC1011B38A5DB0062CC4C /* PlayerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773BC1001B38A5DB0062CC4C /* PlayerViewCell.swift */; };
+		773BC1041B39B7700062CC4C /* MatchHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773BC1031B39B7700062CC4C /* MatchHeaderReusableView.swift */; };
+		773BC1061B39B8320062CC4C /* MatchHeaderReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 773BC1051B39B8320062CC4C /* MatchHeaderReusableView.xib */; };
 		7771CE801B283D5C00EA3D09 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7771CE7F1B283D5C00EA3D09 /* Config.plist */; };
 		7771CE821B283E0000EA3D09 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7771CE811B283E0000EA3D09 /* Common.swift */; };
 		777B5E721B1F6E9400F19B8B /* TeamInMatchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777B5E711B1F6E9400F19B8B /* TeamInMatchModel.swift */; };
@@ -57,6 +59,8 @@
 		773BC0FC1B3395000062CC4C /* MatchPlayersReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MatchPlayersReusableView.xib; sourceTree = "<group>"; };
 		773BC0FE1B38A4390062CC4C /* PlayerViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerViewCell.xib; sourceTree = "<group>"; };
 		773BC1001B38A5DB0062CC4C /* PlayerViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewCell.swift; sourceTree = "<group>"; };
+		773BC1031B39B7700062CC4C /* MatchHeaderReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchHeaderReusableView.swift; sourceTree = "<group>"; };
+		773BC1051B39B8320062CC4C /* MatchHeaderReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MatchHeaderReusableView.xib; sourceTree = "<group>"; };
 		7771CE7F1B283D5C00EA3D09 /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		7771CE811B283E0000EA3D09 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		777B5E711B1F6E9400F19B8B /* TeamInMatchModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamInMatchModel.swift; sourceTree = "<group>"; };
@@ -110,6 +114,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		773BC1021B39B7060062CC4C /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				773BC1031B39B7700062CC4C /* MatchHeaderReusableView.swift */,
+				773BC1051B39B8320062CC4C /* MatchHeaderReusableView.xib */,
+			);
+			name = Headers;
+			sourceTree = "<group>";
+		};
 		77ACC7A11B264FED0078C6FA /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -173,6 +186,7 @@
 			children = (
 				77ACC7A11B264FED0078C6FA /* Common */,
 				77F6A70A1B20E5C600ADDA57 /* MatchCard */,
+				773BC1021B39B7060062CC4C /* Headers */,
 				77BC54C31B1C99890046F3C4 /* Players */,
 				77BE57071B17A45300E88630 /* DataModel */,
 				77D69B4D1B16394E0053EB10 /* AppDelegate.swift */,
@@ -325,6 +339,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				773BC1061B39B8320062CC4C /* MatchHeaderReusableView.xib in Resources */,
 				773BC0FD1B3395000062CC4C /* MatchPlayersReusableView.xib in Resources */,
 				77D69B531B16394E0053EB10 /* Main.storyboard in Resources */,
 				773BC0FF1B38A4390062CC4C /* PlayerViewCell.xib in Resources */,
@@ -418,6 +433,7 @@
 				77EB9D921B224B1E00DD93D9 /* MatchEntryCell.swift in Sources */,
 				770784B71B24725900C96B40 /* MatchPlayersReusableView.swift in Sources */,
 				77BC54C51B1C9BC80046F3C4 /* RightAlignedCollectionViewCell.swift in Sources */,
+				773BC1041B39B7700062CC4C /* MatchHeaderReusableView.swift in Sources */,
 				77EB9D961B225BFA00DD93D9 /* MatchCardController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

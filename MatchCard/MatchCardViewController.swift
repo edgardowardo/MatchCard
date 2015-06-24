@@ -15,12 +15,15 @@ class MatchCardViewController : UIViewController {
     let matchCardController = MatchCardController()
     override func viewDidLoad() {
         super.viewDidLoad()
+        let matchHeaderNib = MatchHeaderReusableView.constantReuseIdentifier
         let matchEntryNib = MatchEntryCell.constantReuseIdentifier
         let matchPlayersNib = MatchPlayersReusableView.constantReuseIdentifier
+        let nibHeader = UINib(nibName: matchHeaderNib, bundle: nil)
         let nibMatchEntry = UINib(nibName: matchEntryNib, bundle:nil)
         let nibPlayers = UINib(nibName: matchPlayersNib, bundle: nil)
         matchCardCollectionView?.delegate = matchCardController
         matchCardCollectionView?.dataSource = matchCardController
+        matchCardCollectionView?.registerNib(nibHeader, forSupplementaryViewOfKind: MatchHeaderReusableView.constantKind, withReuseIdentifier: MatchHeaderReusableView.constantReuseIdentifier)
         matchCardCollectionView?.registerNib(nibMatchEntry, forCellWithReuseIdentifier: MatchEntryCell.constantReuseIdentifier)
         matchCardCollectionView?.registerNib(nibPlayers, forSupplementaryViewOfKind: MatchPlayersReusableView.constantHomeKind, withReuseIdentifier: MatchPlayersReusableView.constantReuseIdentifier)
         matchCardCollectionView?.registerNib(nibPlayers, forSupplementaryViewOfKind: MatchPlayersReusableView.constantAwayKind, withReuseIdentifier: MatchPlayersReusableView.constantReuseIdentifier)

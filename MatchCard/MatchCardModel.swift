@@ -19,7 +19,7 @@ class MatchCardModel : PFObject, PFSubclassing {
         super.init()
         self.Division = 1
         self.Date = NSDate()
-        self.Location = ""
+        self.Location = "Blackley"
     }
     
     override class func initialize() {
@@ -38,4 +38,18 @@ class MatchCardModel : PFObject, PFSubclassing {
     @NSManaged var AwaySummary : TeamInMatchModel // when set, set home or away
     @NSManaged var MatchEntries : [MatchEntryModel]
     
+    var leagueName : String {
+        get {
+            return "Oldham & Rochdale Badminton League"
+        }
+    }
+    var dateString : String {
+        get {
+            let formatter = NSDateFormatter()
+            let gbDateFormat = NSDateFormatter.dateFormatFromTemplate("dd/MM/yyyy", options: 0, locale: NSLocale(localeIdentifier: "en-GB"))
+            formatter.dateFormat = gbDateFormat
+            let gbSwiftDayString = formatter.stringFromDate(self.Date)
+            return gbSwiftDayString
+        }
+    }
 }
