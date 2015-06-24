@@ -34,8 +34,8 @@ class MatchCardModel : PFObject, PFSubclassing {
     @NSManaged var Date : NSDate
     @NSManaged var Location : String
     
-    @NSManaged var HomeSummary : TeamInMatchModel
-    @NSManaged var AwaySummary : TeamInMatchModel // when set, set home or away
+    @NSManaged var HomeTeamSummary : TeamInMatchModel
+    @NSManaged var AwayTeamSummary : TeamInMatchModel // when set, set home or away
     @NSManaged var MatchEntries : [MatchEntryModel]
     
     var leagueName : String {
@@ -50,6 +50,26 @@ class MatchCardModel : PFObject, PFSubclassing {
             formatter.dateFormat = gbDateFormat
             let gbSwiftDayString = formatter.stringFromDate(self.Date)
             return gbSwiftDayString
+        }
+    }
+    var homeTeamName : String {
+        get {
+            return "Blackeley"
+        }
+    }
+    var homeScore : String {
+        get {
+            return "29" //"\(self.HomeTeamSummary.Total)"
+        }
+    }
+    var awayTeamName : String {
+        get {
+            return "MMCBC-C"
+        }
+    }
+    var awayScore : String {
+        get {
+            return "27" //"\(self.AwayTeamSummary.Total)"
         }
     }
 }

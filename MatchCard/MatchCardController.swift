@@ -131,6 +131,16 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
             headerView.location.text = "at " + matchCard.Location
             headerView.date.text = matchCard.dateString
             return headerView
+        case ScoreHeaderReusableView.constantHomeKind :
+            var scoreHomeView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: ScoreHeaderReusableView.constantReuseIdentifier, forIndexPath: indexPath) as! ScoreHeaderReusableView
+            scoreHomeView.score.text = matchCard.homeScore
+            scoreHomeView.teamName.text = matchCard.homeTeamName
+            return scoreHomeView
+        case ScoreHeaderReusableView.constantAwayKind :
+            var scoreAwayView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: ScoreHeaderReusableView.constantReuseIdentifier, forIndexPath: indexPath) as! ScoreHeaderReusableView
+            scoreAwayView.score.text = matchCard.awayScore
+            scoreAwayView.teamName.text = matchCard.awayTeamName
+            return scoreAwayView
         default :
             assertionFailure("")
             return UICollectionReusableView()

@@ -16,14 +16,18 @@ class MatchCardViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let matchHeaderNib = MatchHeaderReusableView.constantReuseIdentifier
+        let scoreHeaderNib = ScoreHeaderReusableView.constantReuseIdentifier
         let matchEntryNib = MatchEntryCell.constantReuseIdentifier
         let matchPlayersNib = MatchPlayersReusableView.constantReuseIdentifier
         let nibHeader = UINib(nibName: matchHeaderNib, bundle: nil)
+        let nibScore = UINib(nibName: scoreHeaderNib, bundle: nil)
         let nibMatchEntry = UINib(nibName: matchEntryNib, bundle:nil)
         let nibPlayers = UINib(nibName: matchPlayersNib, bundle: nil)
         matchCardCollectionView?.delegate = matchCardController
         matchCardCollectionView?.dataSource = matchCardController
         matchCardCollectionView?.registerNib(nibHeader, forSupplementaryViewOfKind: MatchHeaderReusableView.constantKind, withReuseIdentifier: MatchHeaderReusableView.constantReuseIdentifier)
+        matchCardCollectionView?.registerNib(nibScore, forSupplementaryViewOfKind: ScoreHeaderReusableView.constantHomeKind, withReuseIdentifier: ScoreHeaderReusableView.constantReuseIdentifier)
+        matchCardCollectionView?.registerNib(nibScore, forSupplementaryViewOfKind: ScoreHeaderReusableView.constantAwayKind, withReuseIdentifier: ScoreHeaderReusableView.constantReuseIdentifier)
         matchCardCollectionView?.registerNib(nibMatchEntry, forCellWithReuseIdentifier: MatchEntryCell.constantReuseIdentifier)
         matchCardCollectionView?.registerNib(nibPlayers, forSupplementaryViewOfKind: MatchPlayersReusableView.constantHomeKind, withReuseIdentifier: MatchPlayersReusableView.constantReuseIdentifier)
         matchCardCollectionView?.registerNib(nibPlayers, forSupplementaryViewOfKind: MatchPlayersReusableView.constantAwayKind, withReuseIdentifier: MatchPlayersReusableView.constantReuseIdentifier)
@@ -33,8 +37,7 @@ class MatchCardViewController : UIViewController {
             matchCardCollectionView?.backgroundColor = UIColor.clearColor()
             containingView?.backgroundColor = UIColor.whiteColor()
         }
-    }
-    
+    }    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

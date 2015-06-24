@@ -22,10 +22,22 @@ class MatchEntryEditLayout : MatchCardStandardLayout {
         super.prepareLayoutForSupplementaryViews()
         let awayPlayersKind = MatchPlayersReusableView.constantAwayKind
         var awayPlayersAttributes = layoutInfo[awayPlayersKind] as! UICollectionViewLayoutAttributes
-        let contentSize = collectionViewContentSize()
         awayPlayersAttributes.frame.origin.x += awayPlayersAttributes.frame.size.width
         let homePlayersKind = MatchPlayersReusableView.constantHomeKind
         var homePlayersAttributes = layoutInfo[homePlayersKind] as! UICollectionViewLayoutAttributes
         homePlayersAttributes.frame.origin.x -= homePlayersAttributes.frame.size.width
-    }    
+    }
+    override func prepareLayoutForHeaderViews() -> CGFloat {
+        var total = super.prepareLayoutForHeaderViews()
+        // Header Home Score
+        let scoreHomeKind = ScoreHeaderReusableView.constantHomeKind
+        var scoreHomeAttributes = layoutInfo[scoreHomeKind] as! UICollectionViewLayoutAttributes
+        scoreHomeAttributes.frame.origin.x -= scoreHomeAttributes.frame.size.width
+        // Header Away Score
+        let scoreAwayKind = ScoreHeaderReusableView.constantAwayKind
+        var scoreAwayAttributes = layoutInfo[scoreAwayKind] as! UICollectionViewLayoutAttributes
+        scoreAwayAttributes.frame.origin.x += scoreAwayAttributes.frame.size.width
+
+        return total
+    }
 }

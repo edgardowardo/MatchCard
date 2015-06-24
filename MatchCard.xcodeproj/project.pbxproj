@@ -16,6 +16,8 @@
 		773BC1061B39B8320062CC4C /* MatchHeaderReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 773BC1051B39B8320062CC4C /* MatchHeaderReusableView.xib */; };
 		7771CE801B283D5C00EA3D09 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7771CE7F1B283D5C00EA3D09 /* Config.plist */; };
 		7771CE821B283E0000EA3D09 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7771CE811B283E0000EA3D09 /* Common.swift */; };
+		777A7A261B3B1CFD00FF9342 /* ScoreHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777A7A251B3B1CFD00FF9342 /* ScoreHeaderReusableView.swift */; };
+		777A7A281B3B1F3400FF9342 /* ScoreHeaderReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 777A7A271B3B1F3300FF9342 /* ScoreHeaderReusableView.xib */; };
 		777B5E721B1F6E9400F19B8B /* TeamInMatchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777B5E711B1F6E9400F19B8B /* TeamInMatchModel.swift */; };
 		777B5E741B20BA7B00F19B8B /* MatchEntryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777B5E731B20BA7B00F19B8B /* MatchEntryModel.swift */; };
 		779864041B1CC7C400B3B748 /* PlayerInMatchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779864031B1CC7C400B3B748 /* PlayerInMatchModel.swift */; };
@@ -63,6 +65,8 @@
 		773BC1051B39B8320062CC4C /* MatchHeaderReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MatchHeaderReusableView.xib; sourceTree = "<group>"; };
 		7771CE7F1B283D5C00EA3D09 /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		7771CE811B283E0000EA3D09 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		777A7A251B3B1CFD00FF9342 /* ScoreHeaderReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreHeaderReusableView.swift; sourceTree = "<group>"; };
+		777A7A271B3B1F3300FF9342 /* ScoreHeaderReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoreHeaderReusableView.xib; sourceTree = "<group>"; };
 		777B5E711B1F6E9400F19B8B /* TeamInMatchModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamInMatchModel.swift; sourceTree = "<group>"; };
 		777B5E731B20BA7B00F19B8B /* MatchEntryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchEntryModel.swift; sourceTree = "<group>"; };
 		779864031B1CC7C400B3B748 /* PlayerInMatchModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerInMatchModel.swift; sourceTree = "<group>"; };
@@ -119,6 +123,8 @@
 			children = (
 				773BC1031B39B7700062CC4C /* MatchHeaderReusableView.swift */,
 				773BC1051B39B8320062CC4C /* MatchHeaderReusableView.xib */,
+				777A7A251B3B1CFD00FF9342 /* ScoreHeaderReusableView.swift */,
+				777A7A271B3B1F3300FF9342 /* ScoreHeaderReusableView.xib */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -340,6 +346,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				773BC1061B39B8320062CC4C /* MatchHeaderReusableView.xib in Resources */,
+				777A7A281B3B1F3400FF9342 /* ScoreHeaderReusableView.xib in Resources */,
 				773BC0FD1B3395000062CC4C /* MatchPlayersReusableView.xib in Resources */,
 				77D69B531B16394E0053EB10 /* Main.storyboard in Resources */,
 				773BC0FF1B38A4390062CC4C /* PlayerViewCell.xib in Resources */,
@@ -423,6 +430,7 @@
 				77BE570B1B17B4A400E88630 /* PlayerModel.swift in Sources */,
 				77F4D05C1B1BAE00003B9096 /* MatchPlayersController.swift in Sources */,
 				779C79361B1F443900EE68AE /* PFObjectImaged.swift in Sources */,
+				777A7A261B3B1CFD00FF9342 /* ScoreHeaderReusableView.swift in Sources */,
 				779C79381B1F46D600EE68AE /* TeamModel.swift in Sources */,
 				77FA4B481B277D4E0093C5CB /* MatchEntryEditLayout.swift in Sources */,
 				7771CE821B283E0000EA3D09 /* Common.swift in Sources */,
