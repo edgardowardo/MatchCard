@@ -17,7 +17,7 @@
                         <constraint firstAttribute="height" constant="47" id="3ri-oK-XMF"/>
                         <constraint firstAttribute="width" constant="224" id="Jvc-iu-Cxq"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="17"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -27,7 +27,7 @@
                         <constraint firstAttribute="height" constant="42" id="K5c-hJ-8Ca"/>
                         <constraint firstAttribute="width" constant="26" id="Vdd-hu-BYg"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="36"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="36"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -57,7 +57,7 @@
                         <constraint firstAttribute="width" constant="31" id="B5H-jT-1WE"/>
                         <constraint firstAttribute="height" constant="21" id="tQo-fj-eLd"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="17"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>

@@ -10,35 +10,35 @@ import Foundation
 import Parse
 
 class MatchEntryModel : PFObject, PFSubclassing {
-    
     static func parseClassName() -> String {
         return "MatchEntry"
     }
-    
     override init() {
         super.init()
     }
-    
-    convenience init(homeScore : Int, awayScore : Int)
-    {
+    convenience init(homeScore : Int, awayScore : Int) {
         self.init()
-        self.HomeScore = homeScore
-        self.AwayScore = awayScore
+        self.homeScore = homeScore
+        self.awayScore = awayScore
     }
-    
     override class func initialize() {
         var onceToken : dispatch_once_t = 0;
         dispatch_once(&onceToken) {
             self.registerSubclass()
         }
     }
-    
-    @NSManaged var HomeKey : String
-    @NSManaged var HomeScore : Int
-    @NSManaged var AwayKey : String
-    @NSManaged var AwayScore : Int
-    
-    func Key() -> String {
-        return self.HomeKey + self.AwayKey
+    @NSManaged var homeKey : String // FIXME: what's this homeKey?
+    @NSManaged var homeScore : Int
+    @NSManaged var awayKey : String
+    @NSManaged var awayScore : Int
+    var homeToken : Int {
+        get {
+            return homeScore > awayScore ? 1 : 0
+        }
+    }
+    var awayToken : Int {
+        get {
+            return homeScore < awayScore ? 1 : 0
+        }
     }
 }

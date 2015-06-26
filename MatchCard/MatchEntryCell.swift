@@ -36,7 +36,6 @@ class MatchEntryCell : UICollectionViewCell {
         self.contentView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
     }
     
-    
     func setFontSize(layout : LayoutType) {
         let scale = true
         
@@ -66,26 +65,13 @@ class MatchEntryCell : UICollectionViewCell {
                 }
             })
         }
-        
-//        dispatch_async(dispatch_get_main_queue()) {
-//            UIView.animateWithDuration(0.25, animations: { () -> Void in
-//                switch (layout){
-//                case .Edit :
-//                    self.homeScore.font = self.homeScore.font.fontWithSize(MatchEntryCell.constantEditFontSize)
-//                    self.awayScore.font = self.awayScore.font.fontWithSize(MatchEntryCell.constantEditFontSize)
-//                default:
-//                    self.homeScore.font = self.homeScore.font.fontWithSize(MatchEntryCell.constantDefaultFontSize)
-//                    self.awayScore.font = self.awayScore.font.fontWithSize(MatchEntryCell.constantDefaultFontSize)
-//                }
-//            })
-//        }
     }
     
     func updateBars() {
-        if (data?.HomeScore > data?.AwayScore) {
+        if (data?.homeScore > data?.awayScore) {
             self.homeBar.backgroundColor = UIColor.greenColor()
             self.awayBar.backgroundColor = UIColor.clearColor()
-        } else if (data?.HomeScore < data?.AwayScore) {
+        } else if (data?.homeScore < data?.awayScore) {
             self.homeBar.backgroundColor = UIColor.clearColor()
             self.awayBar.backgroundColor = UIColor.greenColor()
         } else {

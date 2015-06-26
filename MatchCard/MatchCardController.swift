@@ -9,49 +9,27 @@
 import Foundation
 import UIKit
 
-var matchCard = MatchCardModel()
-
 enum LayoutType {
     case Standard, Edit, Matrix
 }
 
 class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate {
-    
+    var matchCard = DataManager.sharedInstance.matchCard
     var layouts : [LayoutType : UICollectionViewLayout] = [.Standard : MatchCardStandardLayout(), .Edit : MatchEntryEditLayout()]
     var picker = UIPickerView()
     weak var matchCollectionView : UICollectionView? {
         didSet {
             self.matchCollectionView?.setCollectionViewLayout(self.layouts[.Standard]!, animated: false)
         }
-    }    
+    }
     override init(){
         super.init()
-        matchCard.MatchEntries = [MatchEntryModel]()
-        matchCard.MatchEntries.append(MatchEntryModel(homeScore: 17, awayScore: 21))
-        matchCard.MatchEntries.append(MatchEntryModel(homeScore: 1, awayScore: 0))
-        matchCard.MatchEntries.append(MatchEntryModel(homeScore: 2, awayScore: 21))
-        matchCard.MatchEntries.append(MatchEntryModel(homeScore: 3, awayScore: 0))
-        matchCard.MatchEntries.append(MatchEntryModel(homeScore: 4, awayScore: 0))
-        matchCard.MatchEntries.append(MatchEntryModel(homeScore: 5, awayScore: 0))
-        matchCard.MatchEntries.append(MatchEntryModel(homeScore: 6, awayScore: 0))
-        matchCard.MatchEntries.append(MatchEntryModel(homeScore: 7, awayScore: 0))
-        matchCard.MatchEntries.append(MatchEntryModel(homeScore: 8, awayScore: 0))
-        matchCard.MatchEntries.append(MatchEntryModel(homeScore: 9, awayScore: 0))
-        matchCard.MatchEntries.append(MatchEntryModel(homeScore: 10, awayScore: 0))
-        matchCard.MatchEntries.append(MatchEntryModel(homeScore: 11, awayScore: 0))
-        matchCard.MatchEntries.append(MatchEntryModel(homeScore: 12, awayScore: 0))
-        matchCard.MatchEntries.append(MatchEntryModel(homeScore: 13, awayScore: 0))
-        matchCard.MatchEntries.append(MatchEntryModel(homeScore: 14, awayScore: 0))
-        matchCard.MatchEntries.append(MatchEntryModel(homeScore: 15, awayScore: 0))
-        matchCard.MatchEntries.append(MatchEntryModel(homeScore: 16, awayScore: 0))
-        matchCard.MatchEntries.append(MatchEntryModel(homeScore: 17, awayScore: 0))
     }
-    
     //
     // MARK: Collection View
     //
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return matchCard.MatchEntries.count
+        return matchCard.matchEntries.count
     }
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
@@ -60,16 +38,16 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
 
         var cell = collectionView.dequeueReusableCellWithReuseIdentifier(MatchEntryCell.constantReuseIdentifier, forIndexPath: indexPath) as! MatchEntryCell
         
-        let matchEntry = matchCard.MatchEntries[indexPath.row]
+        let matchEntry = matchCard.matchEntries[indexPath.row]
         cell.data = matchEntry
         
         picker.delegate = self
         picker.dataSource = self
         cell.homeScoreField.inputView = picker
-        cell.homeScoreField.text = "\(matchEntry.HomeScore)"
+        cell.homeScoreField.text = "\(matchEntry.homeScore)"
         cell.homeScoreField.userInteractionEnabled = false
-        cell.homeScore.text = "\(matchEntry.HomeScore)"
-        cell.awayScore.text = "\(matchEntry.AwayScore)"
+        cell.homeScore.text = "\(matchEntry.homeScore)"
+        cell.awayScore.text = "\(matchEntry.awayScore)"
         if Common.showColorBounds() {
             cell.layer.borderWidth = 1
             cell.layer.cornerRadius = 10
@@ -127,8 +105,8 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
         case MatchHeaderReusableView.constantKind :
             var headerView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchHeaderReusableView.constantReuseIdentifier, forIndexPath: indexPath) as! MatchHeaderReusableView
             headerView.leagueName.text = matchCard.leagueName
-            headerView.division.text = "\(matchCard.Division)"
-            headerView.location.text = "at " + matchCard.Location
+            headerView.division.text = "\(matchCard.division)"
+            headerView.location.text = "at " + matchCard.location
             headerView.date.text = matchCard.dateString
             return headerView
         case ScoreHeaderReusableView.constantHomeKind :
@@ -164,10 +142,10 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
         let cell = self.matchCollectionView?.cellForItemAtIndexPath(indexPath) as! MatchEntryCell
         let data = cell.data!
         if component == 0 {
-            data.HomeScore = row
+            data.homeScore = row
             cell.homeScore?.text = "\(row)"
         } else {
-            data.AwayScore = row
+            data.awayScore = row
             cell.awayScore?.text = "\(row)"
         }
         cell.updateBars()

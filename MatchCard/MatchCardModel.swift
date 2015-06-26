@@ -10,37 +10,28 @@ import Foundation
 import Parse
 
 class MatchCardModel : PFObject, PFSubclassing {
-    
     static func parseClassName() -> String {
         return "MatchCard"
     }
-    
     override init () {
         super.init()
-        self.Division = 1
-        self.Date = NSDate()
-        self.Location = "Blackley"
     }
-    
     override class func initialize() {
         var onceToken : dispatch_once_t = 0;
         dispatch_once(&onceToken) {
             self.registerSubclass()
         }
     }
-    
-    @NSManaged var League : LeagueModel
-    @NSManaged var Division : Int
-    @NSManaged var Date : NSDate
-    @NSManaged var Location : String
-    
-    @NSManaged var HomeTeamSummary : TeamInMatchModel
-    @NSManaged var AwayTeamSummary : TeamInMatchModel // when set, set home or away
-    @NSManaged var MatchEntries : [MatchEntryModel]
-    
+    @NSManaged var league : LeagueModel
+    @NSManaged var division : Int
+    @NSManaged var date : NSDate
+    @NSManaged var location : String
+    @NSManaged var homeTeamBag : TeamInMatchModel
+    @NSManaged var awayTeamBag : TeamInMatchModel
+    @NSManaged var matchEntries : [MatchEntryModel]
     var leagueName : String {
         get {
-            return "Oldham & Rochdale Badminton League"
+            return self.league.Name
         }
     }
     var dateString : String {
@@ -48,28 +39,28 @@ class MatchCardModel : PFObject, PFSubclassing {
             let formatter = NSDateFormatter()
             let gbDateFormat = NSDateFormatter.dateFormatFromTemplate("dd/MM/yyyy", options: 0, locale: NSLocale(localeIdentifier: "en-GB"))
             formatter.dateFormat = gbDateFormat
-            let gbSwiftDayString = formatter.stringFromDate(self.Date)
+            let gbSwiftDayString = formatter.stringFromDate(self.date)
             return gbSwiftDayString
         }
     }
     var homeTeamName : String {
         get {
-            return "Blackeley"
+            return self.homeTeamBag.team.Name
         }
     }
     var homeScore : String {
         get {
-            return "29" //"\(self.HomeTeamSummary.Total)"
+            return "\(self.matchEntries.reduce(0, combine: { $0 + $1.homeToken }))"
         }
     }
     var awayTeamName : String {
         get {
-            return "MMCBC-C"
+            return self.awayTeamBag.team.Name
         }
     }
     var awayScore : String {
         get {
-            return "27" //"\(self.AwayTeamSummary.Total)"
+            return "\(self.matchEntries.reduce(0, combine: { $0 + $1.awayToken }))"
         }
     }
 }

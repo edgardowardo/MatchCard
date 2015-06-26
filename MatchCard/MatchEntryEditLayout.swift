@@ -20,24 +20,17 @@ class MatchEntryEditLayout : MatchCardStandardLayout {
     }
     override func prepareLayoutForSupplementaryViews() {
         super.prepareLayoutForSupplementaryViews()
-        let awayPlayersKind = MatchPlayersReusableView.constantAwayKind
-        var awayPlayersAttributes = layoutInfo[awayPlayersKind] as! UICollectionViewLayoutAttributes
+        var awayPlayersAttributes = self.suppsInfo[MatchPlayersReusableView.constantAwayKind]!
         awayPlayersAttributes.frame.origin.x += awayPlayersAttributes.frame.size.width
-        let homePlayersKind = MatchPlayersReusableView.constantHomeKind
-        var homePlayersAttributes = layoutInfo[homePlayersKind] as! UICollectionViewLayoutAttributes
+        var homePlayersAttributes = self.suppsInfo[MatchPlayersReusableView.constantHomeKind]!
         homePlayersAttributes.frame.origin.x -= homePlayersAttributes.frame.size.width
     }
     override func prepareLayoutForHeaderViews() -> CGFloat {
         var total = super.prepareLayoutForHeaderViews()
-        // Header Home Score
-        let scoreHomeKind = ScoreHeaderReusableView.constantHomeKind
-        var scoreHomeAttributes = layoutInfo[scoreHomeKind] as! UICollectionViewLayoutAttributes
+        var scoreHomeAttributes = self.suppsInfo[ScoreHeaderReusableView.constantHomeKind]!
         scoreHomeAttributes.frame.origin.x -= scoreHomeAttributes.frame.size.width
-        // Header Away Score
-        let scoreAwayKind = ScoreHeaderReusableView.constantAwayKind
-        var scoreAwayAttributes = layoutInfo[scoreAwayKind] as! UICollectionViewLayoutAttributes
+        var scoreAwayAttributes = self.suppsInfo[ScoreHeaderReusableView.constantAwayKind]!
         scoreAwayAttributes.frame.origin.x += scoreAwayAttributes.frame.size.width
-
         return total
     }
 }

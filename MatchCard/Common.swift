@@ -9,19 +9,21 @@
 import Foundation
 
 class Common {
-//    static func Is
-    
-    
     static func showColorBounds() -> Bool {
+        return self.readConfiguration("Show Color Bounds") as! Bool
+    }
+    static func printDebug() -> Bool {
+        return self.readConfiguration("Print Debug") as! Bool
+    }
+    static func readConfiguration(_ name : String = "") -> AnyObject? {
         var myDict: NSDictionary?
         if let path = NSBundle.mainBundle().pathForResource("Config", ofType: "plist") {
             myDict = NSDictionary(contentsOfFile: path)
         }
         if let dict = myDict {
-            return dict["Show Color Bounds"] as! Bool
+            return dict[name]
         }
-        
         assertionFailure("Config.plist is not defined")
-        return false
+        return nil
     }
 }

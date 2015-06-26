@@ -8,28 +8,31 @@
 
 import UIKit
 
-var players = [PlayerModel] ()
-
 class MatchPlayersController : NSObject, UICollectionViewDataSource,  UICollectionViewDelegate {
     var elementKind = MatchPlayersReusableView.constantAwayKind
     override init(){
         super.init()
-        players.append(PlayerModel(name: "Edgar", image: nil))
-        players.append(PlayerModel(name: "Slawomir", image: nil))
-        players.append(PlayerModel(name: "B3", image: nil))
-        players.append(PlayerModel(name: "B4", image: nil))
-        players.append(PlayerModel(name: "C5", image: nil))
-        players.append(PlayerModel(name: "C6", image: nil))
     }
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return players.count
+        if (elementKind == MatchPlayersReusableView.constantAwayKind) {
+            return DataManager.sharedInstance.matchCard.awayTeamBag.players.count
+        } else {
+            return DataManager.sharedInstance.matchCard.homeTeamBag.players.count
+        }
     }
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(PlayerViewCell.constantReuseIdentifier, forIndexPath: indexPath) as! PlayerViewCell
-        cell.name.text = (players[indexPath.row] as PlayerModel).Name
+        
+        if (elementKind == MatchPlayersReusableView.constantAwayKind) {
+            var p = DataManager.sharedInstance.matchCard.awayTeamBag.players[indexPath.row]
+            cell.name.text = p.Player.Name
+        } else {
+            var p = DataManager.sharedInstance.matchCard.homeTeamBag.players[indexPath.row]
+            cell.name.text = p.Player.Name
+        }
         cell.layer.borderWidth = 2
         cell.layer.borderColor = UIColor.whiteColor().CGColor
         cell.layer.cornerRadius = 10
@@ -37,5 +40,11 @@ class MatchPlayersController : NSObject, UICollectionViewDataSource,  UICollecti
             cell.contentView.transform = CGAffineTransformMakeScale(-1, 1)
         }
         return cell
+    }
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        var cell = collectionView.cellForItemAtIndexPath(indexPath) as! PlayerViewCell
+        if (DataManager.sharedInstance.hasLeagueName == false) {
+            println("selected \(cell.name.text)")
+        }
     }
 }

@@ -13,7 +13,6 @@ import UIKit
 
 class MatchPlayersReusableView : UICollectionReusableView {
 
-    // TODO: unsure about having 2 kinds. Had to register xib file twice under these 2.
     static let constantHomeKind = "UICollectionElementKindHome"
     static let constantAwayKind = "UICollectionElementKindAway"
     static let constantReuseIdentifier = "MatchPlayersReusableView"

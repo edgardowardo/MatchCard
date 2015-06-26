@@ -26,14 +26,12 @@ class PlayerInMatchModel : PFObject, PFSubclassing {
         }
     }
     
-    init(isAddme : Bool = false, player : PlayerModel)
+    init(_ player : PlayerModel)
     {
         super.init()
-        self.IsAddme = isAddme
         self.Player = player
     }
     
-    @NSManaged var IsAddme : Bool
     @NSManaged var Player : PlayerModel
     @NSManaged var Key : String
 }
