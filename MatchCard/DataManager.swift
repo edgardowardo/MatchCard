@@ -45,23 +45,23 @@ class DataManager {
         matchCard.homeTeamBag.team = TeamModel(isAddme: false, name: "Blackeley", image: nil)
         matchCard.homeTeamBag.isHome = true
         matchCard.homeTeamBag.players = [
-            PlayerInMatchModel(PlayerModel(name: "A1", image: nil)),
-            PlayerInMatchModel(PlayerModel(name: "A2", image: nil)),
-            PlayerInMatchModel(PlayerModel(name: "B1", image: nil)),
-            PlayerInMatchModel(PlayerModel(name: "B2", image: nil)),
-            PlayerInMatchModel(PlayerModel(name: "C1", image: nil)),
-            PlayerInMatchModel(PlayerModel(name: "C2", image: nil))
+            PlayerInMatchModel("A1", PlayerModel(name: "unknown", image: nil)),
+            PlayerInMatchModel("A2", PlayerModel(name: "unknown", image: nil)),
+            PlayerInMatchModel("B1", PlayerModel(name: "unknown", image: nil)),
+            PlayerInMatchModel("B2", PlayerModel(name: "unknown", image: nil)),
+            PlayerInMatchModel("C1", PlayerModel(name: "unknown", image: nil)),
+            PlayerInMatchModel("C2", PlayerModel(name: "unknown", image: nil))
         ]
         matchCard.awayTeamBag = TeamInMatchModel()
         matchCard.awayTeamBag.team = TeamModel(isAddme: false, name: "MMCBC-C", image: nil)
         matchCard.awayTeamBag.isHome = false
         matchCard.awayTeamBag.players = [
-            PlayerInMatchModel(PlayerModel(name: "D1", image: nil)),
-            PlayerInMatchModel(PlayerModel(name: "D2", image: nil)),
-            PlayerInMatchModel(PlayerModel(name: "E1", image: nil)),
-            PlayerInMatchModel(PlayerModel(name: "E2", image: nil)),
-            PlayerInMatchModel(PlayerModel(name: "F1", image: nil)),
-            PlayerInMatchModel(PlayerModel(name: "F2", image: nil))
+            PlayerInMatchModel("D1", PlayerModel(name: "unknown", image: nil)),
+            PlayerInMatchModel("D2", PlayerModel(name: "unknown", image: nil)),
+            PlayerInMatchModel("E1", PlayerModel(name: "unknown", image: nil)),
+            PlayerInMatchModel("E2", PlayerModel(name: "unknown", image: nil)),
+            PlayerInMatchModel("F1", PlayerModel(name: "unknown", image: nil)),
+            PlayerInMatchModel("F2", PlayerModel(name: "unknown", image: nil))
         ]
     }
 }

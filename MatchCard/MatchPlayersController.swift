@@ -27,15 +27,14 @@ class MatchPlayersController : NSObject, UICollectionViewDataSource,  UICollecti
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(PlayerViewCell.constantReuseIdentifier, forIndexPath: indexPath) as! PlayerViewCell
         
         if (elementKind == MatchPlayersReusableView.constantAwayKind) {
-            var p = DataManager.sharedInstance.matchCard.awayTeamBag.players[indexPath.row]
-            cell.name.text = p.Player.Name
+            var p1 = DataManager.sharedInstance.matchCard.awayTeamBag.players[indexPath.row]
+            cell.button.titleLabel?.text = p1.key
+            cell.name.text = p1.player.Name
         } else {
-            var p = DataManager.sharedInstance.matchCard.homeTeamBag.players[indexPath.row]
-            cell.name.text = p.Player.Name
+            var p2 = DataManager.sharedInstance.matchCard.homeTeamBag.players[indexPath.row]
+            cell.button.titleLabel?.text = p2.key
+            cell.name.text = p2.player.Name
         }
-        cell.layer.borderWidth = 2
-        cell.layer.borderColor = UIColor.whiteColor().CGColor
-        cell.layer.cornerRadius = 10
         if (self.elementKind == MatchPlayersReusableView.constantHomeKind ) {
             cell.contentView.transform = CGAffineTransformMakeScale(-1, 1)
         }

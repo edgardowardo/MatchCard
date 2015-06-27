@@ -12,5 +12,13 @@ import UIKit
 class PlayerViewCell : UICollectionViewCell {
     static let constantReuseIdentifier = "PlayerViewCell"
     @IBOutlet weak var name: UILabel!
-    
+    @IBOutlet weak var button: UIButton!
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.contentView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.button.layer.cornerRadius = self.button.frame.size.width / 2
+        if (!Common.showColorBounds()) {
+            self.backgroundColor = UIColor.clearColor()
+        }
+    }
 }

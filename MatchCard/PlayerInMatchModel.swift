@@ -26,12 +26,13 @@ class PlayerInMatchModel : PFObject, PFSubclassing {
         }
     }
     
-    init(_ player : PlayerModel)
+    init(_ key: String, _ player : PlayerModel)
     {
         super.init()
-        self.Player = player
+        self.player = player
+        self.key = key
     }
     
-    @NSManaged var Player : PlayerModel
-    @NSManaged var Key : String
+    @NSManaged var player : PlayerModel
+    @NSManaged var key : String
 }
