@@ -21,6 +21,9 @@
                         <state key="normal" title="XX">
                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
+                        <connections>
+                            <action selector="handleButtonPressed:" destination="z1h-08-XRv" eventType="touchUpInside" id="HKf-ed-HwO"/>
+                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jU4-qK-Gj2">
                         <rect key="frame" x="0.0" y="53" width="70" height="21"/>

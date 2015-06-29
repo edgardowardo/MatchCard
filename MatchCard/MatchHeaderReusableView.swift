@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class MatchHeaderReusableView : UICollectionReusableView {
+class MatchHeaderReusableView : UICollectionReusableView, UIGestureRecognizerDelegate {
     
     static let constantKind = "UICollectionElementKindHeader"
     static let constantReuseIdentifier = "MatchHeaderReusableView"
@@ -23,5 +23,12 @@ class MatchHeaderReusableView : UICollectionReusableView {
     @IBOutlet weak var date: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
+        let tap = UITapGestureRecognizer(target: self, action: Selector("handleTap"))
+        tap.delegate = self
+        self.leagueName.userInteractionEnabled = true
+        self.leagueName.addGestureRecognizer(tap)
+    }
+    func handleTap() {
+        println("league tapped...")
     }
 }

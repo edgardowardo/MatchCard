@@ -13,6 +13,9 @@ class PlayerViewCell : UICollectionViewCell {
     static let constantReuseIdentifier = "PlayerViewCell"
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var button: UIButton!
+    @IBAction func handleButtonPressed(sender: UIButton) {
+        
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         self.contentView.setTranslatesAutoresizingMaskIntoConstraints(false)

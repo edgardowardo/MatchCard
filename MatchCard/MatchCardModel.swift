@@ -22,7 +22,7 @@ class MatchCardModel : PFObject, PFSubclassing {
             self.registerSubclass()
         }
     }
-    @NSManaged var league : LeagueModel
+    @NSManaged var league : LeagueModel?
     @NSManaged var division : Int
     @NSManaged var date : NSDate
     @NSManaged var location : String
@@ -31,7 +31,10 @@ class MatchCardModel : PFObject, PFSubclassing {
     @NSManaged var matchEntries : [MatchEntryModel]
     var leagueName : String {
         get {
-            return self.league.Name
+            if let l = self.league {
+                return l.Name
+            }
+            return "unknown"
         }
     }
     var dateString : String {
@@ -62,5 +65,8 @@ class MatchCardModel : PFObject, PFSubclassing {
         get {
             return "\(self.matchEntries.reduce(0, combine: { $0 + $1.awayToken }))"
         }
+    }
+    func clear() {
+        self.league = nil
     }
 }
