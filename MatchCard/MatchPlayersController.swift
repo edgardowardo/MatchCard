@@ -25,14 +25,17 @@ class MatchPlayersController : NSObject, UICollectionViewDataSource,  UICollecti
     }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(PlayerViewCell.constantReuseIdentifier, forIndexPath: indexPath) as! PlayerViewCell
-        
         if (elementKind == MatchPlayersReusableView.constantAwayKind) {
             var p1 = DataManager.sharedInstance.matchCard.awayTeamBag.players[indexPath.row]
-            cell.button.titleLabel?.text = p1.key
+            cell.button.setTitle(p1.key, forState: .Normal)
+            cell.button.setImage(p1.player.imageFile, forState: .Normal)
+            cell.button.setImage(p1.player.imageFileDark, forState: .Highlighted)
             cell.name.text = p1.player.Name
         } else {
             var p2 = DataManager.sharedInstance.matchCard.homeTeamBag.players[indexPath.row]
-            cell.button.titleLabel?.text = p2.key
+            cell.button.setTitle(p2.key, forState: .Normal)
+            cell.button.setImage(p2.player.imageFile, forState: .Normal)
+            cell.button.setImage(p2.player.imageFileDark, forState: .Highlighted)
             cell.name.text = p2.player.Name
         }
         if (self.elementKind == MatchPlayersReusableView.constantHomeKind ) {
@@ -43,7 +46,7 @@ class MatchPlayersController : NSObject, UICollectionViewDataSource,  UICollecti
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         var cell = collectionView.cellForItemAtIndexPath(indexPath) as! PlayerViewCell
         if (DataManager.sharedInstance.hasLeagueName == false) {
-            println("selected \(cell.name.text)")
+//            println("selected \(cell.name.text)")
         }
     }
 }

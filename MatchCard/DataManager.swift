@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class DataManager {
     static let sharedInstance = DataManager()
@@ -45,9 +46,9 @@ class DataManager {
         matchCard.homeTeamBag.team = TeamModel(isAddme: false, name: "Blackeley", image: nil)
         matchCard.homeTeamBag.isHome = true
         matchCard.homeTeamBag.players = [
-            PlayerInMatchModel("A1", PlayerModel(name: "unknown", image: nil)),
-            PlayerInMatchModel("A2", PlayerModel(name: "unknown", image: nil)),
-            PlayerInMatchModel("B1", PlayerModel(name: "unknown", image: nil)),
+            PlayerInMatchModel("A1", PlayerModel(name: "unknown", image: UIImage(named: "A1"))),
+            PlayerInMatchModel("A2", PlayerModel(name: "unknown", image: UIImage(named: "A2"))),
+            PlayerInMatchModel("B1", PlayerModel(name: "unknown", image: UIImage(named: "B1"))),
             PlayerInMatchModel("B2", PlayerModel(name: "unknown", image: nil)),
             PlayerInMatchModel("C1", PlayerModel(name: "unknown", image: nil)),
             PlayerInMatchModel("C2", PlayerModel(name: "unknown", image: nil))
