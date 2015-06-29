@@ -9,9 +9,16 @@
 import Foundation
 import UIKit
 
+@objc
+protocol MatchCardViewControllerDelegate {
+    optional func toggleLeftPanel()
+    optional func collapseSidePanels()
+}
+
 class MatchCardViewController : UIViewController {
     @IBOutlet weak var containingView : UIView?
     @IBOutlet weak var matchCardCollectionView : UICollectionView?
+    var delegate: MatchCardViewControllerDelegate?
     let matchCardController = MatchCardController()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +48,20 @@ class MatchCardViewController : UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+//  TODO: Convert so that this is using an observer pattern
+//    @IBAction func kittiesTapped(sender: AnyObject) {
+//        delegate?.toggleLeftPanel?()
+//    }
+}
+
+extension MatchCardViewController: SidePanelViewControllerDelegate {
+    func itemSelected(item: MenuItem) {
+//        imageView.image = animal.image
+//        titleLabel.text = animal.title
+//        creatorLabel.text = animal.creator
+        
+        delegate?.collapseSidePanels?()
     }
 }
 

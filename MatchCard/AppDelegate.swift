@@ -16,6 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, willFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
         Parse.setApplicationId("PRVccwZPkV5y6UxP9DgWlNa4YNeiQztihrgr44F1", clientKey: "e4W9OUTPVWWNF2MYg1CJxjZGb4M0LZx0k6OMqPwE")
+        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        let containerViewController = ContainerViewController()
+        window!.rootViewController = containerViewController
+        window!.makeKeyAndVisible()
         return true
     }
     
