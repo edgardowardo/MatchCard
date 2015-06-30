@@ -44,15 +44,15 @@ class MatchCardViewController : UIViewController {
             matchCardCollectionView?.backgroundColor = UIColor.clearColor()
             containingView?.backgroundColor = UIColor.whiteColor()
         }
-    }    
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "moreMethodOfReceivedNotification:", name:MatchHeaderReusableView.constantMoreNotification, object: nil)
+    }
+    @objc private func moreMethodOfReceivedNotification(notification: NSNotification){
+        delegate?.toggleLeftPanel?()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-//  TODO: Convert so that this is using an observer pattern
-//    @IBAction func kittiesTapped(sender: AnyObject) {
-//        delegate?.toggleLeftPanel?()
-//    }
 }
 
 extension MatchCardViewController: SidePanelViewControllerDelegate {

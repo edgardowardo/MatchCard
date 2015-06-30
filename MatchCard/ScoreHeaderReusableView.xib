@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
@@ -10,22 +10,37 @@
             <rect key="frame" x="0.0" y="0.0" width="160" height="92"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dWh-3h-JY7" userLabel="Division Number">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dWh-3h-JY7" userLabel="Division Number">
                     <rect key="frame" x="55" y="8" width="51" height="56"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="56" id="Z9s-Mh-kfe"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="51" id="tsf-ee-V48"/>
+                    </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="45"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sET-Kf-7cA" userLabel="Location">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sET-Kf-7cA" userLabel="Location">
                     <rect key="frame" x="8" y="63" width="144" height="21"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="58U-LD-58y"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="144" id="frJ-rY-s3v"/>
+                    </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="13"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="sET-Kf-7cA" secondAttribute="bottom" constant="8" id="3Xq-Yk-1z2"/>
+                <constraint firstItem="dWh-3h-JY7" firstAttribute="top" secondItem="iRk-GM-9R4" secondAttribute="top" constant="8" id="3jb-nV-Y3A"/>
+                <constraint firstAttribute="bottom" secondItem="dWh-3h-JY7" secondAttribute="bottom" constant="28" id="4hN-zC-hPR"/>
+                <constraint firstAttribute="trailing" secondItem="sET-Kf-7cA" secondAttribute="trailing" constant="8" id="5Kg-0S-4yD"/>
+                <constraint firstItem="sET-Kf-7cA" firstAttribute="leading" secondItem="iRk-GM-9R4" secondAttribute="leading" constant="8" id="X7S-hO-fGY"/>
+                <constraint firstAttribute="trailing" secondItem="dWh-3h-JY7" secondAttribute="trailing" constant="54" id="l6c-PE-3So"/>
+                <constraint firstItem="dWh-3h-JY7" firstAttribute="leading" secondItem="iRk-GM-9R4" secondAttribute="leading" constant="55" id="xxP-9m-HXP"/>
+            </constraints>
             <connections>
                 <outlet property="score" destination="dWh-3h-JY7" id="Rb8-EV-lq3"/>
                 <outlet property="teamName" destination="sET-Kf-7cA" id="SoS-DH-3zB"/>
@@ -33,9 +48,4 @@
             <point key="canvasLocation" x="206" y="297"/>
         </collectionReusableView>
     </objects>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>

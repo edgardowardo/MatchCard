@@ -11,11 +11,30 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="86"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Name of League, Name of League, Name of League" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="72N-dR-xA4" userLabel="League Name">
-                    <rect key="frame" x="8" y="8" width="224" height="47"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Znz-IY-eYq" userLabel="More Button">
+                    <rect key="frame" x="8" y="19" width="25" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="15" id="6C1-5s-LWq"/>
+                        <constraint firstAttribute="height" constant="25" id="kGz-XA-NuP"/>
+                        <constraint firstAttribute="width" constant="25" id="r3r-WF-dFC"/>
+                    </constraints>
+                    <state key="normal" image="icon-more">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="6C1-5s-LWq"/>
+                        </mask>
+                    </variation>
+                    <connections>
+                        <action selector="handleMoreTap:" destination="ffY-Ez-JZ2" eventType="touchUpInside" id="CxM-Yw-aLk"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Name of Long League Name" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="72N-dR-xA4" userLabel="League Name">
+                    <rect key="frame" x="35" y="8" width="204" height="47"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="47" id="3ri-oK-XMF"/>
-                        <constraint firstAttribute="width" constant="224" id="Jvc-iu-Cxq"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="Jvc-iu-Cxq"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -69,16 +88,29 @@
                 <constraint firstItem="j1M-M4-tZg" firstAttribute="leading" secondItem="ffY-Ez-JZ2" secondAttribute="leading" constant="8" id="8VJ-od-PQZ"/>
                 <constraint firstItem="Tjg-mx-xm8" firstAttribute="bottom" secondItem="ffY-Ez-JZ2" secondAttribute="bottomMargin" id="HoM-XJ-aqY"/>
                 <constraint firstItem="Tjg-mx-xm8" firstAttribute="top" secondItem="Vsl-2B-uNz" secondAttribute="bottom" constant="15" id="KER-dS-lkD"/>
+                <constraint firstItem="j1M-M4-tZg" firstAttribute="top" secondItem="Znz-IY-eYq" secondAttribute="bottom" constant="13" id="R1J-cd-xpU"/>
                 <constraint firstItem="72N-dR-xA4" firstAttribute="top" secondItem="ffY-Ez-JZ2" secondAttribute="top" constant="8" id="Sab-zW-anV"/>
                 <constraint firstItem="72N-dR-xA4" firstAttribute="leading" secondItem="ffY-Ez-JZ2" secondAttribute="leading" constant="8" id="WJ2-zz-H7S"/>
+                <constraint firstItem="72N-dR-xA4" firstAttribute="leading" secondItem="Znz-IY-eYq" secondAttribute="trailing" constant="2" id="YCZ-Nd-0mt"/>
                 <constraint firstItem="j1M-M4-tZg" firstAttribute="top" secondItem="72N-dR-xA4" secondAttribute="bottom" constant="2" id="Yma-cG-V3o"/>
-                <constraint firstItem="Vsl-2B-uNz" firstAttribute="leading" secondItem="72N-dR-xA4" secondAttribute="trailing" constant="15" id="ZHA-FY-BTq"/>
+                <constraint firstItem="Vsl-2B-uNz" firstAttribute="leading" secondItem="72N-dR-xA4" secondAttribute="trailing" constant="8" id="ZHA-FY-BTq"/>
                 <constraint firstItem="k4A-fv-DaH" firstAttribute="leading" secondItem="Vsl-2B-uNz" secondAttribute="trailing" constant="8" id="eO5-Ll-WMN"/>
                 <constraint firstItem="k4A-fv-DaH" firstAttribute="top" secondItem="ffY-Ez-JZ2" secondAttribute="top" constant="11" id="kj6-bd-nQp"/>
+                <constraint firstItem="Znz-IY-eYq" firstAttribute="top" secondItem="ffY-Ez-JZ2" secondAttribute="top" constant="19" id="ndH-bq-Az3"/>
                 <constraint firstItem="Vsl-2B-uNz" firstAttribute="top" secondItem="ffY-Ez-JZ2" secondAttribute="top" constant="21" id="npD-OP-vVA"/>
+                <constraint firstItem="Znz-IY-eYq" firstAttribute="leading" secondItem="ffY-Ez-JZ2" secondAttribute="leading" constant="8" id="q51-xg-Lxa"/>
                 <constraint firstItem="k4A-fv-DaH" firstAttribute="leading" secondItem="Vsl-2B-uNz" secondAttribute="trailing" constant="8" id="qlA-k9-lGC"/>
+                <constraint firstItem="72N-dR-xA4" firstAttribute="leading" secondItem="Znz-IY-eYq" secondAttribute="trailing" constant="4" id="sCY-xR-dVn"/>
                 <constraint firstItem="Tjg-mx-xm8" firstAttribute="trailing" secondItem="ffY-Ez-JZ2" secondAttribute="trailingMargin" id="x4c-j1-uWL"/>
             </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="WJ2-zz-H7S"/>
+                    <exclude reference="sCY-xR-dVn"/>
+                    <exclude reference="R1J-cd-xpU"/>
+                    <exclude reference="Yma-cG-V3o"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="date" destination="Tjg-mx-xm8" id="Lzg-h5-e98"/>
                 <outlet property="div" destination="Vsl-2B-uNz" id="gnw-Jn-hDd"/>
@@ -89,4 +121,7 @@
             <point key="canvasLocation" x="195" y="208"/>
         </collectionReusableView>
     </objects>
+    <resources>
+        <image name="icon-more" width="31" height="31"/>
+    </resources>
 </document>

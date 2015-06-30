@@ -62,7 +62,6 @@ extension SidePanelViewController: UITableViewDelegate {
     let selectedItem = items[indexPath.row]
     delegate?.itemSelected(selectedItem)
   }
-  
 }
 
 class MenuItemCell: UITableViewCell {

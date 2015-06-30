@@ -11,6 +11,7 @@ import UIKit
 
 class MatchHeaderReusableView : UICollectionReusableView, UIGestureRecognizerDelegate {
     
+    static let constantMoreNotification = "NotificationIdentifierOfMoreTapped"
     static let constantKind = "UICollectionElementKindHeader"
     static let constantReuseIdentifier = "MatchHeaderReusableView"
     static let constantCellWidth : CGFloat = UIScreen.mainScreen().bounds.size.width
@@ -21,6 +22,9 @@ class MatchHeaderReusableView : UICollectionReusableView, UIGestureRecognizerDel
     @IBOutlet weak var division: UILabel!
     @IBOutlet weak var location: UILabel!
     @IBOutlet weak var date: UILabel!
+    @IBAction func handleMoreTap(sender: AnyObject) {
+        NSNotificationCenter.defaultCenter().postNotificationName(MatchHeaderReusableView.constantMoreNotification, object: nil)
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         let tap = UITapGestureRecognizer(target: self, action: Selector("handleTap"))

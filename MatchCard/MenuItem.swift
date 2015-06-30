@@ -8,18 +8,24 @@
 
 import UIKit
 
+enum MenuItemType {
+    case Clear
+}
+
 @objc
 class MenuItem {
-  
-  let title: String
-  let image: UIImage?
-  
-  init(title: String, image: UIImage?) {
-    self.title = title
-    self.image = image
-  }
-  
-  class func allItems() -> Array<MenuItem> {
-    return [ MenuItem(title: "Clear card", image: UIImage(named: "icon-trash"))]
-  }
+    let title: String
+    let image: UIImage?
+    let type: MenuItemType
+    
+    init(title: String, image: UIImage?, type: MenuItemType) {
+        self.title = title
+        self.image = image
+        self.type = type
+    }
+    
+    class func allItems() -> Array<MenuItem> {
+        return [ MenuItem(title: "Clear card", image: UIImage(named: "icon-trash"), type: .Clear)]
+    }
+    
 }
