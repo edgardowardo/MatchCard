@@ -11,6 +11,7 @@ import UIKit
 
 class PlayerViewCell : UICollectionViewCell {
     static let constantReuseIdentifier = "PlayerViewCell"
+    static let constantDefaultSize = CGSizeMake(80, 80)
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var button: UIButton!
     @IBAction func handleButtonPressed(sender: UIButton) {

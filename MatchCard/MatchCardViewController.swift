@@ -57,9 +57,15 @@ class MatchCardViewController : UIViewController {
 
 extension MatchCardViewController: SidePanelViewControllerDelegate {
     func itemSelected(item: MenuItem) {
-//        imageView.image = animal.image
-//        titleLabel.text = animal.title
-//        creatorLabel.text = animal.creator
+        
+        switch item.type {
+        case .Clear :
+            DataManager.sharedInstance.clear()
+            matchCardCollectionView?.reloadData()
+        case .ClearScores :
+            DataManager.sharedInstance.clearScores()
+            matchCardCollectionView?.reloadData()
+        }
         
         delegate?.collapseSidePanels?()
     }

@@ -35,5 +35,27 @@ class MatchPlayersReusableView : UICollectionReusableView {
         playersCollectionView?.registerNib(nibPlayer, forCellWithReuseIdentifier: PlayerViewCell.constantReuseIdentifier)
         playersCollectionView?.delegate = playersController
         playersCollectionView?.dataSource = playersController
+        var l = MatchPlayersStandardLayout()
+        l.scrollDirection = .Horizontal
+        l.itemSize = PlayerViewCell.constantDefaultSize
+        l.minimumLineSpacing = CGFloat(0) // FIXME: vary on screen size. perhaps from itself? Will cause jerky movement for targetContentOffset if not done.
+        playersCollectionView?.collectionViewLayout = l
     }
 }
+
+class MatchPlayersStandardLayout : UICollectionViewFlowLayout {
+    override func targetContentOffsetForProposedContentOffset(proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
+        var newContentOffset = proposedContentOffset
+        let divider = PlayerViewCell.constantDefaultSize.width + minimumLineSpacing
+        let modulus = proposedContentOffset.x % divider
+        let division = proposedContentOffset.x / divider
+        if modulus < divider / 2 {
+            newContentOffset.x = floor(division) * divider
+        } else {
+            newContentOffset.x = ceil(division) * divider
+        }
+        return newContentOffset
+    }
+}
+
+

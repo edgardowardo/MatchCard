@@ -28,15 +28,27 @@ class MatchPlayersController : NSObject, UICollectionViewDataSource,  UICollecti
         if (elementKind == MatchPlayersReusableView.constantAwayKind) {
             var p1 = DataManager.sharedInstance.matchCard.awayTeamBag.players[indexPath.row]
             cell.button.setTitle(p1.key, forState: .Normal)
-            cell.button.setImage(p1.player.imageFile, forState: .Normal)
-            cell.button.setImage(p1.player.imageFileDark, forState: .Highlighted)
-            cell.name.text = p1.player.Name
+            if let player =  p1.player {
+                cell.button.setImage(player.imageFile, forState: .Normal)
+                cell.button.setImage(player.imageFileDark, forState: .Highlighted)
+                cell.name.text = player.Name
+            } else {
+                cell.button.setImage(nil, forState: .Normal)
+                cell.button.setImage(nil, forState: .Highlighted)
+                cell.name.text = "unknown"
+            }
         } else {
             var p2 = DataManager.sharedInstance.matchCard.homeTeamBag.players[indexPath.row]
             cell.button.setTitle(p2.key, forState: .Normal)
-            cell.button.setImage(p2.player.imageFile, forState: .Normal)
-            cell.button.setImage(p2.player.imageFileDark, forState: .Highlighted)
-            cell.name.text = p2.player.Name
+            if let player =  p2.player {
+                cell.button.setImage(player.imageFile, forState: .Normal)
+                cell.button.setImage(player.imageFileDark, forState: .Highlighted)
+                cell.name.text = player.Name
+            } else {
+                cell.button.setImage(nil, forState: .Normal)
+                cell.button.setImage(nil, forState: .Highlighted)
+                cell.name.text = "unknown"
+            }
         }
         if (self.elementKind == MatchPlayersReusableView.constantHomeKind ) {
             cell.contentView.transform = CGAffineTransformMakeScale(-1, 1)

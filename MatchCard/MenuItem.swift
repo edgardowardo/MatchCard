@@ -9,7 +9,7 @@
 import UIKit
 
 enum MenuItemType {
-    case Clear
+    case Clear, ClearScores
 }
 
 @objc
@@ -25,7 +25,8 @@ class MenuItem {
     }
     
     class func allItems() -> Array<MenuItem> {
-        return [ MenuItem(title: "Clear card", image: UIImage(named: "icon-trash"), type: .Clear)]
+        return [ MenuItem(title: "Clear card", image: UIImage(named: "icon-trash"), type: .Clear),
+            MenuItem(title: "Clear scores", image: UIImage(named: "icon-trash"), type: .ClearScores)
+        ]
     }
-    
 }

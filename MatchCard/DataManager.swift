@@ -46,23 +46,51 @@ class DataManager {
         matchCard.homeTeamBag.team = TeamModel(isAddme: false, name: "Blackeley", image: nil)
         matchCard.homeTeamBag.isHome = true
         matchCard.homeTeamBag.players = [
-            PlayerInMatchModel("A1", PlayerModel(name: "unknown", image: UIImage(named: "A1"))),
-            PlayerInMatchModel("A2", PlayerModel(name: "unknown", image: UIImage(named: "A2"))),
-            PlayerInMatchModel("B1", PlayerModel(name: "unknown", image: UIImage(named: "B1"))),
-            PlayerInMatchModel("B2", PlayerModel(name: "unknown", image: nil)),
-            PlayerInMatchModel("C1", PlayerModel(name: "unknown", image: nil)),
-            PlayerInMatchModel("C2", PlayerModel(name: "unknown", image: nil))
+            PlayerInMatchModel("A1", PlayerModel(name: "Edgar", image: UIImage(named: "A1"))),
+            PlayerInMatchModel("A2", PlayerModel(name: "Slawomir", image: UIImage(named: "A2"))),
+            PlayerInMatchModel("B1", PlayerModel(name: "Someguy", image: UIImage(named: "B1"))),
+            PlayerInMatchModel("B2"),
+            PlayerInMatchModel("C1"),
+            PlayerInMatchModel("C2")
         ]
         matchCard.awayTeamBag = TeamInMatchModel()
         matchCard.awayTeamBag.team = TeamModel(isAddme: false, name: "MMCBC-C", image: nil)
         matchCard.awayTeamBag.isHome = false
         matchCard.awayTeamBag.players = [
-            PlayerInMatchModel("D1", PlayerModel(name: "unknown", image: nil)),
-            PlayerInMatchModel("D2", PlayerModel(name: "unknown", image: nil)),
-            PlayerInMatchModel("E1", PlayerModel(name: "unknown", image: nil)),
-            PlayerInMatchModel("E2", PlayerModel(name: "unknown", image: nil)),
-            PlayerInMatchModel("F1", PlayerModel(name: "unknown", image: nil)),
-            PlayerInMatchModel("F2", PlayerModel(name: "unknown", image: nil))
+            PlayerInMatchModel("D1"),
+            PlayerInMatchModel("D2"),
+            PlayerInMatchModel("E1"),
+            PlayerInMatchModel("E2"),
+            PlayerInMatchModel("F1"),
+            PlayerInMatchModel("F2")
         ]
+    }
+    func clearScores() {
+        self.matchCard.matchEntries = [MatchEntryModel](count: 18, repeatedValue: MatchEntryModel(homeScore: 0, awayScore: 0))
+    }
+    func clear() {
+        self.matchCard.league = nil
+        self.matchCard.division = 0
+        self.matchCard.location = ""
+        self.clearScores()
+        // TODO: Optimise this code
+        matchCard.homeTeamBag.players = [
+            PlayerInMatchModel("A1"),
+            PlayerInMatchModel("A2"),
+            PlayerInMatchModel("B1"),
+            PlayerInMatchModel("B2"),
+            PlayerInMatchModel("C1"),
+            PlayerInMatchModel("C2")
+        ]
+        matchCard.awayTeamBag.players = [
+            PlayerInMatchModel("D1"),
+            PlayerInMatchModel("D2"),
+            PlayerInMatchModel("E1"),
+            PlayerInMatchModel("E2"),
+            PlayerInMatchModel("F1"),
+            PlayerInMatchModel("F2")
+        ]
+        
+        
     }
 }

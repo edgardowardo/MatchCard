@@ -123,18 +123,30 @@ class MatchCardStandardLayout : UICollectionViewLayout{
     override func finalizeCollectionViewUpdates() {
         debugMe(fromMethod: "\(__FUNCTION__)")
     }
-    override func targetContentOffsetForProposedContentOffset(proposedContentOffset: CGPoint) -> CGPoint {
+    func targetContentOffsetForProposedContentOffsetWrappedFunction(proposedContentOffset : CGPoint) -> CGPoint {
+        var newConentOffset = proposedContentOffset
+        if (proposedContentOffset.y < headerSummarySize().height / 2) {
+            newConentOffset.y = 0
+        } else if proposedContentOffset.y >= headerSummarySize().height / 2
+            && proposedContentOffset.y <= headerSummarySize().height {
+                newConentOffset.y = headerSummarySize().height
+        }
         var homePlayersAttrs = self.suppsInfo[MatchPlayersReusableView.constantHomeKind]
-        homePlayersAttrs!.frame.origin.y = yOfPlayersView(proposedContentOffset)
+        homePlayersAttrs!.frame.origin.y = yOfPlayersView(newConentOffset)
         var awayPlayersAttrs = self.suppsInfo[MatchPlayersReusableView.constantAwayKind]
-        awayPlayersAttrs!.frame.origin.y = yOfPlayersView(proposedContentOffset)
+        awayPlayersAttrs!.frame.origin.y = yOfPlayersView(newConentOffset)
         var homeScoreAttrs = self.suppsInfo[ScoreHeaderReusableView.constantHomeKind]
-        homeScoreAttrs!.frame.origin.y = yOfScoreView(proposedContentOffset)
+        homeScoreAttrs!.frame.origin.y = yOfScoreView(newConentOffset)
         var awayScoreAttrs = self.suppsInfo[ScoreHeaderReusableView.constantAwayKind]
-        awayScoreAttrs!.frame.origin.y = yOfScoreView(proposedContentOffset)
-        return proposedContentOffset
+        awayScoreAttrs!.frame.origin.y = yOfScoreView(newConentOffset)
+        return newConentOffset
     }
-    
+    override func targetContentOffsetForProposedContentOffset(proposedContentOffset: CGPoint) -> CGPoint {
+        return targetContentOffsetForProposedContentOffsetWrappedFunction(proposedContentOffset)
+    }
+    override func targetContentOffsetForProposedContentOffset(proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
+        return targetContentOffsetForProposedContentOffsetWrappedFunction(proposedContentOffset)
+    }
     override func prepareLayout() {
         let indexPaths : NSArray = self.collectionView!.indexPathsForSelectedItems()
         var indexPathSelected = NSIndexPath(forRow: -1, inSection: 0)
