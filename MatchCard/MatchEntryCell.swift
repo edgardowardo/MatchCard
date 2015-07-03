@@ -10,16 +10,29 @@ import Foundation
 import UIKit
 
 class MatchEntryCell : UICollectionViewCell {
-
-    static let constantDefaultFontSize : CGFloat = 22
-    static let constantEditFontSize : CGFloat = 38
-    static let constantReuseIdentifier = "MatchEntryCell"
-    static let constantCellWidth : CGFloat = UIScreen.mainScreen().bounds.size.width / 2.5
-    static let constantCellHeight : CGFloat = 40
-    static let constantDefaultSize = CGSizeMake(constantCellWidth, constantCellHeight)
-    static let constantEditingSize = CGSizeMake(constantCellWidth + constantCellWidth / 4, constantCellWidth)
-    static let constantLandscapeSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width, constantCellHeight)
-    
+    struct Collection {
+        static let ReuseIdentifier = "MatchEntryCell"
+        static let Nib = Collection.ReuseIdentifier
+        static let Kind = "MatchEntryCellKind"
+        struct Default {
+            struct Font {
+                static let Size : CGFloat = 22
+            }
+            struct Cell {
+                static let Width : CGFloat = UIScreen.mainScreen().bounds.size.width / 2.5
+                static let Height : CGFloat = 40
+                static let Size = CGSizeMake(Cell.Width, Cell.Height)
+            }
+        }
+        struct Edit {
+            struct Font {
+                static let Size : CGFloat = 38
+            }
+            struct Cell {
+                static let Size = CGSizeMake(Default.Cell.Width + Default.Cell.Width / 4, Default.Cell.Width)
+            }
+        }
+    }
     @IBOutlet weak var homeBar   : UIView!
     @IBOutlet weak var homeScore : UILabel!
     @IBOutlet weak var homeScoreField : CaretlessTextField!
@@ -50,8 +63,8 @@ class MatchEntryCell : UICollectionViewCell {
                     self.homeScore.transform = CGAffineTransformScale(self.homeScore.transform, CGFloat(2), CGFloat(2))
                     self.awayScore.transform = CGAffineTransformScale(self.awayScore.transform, CGFloat(2), CGFloat(2))
                 } else {
-                    self.homeScore.font = self.homeScore.font.fontWithSize(MatchEntryCell.constantEditFontSize)
-                    self.awayScore.font = self.awayScore.font.fontWithSize(MatchEntryCell.constantEditFontSize)
+                    self.homeScore.font = self.homeScore.font.fontWithSize(MatchEntryCell.Collection.Edit.Font.Size)
+                    self.awayScore.font = self.awayScore.font.fontWithSize(MatchEntryCell.Collection.Edit.Font.Size)
                 }
             })
         default:
@@ -60,8 +73,8 @@ class MatchEntryCell : UICollectionViewCell {
                     self.homeScore.transform = CGAffineTransformScale(self.homeScore.transform, CGFloat(0.5), CGFloat(0.5))
                     self.awayScore.transform = CGAffineTransformScale(self.awayScore.transform, CGFloat(0.5), CGFloat(0.5))
                 } else {
-                    self.homeScore.font = self.homeScore.font.fontWithSize(MatchEntryCell.constantDefaultFontSize)
-                    self.awayScore.font = self.awayScore.font.fontWithSize(MatchEntryCell.constantDefaultFontSize)
+                    self.homeScore.font = self.homeScore.font.fontWithSize(MatchEntryCell.Collection.Default.Font.Size)
+                    self.awayScore.font = self.awayScore.font.fontWithSize(MatchEntryCell.Collection.Default.Font.Size)
                 }
             })
         }

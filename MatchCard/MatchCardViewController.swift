@@ -22,29 +22,29 @@ class MatchCardViewController : UIViewController {
     let matchCardController = MatchCardController()
     override func viewDidLoad() {
         super.viewDidLoad()
-        let matchHeaderNib = MatchHeaderReusableView.constantReuseIdentifier
-        let scoreHeaderNib = ScoreHeaderReusableView.constantReuseIdentifier
-        let matchEntryNib = MatchEntryCell.constantReuseIdentifier
-        let matchPlayersNib = MatchPlayersReusableView.constantReuseIdentifier
+        let matchHeaderNib = MatchHeaderReusableView.Collection.Nib
+        let scoreHeaderNib = ScoreHeaderReusableView.Collection.Nib
+        let matchEntryNib = MatchEntryCell.Collection.Nib
+        let matchPlayersNib = MatchPlayersReusableView.Collection.Nib
         let nibHeader = UINib(nibName: matchHeaderNib, bundle: nil)
         let nibScore = UINib(nibName: scoreHeaderNib, bundle: nil)
         let nibMatchEntry = UINib(nibName: matchEntryNib, bundle:nil)
         let nibPlayers = UINib(nibName: matchPlayersNib, bundle: nil)
         matchCardCollectionView?.delegate = matchCardController
         matchCardCollectionView?.dataSource = matchCardController
-        matchCardCollectionView?.registerNib(nibHeader, forSupplementaryViewOfKind: MatchHeaderReusableView.constantKind, withReuseIdentifier: MatchHeaderReusableView.constantReuseIdentifier)
-        matchCardCollectionView?.registerNib(nibScore, forSupplementaryViewOfKind: ScoreHeaderReusableView.constantHomeKind, withReuseIdentifier: ScoreHeaderReusableView.constantReuseIdentifier)
-        matchCardCollectionView?.registerNib(nibScore, forSupplementaryViewOfKind: ScoreHeaderReusableView.constantAwayKind, withReuseIdentifier: ScoreHeaderReusableView.constantReuseIdentifier)
-        matchCardCollectionView?.registerNib(nibMatchEntry, forCellWithReuseIdentifier: MatchEntryCell.constantReuseIdentifier)
-        matchCardCollectionView?.registerNib(nibPlayers, forSupplementaryViewOfKind: MatchPlayersReusableView.constantHomeKind, withReuseIdentifier: MatchPlayersReusableView.constantReuseIdentifier)
-        matchCardCollectionView?.registerNib(nibPlayers, forSupplementaryViewOfKind: MatchPlayersReusableView.constantAwayKind, withReuseIdentifier: MatchPlayersReusableView.constantReuseIdentifier)
+        matchCardCollectionView?.registerNib(nibHeader, forSupplementaryViewOfKind: MatchHeaderReusableView.Collection.Kind, withReuseIdentifier: MatchHeaderReusableView.Collection.ReuseIdentifier)
+        matchCardCollectionView?.registerNib(nibScore, forSupplementaryViewOfKind: ScoreHeaderReusableView.Collection.Kind.Home, withReuseIdentifier: ScoreHeaderReusableView.Collection.ReuseIdentifier)
+        matchCardCollectionView?.registerNib(nibScore, forSupplementaryViewOfKind: ScoreHeaderReusableView.Collection.Kind.Away, withReuseIdentifier: ScoreHeaderReusableView.Collection.ReuseIdentifier)
+        matchCardCollectionView?.registerNib(nibMatchEntry, forCellWithReuseIdentifier: MatchEntryCell.Collection.ReuseIdentifier)
+        matchCardCollectionView?.registerNib(nibPlayers, forSupplementaryViewOfKind: MatchPlayersReusableView.Collection.Kind.Home, withReuseIdentifier: MatchPlayersReusableView.Collection.ReuseIdentifier)
+        matchCardCollectionView?.registerNib(nibPlayers, forSupplementaryViewOfKind: MatchPlayersReusableView.Collection.Kind.Away, withReuseIdentifier: MatchPlayersReusableView.Collection.ReuseIdentifier)
         matchCardCollectionView?.setCollectionViewLayout(MatchCardStandardLayout(), animated: false)
         matchCardController.matchCollectionView = self.matchCardCollectionView
         if Common.showColorBounds() == false {
             matchCardCollectionView?.backgroundColor = UIColor.clearColor()
             containingView?.backgroundColor = UIColor.whiteColor()
         }
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "moreMethodOfReceivedNotification:", name:MatchHeaderReusableView.constantMoreNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "moreMethodOfReceivedNotification:", name:MatchHeaderReusableView.Notification.Identifier.More, object: nil)
     }
     @objc private func moreMethodOfReceivedNotification(notification: NSNotification){
         delegate?.toggleLeftPanel?()

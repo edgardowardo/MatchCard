@@ -27,7 +27,7 @@ class MatchEntryModel : PFObject, PFSubclassing {
             self.registerSubclass()
         }
     }
-    @NSManaged var homeKey : String // FIXME: what's this homeKey?
+    @NSManaged var homeKey : String
     @NSManaged var homeScore : Int
     @NSManaged var awayKey : String
     @NSManaged var awayScore : Int
@@ -40,5 +40,9 @@ class MatchEntryModel : PFObject, PFSubclassing {
         get {
             return homeScore < awayScore ? 1 : 0
         }
+    }
+    func clear() {
+        self.homeScore = 0
+        self.awayScore = 0
     }
 }

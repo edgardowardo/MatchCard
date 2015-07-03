@@ -11,7 +11,7 @@ import UIKit
 
 class MatchEntryEditLayout : MatchCardStandardLayout {
     override func cellSize() -> CGSize {
-        return MatchEntryCell.constantEditingSize
+        return MatchEntryCell.Collection.Edit.Cell.Size
     }
     override var alphaCells : CGFloat {
         get {
@@ -20,16 +20,16 @@ class MatchEntryEditLayout : MatchCardStandardLayout {
     }
     override func prepareLayoutForSupplementaryViews() {
         super.prepareLayoutForSupplementaryViews()
-        var awayPlayersAttributes = self.suppsInfo[MatchPlayersReusableView.constantAwayKind]!
+        var awayPlayersAttributes = self.suppsInfo[MatchPlayersReusableView.Collection.Kind.Away]!
         awayPlayersAttributes.frame.origin.x += awayPlayersAttributes.frame.size.width
-        var homePlayersAttributes = self.suppsInfo[MatchPlayersReusableView.constantHomeKind]!
+        var homePlayersAttributes = self.suppsInfo[MatchPlayersReusableView.Collection.Kind.Home]!
         homePlayersAttributes.frame.origin.x -= homePlayersAttributes.frame.size.width
     }
     override func prepareLayoutForHeaderViews() -> CGFloat {
         var total = super.prepareLayoutForHeaderViews()
-        var scoreHomeAttributes = self.suppsInfo[ScoreHeaderReusableView.constantHomeKind]!
+        var scoreHomeAttributes = self.suppsInfo[ScoreHeaderReusableView.Collection.Kind.Home]!
         scoreHomeAttributes.frame.origin.x -= scoreHomeAttributes.frame.size.width
-        var scoreAwayAttributes = self.suppsInfo[ScoreHeaderReusableView.constantAwayKind]!
+        var scoreAwayAttributes = self.suppsInfo[ScoreHeaderReusableView.Collection.Kind.Away]!
         scoreAwayAttributes.frame.origin.x += scoreAwayAttributes.frame.size.width
         return total
     }

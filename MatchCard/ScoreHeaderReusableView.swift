@@ -10,12 +10,19 @@ import Foundation
 import UIKit
 
 class ScoreHeaderReusableView : UICollectionReusableView {
-    static let constantHomeKind = "UICollectionElementKindHomeScore"
-    static let constantAwayKind = "UICollectionElementKindAwayScore"
-    static let constantReuseIdentifier = "ScoreHeaderReusableView"
-    static let constantCellWidth : CGFloat = UIScreen.mainScreen().bounds.size.width / 2
-    static let constantCellHeight : CGFloat = 92
-    static let constantDefaultSize = CGSizeMake(constantCellWidth, constantCellHeight)
+    struct Collection {
+        struct Kind {
+            static let Home = "UICollectionElementKindHomeScore"
+            static let Away = "UICollectionElementKindAwayScore"
+        }
+        static let ReuseIdentifier = "ScoreHeaderReusableView"
+        static let Nib = Collection.ReuseIdentifier
+        struct Cell {
+            static let Width : CGFloat = UIScreen.mainScreen().bounds.size.width / 2
+            static let Height : CGFloat = 92
+            static let Size = CGSizeMake(Cell.Width, Cell.Height)
+        }
+    }
     @IBOutlet weak var score: UILabel!
     @IBOutlet weak var teamName: UILabel!
     override func awakeFromNib() {

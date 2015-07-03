@@ -66,7 +66,9 @@ class DataManager {
         ]
     }
     func clearScores() {
-        self.matchCard.matchEntries = [MatchEntryModel](count: 18, repeatedValue: MatchEntryModel(homeScore: 0, awayScore: 0))
+        for i in 0 ..< 18 {
+            self.matchCard.matchEntries[i].clear()
+        }
     }
     func clear() {
         self.matchCard.league = nil

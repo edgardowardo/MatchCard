@@ -36,7 +36,7 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
     }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 
-        var cell = collectionView.dequeueReusableCellWithReuseIdentifier(MatchEntryCell.constantReuseIdentifier, forIndexPath: indexPath) as! MatchEntryCell
+        var cell = collectionView.dequeueReusableCellWithReuseIdentifier(MatchEntryCell.Collection.ReuseIdentifier, forIndexPath: indexPath) as! MatchEntryCell
         
         let matchEntry = matchCard.matchEntries[indexPath.row]
         cell.data = matchEntry
@@ -95,27 +95,27 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
     //
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         switch kind {
-        case MatchPlayersReusableView.constantAwayKind :
-            return collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchPlayersReusableView.constantReuseIdentifier, forIndexPath: indexPath) as! MatchPlayersReusableView
-        case MatchPlayersReusableView.constantHomeKind :
-            var homePlayers = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchPlayersReusableView.constantReuseIdentifier, forIndexPath: indexPath) as! MatchPlayersReusableView
+        case MatchPlayersReusableView.Collection.Kind.Away :
+            return collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchPlayersReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! MatchPlayersReusableView
+        case MatchPlayersReusableView.Collection.Kind.Home :
+            var homePlayers = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchPlayersReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! MatchPlayersReusableView
             homePlayers.elementKind = kind
             homePlayers.playersCollectionView!.transform = CGAffineTransformMakeScale(-1, 1) // right align
             return homePlayers
-        case MatchHeaderReusableView.constantKind :
-            var headerView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchHeaderReusableView.constantReuseIdentifier, forIndexPath: indexPath) as! MatchHeaderReusableView
+        case MatchHeaderReusableView.Collection.Kind :
+            var headerView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchHeaderReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! MatchHeaderReusableView
             headerView.leagueName.text = matchCard.leagueName
             headerView.division.text = "\(matchCard.division)"
             headerView.location.text = "at " + matchCard.location
             headerView.date.text = matchCard.dateString
             return headerView
-        case ScoreHeaderReusableView.constantHomeKind :
-            var scoreHomeView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: ScoreHeaderReusableView.constantReuseIdentifier, forIndexPath: indexPath) as! ScoreHeaderReusableView
+        case ScoreHeaderReusableView.Collection.Kind.Home :
+            var scoreHomeView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: ScoreHeaderReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! ScoreHeaderReusableView
             scoreHomeView.score.text = matchCard.homeScore
             scoreHomeView.teamName.text = matchCard.homeTeamName
             return scoreHomeView
-        case ScoreHeaderReusableView.constantAwayKind :
-            var scoreAwayView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: ScoreHeaderReusableView.constantReuseIdentifier, forIndexPath: indexPath) as! ScoreHeaderReusableView
+        case ScoreHeaderReusableView.Collection.Kind.Away :
+            var scoreAwayView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: ScoreHeaderReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! ScoreHeaderReusableView
             scoreAwayView.score.text = matchCard.awayScore
             scoreAwayView.teamName.text = matchCard.awayTeamName
             return scoreAwayView

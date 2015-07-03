@@ -9,12 +9,12 @@
 import UIKit
 
 class MatchPlayersController : NSObject, UICollectionViewDataSource,  UICollectionViewDelegate {
-    var elementKind = MatchPlayersReusableView.constantAwayKind
+    var elementKind = MatchPlayersReusableView.Collection.Kind.Away
     override init(){
         super.init()
     }
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if (elementKind == MatchPlayersReusableView.constantAwayKind) {
+        if (elementKind == MatchPlayersReusableView.Collection.Kind.Away) {
             return DataManager.sharedInstance.matchCard.awayTeamBag.players.count
         } else {
             return DataManager.sharedInstance.matchCard.homeTeamBag.players.count
@@ -24,8 +24,8 @@ class MatchPlayersController : NSObject, UICollectionViewDataSource,  UICollecti
         return 1
     }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(PlayerViewCell.constantReuseIdentifier, forIndexPath: indexPath) as! PlayerViewCell
-        if (elementKind == MatchPlayersReusableView.constantAwayKind) {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(PlayerViewCell.Collection.ReuseIdentifier, forIndexPath: indexPath) as! PlayerViewCell
+        if (elementKind == MatchPlayersReusableView.Collection.Kind.Away) {
             var p1 = DataManager.sharedInstance.matchCard.awayTeamBag.players[indexPath.row]
             cell.button.setTitle(p1.key, forState: .Normal)
             if let player =  p1.player {
@@ -50,7 +50,7 @@ class MatchPlayersController : NSObject, UICollectionViewDataSource,  UICollecti
                 cell.name.text = "unknown"
             }
         }
-        if (self.elementKind == MatchPlayersReusableView.constantHomeKind ) {
+        if (self.elementKind == MatchPlayersReusableView.Collection.Kind.Home) {
             cell.contentView.transform = CGAffineTransformMakeScale(-1, 1)
         }
         return cell

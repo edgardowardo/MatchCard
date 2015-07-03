@@ -14,24 +14,14 @@ protocol SidePanelViewControllerDelegate {
 }
 
 class SidePanelViewController: UIViewController {
-  
-  @IBOutlet weak var tableView: UITableView!
-  var delegate: SidePanelViewControllerDelegate?
-
-  var items: Array<MenuItem>!
-  
-  struct TableView {
-    struct CellIdentifiers {
-      static let MenuItemCell = "MenuItemCell"
+    @IBOutlet weak var tableView: UITableView!
+    var delegate: SidePanelViewControllerDelegate?
+    var items: Array<MenuItem>!
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        tableView.reloadData()
     }
-  }
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    tableView.reloadData()
-  }
-  
 }
 
 // MARK: Table View Data Source
@@ -47,11 +37,10 @@ extension SidePanelViewController: UITableViewDataSource {
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier(TableView.CellIdentifiers.MenuItemCell, forIndexPath: indexPath) as! MenuItemCell
+    let cell = tableView.dequeueReusableCellWithIdentifier(MenuItemCell.TableView.ReuseIdentifier, forIndexPath: indexPath) as! MenuItemCell
     cell.configureForItem(items[indexPath.row])
     return cell
   }
-  
 }
 
 // Mark: Table View Delegate
@@ -61,17 +50,18 @@ extension SidePanelViewController: UITableViewDelegate {
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     let selectedItem = items[indexPath.row]
     delegate?.itemSelected(selectedItem)
+    NSNotificationCenter.defaultCenter().postNotificationName(MatchPlayersReusableView.Notification.Identifier.Clear, object: selectedItem)
   }
 }
 
 class MenuItemCell: UITableViewCell {
-  
-  @IBOutlet weak var itemImageView: UIImageView!
-  @IBOutlet weak var imageNameLabel: UILabel!
-  
-  func configureForItem(item: MenuItem) {
-    itemImageView.image = item.image
-    imageNameLabel.text = item.title
-  }
-  
+    struct TableView {
+        static let ReuseIdentifier = "MenuItemCell"
+    }
+    @IBOutlet weak var itemImageView: UIImageView!
+    @IBOutlet weak var imageNameLabel: UILabel!
+    func configureForItem(item: MenuItem) {
+        itemImageView.image = item.image
+        imageNameLabel.text = item.title
+    }
 }

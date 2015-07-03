@@ -10,8 +10,11 @@ import Foundation
 import UIKit
 
 class PlayerViewCell : UICollectionViewCell {
-    static let constantReuseIdentifier = "PlayerViewCell"
-    static let constantDefaultSize = CGSizeMake(80, 80)
+    struct Collection {
+        static let ReuseIdentifier = "PlayerViewCell"
+        static let Nib = Collection.ReuseIdentifier
+        static let Size = CGSizeMake(80, 80)
+    }
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var button: UIButton!
     @IBAction func handleButtonPressed(sender: UIButton) {

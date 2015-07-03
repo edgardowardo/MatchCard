@@ -10,20 +10,28 @@ import Foundation
 import UIKit
 
 class MatchHeaderReusableView : UICollectionReusableView, UIGestureRecognizerDelegate {
-    
-    static let constantMoreNotification = "NotificationIdentifierOfMoreTapped"
-    static let constantKind = "UICollectionElementKindHeader"
-    static let constantReuseIdentifier = "MatchHeaderReusableView"
-    static let constantCellWidth : CGFloat = UIScreen.mainScreen().bounds.size.width
-    static let constantCellHeight : CGFloat = 86
-    static let constantDefaultSize = CGSizeMake(constantCellWidth, constantCellHeight)
+    struct Collection {
+        static let Kind = "UICollectionElementKindHeader"
+        static let ReuseIdentifier = "MatchHeaderReusableView"
+        static let Nib = Collection.ReuseIdentifier
+        struct Cell {
+            static let Width : CGFloat = UIScreen.mainScreen().bounds.size.width
+            static let Height : CGFloat = 86
+            static let Size = CGSizeMake(Cell.Width, Cell.Height)
+        }
+    }
+    struct Notification {
+        struct Identifier {
+            static let More = "NotificationIdentifierOfMoreTapped"
+        }
+    }
     @IBOutlet weak var leagueName: UILabel!
     @IBOutlet weak var div: UILabel!    
     @IBOutlet weak var division: UILabel!
     @IBOutlet weak var location: UILabel!
     @IBOutlet weak var date: UILabel!
     @IBAction func handleMoreTap(sender: AnyObject) {
-        NSNotificationCenter.defaultCenter().postNotificationName(MatchHeaderReusableView.constantMoreNotification, object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName(MatchHeaderReusableView.Notification.Identifier.More, object: nil)
     }
     override func awakeFromNib() {
         super.awakeFromNib()

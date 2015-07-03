@@ -40,7 +40,7 @@ class MatchCardStandardLayout : UICollectionViewLayout{
     //
     func debugMe(fromMethod : String = "") {
         if (Common.printDebug()) {
-            var awayPlayersAttrs = self.suppsInfo[MatchPlayersReusableView.constantAwayKind]
+            var awayPlayersAttrs = self.suppsInfo[MatchPlayersReusableView.Collection.Kind.Away]
             println("awayPlayers.frame=\(awayPlayersAttrs!.frame); \(self.getLayoutString()).\(fromMethod)")
         }
     }
@@ -78,19 +78,19 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         return yScore
     }
     func cellSize() -> CGSize {
-        return MatchEntryCell.constantDefaultSize
+        return MatchEntryCell.Collection.Default.Cell.Size
     }
     func homePlayersSize() -> CGSize {
-        return MatchPlayersReusableView.constantDefaultSize
+        return MatchPlayersReusableView.Collection.Cell.Size
     }
     func awayPlayersSize() -> CGSize {
-        return MatchPlayersReusableView.constantDefaultSize
+        return MatchPlayersReusableView.Collection.Cell.Size
     }
     func headerSummarySize() -> CGSize {
-        return MatchHeaderReusableView.constantDefaultSize
+        return MatchHeaderReusableView.Collection.Cell.Size
     }
     func scoreSize() -> CGSize {
-        return ScoreHeaderReusableView.constantDefaultSize
+        return ScoreHeaderReusableView.Collection.Cell.Size
     }
     func getLayoutString()->String {
         switch self.layout! {
@@ -131,13 +131,13 @@ class MatchCardStandardLayout : UICollectionViewLayout{
             && proposedContentOffset.y <= headerSummarySize().height {
                 newConentOffset.y = headerSummarySize().height
         }
-        var homePlayersAttrs = self.suppsInfo[MatchPlayersReusableView.constantHomeKind]
+        var homePlayersAttrs = self.suppsInfo[MatchPlayersReusableView.Collection.Kind.Home]
         homePlayersAttrs!.frame.origin.y = yOfPlayersView(newConentOffset)
-        var awayPlayersAttrs = self.suppsInfo[MatchPlayersReusableView.constantAwayKind]
+        var awayPlayersAttrs = self.suppsInfo[MatchPlayersReusableView.Collection.Kind.Away]
         awayPlayersAttrs!.frame.origin.y = yOfPlayersView(newConentOffset)
-        var homeScoreAttrs = self.suppsInfo[ScoreHeaderReusableView.constantHomeKind]
+        var homeScoreAttrs = self.suppsInfo[ScoreHeaderReusableView.Collection.Kind.Home]
         homeScoreAttrs!.frame.origin.y = yOfScoreView(newConentOffset)
-        var awayScoreAttrs = self.suppsInfo[ScoreHeaderReusableView.constantAwayKind]
+        var awayScoreAttrs = self.suppsInfo[ScoreHeaderReusableView.Collection.Kind.Away]
         awayScoreAttrs!.frame.origin.y = yOfScoreView(newConentOffset)
         return newConentOffset
     }
@@ -155,7 +155,7 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         }
         let numSections = collectionView?.numberOfSections()
         var cellInfo = [NSIndexPath : AnyObject]()
-        let cellKind = MatchEntryCell.constantReuseIdentifier
+        let cellKind = MatchEntryCell.Collection.Kind
         let cellSize = self.cellSize()
         let cellOriginX = UIScreen.mainScreen().bounds.size.width / 2  - self.cellSize().width / 2
         let numItems = collectionView?.numberOfItemsInSection(0)
@@ -178,21 +178,21 @@ class MatchCardStandardLayout : UICollectionViewLayout{
     }
     func prepareLayoutForHeaderViews() -> CGFloat {
         // Header Summary
-        let headerKind = MatchHeaderReusableView.constantKind
+        let headerKind = MatchHeaderReusableView.Collection.Kind
         var headerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: headerKind, withIndexPath: NSIndexPath(forRow: 0, inSection: 0))
         headerAttributes.alpha = 1
         headerAttributes.frame = CGRectMake(0, yOfHeadersView(), headerSummarySize().width, headerSummarySize().height)
         headerAttributes.zIndex += 1
         self.suppsInfo[headerKind] = headerAttributes
         // Header Home Score
-        let scoreHomeKind = ScoreHeaderReusableView.constantHomeKind
+        let scoreHomeKind = ScoreHeaderReusableView.Collection.Kind.Home
         var scoreHomeAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: scoreHomeKind, withIndexPath: NSIndexPath(forRow: 0, inSection: 0))
         scoreHomeAttributes.alpha = 0.9
         scoreHomeAttributes.frame = CGRectMake(0, yOfScoreView(), scoreSize().width, scoreSize().height)
         scoreHomeAttributes.zIndex += 2
         self.suppsInfo[scoreHomeKind] = scoreHomeAttributes
         // Header Away Score
-        let scoreAwayKind = ScoreHeaderReusableView.constantAwayKind
+        let scoreAwayKind = ScoreHeaderReusableView.Collection.Kind.Away
         var scoreAwayAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: scoreAwayKind, withIndexPath: NSIndexPath(forRow: 0, inSection: 0))
         scoreAwayAttributes.alpha = 1
         scoreAwayAttributes.frame = CGRectMake(scoreSize().width, yOfScoreView(), scoreSize().width, scoreSize().height)
@@ -203,7 +203,7 @@ class MatchCardStandardLayout : UICollectionViewLayout{
     }
     func prepareLayoutForSupplementaryViews() {
         // Home
-        let homePlayersKind = MatchPlayersReusableView.constantHomeKind
+        let homePlayersKind = MatchPlayersReusableView.Collection.Kind.Home
         var homePlayersAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: homePlayersKind, withIndexPath: NSIndexPath(forRow: 0, inSection: 0))
         homePlayersAttributes.alpha = 0.9
         homePlayersAttributes.frame = CGRectMake(0,
@@ -211,7 +211,7 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         homePlayersAttributes.zIndex += 1
         self.suppsInfo[homePlayersKind] = homePlayersAttributes
        // Away
-        let awayPlayersKind = MatchPlayersReusableView.constantAwayKind
+        let awayPlayersKind = MatchPlayersReusableView.Collection.Kind.Away
         var awayPlayersAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: awayPlayersKind, withIndexPath: NSIndexPath(forRow: 0, inSection: 0))
         awayPlayersAttributes.alpha = 1
         awayPlayersAttributes.frame = CGRectMake(awayPlayersSize().width,
@@ -226,7 +226,7 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         return CGSizeMake(UIScreen.mainScreen().bounds.size.width, self.totalHeight + cellSize.height * CGFloat(2.5))
     }
     override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes! {
-        let cellKind = MatchEntryCell.constantReuseIdentifier
+        let cellKind = MatchEntryCell.Collection.Kind
         var cellInfo = layoutInfo[cellKind] as! [NSIndexPath : AnyObject]
         return cellInfo[indexPath] as! UICollectionViewLayoutAttributes
     }
@@ -234,7 +234,7 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         return self.suppsInfo[elementKind]
     }
     override func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]? {
-        let cellKind = MatchEntryCell.constantReuseIdentifier
+        let cellKind = MatchEntryCell.Collection.Kind
         var cellInfo = [NSIndexPath : AnyObject]()
         cellInfo = layoutInfo[cellKind] as! [NSIndexPath : AnyObject]
         var elements = [UICollectionViewLayoutAttributes]()
@@ -243,14 +243,14 @@ class MatchCardStandardLayout : UICollectionViewLayout{
                 elements.append(attributes as! UICollectionViewLayoutAttributes)
             }
         }
-        var headerAttrs = self.suppsInfo[MatchHeaderReusableView.constantKind]!
+        var headerAttrs = self.suppsInfo[MatchHeaderReusableView.Collection.Kind]!
         if (CGRectIntersectsRect(rect, headerAttrs.frame)) {
             elements.append(headerAttrs)
         }
-        elements.append(self.suppsInfo[MatchPlayersReusableView.constantHomeKind]!)
-        elements.append(self.suppsInfo[MatchPlayersReusableView.constantAwayKind]!)
-        elements.append(self.suppsInfo[ScoreHeaderReusableView.constantHomeKind]!)
-        elements.append(self.suppsInfo[ScoreHeaderReusableView.constantAwayKind]!)
+        elements.append(self.suppsInfo[MatchPlayersReusableView.Collection.Kind.Home]!)
+        elements.append(self.suppsInfo[MatchPlayersReusableView.Collection.Kind.Away]!)
+        elements.append(self.suppsInfo[ScoreHeaderReusableView.Collection.Kind.Home]!)
+        elements.append(self.suppsInfo[ScoreHeaderReusableView.Collection.Kind.Away]!)
         return elements
     }
     override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
