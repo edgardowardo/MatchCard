@@ -32,7 +32,7 @@ class MatchCardModel : PFObject, PFSubclassing {
     var leagueName : String {
         get {
             if let l = self.league {
-                return l.Name
+                return l.name
             }
             return "unknown"
         }
@@ -48,7 +48,7 @@ class MatchCardModel : PFObject, PFSubclassing {
     }
     var homeTeamName : String {
         get {
-            return self.homeTeamBag.team.Name
+            return self.homeTeamBag.team.name
         }
     }
     var homeScore : String {
@@ -58,7 +58,7 @@ class MatchCardModel : PFObject, PFSubclassing {
     }
     var awayTeamName : String {
         get {
-            return self.awayTeamBag.team.Name
+            return self.awayTeamBag.team.name
         }
     }
     var awayScore : String {

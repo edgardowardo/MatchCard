@@ -31,7 +31,7 @@ class MatchPlayersController : NSObject, UICollectionViewDataSource,  UICollecti
             if let player =  p1.player {
                 cell.button.setImage(player.imageFile, forState: .Normal)
                 cell.button.setImage(player.imageFileDark, forState: .Highlighted)
-                cell.name.text = player.Name
+                cell.name.text = player.name
             } else {
                 cell.button.setImage(nil, forState: .Normal)
                 cell.button.setImage(nil, forState: .Highlighted)
@@ -43,7 +43,7 @@ class MatchPlayersController : NSObject, UICollectionViewDataSource,  UICollecti
             if let player =  p2.player {
                 cell.button.setImage(player.imageFile, forState: .Normal)
                 cell.button.setImage(player.imageFileDark, forState: .Highlighted)
-                cell.name.text = player.Name
+                cell.name.text = player.name
             } else {
                 cell.button.setImage(nil, forState: .Normal)
                 cell.button.setImage(nil, forState: .Highlighted)

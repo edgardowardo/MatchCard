@@ -15,7 +15,7 @@ enum SlideOutState {
 }
 
 class ContainerViewController: UIViewController, UIGestureRecognizerDelegate {
-    
+    static var isPannable = true
     var centerNavigationController: UINavigationController!
     var centerViewController: MatchCardViewController!
     
@@ -50,7 +50,9 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate {
     var gestureIsDraggingFromLeftToRight = false
     
     func handlePanGesture(recognizer: UIPanGestureRecognizer) {
-        
+        if ContainerViewController.isPannable == false {
+            return
+        }
         switch(recognizer.state) {
         case .Began:
             gestureIsDraggingFromLeftToRight = (recognizer.velocityInView(view).x > 0)
@@ -89,6 +91,9 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate {
 extension ContainerViewController: MatchCardViewControllerDelegate {
     
     func toggleLeftPanel() {
+        if ContainerViewController.isPannable == false {
+            return
+        }        
         let notAlreadyExpanded = (currentState != .LeftPanelExpanded)
         if notAlreadyExpanded {
             addLeftPanelViewController()
@@ -140,11 +145,12 @@ extension ContainerViewController: MatchCardViewControllerDelegate {
     }
     
     func showShadowForCenterViewController(shouldShowShadow: Bool) {
-        if (shouldShowShadow) {
-            centerNavigationController.view.layer.shadowOpacity = 0.8
-        } else {
-            centerNavigationController.view.layer.shadowOpacity = 0.0
-        }
+// FIXME: This shadow will make animation choppy. Look for a shadow image instead!
+//        if (shouldShowShadow) {
+//            centerNavigationController.view.layer.shadowOpacity = 0.8
+//        } else {
+//            centerNavigationController.view.layer.shadowOpacity = 0.0
+//        }
     }
 }
 

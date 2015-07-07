@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class Common {
     static func showColorBounds() -> Bool {
@@ -27,3 +28,16 @@ class Common {
         return nil
     }
 }
+
+extension UITextField {
+    public override func becomeFirstResponder() -> Bool {
+        ContainerViewController.isPannable = false
+        return super.becomeFirstResponder()
+    }
+    
+    public override func resignFirstResponder() -> Bool {
+        ContainerViewController.isPannable = true
+        return super.resignFirstResponder()
+    }
+}
+

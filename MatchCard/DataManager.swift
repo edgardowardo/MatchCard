@@ -17,8 +17,8 @@ class DataManager {
             return matchCard.leagueName.isEmpty
         }
     }
-    init() {
-        matchCard.league = LeagueModel(isAddme: false, name: "Oldham & Rochdale Badminton League", image: nil)        
+    init() {        
+        matchCard.league = LeagueModel("Oldham & Rochdale Badminton League", image: nil, divisions : 4)
         matchCard.division = 1
         matchCard.date = NSDate()
         matchCard.location = "Blackley"
@@ -65,6 +65,12 @@ class DataManager {
             PlayerInMatchModel("F2")
         ]
     }
+    func getLeagues() -> [LeagueModel] {
+        return [LeagueModel("Oldham & Rochdale Badminton League", image: nil, divisions : 4),
+            LeagueModel("Manchester Badminton League", image: nil, divisions : 5),
+            LeagueModel("North Manchester Badminton League", image: nil, divisions : 3),
+            LeagueModel("South Manchester Badminton League", image: nil, divisions : 5)]
+    }
     func clearScores() {
         for i in 0 ..< 18 {
             self.matchCard.matchEntries[i].clear()
@@ -92,7 +98,5 @@ class DataManager {
             PlayerInMatchModel("F1"),
             PlayerInMatchModel("F2")
         ]
-        
-        
     }
 }

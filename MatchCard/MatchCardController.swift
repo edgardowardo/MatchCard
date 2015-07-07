@@ -16,10 +16,15 @@ enum LayoutType {
 class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate {
     var matchCard = DataManager.sharedInstance.matchCard
     var layouts : [LayoutType : UICollectionViewLayout] = [.Standard : MatchCardStandardLayout(), .Edit : MatchEntryEditLayout()]
+    var layout : LayoutType = .Standard {
+        didSet {
+            self.matchCollectionView?.setCollectionViewLayout(self.layouts[self.layout]!, animated: true)
+        }
+    }
     var picker = UIPickerView()
     weak var matchCollectionView : UICollectionView? {
         didSet {
-            self.matchCollectionView?.setCollectionViewLayout(self.layouts[.Standard]!, animated: false)
+            self.layout = .Standard
         }
     }
     override init(){
@@ -35,15 +40,19 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
         return 1
     }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-
         var cell = collectionView.dequeueReusableCellWithReuseIdentifier(MatchEntryCell.Collection.ReuseIdentifier, forIndexPath: indexPath) as! MatchEntryCell
-        
         let matchEntry = matchCard.matchEntries[indexPath.row]
         cell.data = matchEntry
-        
+        // picker
         picker.delegate = self
         picker.dataSource = self
         cell.homeScoreField.inputView = picker
+        // keyboard toolbar
+        var doneToolbar = UIToolbar(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, 44))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done", style: .Done, target: self, action: Selector("doneTapped"))
+        doneToolbar.setItems([flexibleSpace, doneButton], animated: true)
+        cell.homeScoreField.inputAccessoryView = doneToolbar
         cell.homeScoreField.text = "\(matchEntry.homeScore)"
         cell.homeScoreField.userInteractionEnabled = false
         cell.homeScore.text = "\(matchEntry.homeScore)"
@@ -61,34 +70,37 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
         cell.updateBars()
         return cell
     }
-    func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
-        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! MatchEntryCell
-        cell.layer.borderColor = UIColor.lightGrayColor().CGColor
-    }
-    func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
-        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! MatchEntryCell
-        cell.layer.borderColor = UIColor.clearColor().CGColor
-    }
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath){
         var cell = collectionView.cellForItemAtIndexPath(indexPath) as! MatchEntryCell
-        if (collectionView.collectionViewLayout.isEqual(self.layouts[.Standard]!)){
+        if self.layout == .Standard {
             // TO EDIT MODE
-            collectionView.setCollectionViewLayout(self.layouts[.Edit]!, animated: true, completion: { (bool) -> Void in
-            })
+            self.layout = .Edit
             cell.layer.borderColor = UIColor.lightGrayColor().CGColor
             cell.homeScoreField.userInteractionEnabled = true
             cell.homeScoreField.becomeFirstResponder()
             picker.selectRow(cell.homeScore.text!.toInt()! , inComponent: 0, animated: true)
             picker.selectRow(cell.awayScore.text!.toInt()! , inComponent: 1, animated: true)
             cell.setFontSize(.Edit)
-        } else if (collectionView.collectionViewLayout.isEqual(self.layouts[.Edit]!)) {
+        } else if  self.layout == .Edit {
             // TO STANDARD MODE
-            collectionView.setCollectionViewLayout(self.layouts[.Standard]!, animated: true)
+            self.layout = .Standard
             cell.layer.borderColor = UIColor.clearColor().CGColor
             cell.homeScoreField.resignFirstResponder()
             cell.homeScoreField.userInteractionEnabled = false
             cell.setFontSize(.Standard)
         }
+    }
+    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if self.layout == .Standard {
+            return true
+        }
+        let indexPaths : NSArray = collectionView.indexPathsForSelectedItems()
+        for i in indexPaths {
+            if indexPath.isEqual(i) {
+                return true
+            }
+        }
+        return false
     }
     //
     // MARK: Supplementary views
@@ -137,9 +149,7 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
         return "\(row)"
     }
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let indexPaths : NSArray = self.matchCollectionView!.indexPathsForSelectedItems()
-        let indexPath : NSIndexPath = indexPaths[0] as! NSIndexPath
-        let cell = self.matchCollectionView?.cellForItemAtIndexPath(indexPath) as! MatchEntryCell
+        let cell = self.cellSelected()
         let data = cell.data!
         if component == 0 {
             data.homeScore = row
@@ -149,6 +159,25 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
             cell.awayScore?.text = "\(row)"
         }
         cell.updateBars()
+    }
+    // MARK: Helpers
+    func cellSelected() -> MatchEntryCell {
+        let indexPaths : NSArray = self.matchCollectionView!.indexPathsForSelectedItems()
+        let indexPath : NSIndexPath = indexPaths[0] as! NSIndexPath
+        let cell = self.matchCollectionView?.cellForItemAtIndexPath(indexPath) as! MatchEntryCell
+        return cell
+    }
+    func doneTapped() {
+        if self.layout == .Edit {
+            // TO STANDARD MODE
+            self.layout = .Standard
+            let cell = self.cellSelected()
+            cell.layer.borderColor = UIColor.clearColor().CGColor
+            cell.homeScoreField.resignFirstResponder()
+            cell.homeScoreField.userInteractionEnabled = false
+            cell.setFontSize(.Standard)
+            cell.layer.borderColor = UIColor.clearColor().CGColor
+        }
     }
 }
 

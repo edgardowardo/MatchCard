@@ -39,7 +39,7 @@
                 <outlet property="button" destination="Jr9-7D-DlC" id="phI-66-DLj"/>
                 <outlet property="name" destination="jU4-qK-Gj2" id="7J8-qV-Ice"/>
             </connections>
-            <point key="canvasLocation" x="233" y="238"/>
+            <point key="canvasLocation" x="129" y="147"/>
         </collectionViewCell>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -23,6 +23,9 @@ class MatchHeaderReusableView : UICollectionReusableView, UIGestureRecognizerDel
     struct Notification {
         struct Identifier {
             static let More = "NotificationIdentifierOfMoreTapped"
+            static let ShowLeagues = "NotificationIdentifierOfShowLeagues"
+            static let ShowDivisions = "NotificationIdentifierOfShowDivisions"
+            static let ShowClubs = "NotificationIdenfifierOfShowClubs"
         }
     }
     @IBOutlet weak var leagueName: UILabel!
@@ -35,12 +38,38 @@ class MatchHeaderReusableView : UICollectionReusableView, UIGestureRecognizerDel
     }
     override func awakeFromNib() {
         super.awakeFromNib()
-        let tap = UITapGestureRecognizer(target: self, action: Selector("handleTap"))
-        tap.delegate = self
+        // League tapped
+        let tapLeague = UITapGestureRecognizer(target: self, action: Selector("handleShowLeagueTap"))
+        tapLeague.delegate = self
         self.leagueName.userInteractionEnabled = true
-        self.leagueName.addGestureRecognizer(tap)
+        self.leagueName.addGestureRecognizer(tapLeague)
+        // Division tapped
+        let tapDiv = UITapGestureRecognizer(target: self, action: Selector("handleShowDivisions"))
+        tapDiv.delegate = self
+        self.div.userInteractionEnabled = true
+        self.div.addGestureRecognizer(tapDiv)
+        self.division.userInteractionEnabled = true
+        self.division.addGestureRecognizer(tapDiv)
     }
-    func handleTap() {
-        println("league tapped...")
+    // MARK: Helpers
+    func handleShowLeagueTap() {
+        NSNotificationCenter.defaultCenter().postNotificationName(Notification.Identifier.ShowLeagues, object: nil)
     }
+    func handleShowDivisions() {
+        println("handleShowDivisions")
+        if let league = DataManager.sharedInstance.matchCard.league {
+            NSNotificationCenter.defaultCenter().postNotificationName(Notification.Identifier.ShowDivisions, object: nil)
+        } else {
+            UIAlertView(title: "League is unknown", message: "Set the league?", delegate: self, cancelButtonTitle: "Cancel", otherButtonTitles: "OK").show()
+        }
+    }
+}
+
+extension MatchHeaderReusableView : UIAlertViewDelegate {
+    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
+        if buttonIndex == 1 {
+            self.handleShowLeagueTap()
+        }
+    }
+    
 }

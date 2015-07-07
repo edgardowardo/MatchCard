@@ -41,9 +41,9 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k4A-fv-DaH" userLabel="Division Number">
-                    <rect key="frame" x="286" y="11" width="26" height="42"/>
+                    <rect key="frame" x="286" y="8" width="26" height="47"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="42" id="K5c-hJ-8Ca"/>
+                        <constraint firstAttribute="height" constant="47" id="K5c-hJ-8Ca"/>
                         <constraint firstAttribute="width" constant="26" id="Vdd-hu-BYg"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="36"/>
@@ -70,13 +70,13 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="div" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vsl-2B-uNz" userLabel="Div">
-                    <rect key="frame" x="247" y="21" width="31" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="division" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vsl-2B-uNz" userLabel="Div">
+                    <rect key="frame" x="253" y="8" width="31" height="47"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="31" id="B5H-jT-1WE"/>
-                        <constraint firstAttribute="height" constant="21" id="tQo-fj-eLd"/>
+                        <constraint firstAttribute="height" constant="47" id="tQo-fj-eLd"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="9"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -87,19 +87,19 @@
                 <constraint firstAttribute="trailing" secondItem="k4A-fv-DaH" secondAttribute="trailing" constant="8" id="7pv-Dc-Qww"/>
                 <constraint firstItem="j1M-M4-tZg" firstAttribute="leading" secondItem="ffY-Ez-JZ2" secondAttribute="leading" constant="8" id="8VJ-od-PQZ"/>
                 <constraint firstItem="Tjg-mx-xm8" firstAttribute="bottom" secondItem="ffY-Ez-JZ2" secondAttribute="bottomMargin" id="HoM-XJ-aqY"/>
-                <constraint firstItem="Tjg-mx-xm8" firstAttribute="top" secondItem="Vsl-2B-uNz" secondAttribute="bottom" constant="15" id="KER-dS-lkD"/>
+                <constraint firstItem="Tjg-mx-xm8" firstAttribute="top" secondItem="Vsl-2B-uNz" secondAttribute="bottom" constant="2" id="KER-dS-lkD"/>
                 <constraint firstItem="j1M-M4-tZg" firstAttribute="top" secondItem="Znz-IY-eYq" secondAttribute="bottom" constant="13" id="R1J-cd-xpU"/>
                 <constraint firstItem="72N-dR-xA4" firstAttribute="top" secondItem="ffY-Ez-JZ2" secondAttribute="top" constant="8" id="Sab-zW-anV"/>
                 <constraint firstItem="72N-dR-xA4" firstAttribute="leading" secondItem="ffY-Ez-JZ2" secondAttribute="leading" constant="8" id="WJ2-zz-H7S"/>
                 <constraint firstItem="72N-dR-xA4" firstAttribute="leading" secondItem="Znz-IY-eYq" secondAttribute="trailing" constant="2" id="YCZ-Nd-0mt"/>
                 <constraint firstItem="j1M-M4-tZg" firstAttribute="top" secondItem="72N-dR-xA4" secondAttribute="bottom" constant="2" id="Yma-cG-V3o"/>
-                <constraint firstItem="Vsl-2B-uNz" firstAttribute="leading" secondItem="72N-dR-xA4" secondAttribute="trailing" constant="8" id="ZHA-FY-BTq"/>
-                <constraint firstItem="k4A-fv-DaH" firstAttribute="leading" secondItem="Vsl-2B-uNz" secondAttribute="trailing" constant="8" id="eO5-Ll-WMN"/>
-                <constraint firstItem="k4A-fv-DaH" firstAttribute="top" secondItem="ffY-Ez-JZ2" secondAttribute="top" constant="11" id="kj6-bd-nQp"/>
+                <constraint firstItem="Vsl-2B-uNz" firstAttribute="leading" secondItem="72N-dR-xA4" secondAttribute="trailing" constant="14" id="ZHA-FY-BTq"/>
+                <constraint firstItem="k4A-fv-DaH" firstAttribute="leading" secondItem="Vsl-2B-uNz" secondAttribute="trailing" constant="2" id="eO5-Ll-WMN"/>
+                <constraint firstItem="k4A-fv-DaH" firstAttribute="top" secondItem="ffY-Ez-JZ2" secondAttribute="top" constant="8" id="kj6-bd-nQp"/>
                 <constraint firstItem="Znz-IY-eYq" firstAttribute="top" secondItem="ffY-Ez-JZ2" secondAttribute="top" constant="19" id="ndH-bq-Az3"/>
-                <constraint firstItem="Vsl-2B-uNz" firstAttribute="top" secondItem="ffY-Ez-JZ2" secondAttribute="top" constant="21" id="npD-OP-vVA"/>
+                <constraint firstItem="Vsl-2B-uNz" firstAttribute="top" secondItem="ffY-Ez-JZ2" secondAttribute="top" constant="8" id="npD-OP-vVA"/>
                 <constraint firstItem="Znz-IY-eYq" firstAttribute="leading" secondItem="ffY-Ez-JZ2" secondAttribute="leading" constant="8" id="q51-xg-Lxa"/>
-                <constraint firstItem="k4A-fv-DaH" firstAttribute="leading" secondItem="Vsl-2B-uNz" secondAttribute="trailing" constant="8" id="qlA-k9-lGC"/>
+                <constraint firstItem="k4A-fv-DaH" firstAttribute="leading" secondItem="Vsl-2B-uNz" secondAttribute="trailing" constant="2" id="qlA-k9-lGC"/>
                 <constraint firstItem="72N-dR-xA4" firstAttribute="leading" secondItem="Znz-IY-eYq" secondAttribute="trailing" constant="4" id="sCY-xR-dVn"/>
                 <constraint firstItem="Tjg-mx-xm8" firstAttribute="trailing" secondItem="ffY-Ez-JZ2" secondAttribute="trailingMargin" id="x4c-j1-uWL"/>
             </constraints>
