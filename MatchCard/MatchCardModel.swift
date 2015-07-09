@@ -10,6 +10,11 @@ import Foundation
 import Parse
 
 class MatchCardModel : PFObject, PFSubclassing {
+    struct Prompts {
+        static let League = "Set Your League Here"
+        static let Home = "Set Home Team"
+        static let Away = "Set Away Team"
+    }
     static func parseClassName() -> String {
         return "MatchCard"
     }
@@ -34,7 +39,7 @@ class MatchCardModel : PFObject, PFSubclassing {
             if let l = self.league {
                 return l.name
             }
-            return "unknown"
+            return Prompts.League
         }
     }
     var dateString : String {
@@ -48,7 +53,10 @@ class MatchCardModel : PFObject, PFSubclassing {
     }
     var homeTeamName : String {
         get {
-            return self.homeTeamBag.team.name
+            if let team = self.homeTeamBag.team {
+                return team.name
+            }
+            return Prompts.Home
         }
     }
     var homeScore : String {
@@ -58,7 +66,10 @@ class MatchCardModel : PFObject, PFSubclassing {
     }
     var awayTeamName : String {
         get {
-            return self.awayTeamBag.team.name
+            if let team = self.awayTeamBag.team {
+                return team.name
+            }
+            return Prompts.Away
         }
     }
     var awayScore : String {

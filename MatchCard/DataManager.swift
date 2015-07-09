@@ -11,6 +11,7 @@ import UIKit
 
 class DataManager {
     static let sharedInstance = DataManager()
+    lazy var leagues = DataManager.sharedInstance.getLeagues()
     var matchCard = MatchCardModel()
     var hasLeagueName : Bool {
         get {
@@ -18,7 +19,7 @@ class DataManager {
         }
     }
     init() {        
-        matchCard.league = LeagueModel("Oldham & Rochdale Badminton League", image: nil, divisions : 4)
+        matchCard.league = self.getLeagues()[0]
         matchCard.division = 1
         matchCard.date = NSDate()
         matchCard.location = "Blackley"
@@ -66,10 +67,10 @@ class DataManager {
         ]
     }
     func getLeagues() -> [LeagueModel] {
-        return [LeagueModel("Oldham & Rochdale Badminton League", image: nil, divisions : 4),
-            LeagueModel("Manchester Badminton League", image: nil, divisions : 5),
+        return [LeagueModel("Oldham & Rochdale Badminton League", image: nil, divisions : 5),
+            LeagueModel("Manchester Badminton League", image: nil, divisions : 4),
             LeagueModel("North Manchester Badminton League", image: nil, divisions : 3),
-            LeagueModel("South Manchester Badminton League", image: nil, divisions : 5)]
+            LeagueModel("South Manchester Badminton League", image: nil, divisions : 2)]
     }
     func clearScores() {
         for i in 0 ..< 18 {
@@ -81,7 +82,7 @@ class DataManager {
         self.matchCard.division = 0
         self.matchCard.location = ""
         self.clearScores()
-        // TODO: Optimise this code
+        matchCard.homeTeamBag.team = nil
         matchCard.homeTeamBag.players = [
             PlayerInMatchModel("A1"),
             PlayerInMatchModel("A2"),
@@ -90,6 +91,7 @@ class DataManager {
             PlayerInMatchModel("C1"),
             PlayerInMatchModel("C2")
         ]
+        matchCard.awayTeamBag.team = nil
         matchCard.awayTeamBag.players = [
             PlayerInMatchModel("D1"),
             PlayerInMatchModel("D2"),

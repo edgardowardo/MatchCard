@@ -16,6 +16,11 @@ protocol MatchCardViewControllerDelegate {
 }
 
 class MatchCardViewController : UIViewController {
+    struct Notification {
+        struct Identifier {
+            static let ReloadData = "NotificationIdentifierOfReloadData"
+        }
+    }
     struct Tags {
         static let League = 1
         static let Division = 2
@@ -28,7 +33,6 @@ class MatchCardViewController : UIViewController {
     let mockLeagueTextField = UITextField(frame: CGRectZero)
     let mockDivTextField = UITextField(frame: CGRectZero)
     let matchCardController = MatchCardController()
-    let leagues = DataManager.sharedInstance.getLeagues()
     override func viewDidLoad() {
         super.viewDidLoad()
         let matchHeaderNib = MatchHeaderReusableView.Collection.Nib
@@ -56,7 +60,7 @@ class MatchCardViewController : UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_More:", name:MatchHeaderReusableView.Notification.Identifier.More, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_ShowLeague:", name:MatchHeaderReusableView.Notification.Identifier.ShowLeagues, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_ShowDivisions:", name:MatchHeaderReusableView.Notification.Identifier.ShowDivisions, object: nil)
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_ReloadData:", name: Notification.Identifier.ReloadData, object: nil)
         // Pickers - League
         let pickerLeague = UIPickerView()
         pickerLeague.delegate = self
@@ -91,6 +95,11 @@ class MatchCardViewController : UIViewController {
     }
     @objc private func methodOfReceivedNotification_ShowDivisions(notification : NSNotification){
         self.mockDivTextField.becomeFirstResponder()
+        var p = self.mockDivTextField.inputView as! UIPickerView
+        p.reloadAllComponents()
+    }
+    @objc private func methodOfReceivedNotification_ReloadData(notifcation: NSNotification){
+        matchCardCollectionView?.reloadData()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -119,7 +128,7 @@ extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch pickerView.tag {
         case Tags.League :
-            return self.leagues.count
+            return DataManager.sharedInstance.leagues.count
         case Tags.Division :
             return DataManager.sharedInstance.matchCard.league!.divisions
         default :
@@ -129,7 +138,7 @@ extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
         switch pickerView.tag {
         case Tags.League :
-            return self.leagues[row].name
+            return DataManager.sharedInstance.leagues[row].name
         case Tags.Division :
             return "\(row+1)"
         default :
@@ -139,12 +148,12 @@ extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch pickerView.tag {
         case Tags.League :
-            DataManager.sharedInstance.matchCard.league = self.leagues[row]
+            DataManager.sharedInstance.matchCard.league = DataManager.sharedInstance.leagues[row]
         case Tags.Division :
             DataManager.sharedInstance.matchCard.division = row + 1
         default :
             assertionFailure("picker tag unknown")
         }
-        matchCardCollectionView?.reloadData()
+        NSNotificationCenter.defaultCenter().postNotificationName(MatchHeaderReusableView.Notification.Identifier.FadeLabel, object: pickerView)
     }
 }

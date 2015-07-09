@@ -26,6 +26,7 @@ class MatchHeaderReusableView : UICollectionReusableView, UIGestureRecognizerDel
             static let ShowLeagues = "NotificationIdentifierOfShowLeagues"
             static let ShowDivisions = "NotificationIdentifierOfShowDivisions"
             static let ShowClubs = "NotificationIdenfifierOfShowClubs"
+            static let FadeLabel = "NotificationIdentifierFadeLabel"
         }
     }
     @IBOutlet weak var leagueName: UILabel!
@@ -50,8 +51,32 @@ class MatchHeaderReusableView : UICollectionReusableView, UIGestureRecognizerDel
         self.div.addGestureRecognizer(tapDiv)
         self.division.userInteractionEnabled = true
         self.division.addGestureRecognizer(tapDiv)
+        // Notifications
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_FadeLabel:", name:MatchHeaderReusableView.Notification.Identifier.FadeLabel, object: nil)
     }
     // MARK: Helpers
+    @objc private func methodOfReceivedNotification_FadeLabel(notification : NSNotification){
+        let duration = 0.25
+        let v = notification.object as! UIView
+        switch v.tag {
+        case MatchCardViewController.Tags.League :
+            UIView.animateWithDuration(duration, animations: { () -> Void in
+                self.leagueName.alpha = CGFloat(0.1)
+                }) { (Bool) -> Void in
+                    NSNotificationCenter.defaultCenter().postNotificationName(MatchCardViewController.Notification.Identifier.ReloadData, object: nil)
+                    self.leagueName.alpha = CGFloat(1)
+            }
+        case MatchCardViewController.Tags.Division :
+            UIView.animateWithDuration(duration, animations: { () -> Void in
+                self.division.alpha = CGFloat(0.1)
+                }) { (Bool) -> Void in
+                    NSNotificationCenter.defaultCenter().postNotificationName(MatchCardViewController.Notification.Identifier.ReloadData, object: nil)
+                    self.division.alpha = CGFloat(1)
+            }
+        default :
+            break
+        }
+    }
     func handleShowLeagueTap() {
         NSNotificationCenter.defaultCenter().postNotificationName(Notification.Identifier.ShowLeagues, object: nil)
     }
@@ -71,5 +96,4 @@ extension MatchHeaderReusableView : UIAlertViewDelegate {
             self.handleShowLeagueTap()
         }
     }
-    
 }
