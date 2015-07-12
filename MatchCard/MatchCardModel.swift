@@ -11,9 +11,10 @@ import Parse
 
 class MatchCardModel : PFObject, PFSubclassing {
     struct Prompts {
-        static let League = "Set Your League Here"
-        static let Home = "Set Home Team"
-        static let Away = "Set Away Team"
+        static let League = "Set the league here"
+        static let Location = "Set the venue here"
+        static let Home = "Set home team here"
+        static let Away = "Set away team here"
     }
     static func parseClassName() -> String {
         return "MatchCard"
@@ -30,7 +31,7 @@ class MatchCardModel : PFObject, PFSubclassing {
     @NSManaged var league : LeagueModel?
     @NSManaged var division : Int
     @NSManaged var date : NSDate
-    @NSManaged var location : String
+    @NSManaged var homeClub : ClubModel?
     @NSManaged var homeTeamBag : TeamInMatchModel
     @NSManaged var awayTeamBag : TeamInMatchModel
     @NSManaged var matchEntries : [MatchEntryModel]
@@ -40,6 +41,14 @@ class MatchCardModel : PFObject, PFSubclassing {
                 return l.name
             }
             return Prompts.League
+        }
+    }
+    var location : String {
+        get {
+            if let c = self.homeClub {
+                return "at " + c.name
+            }
+            return Prompts.Location
         }
     }
     var dateString : String {

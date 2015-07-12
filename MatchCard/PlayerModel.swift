@@ -9,6 +9,8 @@
 import Foundation
 import Parse
 
+// PlayerInTeamModel means a registered player within a team in a club!
+
 class PlayerModel : PFObjectImaged, PFSubclassing {
     
     static func parseClassName() -> String {

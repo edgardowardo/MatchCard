@@ -12,17 +12,13 @@ import UIKit
 class DataManager {
     static let sharedInstance = DataManager()
     lazy var leagues = DataManager.sharedInstance.getLeagues()
+    lazy var clubs = DataManager.sharedInstance.getClubs()
     var matchCard = MatchCardModel()
-    var hasLeagueName : Bool {
-        get {
-            return matchCard.leagueName.isEmpty
-        }
-    }
-    init() {        
+    init() {
         matchCard.league = self.getLeagues()[0]
         matchCard.division = 1
         matchCard.date = NSDate()
-        matchCard.location = "Blackley"
+        matchCard.homeClub = self.getClubs()[0]
         matchCard.matchEntries = [
             MatchEntryModel(homeScore: 0, awayScore: 21),
             MatchEntryModel(homeScore: 1, awayScore: 21),
@@ -66,6 +62,25 @@ class DataManager {
             PlayerInMatchModel("F2")
         ]
     }
+    func getClubs() -> [ClubModel] {
+        return [
+            ClubModel(latitude : 53.657975, longitude : -2.182020, name : "Alpha Whitworth"),
+            ClubModel(latitude : 53.582334, longitude : -2.217064, name : "Balderstone"),
+            ClubModel(latitude : 53.536199, longitude : -2.218598, name : "Blackeley"),
+            ClubModel(latitude : 53.551569, longitude : -2.003642, name : "Dons"),
+            ClubModel(latitude : 53.613045, longitude : -2.338031, name : "Edenfield"),
+            ClubModel(latitude : 53.545502, longitude : -2.153651, name : "Kashmir"),
+            ClubModel(latitude : 53.555113, longitude : -2.234392, name : "Lancashire Racquets"),
+            ClubModel(latitude : 53.541569, longitude : -2.003642, name : "Lydgate"),
+            ClubModel(latitude : 53.460082, longitude : -2.193403, name : "Manchester Unity"),
+            ClubModel(latitude : 53.618584, longitude : -2.149437, name : "Roch Bridge"),
+            ClubModel(latitude : 53.531560, longitude : -2.003642, name : "Saddleworth"),
+            ClubModel(latitude : 53.625794, longitude : -2.168755, name : "Shawclough"),
+            ClubModel(latitude : 53.601250, longitude : -2.188561, name : "Spotland"),
+            ClubModel(latitude : 53.608820, longitude : -2.104723, name : "Tara Hollingworth"),
+            ClubModel(latitude : 53.502596, longitude : -2.217264, name : "MMCBC")
+        ]
+    }
     func getLeagues() -> [LeagueModel] {
         return [LeagueModel("Oldham & Rochdale Badminton League", image: nil, divisions : 5),
             LeagueModel("Manchester Badminton League", image: nil, divisions : 4),
@@ -80,7 +95,7 @@ class DataManager {
     func clear() {
         self.matchCard.league = nil
         self.matchCard.division = 0
-        self.matchCard.location = ""
+        self.matchCard.homeClub = nil
         self.clearScores()
         matchCard.homeTeamBag.team = nil
         matchCard.homeTeamBag.players = [

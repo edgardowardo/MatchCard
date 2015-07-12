@@ -41,3 +41,15 @@ extension UITextField {
     }
 }
 
+extension UIView {
+    var imageFile : UIImage? {
+        get {
+            UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, CGFloat(0))
+            self.drawViewHierarchyInRect(self.bounds, afterScreenUpdates:true)
+            var snapshotImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            return snapshotImage
+        }
+    }
+}
+

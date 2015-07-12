@@ -57,8 +57,8 @@ class MatchPlayersController : NSObject, UICollectionViewDataSource,  UICollecti
     }
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         var cell = collectionView.cellForItemAtIndexPath(indexPath) as! PlayerViewCell
-        if (DataManager.sharedInstance.hasLeagueName == false) {
+//        if (DataManager.sharedInstance.hasLeagueName == false) {
 //            println("selected \(cell.name.text)")
-        }
+//        }
     }
 }

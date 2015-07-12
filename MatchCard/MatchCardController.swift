@@ -118,7 +118,7 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
             var headerView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchHeaderReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! MatchHeaderReusableView
             headerView.leagueName.text = matchCard.leagueName
             headerView.division.text = "\(matchCard.division)"
-            headerView.location.text = "at " + matchCard.location
+            headerView.location.text = matchCard.location
             headerView.date.text = matchCard.dateString
             return headerView
         case ScoreHeaderReusableView.Collection.Kind.Home :

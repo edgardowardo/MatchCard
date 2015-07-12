@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 class MatchHeaderReusableView : UICollectionReusableView, UIGestureRecognizerDelegate {
+    // MARK: Structured constants
     struct Collection {
         static let Kind = "UICollectionElementKindHeader"
         static let ReuseIdentifier = "MatchHeaderReusableView"
@@ -26,17 +27,25 @@ class MatchHeaderReusableView : UICollectionReusableView, UIGestureRecognizerDel
             static let ShowLeagues = "NotificationIdentifierOfShowLeagues"
             static let ShowDivisions = "NotificationIdentifierOfShowDivisions"
             static let ShowClubs = "NotificationIdenfifierOfShowClubs"
+            static let ShowLocations_Map = "NotificationIdentifierOfShowLocationsMap"
+            static let ShowLocations_Picker = "NotificationIdentifierOfShowLocationsPicker"
             static let FadeLabel = "NotificationIdentifierFadeLabel"
         }
     }
+    // MARK: Properties
     @IBOutlet weak var leagueName: UILabel!
     @IBOutlet weak var div: UILabel!    
     @IBOutlet weak var division: UILabel!
     @IBOutlet weak var location: UILabel!
+    @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var date: UILabel!
     @IBAction func handleMoreTap(sender: AnyObject) {
         NSNotificationCenter.defaultCenter().postNotificationName(MatchHeaderReusableView.Notification.Identifier.More, object: nil)
     }
+    @IBAction func handlePinTap(sender: AnyObject) {
+        NSNotificationCenter.defaultCenter().postNotificationName(MatchHeaderReusableView.Notification.Identifier.ShowLocations_Map, object: nil)
+    }
+    // MARK: Lifecycles
     override func awakeFromNib() {
         super.awakeFromNib()
         // League tapped
@@ -51,27 +60,41 @@ class MatchHeaderReusableView : UICollectionReusableView, UIGestureRecognizerDel
         self.div.addGestureRecognizer(tapDiv)
         self.division.userInteractionEnabled = true
         self.division.addGestureRecognizer(tapDiv)
+        // Location tapped
+        let tapLocation = UITapGestureRecognizer(target: self, action: Selector("handleShowLocations_Picker"))
+        self.location.userInteractionEnabled = true
+        self.location.addGestureRecognizer(tapLocation)
         // Notifications
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_FadeLabel:", name:MatchHeaderReusableView.Notification.Identifier.FadeLabel, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("methodOfReceivedNotification_FadeLabel:"), name:MatchHeaderReusableView.Notification.Identifier.FadeLabel, object: nil)
     }
     // MARK: Helpers
     @objc private func methodOfReceivedNotification_FadeLabel(notification : NSNotification){
         let duration = 0.25
+        let startAlpha = CGFloat(0.1)
         let v = notification.object as! UIView
         switch v.tag {
         case MatchCardViewController.Tags.League :
             UIView.animateWithDuration(duration, animations: { () -> Void in
-                self.leagueName.alpha = CGFloat(0.1)
+                self.leagueName.alpha = startAlpha
                 }) { (Bool) -> Void in
                     NSNotificationCenter.defaultCenter().postNotificationName(MatchCardViewController.Notification.Identifier.ReloadData, object: nil)
                     self.leagueName.alpha = CGFloat(1)
             }
         case MatchCardViewController.Tags.Division :
             UIView.animateWithDuration(duration, animations: { () -> Void in
-                self.division.alpha = CGFloat(0.1)
+                self.division.alpha = startAlpha
                 }) { (Bool) -> Void in
                     NSNotificationCenter.defaultCenter().postNotificationName(MatchCardViewController.Notification.Identifier.ReloadData, object: nil)
                     self.division.alpha = CGFloat(1)
+            }
+        case MatchCardViewController.Tags.Location :
+            UIView.animateWithDuration(duration, animations: { () -> Void in
+                self.location.alpha = startAlpha
+                self.locationButton.alpha = startAlpha
+                }) { (Bool) -> Void in
+                    NSNotificationCenter.defaultCenter().postNotificationName(MatchCardViewController.Notification.Identifier.ReloadData, object: nil)
+                    self.location.alpha = CGFloat(1)
+                    self.locationButton.alpha = CGFloat(1)
             }
         default :
             break
@@ -81,12 +104,14 @@ class MatchHeaderReusableView : UICollectionReusableView, UIGestureRecognizerDel
         NSNotificationCenter.defaultCenter().postNotificationName(Notification.Identifier.ShowLeagues, object: nil)
     }
     func handleShowDivisions() {
-        println("handleShowDivisions")
         if let league = DataManager.sharedInstance.matchCard.league {
             NSNotificationCenter.defaultCenter().postNotificationName(Notification.Identifier.ShowDivisions, object: nil)
         } else {
             UIAlertView(title: "League is unknown", message: "Set the league?", delegate: self, cancelButtonTitle: "Cancel", otherButtonTitles: "OK").show()
         }
+    }
+    func handleShowLocations_Picker() {
+        NSNotificationCenter.defaultCenter().postNotificationName(Notification.Identifier.ShowLocations_Picker, object: nil)
     }
 }
 

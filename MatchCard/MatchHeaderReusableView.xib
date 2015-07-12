@@ -50,16 +50,29 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="at Location, City" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j1M-M4-tZg" userLabel="Location">
-                    <rect key="frame" x="8" y="57" width="195" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="at Venue" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j1M-M4-tZg" userLabel="Location">
+                    <rect key="frame" x="8" y="57" width="59" height="21"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="195" id="wAw-U4-e2Q"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="59" id="di4-AV-C4W"/>
                         <constraint firstAttribute="height" constant="21" id="wOs-gA-Rfe"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="13"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ehz-D2-RzK" userLabel="Location Button">
+                    <rect key="frame" x="75" y="58" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="20" id="I1r-te-rN5"/>
+                        <constraint firstAttribute="height" constant="20" id="aID-GO-e0A"/>
+                    </constraints>
+                    <state key="normal" image="icon-pin">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="handlePinTap:" destination="ffY-Ez-JZ2" eventType="touchUpInside" id="hdv-zX-mib"/>
+                    </connections>
+                </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dd/mm/yyyy" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tjg-mx-xm8" userLabel="Date">
                     <rect key="frame" x="211" y="57" width="101" height="21"/>
                     <constraints>
@@ -90,6 +103,7 @@
                 <constraint firstItem="Tjg-mx-xm8" firstAttribute="top" secondItem="Vsl-2B-uNz" secondAttribute="bottom" constant="2" id="KER-dS-lkD"/>
                 <constraint firstItem="j1M-M4-tZg" firstAttribute="top" secondItem="Znz-IY-eYq" secondAttribute="bottom" constant="13" id="R1J-cd-xpU"/>
                 <constraint firstItem="72N-dR-xA4" firstAttribute="top" secondItem="ffY-Ez-JZ2" secondAttribute="top" constant="8" id="Sab-zW-anV"/>
+                <constraint firstAttribute="bottom" secondItem="Ehz-D2-RzK" secondAttribute="bottom" constant="8" id="UvH-YI-c0x"/>
                 <constraint firstItem="72N-dR-xA4" firstAttribute="leading" secondItem="ffY-Ez-JZ2" secondAttribute="leading" constant="8" id="WJ2-zz-H7S"/>
                 <constraint firstItem="72N-dR-xA4" firstAttribute="leading" secondItem="Znz-IY-eYq" secondAttribute="trailing" constant="2" id="YCZ-Nd-0mt"/>
                 <constraint firstItem="j1M-M4-tZg" firstAttribute="top" secondItem="72N-dR-xA4" secondAttribute="bottom" constant="2" id="Yma-cG-V3o"/>
@@ -101,6 +115,7 @@
                 <constraint firstItem="Znz-IY-eYq" firstAttribute="leading" secondItem="ffY-Ez-JZ2" secondAttribute="leading" constant="8" id="q51-xg-Lxa"/>
                 <constraint firstItem="k4A-fv-DaH" firstAttribute="leading" secondItem="Vsl-2B-uNz" secondAttribute="trailing" constant="2" id="qlA-k9-lGC"/>
                 <constraint firstItem="72N-dR-xA4" firstAttribute="leading" secondItem="Znz-IY-eYq" secondAttribute="trailing" constant="4" id="sCY-xR-dVn"/>
+                <constraint firstItem="Ehz-D2-RzK" firstAttribute="leading" secondItem="j1M-M4-tZg" secondAttribute="trailing" constant="8" id="ueZ-M3-KEp"/>
                 <constraint firstItem="Tjg-mx-xm8" firstAttribute="trailing" secondItem="ffY-Ez-JZ2" secondAttribute="trailingMargin" id="x4c-j1-uWL"/>
             </constraints>
             <variation key="default">
@@ -117,11 +132,13 @@
                 <outlet property="division" destination="k4A-fv-DaH" id="g59-xe-VQP"/>
                 <outlet property="leagueName" destination="72N-dR-xA4" id="sGR-c3-zax"/>
                 <outlet property="location" destination="j1M-M4-tZg" id="MC1-0z-xid"/>
+                <outlet property="locationButton" destination="Ehz-D2-RzK" id="QK1-C9-AE9"/>
             </connections>
             <point key="canvasLocation" x="195" y="208"/>
         </collectionReusableView>
     </objects>
     <resources>
         <image name="icon-more" width="31" height="31"/>
+        <image name="icon-pin" width="20" height="20"/>
     </resources>
 </document>
