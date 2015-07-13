@@ -137,7 +137,7 @@ class MatchCardViewController : UIViewController {
     }
     @objc private func methodOfReceivedNotification_ShowLocations_Map(notification : NSNotification){
         var map = self.mockLocTextField.inputView as! MKMapView
-        let clubs = DataManager.sharedInstance.clubs
+        let clubs = DataManager.sharedInstance.matchCard.league!.clubs
         let minLongitude = clubs.reduce(Float.infinity, combine: { min($0 , $1.longitude) })
         let maxLongitude = clubs.reduce(-Float.infinity, combine: { max($0 , $1.longitude) })
         let minLatitude = clubs.reduce(Float.infinity, combine: { min($0 , $1.latitude) })
@@ -152,7 +152,7 @@ class MatchCardViewController : UIViewController {
         self.mockLocTextField.becomeFirstResponder()
         map.setRegion(region, animated: false)
         map.removeAnnotations(map.annotations)
-        map.addAnnotations(DataManager.sharedInstance.clubs)
+        map.addAnnotations(clubs)
         var homeClub = DataManager.sharedInstance.matchCard.homeClub
         if  homeClub != nil {
             map.selectAnnotation(homeClub, animated: true)
@@ -186,12 +186,12 @@ extension MatchCardViewController: SidePanelViewControllerDelegate {
 
 extension MatchCardViewController : MKMapViewDelegate {
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
-        DataManager.sharedInstance.matchCard.homeClub = view.annotation as? ClubModel
+        DataManager.sharedInstance.matchCard.homeClub = view.annotation as? ClubInLeagueModel
         NSNotificationCenter.defaultCenter().postNotificationName(MatchHeaderReusableView.Notification.Identifier.FadeLabel, object: view)
     }
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
-        if annotation.isKindOfClass(ClubModel) {
-            let c = annotation as! ClubModel
+        if annotation.isKindOfClass(ClubInLeagueModel) {
+            let c = annotation as! ClubInLeagueModel
             var a = mapView.dequeueReusableAnnotationViewWithIdentifier(Map.Identifier.Club)
             if a == nil {
                 a = MKAnnotationView(annotation: annotation, reuseIdentifier: Map.Identifier.Club)
@@ -214,11 +214,11 @@ extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch pickerView.tag {
         case Tags.League :
-            return DataManager.sharedInstance.leagues.count
+            return DataManager.sharedInstance.allLeagues.count
         case Tags.Division :
             return DataManager.sharedInstance.matchCard.league!.divisions
         case Tags.Location :
-            return DataManager.sharedInstance.clubs.count
+            return DataManager.sharedInstance.matchCard.league!.clubs.count
         default :
             return 0
         }
@@ -226,11 +226,11 @@ extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
         switch pickerView.tag {
         case Tags.League :
-            return DataManager.sharedInstance.leagues[row].name
+            return DataManager.sharedInstance.allLeagues[row].name
         case Tags.Division :
             return "\(row+1)"
         case Tags.Location :
-            return DataManager.sharedInstance.clubs[row].name
+            return DataManager.sharedInstance.matchCard.league!.clubs[row].club!.name
         default :
             return "unknown"
         }
@@ -238,11 +238,13 @@ extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch pickerView.tag {
         case Tags.League :
-            DataManager.sharedInstance.matchCard.league = DataManager.sharedInstance.leagues[row]
+            DataManager.sharedInstance.matchCard.league = DataManager.sharedInstance.allLeagues[row]
+            DataManager.sharedInstance.matchCard.homeClub = nil
+            DataManager.sharedInstance.matchCard.division = 0
         case Tags.Division :
             DataManager.sharedInstance.matchCard.division = row + 1
         case Tags.Location :
-            DataManager.sharedInstance.matchCard.homeClub = DataManager.sharedInstance.clubs[row]
+            DataManager.sharedInstance.matchCard.homeClub = DataManager.sharedInstance.matchCard.league!.clubs[row]
         default :
             assertionFailure("picker tag unknown")
         }

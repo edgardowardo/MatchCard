@@ -43,7 +43,9 @@ class MatchHeaderReusableView : UICollectionReusableView, UIGestureRecognizerDel
         NSNotificationCenter.defaultCenter().postNotificationName(MatchHeaderReusableView.Notification.Identifier.More, object: nil)
     }
     @IBAction func handlePinTap(sender: AnyObject) {
-        NSNotificationCenter.defaultCenter().postNotificationName(MatchHeaderReusableView.Notification.Identifier.ShowLocations_Map, object: nil)
+        checkLeagueBeforeDoing() {
+            NSNotificationCenter.defaultCenter().postNotificationName(MatchHeaderReusableView.Notification.Identifier.ShowLocations_Map, object: nil)
+        }
     }
     // MARK: Lifecycles
     override func awakeFromNib() {
@@ -68,6 +70,13 @@ class MatchHeaderReusableView : UICollectionReusableView, UIGestureRecognizerDel
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("methodOfReceivedNotification_FadeLabel:"), name:MatchHeaderReusableView.Notification.Identifier.FadeLabel, object: nil)
     }
     // MARK: Helpers
+    func checkLeagueBeforeDoing( function :  () -> () ) {
+        if let league = DataManager.sharedInstance.matchCard.league {
+            function()
+        } else {
+            UIAlertView(title: "League is unknown", message: "Set the league?", delegate: self, cancelButtonTitle: "Cancel", otherButtonTitles: "OK").show()
+        }
+    }
     @objc private func methodOfReceivedNotification_FadeLabel(notification : NSNotification){
         let duration = 0.25
         let startAlpha = CGFloat(0.1)
@@ -104,14 +113,14 @@ class MatchHeaderReusableView : UICollectionReusableView, UIGestureRecognizerDel
         NSNotificationCenter.defaultCenter().postNotificationName(Notification.Identifier.ShowLeagues, object: nil)
     }
     func handleShowDivisions() {
-        if let league = DataManager.sharedInstance.matchCard.league {
+        checkLeagueBeforeDoing() {
             NSNotificationCenter.defaultCenter().postNotificationName(Notification.Identifier.ShowDivisions, object: nil)
-        } else {
-            UIAlertView(title: "League is unknown", message: "Set the league?", delegate: self, cancelButtonTitle: "Cancel", otherButtonTitles: "OK").show()
         }
     }
     func handleShowLocations_Picker() {
-        NSNotificationCenter.defaultCenter().postNotificationName(Notification.Identifier.ShowLocations_Picker, object: nil)
+        checkLeagueBeforeDoing() {
+            NSNotificationCenter.defaultCenter().postNotificationName(Notification.Identifier.ShowLocations_Picker, object: nil)
+        }
     }
 }
 

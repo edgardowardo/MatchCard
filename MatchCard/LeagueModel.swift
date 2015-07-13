@@ -9,6 +9,9 @@
 import Foundation
 import Parse
 
+/*
+    Data representation of league containing a union of clubs.
+*/
 class LeagueModel : PFObjectImaged, PFSubclassing {
     
     static func parseClassName() -> String {
@@ -17,7 +20,7 @@ class LeagueModel : PFObjectImaged, PFSubclassing {
     override init () {
         super.init()
     }
-    convenience init(_ name : String, image : UIImage?, divisions : Int)
+    convenience init(_ name : String, image : UIImage?, divisions : Int, clubs : [ClubInLeagueModel])
     {
         self.init()
         self.isAddme = false
@@ -26,9 +29,11 @@ class LeagueModel : PFObjectImaged, PFSubclassing {
             self.imageFile = i
         }
         self.divisions = divisions
+        self.clubs = clubs
     }
     
     @NSManaged var divisions : Int
+    @NSManaged var clubs : [ClubInLeagueModel]
     
     override class func initialize() {
         var onceToken : dispatch_once_t = 0;

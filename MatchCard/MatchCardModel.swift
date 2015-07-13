@@ -31,7 +31,7 @@ class MatchCardModel : PFObject, PFSubclassing {
     @NSManaged var league : LeagueModel?
     @NSManaged var division : Int
     @NSManaged var date : NSDate
-    @NSManaged var homeClub : ClubModel?
+    @NSManaged var homeClub : ClubInLeagueModel?
     @NSManaged var homeTeamBag : TeamInMatchModel
     @NSManaged var awayTeamBag : TeamInMatchModel
     @NSManaged var matchEntries : [MatchEntryModel]
@@ -46,7 +46,7 @@ class MatchCardModel : PFObject, PFSubclassing {
     var location : String {
         get {
             if let c = self.homeClub {
-                return "at " + c.name
+                return "at " + c.club!.name
             }
             return Prompts.Location
         }

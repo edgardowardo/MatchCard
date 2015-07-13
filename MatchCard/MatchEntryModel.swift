@@ -1,5 +1,5 @@
 //
-//  MatchEntry.swift
+//  MatchEntryModel
 //  MatchCard
 //
 //  Created by EDGARDO AGNO on 04/06/2015.

@@ -9,10 +9,13 @@
 import Foundation
 import Parse
 
-class TeamModel : PFObjectImaged, PFSubclassing {
+/*
+    Data representation of a team
+*/
+class TeamInClubModel : PFObjectImaged, PFSubclassing {
     
     static func parseClassName() -> String {
-        return "Team"
+        return "TeamInClub"
     }
     
     override init () {

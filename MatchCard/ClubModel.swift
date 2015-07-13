@@ -8,10 +8,11 @@
 
 import Foundation
 import Parse
-import MapKit
 
-class ClubModel : PFObjectImaged, PFSubclassing, MKAnnotation {
-    // MARK : 
+/*
+    Data representation of a club which may be registered in several leagues. The club has a main venue represented by the coordinates.
+*/
+class ClubModel : PFObjectImaged, PFSubclassing {
     static func parseClassName() -> String {
         return "Club"
     }
@@ -32,36 +33,9 @@ class ClubModel : PFObjectImaged, PFSubclassing, MKAnnotation {
         self.latitude = latitude
         self.longitude = longitude
         self.address = ""
-        var l = UILabel()
-        l.text = name
-        l.font = UIFont(name: "HelveticaNeue-Light", size: CGFloat(15))
-        l.sizeToFit()
-        l.clipsToBounds = true
-        l.layer.cornerRadius = 5
-        l.layer.borderWidth = 1
-        l.layer.borderColor = UIColor.lightGrayColor().CGColor
-        l.backgroundColor = UIColor.redColor().colorWithAlphaComponent(CGFloat(0.1))
-        self.imageFile = l.imageFile
     }
     // MARK : Properties
     @NSManaged var latitude : Float
     @NSManaged var longitude : Float
     @NSManaged var address : String
-    
-    // MARK : Map Kit
-    var title: String? {
-        get {
-            return "Selected"
-        }
-    }
-    var subtitle: String? {
-        get {
-            return address
-        }
-    }
-    var coordinate: CLLocationCoordinate2D {
-        get {
-            return CLLocationCoordinate2D(latitude: CLLocationDegrees(self.latitude), longitude: CLLocationDegrees(self.longitude))
-        }
-    }
 }
