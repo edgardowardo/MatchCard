@@ -12,7 +12,7 @@ import Parse
 class MatchCardModel : PFObject, PFSubclassing {
     struct Prompts {
         static let League = "Set the league here"
-        static let Location = "Set the venue here"
+        static let Location = "Set home venue here"
         static let Home = "Set home team here"
         static let Away = "Set away team here"
     }
@@ -21,11 +21,30 @@ class MatchCardModel : PFObject, PFSubclassing {
     }
     override init () {
         super.init()
+        addObserver(self, forKeyPath: "league", options: .New, context: nil)
+        addObserver(self, forKeyPath: "homeClub", options: .New, context: nil)
     }
     override class func initialize() {
         var onceToken : dispatch_once_t = 0;
         dispatch_once(&onceToken) {
             self.registerSubclass()
+        }
+    }
+    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+        var n : AnyObject? = change["new"]
+        switch keyPath {
+        case "league" :
+            if n!.isKindOfClass(LeagueModel) {
+                var l = n as! LeagueModel
+                self.teams = getAllTeams(l)
+            }
+        case "homeClub" :
+            if n!.isKindOfClass(ClubInLeagueModel) {
+                var c = n as! ClubInLeagueModel
+                self.homeTeamBag.team = c.club?.teams[0]
+            }
+        default :
+            break
         }
     }
     @NSManaged var league : LeagueModel?
@@ -35,6 +54,26 @@ class MatchCardModel : PFObject, PFSubclassing {
     @NSManaged var homeTeamBag : TeamInMatchModel
     @NSManaged var awayTeamBag : TeamInMatchModel
     @NSManaged var matchEntries : [MatchEntryModel]
+    lazy var teams : [TeamInClubModel] = []
+    func getAllTeams(fromLeague : LeagueModel) -> [TeamInClubModel] {
+        var teams = [TeamInClubModel]()
+        for club in fromLeague.clubs {
+            if let c = club.club {
+                for team in c.teams {
+                    team.club = club
+                    teams.append(team)
+                }
+            }
+        }
+        return teams
+    }
+    func clearLookups() {
+        var matchCard = DataManager.sharedInstance.matchCard
+        matchCard.homeClub = nil
+        matchCard.division = 0
+        matchCard.homeTeamBag.team = nil
+        matchCard.awayTeamBag.team = nil
+    }
     var leagueName : String {
         get {
             if let l = self.league {
@@ -88,5 +127,5 @@ class MatchCardModel : PFObject, PFSubclassing {
     }
     func clear() {
         self.league = nil
-    }
+    }    
 }

@@ -25,7 +25,7 @@ class ClubModel : PFObjectImaged, PFSubclassing {
     override init () {
         super.init()
     }
-    convenience init(latitude : Float, longitude : Float, name : String)
+    convenience init(latitude : Float, longitude : Float, name : String, teams : [TeamInClubModel]? = [])
     {
         self.init()
         self.isAddme = false
@@ -33,9 +33,14 @@ class ClubModel : PFObjectImaged, PFSubclassing {
         self.latitude = latitude
         self.longitude = longitude
         self.address = ""
+        self.teams = teams!
+        if self.teams.count == 0 {
+            self.teams.append(TeamInClubModel("\(name)1"))
+        }
     }
     // MARK : Properties
     @NSManaged var latitude : Float
     @NSManaged var longitude : Float
     @NSManaged var address : String
+    @NSManaged var teams : [TeamInClubModel]
 }

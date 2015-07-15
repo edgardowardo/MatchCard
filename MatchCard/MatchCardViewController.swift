@@ -32,8 +32,9 @@ class MatchCardViewController : UIViewController {
         static let League = 1
         static let Division = 2
         static let Location = 3
-        static let Away = 4
-        static let Home = 5
+        static let AwayTeam = 4
+        static let HomeTeam_AllTeams = 5
+        static let HomeTeam_Filter = 6
     }
     // MARK: Properties
     @IBOutlet weak var containingView : UIView?
@@ -43,6 +44,7 @@ class MatchCardViewController : UIViewController {
     let mockDivTextField = UITextField(frame: CGRectZero)
     let mockLocTextField = UITextField(frame: CGRectZero)
     let mockLocPickerTextField = UITextField(frame: CGRectZero)
+    let mockTeamTextField = UITextField(frame: CGRectZero)
     let matchCardController = MatchCardController()
     // MARK: Lifecycle
     override func viewDidLoad() {
@@ -74,6 +76,7 @@ class MatchCardViewController : UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_ShowDivisions:", name:MatchHeaderReusableView.Notification.Identifier.ShowDivisions, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_ShowLocations_Picker:", name:MatchHeaderReusableView.Notification.Identifier.ShowLocations_Picker, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_ShowLocations_Map:", name:MatchHeaderReusableView.Notification.Identifier.ShowLocations_Map, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_ShowTeams:", name: ScoreHeaderReusableView.Notification.Identifier.ShowTeams, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_ReloadData:", name: Notification.Identifier.ReloadData, object: nil)
         // Pickers - League
         let pickerLeague = UIPickerView()
@@ -94,14 +97,21 @@ class MatchCardViewController : UIViewController {
         map.delegate = self
         self.view.addSubview(self.mockLocTextField)
         self.mockLocTextField.inputView = map
-        // Picker - Location
+        // Pickers - Location
         let pickerLocation = UIPickerView()
         pickerLocation.delegate = self
         pickerLocation.dataSource = self
         pickerLocation.tag = Tags.Location
         self.view.addSubview(self.mockLocPickerTextField)
         self.mockLocPickerTextField.inputView = pickerLocation
-        // keyboard toolbar
+        // Pickers - Home & Away Teams
+        let pickerTeam = UIPickerView()
+        pickerTeam.delegate = self
+        pickerTeam.dataSource = self
+        pickerTeam.tag = Tags.HomeTeam_AllTeams
+        self.view.addSubview(self.mockTeamTextField)
+        self.mockTeamTextField.inputView = pickerTeam
+        // Keyboard toolbar
         var doneToolbar = UIToolbar(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, 44))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
         let doneButton = UIBarButtonItem(title: "Done", style: .Done, target: self, action: Selector("doneTap"))
@@ -110,30 +120,57 @@ class MatchCardViewController : UIViewController {
         self.mockDivTextField.inputAccessoryView = doneToolbar
         self.mockLocTextField.inputAccessoryView = doneToolbar
         self.mockLocPickerTextField.inputAccessoryView = doneToolbar
+        self.mockTeamTextField.inputAccessoryView = doneToolbar
     }
     func doneTap() {
         self.mockLeagueTextField.resignFirstResponder()
         self.mockDivTextField.resignFirstResponder()
         self.mockLocTextField.resignFirstResponder()
         self.mockLocPickerTextField.resignFirstResponder()
+        self.mockTeamTextField.resignFirstResponder()
+        if let homeTeam = DataManager.sharedInstance.matchCard.homeTeamBag.team {
+            if let awayTeam = DataManager.sharedInstance.matchCard.awayTeamBag.team {
+                if homeTeam.name == awayTeam.name {
+                    UIAlertView(title: "Warning", message: "You selected the same team as home and away", delegate: self, cancelButtonTitle: "OK").show()
+                }
+            }
+        }
     }
     @objc private func methodOfReceivedNotification_More(notification: NSNotification){
         delegate?.toggleLeftPanel?()
     }
+    func selectElement<T:Equatable>(elementy : T?, fromArray : [T], inTextField : UITextField) {
+        inTextField.becomeFirstResponder()
+        let p = inTextField.inputView as! UIPickerView
+        p.reloadAllComponents()
+        if let l = elementy {
+            let index : Int? = find(fromArray, l)
+            if let i = index {
+                p.selectRow(i, inComponent: 0, animated: true)
+            }
+        }
+    }
     @objc private func methodOfReceivedNotification_ShowLeague(notification : NSNotification){
-        self.mockLeagueTextField.becomeFirstResponder()
+        selectElement(DataManager.sharedInstance.matchCard.league,
+            fromArray: DataManager.sharedInstance.allLeagues,
+            inTextField: self.mockLeagueTextField)
     }
     @objc private func methodOfReceivedNotification_ShowDivisions(notification : NSNotification){
-        self.mockDivTextField.becomeFirstResponder()
-        var p = self.mockDivTextField.inputView as! UIPickerView
-        p.reloadAllComponents()
+        var div : Int?
+        if DataManager.sharedInstance.matchCard.division > 0 {
+            div = DataManager.sharedInstance.matchCard.division
+        }
+        let divCount = DataManager.sharedInstance.matchCard.league?.divisions
+        var divisions = [Int]()
+        for var i = 0; i < divCount; i++  {
+            divisions.append(i+1)
+        }
+        selectElement(div, fromArray: divisions, inTextField: self.mockDivTextField)
     }
     @objc private func methodOfReceivedNotification_ShowLocations_Picker(notification : NSNotification){
-        self.mockLocPickerTextField.becomeFirstResponder()
-        var p = self.mockLocPickerTextField.inputView as! UIPickerView
-        p.reloadAllComponents()
-        if let homeClub = DataManager.sharedInstance.matchCard.homeClub {
-        }
+        selectElement(DataManager.sharedInstance.matchCard.homeClub,
+            fromArray: DataManager.sharedInstance.matchCard.league!.clubs,
+            inTextField: self.mockLocPickerTextField)
     }
     @objc private func methodOfReceivedNotification_ShowLocations_Map(notification : NSNotification){
         var map = self.mockLocTextField.inputView as! MKMapView
@@ -157,9 +194,31 @@ class MatchCardViewController : UIViewController {
         if  homeClub != nil {
             map.selectAnnotation(homeClub, animated: true)
         } else {
-            // FIXME: select the annotation nearest current location            
+            // TODO: select the annotation nearest current location
             map.selectAnnotation(map.annotations.first as! MKAnnotation, animated: true)
         }
+    }
+    @objc private func methodOfReceivedNotification_ShowTeams(notification: NSNotification){
+        let kind = notification.object as! String
+        var p = self.mockTeamTextField.inputView as! UIPickerView
+        var team : TeamInClubModel? = nil
+        var teams : [TeamInClubModel] = DataManager.sharedInstance.matchCard.teams
+        // Differentiate between the single picker view and double picker view
+        if kind == ScoreHeaderReusableView.Collection.Kind.Away {
+            p.tag = Tags.AwayTeam
+            team = DataManager.sharedInstance.matchCard.awayTeamBag.team
+        } else {
+            team = DataManager.sharedInstance.matchCard.homeTeamBag.team
+            if self.hasHomeClub() {
+                p.tag = Tags.HomeTeam_Filter
+                teams = DataManager.sharedInstance.matchCard.homeClub!.club!.teams
+            } else {
+                p.tag = Tags.HomeTeam_AllTeams
+            }
+        }
+        selectElement(team,
+            fromArray: teams,
+            inTextField: self.mockTeamTextField)
     }
     @objc private func methodOfReceivedNotification_ReloadData(notifcation: NSNotification){
         matchCardCollectionView?.reloadData()
@@ -208,6 +267,12 @@ extension MatchCardViewController : MKMapViewDelegate {
 }
 
 extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate {
+    func hasHomeClub() -> Bool {
+        if let h = DataManager.sharedInstance.matchCard.homeClub {
+            return true
+        }
+        return false
+    }
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -219,6 +284,12 @@ extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate
             return DataManager.sharedInstance.matchCard.league!.divisions
         case Tags.Location :
             return DataManager.sharedInstance.matchCard.league!.clubs.count
+        case Tags.HomeTeam_AllTeams :
+            return DataManager.sharedInstance.matchCard.teams.count
+        case Tags.HomeTeam_Filter :
+            return DataManager.sharedInstance.matchCard.homeClub!.club!.teams.count
+        case Tags.AwayTeam :
+            return DataManager.sharedInstance.matchCard.teams.count
         default :
             return 0
         }
@@ -231,6 +302,12 @@ extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate
             return "\(row+1)"
         case Tags.Location :
             return DataManager.sharedInstance.matchCard.league!.clubs[row].club!.name
+        case Tags.HomeTeam_AllTeams :
+            return DataManager.sharedInstance.matchCard.teams[row].name
+        case Tags.HomeTeam_Filter :
+                return DataManager.sharedInstance.matchCard.homeClub!.club!.teams[row].name
+        case Tags.AwayTeam :
+            return DataManager.sharedInstance.matchCard.teams[row].name
         default :
             return "unknown"
         }
@@ -239,12 +316,22 @@ extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate
         switch pickerView.tag {
         case Tags.League :
             DataManager.sharedInstance.matchCard.league = DataManager.sharedInstance.allLeagues[row]
-            DataManager.sharedInstance.matchCard.homeClub = nil
-            DataManager.sharedInstance.matchCard.division = 0
+            // clear lookups
+            DataManager.sharedInstance.matchCard.clearLookups()
         case Tags.Division :
             DataManager.sharedInstance.matchCard.division = row + 1
         case Tags.Location :
             DataManager.sharedInstance.matchCard.homeClub = DataManager.sharedInstance.matchCard.league!.clubs[row]
+        case Tags.HomeTeam_AllTeams :
+            let teamInClub = DataManager.sharedInstance.matchCard.teams[row]
+            let teamInMatch = TeamInMatchModel(teamInClub)
+            DataManager.sharedInstance.matchCard.homeTeamBag = teamInMatch
+            DataManager.sharedInstance.matchCard.homeClub = teamInClub.club
+        case Tags.HomeTeam_Filter :
+            DataManager.sharedInstance.matchCard.homeTeamBag = TeamInMatchModel(DataManager.sharedInstance.matchCard.homeClub!.club!.teams[row])
+        case Tags.AwayTeam :
+            var team = TeamInMatchModel(DataManager.sharedInstance.matchCard.teams[row])
+            DataManager.sharedInstance.matchCard.awayTeamBag = team
         default :
             assertionFailure("picker tag unknown")
         }
@@ -256,5 +343,9 @@ extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate
 //        let ats = NSMutableAttributedString(string: title, attributes: [NSFontAttributeName : UIFont.systemFontOfSize(CGFloat(50)) ])
 //        return ats
 //    }
-    
+}
+
+extension MatchCardViewController : UIAlertViewDelegate {
+    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
+    }
 }

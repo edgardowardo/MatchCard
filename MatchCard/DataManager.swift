@@ -14,12 +14,16 @@ class DataManager {
     static let sharedInstance = DataManager()
     lazy var allLeagues = DataManager.sharedInstance.getAllLeagues()
     lazy var allClubs = DataManager.sharedInstance.getAllClubs()
-    var matchCard = MatchCardModel()
-    init() {
-        matchCard.league = nil // self.getLeagues()[0]
-        matchCard.division = 1
+    lazy var matchCard = DataManager.sharedInstance.getMatchCard()
+    func getMatchCard() -> MatchCardModel {
+        let l = allLeagues[1]
+        let c = l.clubs[6] // GHAP
+        let t = c.club?.teams[1] // GHAP2
+        var matchCard = MatchCardModel()
+        matchCard.league = l
+        matchCard.division = 2
         matchCard.date = NSDate()
-        matchCard.homeClub = nil // self.getAllClubs()[0]
+        matchCard.homeClub = c
         matchCard.matchEntries = [
             MatchEntryModel(homeScore: 0, awayScore: 21),
             MatchEntryModel(homeScore: 1, awayScore: 21),
@@ -39,9 +43,9 @@ class DataManager {
             MatchEntryModel(homeScore: 15, awayScore: 21),
             MatchEntryModel(homeScore: 16, awayScore: 21),
             MatchEntryModel(homeScore: 17, awayScore: 21),
-        ]        
+        ]
         matchCard.homeTeamBag = TeamInMatchModel()
-        matchCard.homeTeamBag.team = TeamInClubModel(isAddme: false, name: "MMCBC-1", image: nil)
+        matchCard.homeTeamBag.team = t
         matchCard.homeTeamBag.isHome = true
         matchCard.homeTeamBag.players = [
             PlayerInMatchModel("A1", PlayerModel(name: "Edgar", image: UIImage(named: "A1"))),
@@ -52,7 +56,7 @@ class DataManager {
             PlayerInMatchModel("C2")
         ]
         matchCard.awayTeamBag = TeamInMatchModel()
-        matchCard.awayTeamBag.team = TeamInClubModel(isAddme: false, name: "MMCBC-C", image: nil)
+        matchCard.awayTeamBag.team = l.clubs[7].club?.teams[1]  // Heys-B
         matchCard.awayTeamBag.isHome = false
         matchCard.awayTeamBag.players = [
             PlayerInMatchModel("D1"),
@@ -62,6 +66,7 @@ class DataManager {
             PlayerInMatchModel("F1"),
             PlayerInMatchModel("F2")
         ]
+        return matchCard
     }
     func getClub(name : String) -> ClubModel? {
         let filteredArray = self.allClubs.filter() {
@@ -103,8 +108,8 @@ class DataManager {
             ClubModel(latitude : 53.445897, longitude : -2.248568, name : "Dome"),
             ClubModel(latitude : 53.367823, longitude : -2.158017, name : "Edgeley"),
             ClubModel(latitude : 53.419537, longitude : -2.339000, name : "Forest"),
-            ClubModel(latitude : 53.457945, longitude : -2.234832, name : "GHAP"),
-            ClubModel(latitude : 53.561111, longitude : -2.272721, name : "Heys"),
+            ClubModel(latitude : 53.457945, longitude : -2.234832, name : "GHAP", teams : [TeamInClubModel("GHAP1"), TeamInClubModel("GHAP2"), TeamInClubModel("GHAP3")]),
+            ClubModel(latitude : 53.561111, longitude : -2.272721, name : "Heys", teams : [TeamInClubModel("Heys-A"), TeamInClubModel("Heys-B"), TeamInClubModel("Heys-C")]),
             ClubModel(latitude : 53.485997, longitude : -2.140424, name : "Medlock"),
             ClubModel(latitude : 53.468822, longitude : -2.365570, name : "Nomad"),
             ClubModel(latitude : 53.419537, longitude : -2.338984, name : "PVBC"),
@@ -149,8 +154,8 @@ class DataManager {
                     ClubInLeagueModel(getClub("Disley")!),
                     ClubInLeagueModel(getClub("Dome")!),
                     ClubInLeagueModel(getClub("Edgeley")!),
-                    ClubInLeagueModel(getClub("GHAP")!),
-                    ClubInLeagueModel(getClub("Heys")!),
+                    ClubInLeagueModel(getClub("GHAP")!), // 6
+                    ClubInLeagueModel(getClub("Heys")!), // 7
                     ClubInLeagueModel(getClub("Medlock")!),
                     ClubInLeagueModel(getClub("Nomad")!),
                     ClubInLeagueModel(getClub("Ralley")!),
