@@ -25,9 +25,11 @@ class MatchPlayersController : NSObject, UICollectionViewDataSource,  UICollecti
     }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(PlayerViewCell.Collection.ReuseIdentifier, forIndexPath: indexPath) as! PlayerViewCell
+        cell.elementKind = self.elementKind
         if (elementKind == MatchPlayersReusableView.Collection.Kind.Away) {
             var p1 = DataManager.sharedInstance.matchCard.awayTeamBag.players[indexPath.row]
             cell.button.setTitle(p1.key, forState: .Normal)
+            cell.player = p1
             if let player =  p1.player {
                 cell.button.setImage(player.imageFile, forState: .Normal)
                 cell.button.setImage(player.imageFileDark, forState: .Highlighted)
@@ -40,6 +42,7 @@ class MatchPlayersController : NSObject, UICollectionViewDataSource,  UICollecti
         } else {
             var p2 = DataManager.sharedInstance.matchCard.homeTeamBag.players[indexPath.row]
             cell.button.setTitle(p2.key, forState: .Normal)
+            cell.player = p2
             if let player =  p2.player {
                 cell.button.setImage(player.imageFile, forState: .Normal)
                 cell.button.setImage(player.imageFileDark, forState: .Highlighted)

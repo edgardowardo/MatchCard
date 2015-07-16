@@ -27,9 +27,6 @@ class TeamInMatchModel : PFObject, PFSubclassing {
         self.init()
         self.team = team
     }
-    
-    
-    @NSManaged var isHome : Bool
     @NSManaged var team : TeamInClubModel?
     @NSManaged var total : Int
     @NSManaged var players : [PlayerInMatchModel]

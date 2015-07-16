@@ -53,3 +53,15 @@ extension UIView {
     }
 }
 
+extension UICollectionView {
+    func selectedCell() -> UICollectionViewCell? {
+        let indexPaths : NSArray = self.indexPathsForSelectedItems()
+        if indexPaths.count > 0 {
+            let indexPath : NSIndexPath = indexPaths[0] as! NSIndexPath
+            return self.cellForItemAtIndexPath(indexPath)
+        } else {
+            return nil
+        }
+    }
+}
+

@@ -28,7 +28,6 @@ class ClubModel : PFObjectImaged, PFSubclassing {
     convenience init(latitude : Float, longitude : Float, name : String, teams : [TeamInClubModel]? = [])
     {
         self.init()
-        self.isAddme = false
         self.name = name
         self.latitude = latitude
         self.longitude = longitude

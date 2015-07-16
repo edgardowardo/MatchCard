@@ -30,7 +30,6 @@ class ClubInLeagueModel : PFObjectImaged, PFSubclassing, MKAnnotation {
     convenience init(_ club : ClubModel)
     {
         self.init()
-        self.isAddme = false
         self.club = club
         var l = UILabel()
         l.text = club.name

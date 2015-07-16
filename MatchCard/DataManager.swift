@@ -46,7 +46,6 @@ class DataManager {
         ]
         matchCard.homeTeamBag = TeamInMatchModel()
         matchCard.homeTeamBag.team = t
-        matchCard.homeTeamBag.isHome = true
         matchCard.homeTeamBag.players = [
             PlayerInMatchModel("A1", PlayerModel(name: "Edgar", image: UIImage(named: "A1"))),
             PlayerInMatchModel("A2", PlayerModel(name: "Slawomir", image: UIImage(named: "A2"))),
@@ -57,7 +56,6 @@ class DataManager {
         ]
         matchCard.awayTeamBag = TeamInMatchModel()
         matchCard.awayTeamBag.team = l.clubs[7].club?.teams[1]  // Heys-B
-        matchCard.awayTeamBag.isHome = false
         matchCard.awayTeamBag.players = [
             PlayerInMatchModel("D1"),
             PlayerInMatchModel("D2"),

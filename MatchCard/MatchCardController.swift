@@ -9,12 +9,9 @@
 import Foundation
 import UIKit
 
-enum LayoutType {
-    case Standard, Edit, Matrix
-}
 
-class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate {
-    var matchCard = DataManager.sharedInstance.matchCard
+class MatchCardController : NSObject {
+//    var matchCard = DataManager.sharedInstance.matchCard
     var layouts : [LayoutType : UICollectionViewLayout] = [.Standard : MatchCardStandardLayout(), .Edit : MatchEntryEditLayout()]
     var layout : LayoutType = .Standard {
         didSet {
@@ -30,18 +27,34 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
     override init(){
         super.init()
     }
-    //
-    // MARK: Collection View
-    //
+    // MARK: Helpers
+    func doneTappedMatchEntry() {
+        if self.layout == .Edit {
+            // TO STANDARD MODE
+            self.layout = .Standard
+            let cell = matchCollectionView!.selectedCell() as! MatchEntryCell
+            cell.layer.borderColor = UIColor.clearColor().CGColor
+            cell.homeScoreField.resignFirstResponder()
+            cell.homeScoreField.userInteractionEnabled = false
+            cell.setFontSize(.Standard)
+            cell.layer.borderColor = UIColor.clearColor().CGColor
+        }
+    }
+}
+
+//
+// MARK: Collection View
+//
+extension MatchCardController : UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return matchCard.matchEntries.count
+        return DataManager.sharedInstance.matchCard.matchEntries.count
     }
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         var cell = collectionView.dequeueReusableCellWithReuseIdentifier(MatchEntryCell.Collection.ReuseIdentifier, forIndexPath: indexPath) as! MatchEntryCell
-        let matchEntry = matchCard.matchEntries[indexPath.row]
+        let matchEntry = DataManager.sharedInstance.matchCard.matchEntries[indexPath.row]
         cell.data = matchEntry
         // picker
         picker.delegate = self
@@ -50,7 +63,7 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
         // keyboard toolbar
         var doneToolbar = UIToolbar(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, 44))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Done", style: .Done, target: self, action: Selector("doneTapped"))
+        let doneButton = UIBarButtonItem(title: "Done", style: .Done, target: self, action: Selector("doneTappedMatchEntry"))
         doneToolbar.setItems([flexibleSpace, doneButton], animated: true)
         cell.homeScoreField.inputAccessoryView = doneToolbar
         cell.homeScoreField.text = "\(matchEntry.homeScore)"
@@ -102,10 +115,8 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
         }
         return false
     }
-    //
-    // MARK: Supplementary views
-    //
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        var matchCard = DataManager.sharedInstance.matchCard
         switch kind {
         case MatchPlayersReusableView.Collection.Kind.Away :
             return collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchPlayersReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! MatchPlayersReusableView
@@ -138,9 +149,12 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
             return UICollectionReusableView()
         }
     }
-    //
-    // MARK: Picker view
-    //
+}
+
+//
+// MARK: Picker view
+//
+extension MatchCardController : UIPickerViewDataSource, UIPickerViewDelegate {
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 2
     }
@@ -151,7 +165,7 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
         return "\(row)"
     }
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let cell = self.cellSelected()
+        let cell = matchCollectionView!.selectedCell() as! MatchEntryCell
         let data = cell.data!
         if component == 0 {
             data.homeScore = row
@@ -162,24 +176,4 @@ class MatchCardController : NSObject, UICollectionViewDelegate, UICollectionView
         }
         cell.updateBars()
     }
-    // MARK: Helpers
-    func cellSelected() -> MatchEntryCell {
-        let indexPaths : NSArray = self.matchCollectionView!.indexPathsForSelectedItems()
-        let indexPath : NSIndexPath = indexPaths[0] as! NSIndexPath
-        let cell = self.matchCollectionView?.cellForItemAtIndexPath(indexPath) as! MatchEntryCell
-        return cell
-    }
-    func doneTapped() {
-        if self.layout == .Edit {
-            // TO STANDARD MODE
-            self.layout = .Standard
-            let cell = self.cellSelected()
-            cell.layer.borderColor = UIColor.clearColor().CGColor
-            cell.homeScoreField.resignFirstResponder()
-            cell.homeScoreField.userInteractionEnabled = false
-            cell.setFontSize(.Standard)
-            cell.layer.borderColor = UIColor.clearColor().CGColor
-        }
-    }
 }
-

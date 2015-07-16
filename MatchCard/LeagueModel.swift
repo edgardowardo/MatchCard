@@ -23,7 +23,6 @@ class LeagueModel : PFObjectImaged, PFSubclassing {
     convenience init(_ name : String, image : UIImage?, divisions : Int, clubs : [ClubInLeagueModel])
     {
         self.init()
-        self.isAddme = false
         self.name = name
         if let i = image {
             self.imageFile = i

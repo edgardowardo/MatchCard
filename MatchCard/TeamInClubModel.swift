@@ -29,7 +29,6 @@ class TeamInClubModel : PFObjectImaged, PFSubclassing {
     convenience init(_ name : String)
     {
         self.init()
-        self.isAddme = false
         self.name = name
     }
     var club : ClubInLeagueModel?

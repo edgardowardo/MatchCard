@@ -13,16 +13,14 @@ class PFObjectImaged : PFObject {
     override init() {
         super.init()
     }
-    convenience init(isAddme : Bool = false, name : String, image : UIImage?)
+    convenience init(name : String, image : UIImage?)
     {
         self.init()
-        self.isAddme = isAddme
         self.name = name
         if let i = image {
             self.imageFile = i
         }
     }
-    @NSManaged var isAddme : Bool
     @NSManaged var name : String
     var imageFileDark : UIImage? {
         get {
