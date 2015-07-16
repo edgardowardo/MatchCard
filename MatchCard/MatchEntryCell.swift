@@ -35,11 +35,12 @@ class MatchEntryCell : UICollectionViewCell {
     }
     @IBOutlet weak var homeBar   : UIView!
     @IBOutlet weak var homeScore : UILabel!
-    @IBOutlet weak var homeScoreField : CaretlessTextField!
     @IBOutlet weak var awayScore : UILabel!
     @IBOutlet weak var awayBar   : UIView!
     
     weak var data : MatchEntryModel?
+    let duration = 0.25
+    let startAlpha = CGFloat(0.1)
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -48,7 +49,6 @@ class MatchEntryCell : UICollectionViewCell {
         self.layer.borderColor = UIColor.clearColor().CGColor
         self.contentView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
     }
-    
     func setFontSize(layout : LayoutType) {
         let scale = true
         
@@ -79,7 +79,6 @@ class MatchEntryCell : UICollectionViewCell {
             })
         }
     }
-    
     func updateBars() {
         if (data?.homeScore > data?.awayScore) {
             self.homeBar.backgroundColor = UIColor.greenColor()
@@ -92,4 +91,30 @@ class MatchEntryCell : UICollectionViewCell {
             self.awayBar.backgroundColor = UIColor.clearColor()
         }
     }
+    func updateHomeScore(toScore score : String) {
+        UIView.animateWithDuration(duration, animations: { () -> Void in
+            self.homeScore.alpha = self.startAlpha
+            self.homeBar.alpha = 0
+            self.awayBar.alpha = 0
+            }) { (Bool) -> Void in
+                self.homeScore.alpha = 1
+                self.homeScore.text = score
+                self.updateBars()
+                self.homeBar.alpha = 1
+                self.awayBar.alpha = 1
+        }
+    }
+    func updateAwayScore(toScore score : String) {
+        UIView.animateWithDuration(duration, animations: { () -> Void in
+            self.awayScore.alpha = self.startAlpha
+            self.homeBar.alpha = 0
+            self.awayBar.alpha = 0
+            }) { (Bool) -> Void in
+                self.awayScore.alpha = 1
+                self.awayScore.text = score
+                self.updateBars()
+                self.homeBar.alpha = 1
+                self.awayBar.alpha = 1
+        }
+    }    
 }

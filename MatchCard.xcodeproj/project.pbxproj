@@ -41,7 +41,6 @@
 		77D69B641B16394E0053EB10 /* MatchCardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D69B631B16394E0053EB10 /* MatchCardTests.swift */; };
 		77EB9D921B224B1E00DD93D9 /* MatchEntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EB9D911B224B1E00DD93D9 /* MatchEntryCell.swift */; };
 		77EB9D941B225A4B00DD93D9 /* MatchCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EB9D931B225A4B00DD93D9 /* MatchCardViewController.swift */; };
-		77EB9D961B225BFA00DD93D9 /* MatchCardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EB9D951B225BFA00DD93D9 /* MatchCardController.swift */; };
 		77EFCA381B1BEAFC00779BAF /* MatchCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EFCA371B1BEAFC00779BAF /* MatchCardModel.swift */; };
 		77F4D05C1B1BAE00003B9096 /* MatchPlayersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D05B1B1BAE00003B9096 /* MatchPlayersController.swift */; };
 		77FA4B481B277D4E0093C5CB /* MatchEntryEditLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FA4B471B277D4E0093C5CB /* MatchEntryEditLayout.swift */; };
@@ -100,7 +99,6 @@
 		77D69B631B16394E0053EB10 /* MatchCardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchCardTests.swift; sourceTree = "<group>"; };
 		77EB9D911B224B1E00DD93D9 /* MatchEntryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchEntryCell.swift; sourceTree = "<group>"; };
 		77EB9D931B225A4B00DD93D9 /* MatchCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchCardViewController.swift; sourceTree = "<group>"; };
-		77EB9D951B225BFA00DD93D9 /* MatchCardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchCardController.swift; sourceTree = "<group>"; };
 		77EFCA371B1BEAFC00779BAF /* MatchCardModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchCardModel.swift; sourceTree = "<group>"; };
 		77F4D05B1B1BAE00003B9096 /* MatchPlayersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchPlayersController.swift; sourceTree = "<group>"; };
 		77FA4B471B277D4E0093C5CB /* MatchEntryEditLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchEntryEditLayout.swift; sourceTree = "<group>"; };
@@ -254,7 +252,6 @@
 				77ACC7A41B2709CC0078C6FA /* MatchEntryCell.xib */,
 				77FA4B471B277D4E0093C5CB /* MatchEntryEditLayout.swift */,
 				770784B81B24EA1F00C96B40 /* MatchCardStandardLayout.swift */,
-				77EB9D951B225BFA00DD93D9 /* MatchCardController.swift */,
 				77EB9D931B225A4B00DD93D9 /* MatchCardViewController.swift */,
 			);
 			name = MatchCard;
@@ -462,7 +459,6 @@
 				7771D8831B3DA01300C24FF9 /* DataManager.swift in Sources */,
 				77BC54C51B1C9BC80046F3C4 /* RightAlignedCollectionViewCell.swift in Sources */,
 				773BC1041B39B7700062CC4C /* MatchHeaderReusableView.swift in Sources */,
-				77EB9D961B225BFA00DD93D9 /* MatchCardController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

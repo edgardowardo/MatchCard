@@ -13,13 +13,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="160" height="45"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="20" textAlignment="right" minimumFontSize="17" id="o7G-ml-eB6" userLabel="Home Score TextField" customClass="CaretlessTextField" customModule="MatchCard" customModuleProvider="target">
-                        <rect key="frame" x="2" y="2" width="1" height="1"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
-                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="22"/>
-                        <textInputTraits key="textInputTraits"/>
-                    </textField>
                     <view contentMode="scaleToFill" id="Pdq-9C-lVi" userLabel="Home Bar View">
                         <rect key="frame" x="8" y="7" width="4" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
@@ -64,7 +57,6 @@
                 <outlet property="awayScore" destination="geW-Hw-UEp" id="LOp-Dw-An2"/>
                 <outlet property="homeBar" destination="Pdq-9C-lVi" id="zqz-gf-lE2"/>
                 <outlet property="homeScore" destination="5us-tw-D6q" id="J7q-gg-bB2"/>
-                <outlet property="homeScoreField" destination="o7G-ml-eB6" id="Px1-FO-GO0"/>
             </connections>
             <point key="canvasLocation" x="42" y="54.5"/>
         </collectionViewCell>

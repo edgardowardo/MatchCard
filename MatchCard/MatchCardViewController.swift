@@ -21,9 +21,9 @@ protocol MatchCardViewControllerDelegate {
 }
 
 class MatchCardViewController : UIViewController {
-    //
+    // MARK:
     // MARK: Structured constants
-    //
+    // MARK:
     struct Notification {
         struct Identifier {
             static let ReloadData = "NotificationIdentifierOfReloadData"
@@ -34,38 +34,46 @@ class MatchCardViewController : UIViewController {
             static let Club = "MapClubIdentifier"
         }
     }
+    // These tags are used to identify which textfield owns the picker view
     struct Tags {
         static let Nothing = 0
-        static let League = 1
-        static let Division = 2
-        static let Location = 3
-        static let AwayTeam = 4
-        static let HomeTeam_AllTeams = 5
-        static let HomeTeam_Filter = 6
+        static let MatchEntry  = 1
+        static let League = 2
+        static let Division = 3
+        static let Location = 4
+        static let AwayTeam = 5
+        static let HomeTeam_AllTeams = 6
+        static let HomeTeam_Filter = 7
     }
-    //
+    // MARK:
     // MARK: Properties
-    //
+    // MARK:
     @IBOutlet weak var containingView : UIView?
     @IBOutlet weak var matchCardCollectionView : UICollectionView?
     var delegate: MatchCardViewControllerDelegate?
+    let mockMatchEntryTextField = UITextField(frame: CGRectZero)
     let mockLeagueTextField = UITextField(frame: CGRectZero)
     let mockDivTextField = UITextField(frame: CGRectZero)
     let mockLocTextField = UITextField(frame: CGRectZero)
     let mockLocPickerTextField = UITextField(frame: CGRectZero)
     let mockTeamTextField = UITextField(frame: CGRectZero)
-    let matchCardController = MatchCardController()
-    //
+    var layouts : [LayoutType : UICollectionViewLayout] = [.Standard : MatchCardStandardLayout(), .Edit : MatchEntryEditLayout()]
+    var layout : LayoutType = .Standard {
+        didSet {
+            self.matchCardCollectionView?.setCollectionViewLayout(self.layouts[self.layout]!, animated: true)
+        }
+    }
+    // MARK:
     // MARK: View lifecycle and helpers
-    //
+    // MARK:
     override func viewDidLoad() {
         super.viewDidLoad()
         let nibHeader = UINib(nibName: MatchHeaderReusableView.Collection.Nib, bundle: nil)
         let nibScore = UINib(nibName: ScoreHeaderReusableView.Collection.Nib, bundle: nil)
         let nibMatchEntry = UINib(nibName: MatchEntryCell.Collection.Nib, bundle:nil)
         let nibPlayers = UINib(nibName: MatchPlayersReusableView.Collection.Nib, bundle: nil)
-        matchCardCollectionView?.delegate = matchCardController
-        matchCardCollectionView?.dataSource = matchCardController
+        matchCardCollectionView?.delegate = self
+        matchCardCollectionView?.dataSource = self
         matchCardCollectionView?.registerNib(nibHeader, forSupplementaryViewOfKind: MatchHeaderReusableView.Collection.Kind, withReuseIdentifier: MatchHeaderReusableView.Collection.ReuseIdentifier)
         matchCardCollectionView?.registerNib(nibScore, forSupplementaryViewOfKind: ScoreHeaderReusableView.Collection.Kind.Home, withReuseIdentifier: ScoreHeaderReusableView.Collection.ReuseIdentifier)
         matchCardCollectionView?.registerNib(nibScore, forSupplementaryViewOfKind: ScoreHeaderReusableView.Collection.Kind.Away, withReuseIdentifier: ScoreHeaderReusableView.Collection.ReuseIdentifier)
@@ -73,7 +81,6 @@ class MatchCardViewController : UIViewController {
         matchCardCollectionView?.registerNib(nibPlayers, forSupplementaryViewOfKind: MatchPlayersReusableView.Collection.Kind.Home, withReuseIdentifier: MatchPlayersReusableView.Collection.ReuseIdentifier)
         matchCardCollectionView?.registerNib(nibPlayers, forSupplementaryViewOfKind: MatchPlayersReusableView.Collection.Kind.Away, withReuseIdentifier: MatchPlayersReusableView.Collection.ReuseIdentifier)
         matchCardCollectionView?.setCollectionViewLayout(MatchCardStandardLayout(), animated: false)
-        matchCardController.matchCollectionView = self.matchCardCollectionView
         if Common.showColorBounds() == false {
             matchCardCollectionView?.backgroundColor = UIColor.clearColor()
             containingView?.backgroundColor = UIColor.whiteColor()
@@ -94,23 +101,25 @@ class MatchCardViewController : UIViewController {
         self.view.addSubview(self.mockLocTextField)
         self.mockLocTextField.inputView = map
         // inputView is picker view for the following fields:
-        addPickerAndDoneToolBar(toTextField : mockLeagueTextField, withTag: Tags.League)
-        addPickerAndDoneToolBar(toTextField : mockDivTextField, withTag: Tags.Division )
-        addPickerAndDoneToolBar(toTextField : mockLocPickerTextField, withTag: Tags.Location)
-        addPickerAndDoneToolBar(toTextField : mockTeamTextField, withTag: Tags.Nothing)
-//        doneButton.action = Selector("doneTap")
+        addPickerAndDoneToolBar(toTextField: mockLeagueTextField, withTag: Tags.League)
+        addPickerAndDoneToolBar(toTextField: mockDivTextField, withTag: Tags.Division )
+        addPickerAndDoneToolBar(toTextField: mockLocPickerTextField, withTag: Tags.Location)
+        addPickerAndDoneToolBar(toTextField: mockTeamTextField, withTag: Tags.Nothing)
+        addPickerAndDoneToolBar(toTextField: mockMatchEntryTextField, withTag: Tags.MatchEntry, andSelector : "doneTappedMatchEntry")
     }
-    func addPickerAndDoneToolBar(#toTextField : UITextField, withTag : Int) {
+    func addPickerAndDoneToolBar(#toTextField : UITextField, withTag : Int, andSelector selector: String = "doneTappedGeneric") {
         let p = UIPickerView()
         p.delegate = self
         p.dataSource = self
         p.tag = withTag
         self.view.addSubview(toTextField)
         toTextField.inputView = p
-        
+        addDoneToolbar(toTextField: toTextField, withSelector: selector)
+    }
+    func addDoneToolbar(#toTextField : UITextField, withSelector selector: String) {
         var doneToolbar = UIToolbar(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, 44))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Done", style: .Done, target: self, action: Selector("doneTappedGeneric"))
+        let doneButton = UIBarButtonItem(title: "Done", style: .Done, target: self, action: Selector(selector))
         doneToolbar.setItems([flexibleSpace, doneButton], animated: true)
         toTextField.inputAccessoryView = doneToolbar
     }
@@ -126,6 +135,17 @@ class MatchCardViewController : UIViewController {
                     UIAlertView(title: "Warning", message: "You selected the same team as home and away", delegate: self, cancelButtonTitle: "OK").show()
                 }
             }
+        }
+    }
+    func doneTappedMatchEntry() {
+        if self.layout == .Edit {
+            // TO STANDARD MODE
+            self.layout = .Standard
+            mockMatchEntryTextField.resignFirstResponder()
+            let cell = matchCardCollectionView!.selectedCell() as! MatchEntryCell
+            cell.layer.borderColor = UIColor.clearColor().CGColor
+            cell.setFontSize(.Standard)
+            cell.layer.borderColor = UIColor.clearColor().CGColor
         }
     }
     func selectElement<T:Equatable>(elementy : T?, fromArray : [T], inTextFieldWithPicker textfield : UITextField) {
@@ -228,6 +248,9 @@ class MatchCardViewController : UIViewController {
     }
 }
 
+// MARK:
+// MARK: SidePanel delegates
+// MARK:
 extension MatchCardViewController: SidePanelViewControllerDelegate {
     func itemSelected(item: MenuItem) {
         switch item.type {
@@ -242,6 +265,9 @@ extension MatchCardViewController: SidePanelViewControllerDelegate {
     }
 }
 
+// MARK:
+// MARK: MKMapView delegates
+// MARK:
 extension MatchCardViewController : MKMapViewDelegate {
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
         DataManager.sharedInstance.matchCard.homeClub = view.annotation as? ClubInLeagueModel
@@ -265,6 +291,9 @@ extension MatchCardViewController : MKMapViewDelegate {
     }
 }
 
+// MARK:
+// MARK: UIPickerView delegates
+// MARK:
 extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate {
     func hasHomeClub() -> Bool {
         if let h = DataManager.sharedInstance.matchCard.homeClub {
@@ -273,10 +302,17 @@ extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate
         return false
     }
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        return 1
+        switch pickerView.tag {
+        case Tags.MatchEntry :
+            return 2
+        default :
+            return 1
+        }
     }
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch pickerView.tag {
+        case Tags.MatchEntry :
+            return 31
         case Tags.League :
             return DataManager.sharedInstance.allLeagues.count
         case Tags.Division :
@@ -295,6 +331,8 @@ extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate
     }
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
         switch pickerView.tag {
+        case Tags.MatchEntry :
+            return "\(row)"
         case Tags.League :
             return DataManager.sharedInstance.allLeagues[row].name
         case Tags.Division :
@@ -313,6 +351,16 @@ extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate
     }
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch pickerView.tag {
+        case Tags.MatchEntry :
+            let cell = matchCardCollectionView!.selectedCell() as! MatchEntryCell
+            let data = cell.data!
+            if component == 0 {
+                data.homeScore = row
+                cell.updateHomeScore(toScore: "\(row)")
+            } else {
+                data.awayScore = row
+                cell.updateAwayScore(toScore:  "\(row)")
+            }
         case Tags.League :
             DataManager.sharedInstance.matchCard.league = DataManager.sharedInstance.allLeagues[row]
             // clear lookups
@@ -342,6 +390,105 @@ extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate
 //    }
 }
 
+// MARK:
+// MARK: UICollectionView delegates
+// MARK:
+extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return DataManager.sharedInstance.matchCard.matchEntries.count
+    }
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        var cell = collectionView.dequeueReusableCellWithReuseIdentifier(MatchEntryCell.Collection.ReuseIdentifier, forIndexPath: indexPath) as! MatchEntryCell
+        let matchEntry = DataManager.sharedInstance.matchCard.matchEntries[indexPath.row]
+        cell.data = matchEntry
+        cell.homeScore.text = "\(matchEntry.homeScore)"
+        cell.awayScore.text = "\(matchEntry.awayScore)"
+        if Common.showColorBounds() {
+            cell.layer.borderWidth = 1
+            cell.layer.cornerRadius = 10
+            cell.layer.borderColor = UIColor.redColor().CGColor
+        }
+        else {
+            cell.backgroundColor? = UIColor.clearColor()
+            cell.homeScore?.backgroundColor = UIColor.clearColor()
+            cell.awayScore?.backgroundColor = UIColor.clearColor()
+        }
+        cell.updateBars()
+        return cell
+    }
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath){
+        var cell = collectionView.cellForItemAtIndexPath(indexPath) as! MatchEntryCell
+        if self.layout == .Standard {
+            // TO EDIT MODE
+            self.layout = .Edit
+            cell.layer.borderColor = UIColor.lightGrayColor().CGColor
+            mockMatchEntryTextField.becomeFirstResponder()
+            var picker = mockMatchEntryTextField.inputView as! UIPickerView
+            picker.selectRow(cell.homeScore.text!.toInt()! , inComponent: 0, animated: true)
+            picker.selectRow(cell.awayScore.text!.toInt()! , inComponent: 1, animated: true)
+            cell.setFontSize(.Edit)
+        } else if  self.layout == .Edit {
+            // TO STANDARD MODE
+            self.layout = .Standard
+            cell.layer.borderColor = UIColor.clearColor().CGColor
+            mockMatchEntryTextField.resignFirstResponder()
+            cell.setFontSize(.Standard)
+        }
+    }
+    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if self.layout == .Standard {
+            return true
+        }
+        let indexPaths : NSArray = collectionView.indexPathsForSelectedItems()
+        for i in indexPaths {
+            if indexPath.isEqual(i) {
+                return true
+            }
+        }
+        return false
+    }
+    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        var matchCard = DataManager.sharedInstance.matchCard
+        switch kind {
+        case MatchPlayersReusableView.Collection.Kind.Away :
+            return collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchPlayersReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! MatchPlayersReusableView
+        case MatchPlayersReusableView.Collection.Kind.Home :
+            var homePlayers = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchPlayersReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! MatchPlayersReusableView
+            homePlayers.elementKind = kind
+            homePlayers.playersCollectionView!.transform = CGAffineTransformMakeScale(-1, 1) // right align
+            return homePlayers
+        case MatchHeaderReusableView.Collection.Kind :
+            var headerView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchHeaderReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! MatchHeaderReusableView
+            headerView.leagueName.text = matchCard.leagueName
+            headerView.division.text = "\(matchCard.division)"
+            headerView.location.text = matchCard.location
+            headerView.date.text = matchCard.dateString
+            return headerView
+        case ScoreHeaderReusableView.Collection.Kind.Home :
+            var scoreHomeView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: ScoreHeaderReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! ScoreHeaderReusableView
+            scoreHomeView.score.text = matchCard.homeScore
+            scoreHomeView.teamName.text = matchCard.homeTeamName
+            scoreHomeView.kind = kind
+            return scoreHomeView
+        case ScoreHeaderReusableView.Collection.Kind.Away :
+            var scoreAwayView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: ScoreHeaderReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! ScoreHeaderReusableView
+            scoreAwayView.score.text = matchCard.awayScore
+            scoreAwayView.teamName.text = matchCard.awayTeamName
+            scoreAwayView.kind = kind
+            return scoreAwayView
+        default :
+            assertionFailure("")
+            return UICollectionReusableView()
+        }
+    }
+}
+
+// MARK:
+// MARK: UIAlertView delegates
+// MARK:
 extension MatchCardViewController : UIAlertViewDelegate {
     func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
     }
