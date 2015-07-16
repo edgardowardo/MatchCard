@@ -15,6 +15,7 @@
 		773BC1011B38A5DB0062CC4C /* PlayerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773BC1001B38A5DB0062CC4C /* PlayerViewCell.swift */; };
 		773BC1041B39B7700062CC4C /* MatchHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773BC1031B39B7700062CC4C /* MatchHeaderReusableView.swift */; };
 		773BC1061B39B8320062CC4C /* MatchHeaderReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 773BC1051B39B8320062CC4C /* MatchHeaderReusableView.xib */; };
+		776DDC9D1B57F2B400AB571F /* MatchPlayersStandardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776DDC9C1B57F2B400AB571F /* MatchPlayersStandardLayout.swift */; };
 		7771CE801B283D5C00EA3D09 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7771CE7F1B283D5C00EA3D09 /* Config.plist */; };
 		7771CE821B283E0000EA3D09 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7771CE811B283E0000EA3D09 /* Common.swift */; };
 		7771D8831B3DA01300C24FF9 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7771D8821B3DA01300C24FF9 /* DataManager.swift */; };
@@ -42,7 +43,6 @@
 		77EB9D921B224B1E00DD93D9 /* MatchEntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EB9D911B224B1E00DD93D9 /* MatchEntryCell.swift */; };
 		77EB9D941B225A4B00DD93D9 /* MatchCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EB9D931B225A4B00DD93D9 /* MatchCardViewController.swift */; };
 		77EFCA381B1BEAFC00779BAF /* MatchCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EFCA371B1BEAFC00779BAF /* MatchCardModel.swift */; };
-		77F4D05C1B1BAE00003B9096 /* MatchPlayersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F4D05B1B1BAE00003B9096 /* MatchPlayersController.swift */; };
 		77FA4B481B277D4E0093C5CB /* MatchEntryEditLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FA4B471B277D4E0093C5CB /* MatchEntryEditLayout.swift */; };
 		77FA4B4C1B278AD50093C5CB /* CaretlessTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FA4B4B1B278AD50093C5CB /* CaretlessTextField.swift */; };
 		B543514E4F1418C41BDAC0EA /* Pods_MatchCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8FD260B4B1249FB3F441E3F /* Pods_MatchCard.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -68,6 +68,7 @@
 		773BC1001B38A5DB0062CC4C /* PlayerViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewCell.swift; sourceTree = "<group>"; };
 		773BC1031B39B7700062CC4C /* MatchHeaderReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchHeaderReusableView.swift; sourceTree = "<group>"; };
 		773BC1051B39B8320062CC4C /* MatchHeaderReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MatchHeaderReusableView.xib; sourceTree = "<group>"; };
+		776DDC9C1B57F2B400AB571F /* MatchPlayersStandardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchPlayersStandardLayout.swift; sourceTree = "<group>"; };
 		7771CE7F1B283D5C00EA3D09 /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		7771CE811B283E0000EA3D09 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		7771D8821B3DA01300C24FF9 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
@@ -100,7 +101,6 @@
 		77EB9D911B224B1E00DD93D9 /* MatchEntryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchEntryCell.swift; sourceTree = "<group>"; };
 		77EB9D931B225A4B00DD93D9 /* MatchCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchCardViewController.swift; sourceTree = "<group>"; };
 		77EFCA371B1BEAFC00779BAF /* MatchCardModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchCardModel.swift; sourceTree = "<group>"; };
-		77F4D05B1B1BAE00003B9096 /* MatchPlayersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchPlayersController.swift; sourceTree = "<group>"; };
 		77FA4B471B277D4E0093C5CB /* MatchEntryEditLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchEntryEditLayout.swift; sourceTree = "<group>"; };
 		77FA4B4B1B278AD50093C5CB /* CaretlessTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaretlessTextField.swift; sourceTree = "<group>"; };
 		B927FA666368235DAA5E4C56 /* Pods-MatchCard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MatchCard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MatchCard/Pods-MatchCard.debug.xcconfig"; sourceTree = "<group>"; };
@@ -150,9 +150,9 @@
 		77BC54C31B1C99890046F3C4 /* Players */ = {
 			isa = PBXGroup;
 			children = (
+				776DDC9C1B57F2B400AB571F /* MatchPlayersStandardLayout.swift */,
 				770784B61B24725900C96B40 /* MatchPlayersReusableView.swift */,
 				773BC0FC1B3395000062CC4C /* MatchPlayersReusableView.xib */,
-				77F4D05B1B1BAE00003B9096 /* MatchPlayersController.swift */,
 				773BC1001B38A5DB0062CC4C /* PlayerViewCell.swift */,
 				773BC0FE1B38A4390062CC4C /* PlayerViewCell.xib */,
 			);
@@ -442,7 +442,6 @@
 				77EB9D941B225A4B00DD93D9 /* MatchCardViewController.swift in Sources */,
 				77A446FB1B418D8C000C5A6B /* SidePanelViewController.swift in Sources */,
 				77BE570B1B17B4A400E88630 /* PlayerModel.swift in Sources */,
-				77F4D05C1B1BAE00003B9096 /* MatchPlayersController.swift in Sources */,
 				779C79361B1F443900EE68AE /* PFObjectImaged.swift in Sources */,
 				772F712F1B54541A00F1BDD1 /* ClubInLeagueModel.swift in Sources */,
 				777A7A261B3B1CFD00FF9342 /* ScoreHeaderReusableView.swift in Sources */,
@@ -450,6 +449,7 @@
 				77FA4B481B277D4E0093C5CB /* MatchEntryEditLayout.swift in Sources */,
 				7771CE821B283E0000EA3D09 /* Common.swift in Sources */,
 				777B5E721B1F6E9400F19B8B /* TeamInMatchModel.swift in Sources */,
+				776DDC9D1B57F2B400AB571F /* MatchPlayersStandardLayout.swift in Sources */,
 				77A446FD1B4193EC000C5A6B /* MenuItem.swift in Sources */,
 				77FA4B4C1B278AD50093C5CB /* CaretlessTextField.swift in Sources */,
 				77D69B4E1B16394E0053EB10 /* AppDelegate.swift in Sources */,

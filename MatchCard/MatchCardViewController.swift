@@ -57,6 +57,7 @@ class MatchCardViewController : UIViewController {
     let mockLocTextField = UITextField(frame: CGRectZero)
     let mockLocPickerTextField = UITextField(frame: CGRectZero)
     let mockTeamTextField = UITextField(frame: CGRectZero)
+    let mockPlayerTextField = UITextField(frame: CGRectZero)
     var layouts : [LayoutType : UICollectionViewLayout] = [.Standard : MatchCardStandardLayout(), .Edit : MatchEntryEditLayout()]
     var layout : LayoutType = .Standard {
         didSet {
@@ -92,7 +93,7 @@ class MatchCardViewController : UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_ShowLocations_Picker:", name:MatchHeaderReusableView.Notification.Identifier.ShowLocations_Picker, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_ShowLocations_Map:", name:MatchHeaderReusableView.Notification.Identifier.ShowLocations_Map, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_ShowTeams:", name: ScoreHeaderReusableView.Notification.Identifier.ShowTeams, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_ShowPlayers:", name:PlayerViewCell.Notification.Identifier.SelectPlayer, object: nil)        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_ShowPlayers:", name:PlayerViewCell.Notification.Identifier.ShowPlayers, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_ReloadData:", name: Notification.Identifier.ReloadData, object: nil)
         // Assemble inputViews
         // inputView is MapView for Location
@@ -100,12 +101,19 @@ class MatchCardViewController : UIViewController {
         map.delegate = self
         self.view.addSubview(self.mockLocTextField)
         self.mockLocTextField.inputView = map
+        addDoneToolbar(toTextField: self.mockLocTextField)
         // inputView is picker view for the following fields:
         addPickerAndDoneToolBar(toTextField: mockLeagueTextField, withTag: Tags.League)
         addPickerAndDoneToolBar(toTextField: mockDivTextField, withTag: Tags.Division )
         addPickerAndDoneToolBar(toTextField: mockLocPickerTextField, withTag: Tags.Location)
         addPickerAndDoneToolBar(toTextField: mockTeamTextField, withTag: Tags.Nothing)
         addPickerAndDoneToolBar(toTextField: mockMatchEntryTextField, withTag: Tags.MatchEntry, andSelector : "doneTappedMatchEntry")
+        let playersView = UIView(frame: CGRectMake(0, 0, 320, 320))
+//        playersView.delegate = self
+//        playersView.dataSource = self
+        self.view.addSubview(mockPlayerTextField)
+        mockPlayerTextField.inputView = playersView
+        addDoneToolbar(toTextField: mockPlayerTextField)
     }
     func addPickerAndDoneToolBar(#toTextField : UITextField, withTag : Int, andSelector selector: String = "doneTappedGeneric") {
         let p = UIPickerView()
@@ -116,7 +124,7 @@ class MatchCardViewController : UIViewController {
         toTextField.inputView = p
         addDoneToolbar(toTextField: toTextField, withSelector: selector)
     }
-    func addDoneToolbar(#toTextField : UITextField, withSelector selector: String) {
+    func addDoneToolbar(#toTextField : UITextField, withSelector selector: String = "doneTappedGeneric" ) {
         var doneToolbar = UIToolbar(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, 44))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
         let doneButton = UIBarButtonItem(title: "Done", style: .Done, target: self, action: Selector(selector))
@@ -129,6 +137,7 @@ class MatchCardViewController : UIViewController {
         self.mockLocTextField.resignFirstResponder()
         self.mockLocPickerTextField.resignFirstResponder()
         self.mockTeamTextField.resignFirstResponder()
+        self.mockPlayerTextField.resignFirstResponder()
         if let homeTeam = DataManager.sharedInstance.matchCard.homeTeamBag.team {
             if let awayTeam = DataManager.sharedInstance.matchCard.awayTeamBag.team {
                 if homeTeam.name == awayTeam.name {
@@ -158,8 +167,7 @@ class MatchCardViewController : UIViewController {
                 p.selectRow(i, inComponent: 0, animated: true)
             }
         }
-    }
-    
+    }    
     //
     // Notification handlers
     //
@@ -238,6 +246,7 @@ class MatchCardViewController : UIViewController {
     }
     @objc private func methodOfReceivedNotification_ShowPlayers(notification: NSNotification){
         //        let kind = notification.object as! String
+        mockPlayerTextField.becomeFirstResponder()
     }
     @objc private func methodOfReceivedNotification_ReloadData(notifcation: NSNotification){
         matchCardCollectionView?.reloadData()
@@ -257,6 +266,7 @@ extension MatchCardViewController: SidePanelViewControllerDelegate {
         case .Clear :
             DataManager.sharedInstance.clear()
             matchCardCollectionView?.reloadData()
+            NSNotificationCenter.defaultCenter().postNotificationName(MenuItem.Notification.Identifier.Clear, object: nil)
         case .ClearScores :
             DataManager.sharedInstance.clearScores()
             matchCardCollectionView?.reloadData()

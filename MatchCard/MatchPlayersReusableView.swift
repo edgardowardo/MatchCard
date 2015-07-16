@@ -25,59 +25,79 @@ class MatchPlayersReusableView : UICollectionReusableView {
             static let Size = CGSizeMake(Width, Height)
         }
     }
-    struct Notification {
-        struct Identifier {
-            static let Clear = "NotificationIdentifierForClear"
-        }
-    }
-    let playersController = MatchPlayersController ()
     @IBOutlet weak var playersCollectionView: UICollectionView?
-    var elementKind = MatchPlayersReusableView.Collection.Kind.Away {
-        didSet {
-            playersController.elementKind = self.elementKind
-        }
-    }
+    var elementKind = MatchPlayersReusableView.Collection.Kind.Away
     override func awakeFromNib() {
         super.awakeFromNib()
         let playerNib = PlayerViewCell.Collection.Nib
         let nibPlayer = UINib(nibName: playerNib, bundle: nil)
         playersCollectionView?.registerNib(nibPlayer, forCellWithReuseIdentifier: PlayerViewCell.Collection.ReuseIdentifier)
-        playersCollectionView?.delegate = playersController
-        playersCollectionView?.dataSource = playersController
+        playersCollectionView?.delegate = self
+        playersCollectionView?.dataSource = self
         var l = MatchPlayersStandardLayout()
         l.scrollDirection = .Horizontal
         l.itemSize = PlayerViewCell.Collection.Size
         l.minimumLineSpacing = CGFloat(0) // FIXME: vary on screen size. perhaps from itself? Will cause jerky movement for targetContentOffset if not done.
         playersCollectionView?.collectionViewLayout = l
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "clearMethodOfReceivedNotification:", name: MatchPlayersReusableView.Notification.Identifier.Clear, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_Clear:", name: MenuItem.Notification.Identifier.Clear, object: nil)
     }
-    @objc private func clearMethodOfReceivedNotification(notification: NSNotification){
+
+    @objc private func methodOfReceivedNotification_Clear(notification: NSNotification){
         playersCollectionView?.reloadData()
     }
 }
 
-class MatchPlayersStandardLayout : UICollectionViewFlowLayout {
-    override func targetContentOffsetForProposedContentOffset(proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
-        var newContentOffset = proposedContentOffset
-        let divider = PlayerViewCell.Collection.Size.width + minimumLineSpacing
-        let modulus = proposedContentOffset.x % divider
-        let division = proposedContentOffset.x / divider
-        if modulus < divider / 2 {
-            newContentOffset.x = floor(division) * divider
+extension MatchPlayersReusableView : UICollectionViewDataSource,  UICollectionViewDelegate {
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if (elementKind == MatchPlayersReusableView.Collection.Kind.Away) {
+            return DataManager.sharedInstance.matchCard.awayTeamBag.players.count
         } else {
-            newContentOffset.x = ceil(division) * divider
+            return DataManager.sharedInstance.matchCard.homeTeamBag.players.count
         }
-        return newContentOffset
+    }
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(PlayerViewCell.Collection.ReuseIdentifier, forIndexPath: indexPath) as! PlayerViewCell
+        cell.elementKind = self.elementKind
+        if (elementKind == MatchPlayersReusableView.Collection.Kind.Away) {
+            var p1 = DataManager.sharedInstance.matchCard.awayTeamBag.players[indexPath.row]
+            cell.button.setTitle(p1.key, forState: .Normal)
+            cell.player = p1
+            if let player =  p1.player {
+                cell.button.setImage(player.imageFile, forState: .Normal)
+                cell.button.setImage(player.imageFileDark, forState: .Highlighted)
+                cell.name.text = player.name
+            } else {
+                cell.button.setImage(nil, forState: .Normal)
+                cell.button.setImage(nil, forState: .Highlighted)
+                cell.name.text = "unknown"
+            }
+        } else {
+            var p2 = DataManager.sharedInstance.matchCard.homeTeamBag.players[indexPath.row]
+            cell.button.setTitle(p2.key, forState: .Normal)
+            cell.player = p2
+            if let player =  p2.player {
+                cell.button.setImage(player.imageFile, forState: .Normal)
+                cell.button.setImage(player.imageFileDark, forState: .Highlighted)
+                cell.name.text = player.name
+            } else {
+                cell.button.setImage(nil, forState: .Normal)
+                cell.button.setImage(nil, forState: .Highlighted)
+                cell.name.text = "unknown"
+            }
+        }
+        if (self.elementKind == MatchPlayersReusableView.Collection.Kind.Home) {
+            cell.contentView.transform = CGAffineTransformMakeScale(-1, 1)
+        }
+        return cell
+    }
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        var cell = collectionView.cellForItemAtIndexPath(indexPath) as! PlayerViewCell
+        //        if (DataManager.sharedInstance.hasLeagueName == false) {
+        //            println("selected \(cell.name.text)")
+        //        }
     }
 }
 
-extension MatchPlayersReusableView: SidePanelViewControllerDelegate {
-    func itemSelected(item: MenuItem) {
-        switch item.type {
-        case .Clear :
-            playersCollectionView?.reloadData()
-        case .ClearScores :
-            break
-        }
-    }
-}

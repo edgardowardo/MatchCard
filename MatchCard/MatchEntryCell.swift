@@ -48,6 +48,10 @@ class MatchEntryCell : UICollectionViewCell {
         self.layer.cornerRadius = 10
         self.layer.borderColor = UIColor.clearColor().CGColor
         self.contentView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+        self.homeScore.layer.anchorPoint = CGPointMake(0.5, 0.5)
+        self.homeScore.transform = CGAffineTransformScale(self.homeScore.transform, CGFloat(0.5), CGFloat(0.5))
+        self.awayScore.layer.anchorPoint = CGPointMake(0.5, 0.5)
+        self.awayScore.transform = CGAffineTransformScale(self.awayScore.transform, CGFloat(0.5), CGFloat(0.5))        
     }
     func setFontSize(layout : LayoutType) {
         let scale = true

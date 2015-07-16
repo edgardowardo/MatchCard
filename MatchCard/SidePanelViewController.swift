@@ -49,8 +49,7 @@ extension SidePanelViewController: UITableViewDelegate {
 
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     let selectedItem = items[indexPath.row]
-    delegate?.itemSelected(selectedItem)
-    NSNotificationCenter.defaultCenter().postNotificationName(MatchPlayersReusableView.Notification.Identifier.Clear, object: selectedItem)
+    delegate?.itemSelected(selectedItem)    
   }
 }
 

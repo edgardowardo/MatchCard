@@ -17,15 +17,16 @@ class PlayerViewCell : UICollectionViewCell {
     }
     struct Notification {
         struct Identifier {
-            static let SelectPlayer = "NotificationIdentifierFor_SelectPlayer"
+            static let ShowPlayers = "NotificationIdentifierFor_ShowPlayers"
         }
     }
     var player : PlayerInMatchModel?
+//    var player : PlayerInClubModel?
     var elementKind = MatchPlayersReusableView.Collection.Kind.Away    
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var button: UIButton!
     @IBAction func handleButtonPressed(sender: UIButton) {
-        NSNotificationCenter.defaultCenter().postNotificationName(Notification.Identifier.SelectPlayer, object: self)
+        NSNotificationCenter.defaultCenter().postNotificationName(Notification.Identifier.ShowPlayers, object: self)
     }
     override func awakeFromNib() {
         super.awakeFromNib()

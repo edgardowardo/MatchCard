@@ -14,6 +14,11 @@ enum MenuItemType {
 
 @objc
 class MenuItem {
+    struct Notification {
+        struct Identifier {
+            static let Clear = "NotificationIdentifierForClear"
+        }
+    }
     let title: String
     let image: UIImage?
     let type: MenuItemType
