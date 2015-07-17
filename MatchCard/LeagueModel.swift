@@ -10,7 +10,7 @@ import Foundation
 import Parse
 
 /*
-    Data representation of league containing a union of clubs.
+ Data representation of league containing a union of clubs.
 */
 class LeagueModel : PFObjectImaged, PFSubclassing {
     
@@ -20,7 +20,7 @@ class LeagueModel : PFObjectImaged, PFSubclassing {
     override init () {
         super.init()
     }
-    convenience init(_ name : String, image : UIImage?, divisions : Int, clubs : [ClubInLeagueModel])
+    convenience init(_ name:String, image:UIImage?, divisions:Int, clubs:[ClubInLeagueModel]?=nil)
     {
         self.init()
         self.name = name
@@ -30,10 +30,8 @@ class LeagueModel : PFObjectImaged, PFSubclassing {
         self.divisions = divisions
         self.clubs = clubs
     }
-    
     @NSManaged var divisions : Int
-    @NSManaged var clubs : [ClubInLeagueModel]
-    
+    @NSManaged var clubs : [ClubInLeagueModel]?
     override class func initialize() {
         var onceToken : dispatch_once_t = 0;
         dispatch_once(&onceToken) {

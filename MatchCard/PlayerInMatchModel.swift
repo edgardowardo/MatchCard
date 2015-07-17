@@ -9,6 +9,9 @@
 import Foundation
 import Parse
 
+/*
+ Association between a player playing in a match. It lookups to the player model and is setup by looking up from PlayerInTeam and PlayerInClub.
+*/
 class PlayerInMatchModel : PFObject, PFSubclassing {
     
     static func parseClassName() -> String {

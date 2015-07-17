@@ -11,8 +11,7 @@ import Parse
 import MapKit
 
 /*
-    Data representation of a club and it's association within a specific league. It looks up the club model
-    for reference data such as map coordinates etc.
+ Association between a club within a league. It looks up the club model for reference data such as map coordinates etc.
 */
 class ClubInLeagueModel : PFObjectImaged, PFSubclassing, MKAnnotation {
     static func parseClassName() -> String {
@@ -40,7 +39,7 @@ class ClubInLeagueModel : PFObjectImaged, PFSubclassing, MKAnnotation {
         l.layer.borderWidth = 1
         l.layer.borderColor = UIColor.lightGrayColor().CGColor
         l.backgroundColor = UIColor.redColor().colorWithAlphaComponent(CGFloat(0.1))
-        self.imageFile = l.imageFile
+        self.imageFile = l.capturedImage
     }
     
     @NSManaged var club : ClubModel?

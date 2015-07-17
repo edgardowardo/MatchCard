@@ -10,8 +10,7 @@ import Foundation
 import Parse
 
 /*
-    Data representation of a team associated to a club. We don't support a team that belongs to numerous different clubs 
-    hence there is no TeamModel.
+ Association between a team within a club. We don't support a team that belongs to numerous different clubs hence there is no TeamModel to lookup to.
 */
 class TeamInClubModel : PFObjectImaged, PFSubclassing {
     static func parseClassName() -> String {
@@ -26,10 +25,30 @@ class TeamInClubModel : PFObjectImaged, PFSubclassing {
     override init () {
         super.init()
     }
-    convenience init(_ name : String)
+    convenience init(_ name : String, players : [PlayerInTeamModel]? = nil)
     {
         self.init()
         self.name = name
+        self.players = players
     }
+    @NSManaged var players : [PlayerInTeamModel]?
     var club : ClubInLeagueModel?
+    var allPlayers : [PlayerModel]? {
+        get {
+            var all = [PlayerModel]()
+            if let c = self.club {
+                if let ps = c.club!.players {
+                    for p in ps {
+                        all.append(p.player!)
+                    }
+                }
+            }
+            if let ps = self.players {
+                for p in ps {
+                    all.append(p.player!)
+                }
+            }
+            return all
+        }
+    }
 }

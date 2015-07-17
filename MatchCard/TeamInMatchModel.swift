@@ -9,6 +9,9 @@
 import Foundation
 import Parse
 
+/*
+ Association between a team playing in a match derived from a club. We don't support a team that belongs to numerous different clubs hence there is no TeamModel to lookup to.
+*/
 class TeamInMatchModel : PFObject, PFSubclassing {
     
     static func parseClassName() -> String {

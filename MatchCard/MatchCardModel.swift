@@ -9,6 +9,9 @@
 import Foundation
 import Parse
 
+/*
+ Data representation of a match card.
+*/
 class MatchCardModel : PFObject, PFSubclassing {
     struct Prompts {
         static let League = "Set the league here"
@@ -41,7 +44,7 @@ class MatchCardModel : PFObject, PFSubclassing {
         case "homeClub" :
             if n!.isKindOfClass(ClubInLeagueModel) {
                 var c = n as! ClubInLeagueModel
-                self.homeTeamBag.team = c.club?.teams[0]
+                self.homeTeamBag.team = c.club?.teams![0]
             }
         default :
             break
@@ -57,9 +60,9 @@ class MatchCardModel : PFObject, PFSubclassing {
     lazy var teams : [TeamInClubModel] = []
     func getAllTeams(fromLeague : LeagueModel) -> [TeamInClubModel] {
         var teams = [TeamInClubModel]()
-        for club in fromLeague.clubs {
+        for club in fromLeague.clubs! {
             if let c = club.club {
-                for team in c.teams {
+                for team in c.teams! {
                     team.club = club
                     teams.append(team)
                 }

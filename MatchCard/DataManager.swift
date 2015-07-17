@@ -14,11 +14,12 @@ class DataManager {
     static let sharedInstance = DataManager()
     lazy var allLeagues = DataManager.sharedInstance.getAllLeagues()
     lazy var allClubs = DataManager.sharedInstance.getAllClubs()
+    lazy var allPlayers = DataManager.sharedInstance.getAllPlayers()
     lazy var matchCard = DataManager.sharedInstance.getMatchCard()
     func getMatchCard() -> MatchCardModel {
         let l = allLeagues[1]
-        let c = l.clubs[6] // GHAP
-        let t = c.club?.teams[1] // GHAP2
+        let c = l.clubs![6] // GHAP
+        let t = c.club?.teams![1] // GHAP2
         var matchCard = MatchCardModel()
         matchCard.league = l
         matchCard.division = 2
@@ -47,15 +48,15 @@ class DataManager {
         matchCard.homeTeamBag = TeamInMatchModel()
         matchCard.homeTeamBag.team = t
         matchCard.homeTeamBag.players = [
-            PlayerInMatchModel("A1", PlayerModel(name: "Edgar", image: UIImage(named: "A1"))),
-            PlayerInMatchModel("A2", PlayerModel(name: "Slawomir", image: UIImage(named: "A2"))),
-            PlayerInMatchModel("B1", PlayerModel(name: "Someguy", image: UIImage(named: "B1"))),
+            PlayerInMatchModel("A1", getElement(allPlayers, withName: "Edgar")),
+            PlayerInMatchModel("A2"),
+            PlayerInMatchModel("B1"),
             PlayerInMatchModel("B2"),
             PlayerInMatchModel("C1"),
             PlayerInMatchModel("C2")
         ]
         matchCard.awayTeamBag = TeamInMatchModel()
-        matchCard.awayTeamBag.team = l.clubs[7].club?.teams[1]  // Heys-B
+        matchCard.awayTeamBag.team = l.clubs![7].club?.teams![1]  // Heys-B
         matchCard.awayTeamBag.players = [
             PlayerInMatchModel("D1"),
             PlayerInMatchModel("D2"),
@@ -66,10 +67,19 @@ class DataManager {
         ]
         return matchCard
     }
-    func getClub(name : String) -> ClubModel? {
-        let filteredArray = self.allClubs.filter() {
+    func getAllPlayers() -> [PlayerModel] {
+        return [
+            PlayerModel(name: "Edgar", image: UIImage(named: "edgar")),
+            PlayerModel(name: "Slawomir", image: UIImage(named: "slavo")),
+            PlayerModel(name: "Someguy", image: UIImage(named: "watch")),
+            PlayerModel(name: "Khai", image: UIImage(named: "khai")),
+            PlayerModel(name: "Pete", image: UIImage(named: "pete"))
+        ]
+    }
+    func getElement<T:PFObject>  (fromArray:[T], withName:String) -> T? {
+        let filteredArray = fromArray.filter() {
             if let type = ($0 as PFObject)["name"] as? String {
-                return type.rangeOfString(name) != nil
+                return type.rangeOfString(withName) != nil
             } else {
                 return false
             }
@@ -79,8 +89,18 @@ class DataManager {
         }
         return nil
     }
-    
     func getAllClubs() -> [ClubModel] {
+        let teamGhap1Players = [PlayerInTeamModel(getElement(allPlayers, withName: "Khai")!),
+            PlayerInTeamModel(getElement(allPlayers, withName: "Pete")!),
+            PlayerInTeamModel(getElement(allPlayers, withName: "Pete")!),
+            PlayerInTeamModel(getElement(allPlayers, withName: "Pete")!),
+            PlayerInTeamModel(getElement(allPlayers, withName: "Pete")!),
+            PlayerInTeamModel(getElement(allPlayers, withName: "Pete")!),
+            PlayerInTeamModel(getElement(allPlayers, withName: "Pete")!),
+            PlayerInTeamModel(getElement(allPlayers, withName: "Pete")!),
+            PlayerInTeamModel(getElement(allPlayers, withName: "Someguy")!)]
+        let clubGhapPlayers = [PlayerInClubModel(getElement(allPlayers, withName: "Slawomir")!)]
+        
         return [
             // Oldham and Rochdale
             ClubModel(latitude : 53.657975, longitude : -2.182020, name : "Alpha Whitworth"),
@@ -106,7 +126,7 @@ class DataManager {
             ClubModel(latitude : 53.445897, longitude : -2.248568, name : "Dome"),
             ClubModel(latitude : 53.367823, longitude : -2.158017, name : "Edgeley"),
             ClubModel(latitude : 53.419537, longitude : -2.339000, name : "Forest"),
-            ClubModel(latitude : 53.457945, longitude : -2.234832, name : "GHAP", teams : [TeamInClubModel("GHAP1"), TeamInClubModel("GHAP2"), TeamInClubModel("GHAP3")]),
+            ClubModel(latitude : 53.457945, longitude : -2.234832, name : "GHAP", teams : [TeamInClubModel("GHAP1", players : teamGhap1Players), TeamInClubModel("GHAP2"), TeamInClubModel("GHAP3")], players:clubGhapPlayers),
             ClubModel(latitude : 53.561111, longitude : -2.272721, name : "Heys", teams : [TeamInClubModel("Heys-A"), TeamInClubModel("Heys-B"), TeamInClubModel("Heys-C")]),
             ClubModel(latitude : 53.485997, longitude : -2.140424, name : "Medlock"),
             ClubModel(latitude : 53.468822, longitude : -2.365570, name : "Nomad"),
@@ -127,49 +147,49 @@ class DataManager {
         return [
             LeagueModel("Oldham & Rochdale Badminton League", image: nil, divisions : 3,
                 clubs : [
-                    ClubInLeagueModel(getClub("Alpha Whitworth")!),
-                    ClubInLeagueModel(getClub("Balderstone")!),
-                    ClubInLeagueModel(getClub("Blackeley")!),
-                    ClubInLeagueModel(getClub("Dons")!),
-                    ClubInLeagueModel(getClub("Edenfield")!),
-                    ClubInLeagueModel(getClub("Kashmir")!),
-                    ClubInLeagueModel(getClub("Lancashire Racquets")!),
-                    ClubInLeagueModel(getClub("Lydgate")!),
-                    ClubInLeagueModel(getClub("Manchester Unity")!),
-                    ClubInLeagueModel(getClub("Roch Bridge")!),
-                    ClubInLeagueModel(getClub("Saddleworth")!),
-                    ClubInLeagueModel(getClub("Shawclough")!),
-                    ClubInLeagueModel(getClub("Spotland")!),
-                    ClubInLeagueModel(getClub("Tara Hollingworth")!),
-                    ClubInLeagueModel(getClub("MMCBC")!)
+                    ClubInLeagueModel(getElement(allClubs, withName:"Alpha Whitworth")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"Balderstone")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"Blackeley")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"Dons")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"Edenfield")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"Kashmir")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"Lancashire Racquets")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"Lydgate")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"Manchester Unity")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"Roch Bridge")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"Saddleworth")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"Shawclough")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"Spotland")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"Tara Hollingworth")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"MMCBC")!)
                 ]
             ),
             LeagueModel("Manchester  Badminton League", image: nil, divisions : 4,
                 clubs : [
-                    ClubInLeagueModel(getClub("Blue Triangle")!),
-                    ClubInLeagueModel(getClub("Carrington")!),
-                    ClubInLeagueModel(getClub("Cheadle Hulme")!),
-                    ClubInLeagueModel(getClub("Disley")!),
-                    ClubInLeagueModel(getClub("Dome")!),
-                    ClubInLeagueModel(getClub("Edgeley")!),
-                    ClubInLeagueModel(getClub("GHAP")!), // 6
-                    ClubInLeagueModel(getClub("Heys")!), // 7
-                    ClubInLeagueModel(getClub("Medlock")!),
-                    ClubInLeagueModel(getClub("Nomad")!),
-                    ClubInLeagueModel(getClub("Ralley")!),
-                    ClubInLeagueModel(getClub("Silver Feather")!),
-                    ClubInLeagueModel(getClub("Yeti")!)
+                    ClubInLeagueModel(getElement(allClubs, withName:"Blue Triangle")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"Carrington")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"Cheadle Hulme")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"Disley")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"Dome")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"Edgeley")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"GHAP")!), // 6
+                    ClubInLeagueModel(getElement(allClubs, withName:"Heys")!), // 7
+                    ClubInLeagueModel(getElement(allClubs, withName:"Medlock")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"Nomad")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"Ralley")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"Silver Feather")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"Yeti")!)
                 ]
             ),
             LeagueModel("Whitefield and District  Badminton League", image: nil, divisions : 3,
                 clubs : [
-                    ClubInLeagueModel(getClub("Blackeley")!),
-                    ClubInLeagueModel(getClub("Bury")!),
-                    ClubInLeagueModel(getClub("Forrest")!),
-                    ClubInLeagueModel(getClub("GMT")!),
-                    ClubInLeagueModel(getClub("Heys")!),
-                    ClubInLeagueModel(getClub("Lancashire Racquets")!),
-                    ClubInLeagueModel(getClub("Markland Hill")!)
+                    ClubInLeagueModel(getElement(allClubs, withName:"Blackeley")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"Bury")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"Forrest")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"GMT")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"Heys")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"Lancashire Racquets")!),
+                    ClubInLeagueModel(getElement(allClubs, withName:"Markland Hill")!)
                 ]
             )
         ]

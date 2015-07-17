@@ -9,6 +9,9 @@
 import Foundation
 import Parse
 
+/*
+ Data representation of a match entry.
+*/
 class MatchEntryModel : PFObject, PFSubclassing {
     static func parseClassName() -> String {
         return "MatchEntry"

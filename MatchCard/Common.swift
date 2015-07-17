@@ -42,10 +42,12 @@ extension UITextField {
 }
 
 extension UIView {
-    var imageFile : UIImage? {
+    var capturedImage : UIImage? {
         get {
-            UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, CGFloat(0))
-            self.drawViewHierarchyInRect(self.bounds, afterScreenUpdates:true)
+            UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, UIScreen.mainScreen().scale)
+// FIXME: On Club refactor this works!
+//            self.drawViewHierarchyInRect(self.bounds, afterScreenUpdates:false)
+            self.layer.renderInContext(UIGraphicsGetCurrentContext())
             var snapshotImage = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
             return snapshotImage

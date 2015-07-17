@@ -193,12 +193,12 @@ class MatchCardViewController : UIViewController {
     }
     @objc private func methodOfReceivedNotification_ShowLocations_Picker(notification : NSNotification){
         selectElement(DataManager.sharedInstance.matchCard.homeClub,
-            fromArray: DataManager.sharedInstance.matchCard.league!.clubs,
+            fromArray: DataManager.sharedInstance.matchCard.league!.clubs!,
             inTextFieldWithPicker: self.mockLocPickerTextField)
     }
     @objc private func methodOfReceivedNotification_ShowLocations_Map(notification : NSNotification){
         var map = self.mockLocTextField.inputView as! MKMapView
-        let clubs = DataManager.sharedInstance.matchCard.league!.clubs
+        let clubs = DataManager.sharedInstance.matchCard.league!.clubs!
         let minLongitude = clubs.reduce(Float.infinity, combine: { min($0 , $1.longitude) })
         let maxLongitude = clubs.reduce(-Float.infinity, combine: { max($0 , $1.longitude) })
         let minLatitude = clubs.reduce(Float.infinity, combine: { min($0 , $1.latitude) })
@@ -235,7 +235,7 @@ class MatchCardViewController : UIViewController {
             team = DataManager.sharedInstance.matchCard.homeTeamBag.team
             if self.hasHomeClub() {
                 p.tag = Tags.HomeTeam_Filter
-                teams = DataManager.sharedInstance.matchCard.homeClub!.club!.teams
+                teams = DataManager.sharedInstance.matchCard.homeClub!.club!.teams!
             } else {
                 p.tag = Tags.HomeTeam_AllTeams
             }
@@ -328,11 +328,11 @@ extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate
         case Tags.Division :
             return DataManager.sharedInstance.matchCard.league!.divisions
         case Tags.Location :
-            return DataManager.sharedInstance.matchCard.league!.clubs.count
+            return DataManager.sharedInstance.matchCard.league!.clubs!.count
         case Tags.HomeTeam_AllTeams :
             return DataManager.sharedInstance.matchCard.teams.count
         case Tags.HomeTeam_Filter :
-            return DataManager.sharedInstance.matchCard.homeClub!.club!.teams.count
+            return DataManager.sharedInstance.matchCard.homeClub!.club!.teams!.count
         case Tags.AwayTeam :
             return DataManager.sharedInstance.matchCard.teams.count
         default :
@@ -348,11 +348,11 @@ extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate
         case Tags.Division :
             return "\(row+1)"
         case Tags.Location :
-            return DataManager.sharedInstance.matchCard.league!.clubs[row].club!.name
+            return DataManager.sharedInstance.matchCard.league!.clubs![row].club!.name
         case Tags.HomeTeam_AllTeams :
             return DataManager.sharedInstance.matchCard.teams[row].name
         case Tags.HomeTeam_Filter :
-                return DataManager.sharedInstance.matchCard.homeClub!.club!.teams[row].name
+                return DataManager.sharedInstance.matchCard.homeClub!.club!.teams![row].name
         case Tags.AwayTeam :
             return DataManager.sharedInstance.matchCard.teams[row].name
         default :
@@ -378,13 +378,13 @@ extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate
         case Tags.Division :
             DataManager.sharedInstance.matchCard.division = row + 1
         case Tags.Location :
-            DataManager.sharedInstance.matchCard.homeClub = DataManager.sharedInstance.matchCard.league!.clubs[row]
+            DataManager.sharedInstance.matchCard.homeClub = DataManager.sharedInstance.matchCard.league!.clubs![row]
         case Tags.HomeTeam_AllTeams :
             let teamInClub = DataManager.sharedInstance.matchCard.teams[row]
             DataManager.sharedInstance.matchCard.homeTeamBag.team = teamInClub
             DataManager.sharedInstance.matchCard.homeClub = teamInClub.club
         case Tags.HomeTeam_Filter :
-            DataManager.sharedInstance.matchCard.homeTeamBag.team = DataManager.sharedInstance.matchCard.homeClub!.club!.teams[row]
+            DataManager.sharedInstance.matchCard.homeTeamBag.team = DataManager.sharedInstance.matchCard.homeClub!.club!.teams![row]
         case Tags.AwayTeam :
             DataManager.sharedInstance.matchCard.awayTeamBag.team = DataManager.sharedInstance.matchCard.teams[row]
         default :
