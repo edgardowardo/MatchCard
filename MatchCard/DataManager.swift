@@ -19,7 +19,7 @@ class DataManager {
     func getMatchCard() -> MatchCardModel {
         let l = allLeagues[1]
         let c = l.clubs![6] // GHAP
-        let t = c.club?.teams![1] // GHAP2
+        let t = c.club?.teams![0] // GHAP2
         var matchCard = MatchCardModel()
         matchCard.league = l
         matchCard.division = 2
@@ -73,7 +73,8 @@ class DataManager {
             PlayerModel(name: "Slawomir", image: UIImage(named: "slavo")),
             PlayerModel(name: "Someguy", image: UIImage(named: "watch")),
             PlayerModel(name: "Khai", image: UIImage(named: "khai")),
-            PlayerModel(name: "Pete", image: UIImage(named: "pete"))
+            PlayerModel(name: "Pete", image: UIImage(named: "pete")),
+            PlayerModel(name: "Simon Sack", image: nil)
         ]
     }
     func getElement<T:PFObject>  (fromArray:[T], withName:String) -> T? {
@@ -100,6 +101,7 @@ class DataManager {
             PlayerInTeamModel(getElement(allPlayers, withName: "Pete")!),
             PlayerInTeamModel(getElement(allPlayers, withName: "Someguy")!)]
         let clubGhapPlayers = [PlayerInClubModel(getElement(allPlayers, withName: "Slawomir")!)]
+        let clubHeysBPlayers = [PlayerInClubModel(getElement(allPlayers, withName: "Simon Sack")!)]
         
         return [
             // Oldham and Rochdale
@@ -127,7 +129,7 @@ class DataManager {
             ClubModel(latitude : 53.367823, longitude : -2.158017, name : "Edgeley"),
             ClubModel(latitude : 53.419537, longitude : -2.339000, name : "Forest"),
             ClubModel(latitude : 53.457945, longitude : -2.234832, name : "GHAP", teams : [TeamInClubModel("GHAP1", players : teamGhap1Players), TeamInClubModel("GHAP2"), TeamInClubModel("GHAP3")], players:clubGhapPlayers),
-            ClubModel(latitude : 53.561111, longitude : -2.272721, name : "Heys", teams : [TeamInClubModel("Heys-A"), TeamInClubModel("Heys-B"), TeamInClubModel("Heys-C")]),
+            ClubModel(latitude : 53.561111, longitude : -2.272721, name : "Heys", teams : [TeamInClubModel("Heys-A"), TeamInClubModel("Heys-B"), TeamInClubModel("Heys-C")], players: clubHeysBPlayers),
             ClubModel(latitude : 53.485997, longitude : -2.140424, name : "Medlock"),
             ClubModel(latitude : 53.468822, longitude : -2.365570, name : "Nomad"),
             ClubModel(latitude : 53.419537, longitude : -2.338984, name : "PVBC"),

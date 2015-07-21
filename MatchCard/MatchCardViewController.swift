@@ -11,7 +11,7 @@ import UIKit
 import MapKit
 
 enum LayoutType {
-    case Standard, Edit, Players, Matrix
+    case Standard, Edit, HomePlayers, AwayPlayers, Matrix
 }
 
 @objc
@@ -26,7 +26,8 @@ class MatchCardViewController : UIViewController {
     // MARK:
     struct Notification {
         struct Identifier {
-            static let ReloadData = "NotificationIdentifierOfReloadData"
+            static let ReloadData = "NotificationIdentifierOf_ReloadData"
+            static let SetLayout = "NotificationIdentifierOf_SetLayout"
         }
     }
     struct Map {
@@ -44,6 +45,9 @@ class MatchCardViewController : UIViewController {
         static let AwayTeam = 5
         static let HomeTeam_AllTeams = 6
         static let HomeTeam_Filter = 7
+        static let AlertNoLeague = 8
+        static let AlertNoAwayTeam = 9
+        static let AlertNoHomeTeam = 10
     }
     // MARK:
     // MARK: Properties
@@ -58,10 +62,17 @@ class MatchCardViewController : UIViewController {
     let mockLocPickerTextField = UITextField(frame: CGRectZero)
     let mockTeamTextField = UITextField(frame: CGRectZero)
     let mockPlayerTextField = UITextField(frame: CGRectZero)
-    var layouts : [LayoutType : UICollectionViewLayout] = [.Standard : MatchCardStandardLayout(), .Edit : MatchEntryEditLayout()]
+    lazy var playersInputController = PlayersInputController()
+    var layouts : [LayoutType : UICollectionViewLayout] = [.Standard : MatchCardStandardLayout(), .Edit : MatchEntryEditLayout(), .HomePlayers : HomePlayersLayout(), .AwayPlayers : AwayPlayersLayout()]
     var layout : LayoutType = .Standard {
         didSet {
             self.matchCardCollectionView?.setCollectionViewLayout(self.layouts[self.layout]!, animated: true)
+            NSNotificationCenter.defaultCenter().postNotificationName(Notification.Identifier.SetLayout, object: self)
+            if layout == .AwayPlayers || layout == .HomePlayers {
+                self.matchCardCollectionView?.scrollEnabled = false
+            } else {
+                self.matchCardCollectionView?.scrollEnabled = true
+            }
         }
     }
     // MARK:
@@ -108,12 +119,18 @@ class MatchCardViewController : UIViewController {
         addPickerAndDoneToolBar(toTextField: mockLocPickerTextField, withTag: Tags.Location)
         addPickerAndDoneToolBar(toTextField: mockTeamTextField, withTag: Tags.Nothing)
         addPickerAndDoneToolBar(toTextField: mockMatchEntryTextField, withTag: Tags.MatchEntry, andSelector : "doneTappedMatchEntry")
-        let playersView = UIView(frame: CGRectMake(0, 0, 320, 320))
-//        playersView.delegate = self
-//        playersView.dataSource = self
+        //
+        // Players Input View
+        //
+        var layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSizeMake(70, 80)
+        let playersInputView = UICollectionView(frame: CGRectMake(0, 0, PlayersInputController.Collection.Width, PlayersInputController.Collection.Height), collectionViewLayout: layout)
+        let nibPlayer = UINib(nibName: PlayerViewCell.Collection.Nib, bundle: nil)
+        playersInputView.registerNib(nibPlayer, forCellWithReuseIdentifier: PlayerViewCell.Collection.ReuseIdentifier)
+        playersInputView.backgroundColor = UIColor.lightGrayColor()
         self.view.addSubview(mockPlayerTextField)
-        mockPlayerTextField.inputView = playersView
-        addDoneToolbar(toTextField: mockPlayerTextField)
+        mockPlayerTextField.inputView = playersInputView
+        addDoneToolbar(toTextField: mockPlayerTextField, withSelector: "doneTappedPlayer")
     }
     func addPickerAndDoneToolBar(#toTextField : UITextField, withTag : Int, andSelector selector: String = "doneTappedGeneric") {
         let p = UIPickerView()
@@ -125,11 +142,15 @@ class MatchCardViewController : UIViewController {
         addDoneToolbar(toTextField: toTextField, withSelector: selector)
     }
     func addDoneToolbar(#toTextField : UITextField, withSelector selector: String = "doneTappedGeneric" ) {
-        var doneToolbar = UIToolbar(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, 44))
+        var doneToolbar = UIToolbar(frame: CGRectMake(0, 0, UIToolbar.Size.Width, UIToolbar.Size.Height))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
         let doneButton = UIBarButtonItem(title: "Done", style: .Done, target: self, action: Selector(selector))
         doneToolbar.setItems([flexibleSpace, doneButton], animated: true)
         toTextField.inputAccessoryView = doneToolbar
+    }
+    func doneTappedPlayer() {
+        self.mockPlayerTextField.resignFirstResponder()
+        self.layout = .Standard
     }
     func doneTappedGeneric() {
         self.mockLeagueTextField.resignFirstResponder()
@@ -137,7 +158,6 @@ class MatchCardViewController : UIViewController {
         self.mockLocTextField.resignFirstResponder()
         self.mockLocPickerTextField.resignFirstResponder()
         self.mockTeamTextField.resignFirstResponder()
-        self.mockPlayerTextField.resignFirstResponder()
         if let homeTeam = DataManager.sharedInstance.matchCard.homeTeamBag.team {
             if let awayTeam = DataManager.sharedInstance.matchCard.awayTeamBag.team {
                 if homeTeam.name == awayTeam.name {
@@ -240,16 +260,51 @@ class MatchCardViewController : UIViewController {
                 p.tag = Tags.HomeTeam_AllTeams
             }
         }
-        selectElement(team,
+        self.selectElement(team,
             fromArray: teams,
-            inTextFieldWithPicker: self.mockTeamTextField)
+            inTextFieldWithPicker: self.mockTeamTextField)        
     }
     @objc private func methodOfReceivedNotification_ShowPlayers(notification: NSNotification){
-        //        let kind = notification.object as! String
-        mockPlayerTextField.becomeFirstResponder()
+        checkLeagueBeforeDoing { () -> () in
+            let cell = notification.object as! PlayerViewCell
+            if cell.elementKind == MatchPlayersReusableView.Collection.Kind.Away {
+                if let awayTeam = DataManager.sharedInstance.matchCard.awayTeamBag.team {
+                    self.layout = .AwayPlayers
+                } else {
+                    var a = UIAlertView(title: "Away team is unknown", message: "Set the away team?", delegate: self, cancelButtonTitle: "Cancel", otherButtonTitles: "OK")
+                    a.tag = Tags.AlertNoAwayTeam
+                    a.show()
+                    return
+                }
+            } else if cell.elementKind == MatchPlayersReusableView.Collection.Kind.Home {
+                if let homeTeam = DataManager.sharedInstance.matchCard.homeTeamBag.team {
+                    self.layout = .HomePlayers
+                } else {
+                    var a = UIAlertView(title: "Home team is unknown", message: "Set the home team?", delegate: self, cancelButtonTitle: "Cancel", otherButtonTitles: "OK")
+                    a.tag = Tags.AlertNoHomeTeam
+                    a.show()
+                    return
+                }
+            }
+            let cv = self.mockPlayerTextField.inputView as! UICollectionView
+            cv.delegate = self.playersInputController
+            cv.dataSource = self.playersInputController
+            cv.reloadData()
+            self.playersInputController.elementKind = cell.elementKind
+            self.mockPlayerTextField.becomeFirstResponder()
+        }
     }
     @objc private func methodOfReceivedNotification_ReloadData(notifcation: NSNotification){
         matchCardCollectionView?.reloadData()
+    }
+    func checkLeagueBeforeDoing( function :  () -> () ) {
+        if let league = DataManager.sharedInstance.matchCard.league {
+            function()
+        } else {
+            var a = UIAlertView(title: "League is unknown", message: "Set the league?", delegate: self, cancelButtonTitle: "Cancel", otherButtonTitles: "OK")
+            a.tag = Tags.AlertNoLeague
+            a.show()
+        }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -501,5 +556,18 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
 // MARK:
 extension MatchCardViewController : UIAlertViewDelegate {
     func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
+        if buttonIndex == 1 {
+            switch alertView.tag {
+            case Tags.AlertNoLeague:
+                NSNotificationCenter.defaultCenter().postNotificationName(MatchHeaderReusableView.Notification.Identifier.ShowLeagues, object: nil)
+            case Tags.AlertNoHomeTeam:
+                NSNotificationCenter.defaultCenter().postNotificationName(ScoreHeaderReusableView.Notification.Identifier.ShowTeams, object:ScoreHeaderReusableView.Collection.Kind.Home)
+            case Tags.AlertNoAwayTeam:
+                NSNotificationCenter.defaultCenter().postNotificationName(ScoreHeaderReusableView.Notification.Identifier.ShowTeams, object: ScoreHeaderReusableView.Collection.Kind.Away)
+            default :
+                break
+            }
+        }
     }
 }
+

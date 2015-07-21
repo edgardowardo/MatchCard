@@ -20,9 +20,8 @@ class PlayerViewCell : UICollectionViewCell {
             static let ShowPlayers = "NotificationIdentifierFor_ShowPlayers"
         }
     }
-    var player : PlayerInMatchModel?
-//    var player : PlayerInClubModel?
-    var elementKind = MatchPlayersReusableView.Collection.Kind.Away    
+    var player : PlayerModel?
+    var elementKind = MatchPlayersReusableView.Collection.Kind.Away
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var button: UIButton!
     @IBAction func handleButtonPressed(sender: UIButton) {

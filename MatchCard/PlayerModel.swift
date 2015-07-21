@@ -28,4 +28,11 @@ class PlayerModel : PFObjectImaged, PFSubclassing {
             self.registerSubclass()
         }
     }
+    
+    var initials : String {
+        get {
+            return name.substringToIndex(advance(name.startIndex, 1))
+        }
+    }
+    
 } 

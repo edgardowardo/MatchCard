@@ -124,22 +124,22 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         debugMe(fromMethod: "\(__FUNCTION__)")
     }
     func targetContentOffsetForProposedContentOffsetWrappedFunction(proposedContentOffset : CGPoint) -> CGPoint {
-        var newConentOffset = proposedContentOffset
+        var newContentOffset = proposedContentOffset
         if (proposedContentOffset.y < headerSummarySize().height / 2) {
-            newConentOffset.y = 0
+            newContentOffset.y = 0
         } else if proposedContentOffset.y >= headerSummarySize().height / 2
             && proposedContentOffset.y <= headerSummarySize().height {
-                newConentOffset.y = headerSummarySize().height
+                newContentOffset.y = headerSummarySize().height
         }
         var homePlayersAttrs = self.suppsInfo[MatchPlayersReusableView.Collection.Kind.Home]
-        homePlayersAttrs!.frame.origin.y = yOfPlayersView(newConentOffset)
+        homePlayersAttrs!.frame.origin.y = yOfPlayersView(newContentOffset)
         var awayPlayersAttrs = self.suppsInfo[MatchPlayersReusableView.Collection.Kind.Away]
-        awayPlayersAttrs!.frame.origin.y = yOfPlayersView(newConentOffset)
+        awayPlayersAttrs!.frame.origin.y = yOfPlayersView(newContentOffset)
         var homeScoreAttrs = self.suppsInfo[ScoreHeaderReusableView.Collection.Kind.Home]
-        homeScoreAttrs!.frame.origin.y = yOfScoreView(newConentOffset)
+        homeScoreAttrs!.frame.origin.y = yOfScoreView(newContentOffset)
         var awayScoreAttrs = self.suppsInfo[ScoreHeaderReusableView.Collection.Kind.Away]
-        awayScoreAttrs!.frame.origin.y = yOfScoreView(newConentOffset)
-        return newConentOffset
+        awayScoreAttrs!.frame.origin.y = yOfScoreView(newContentOffset)
+        return newContentOffset
     }
     override func targetContentOffsetForProposedContentOffset(proposedContentOffset: CGPoint) -> CGPoint {
         return targetContentOffsetForProposedContentOffsetWrappedFunction(proposedContentOffset)
@@ -208,7 +208,7 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         homePlayersAttributes.alpha = 0.9
         homePlayersAttributes.frame = CGRectMake(0,
             yOfPlayersView(), homePlayersSize().width, homePlayersSize().height)
-        homePlayersAttributes.zIndex += 1
+        homePlayersAttributes.zIndex += 3
         self.suppsInfo[homePlayersKind] = homePlayersAttributes
        // Away
         let awayPlayersKind = MatchPlayersReusableView.Collection.Kind.Away
@@ -216,7 +216,7 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         awayPlayersAttributes.alpha = 1
         awayPlayersAttributes.frame = CGRectMake(awayPlayersSize().width,
             yOfPlayersView(), awayPlayersSize().width, awayPlayersSize().height)
-        awayPlayersAttributes.zIndex += 1
+        awayPlayersAttributes.zIndex += 3
         self.suppsInfo[awayPlayersKind] = awayPlayersAttributes
     }
     override func collectionViewContentSize() -> CGSize {

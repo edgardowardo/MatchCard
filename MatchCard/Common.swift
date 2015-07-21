@@ -67,3 +67,9 @@ extension UICollectionView {
     }
 }
 
+extension UIToolbar {
+    struct Size {
+        static let Width = UIScreen.mainScreen().bounds.size.width
+        static let Height = CGFloat(44 )
+    }
+}

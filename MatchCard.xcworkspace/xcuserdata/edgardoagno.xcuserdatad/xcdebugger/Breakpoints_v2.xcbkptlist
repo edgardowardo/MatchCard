@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "MatchCard/MatchCardViewController.swift"
-            timestampString = "458751608.226339"
+            timestampString = "459185117.774209"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "360"
-            endingLineNumber = "360"
-            landmarkName = "pickerView(_:titleForRow:forComponent:)"
+            startingLineNumber = "417"
+            endingLineNumber = "417"
+            landmarkName = "pickerView(_:didSelectRow:inComponent:)"
             landmarkType = "5">
             <Actions>
                <BreakpointActionProxy
@@ -34,11 +34,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "MatchCard/MatchCardViewController.swift"
-            timestampString = "458750221.422851"
+            timestampString = "458955007.072674"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
             <Actions>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "MatchCard/MatchCardViewController.swift"
-            timestampString = "458750354.542995"
+            timestampString = "459025865.117271"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "211"
-            endingLineNumber = "211"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
             landmarkName = "methodOfReceivedNotification_ShowLocations_Map(_:)"
             landmarkType = "5">
             <Actions>
@@ -88,11 +88,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "MatchCard/MatchCardViewController.swift"
-            timestampString = "458751608.226339"
+            timestampString = "459185117.774209"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "293"
-            endingLineNumber = "293"
+            startingLineNumber = "350"
+            endingLineNumber = "350"
             landmarkName = "mapView(_:viewForAnnotation:)"
             landmarkType = "5">
             <Actions>
@@ -112,12 +112,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "MatchCard/MatchCardViewController.swift"
-            timestampString = "458750354.542995"
+            timestampString = "459185117.774209"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "285"
-            endingLineNumber = "285"
-            landmarkName = "mapView(_:didSelectAnnotationView:)"
+            startingLineNumber = "342"
+            endingLineNumber = "342"
+            landmarkName = "mapView(_:viewForAnnotation:)"
             landmarkType = "5">
             <Actions>
                <BreakpointActionProxy
@@ -135,13 +135,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MatchCard/MatchCardViewController.swift"
-            timestampString = "458750354.542995"
+            filePath = "MatchCard/PlayersInputController.swift"
+            timestampString = "458859499.342482"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
-            landmarkName = "methodOfReceivedNotification_ShowTeams(_:)"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "collectionView(_:numberOfItemsInSection:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -151,25 +151,67 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MatchCard/MatchCardViewController.swift"
-            timestampString = "458750354.542995"
+            filePath = "MatchCard/PlayersInputController.swift"
+            timestampString = "458859502.03557"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "243"
-            endingLineNumber = "243"
-            landmarkName = "methodOfReceivedNotification_ShowTeams(_:)"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "collectionView(_:cellForItemAtIndexPath:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MatchCard/MatchPlayersReusableView.swift"
+            timestampString = "459188972.094985"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "methodOfReceivedNotification_SetLayout(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MatchCard/HomePlayersLayout.swift"
+            timestampString = "459184643.148114"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "prepareLayoutForSupplementaryViews()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "Yes"
+            filePath = "MatchCard/MatchPlayersReusableView.swift"
+            timestampString = "459188972.094985"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "awakeFromNib()"
             landmarkType = "5">
             <Actions>
                <BreakpointActionProxy
                   ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
                   <ActionContent
-                     consoleCommand = "po team">
-                  </ActionContent>
-               </BreakpointActionProxy>
-               <BreakpointActionProxy
-                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
-                  <ActionContent
-                     consoleCommand = "po teams">
+                     consoleCommand = "po leftAndRight">
                   </ActionContent>
                </BreakpointActionProxy>
             </Actions>

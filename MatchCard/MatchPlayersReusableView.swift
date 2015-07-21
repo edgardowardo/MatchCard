@@ -23,27 +23,62 @@ class MatchPlayersReusableView : UICollectionReusableView {
             static let Width = CGFloat(UIScreen.mainScreen().bounds.size.width / 2)
             static let Height = CGFloat(100)
             static let Size = CGSizeMake(Width, Height)
+            struct  Assignment {
+                static let Width = CGFloat(UIScreen.mainScreen().bounds.size.width)
+                static let Height = CGFloat(UIScreen.mainScreen().bounds.size.height * 3/5 )
+            }
         }
     }
     @IBOutlet weak var playersCollectionView: UICollectionView?
     var elementKind = MatchPlayersReusableView.Collection.Kind.Away
+    var layouts : [LayoutType : UICollectionViewFlowLayout] = [.Standard : MatchPlayersStandardLayout(), .Edit : MatchPlayersStandardLayout()]
+    var layout : LayoutType = .Standard {
+        didSet {
+            self.playersCollectionView?.setCollectionViewLayout(self.layouts[self.layout]!, animated: true)
+        }
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
-        let playerNib = PlayerViewCell.Collection.Nib
-        let nibPlayer = UINib(nibName: playerNib, bundle: nil)
+        let nibPlayer = UINib(nibName: PlayerViewCell.Collection.Nib, bundle: nil)
         playersCollectionView?.registerNib(nibPlayer, forCellWithReuseIdentifier: PlayerViewCell.Collection.ReuseIdentifier)
         playersCollectionView?.delegate = self
         playersCollectionView?.dataSource = self
-        var l = MatchPlayersStandardLayout()
-        l.scrollDirection = .Horizontal
-        l.itemSize = PlayerViewCell.Collection.Size
-        l.minimumLineSpacing = CGFloat(0) // FIXME: vary on screen size. perhaps from itself? Will cause jerky movement for targetContentOffset if not done.
-        playersCollectionView?.collectionViewLayout = l
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_Clear:", name: MenuItem.Notification.Identifier.Clear, object: nil)
-    }
 
+        var standardLayout = self.layouts[.Standard]!
+        standardLayout.scrollDirection = .Horizontal
+        standardLayout.itemSize = PlayerViewCell.Collection.Size
+        standardLayout.minimumLineSpacing = CGFloat(0)
+        
+        var editLayout = self.layouts[.Edit]!
+        editLayout.scrollDirection = .Vertical
+        editLayout.itemSize = PlayerViewCell.Collection.Size
+        editLayout.minimumLineSpacing = CGFloat(10)
+        editLayout.sectionInset = UIEdgeInsetsMake(25, 50, 0, 50)
+        
+        self.layout = .Standard
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_Clear:", name: MenuItem.Notification.Identifier.Clear, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_SetLayout:", name: MatchCardViewController.Notification.Identifier.SetLayout, object: nil)
+    }
     @objc private func methodOfReceivedNotification_Clear(notification: NSNotification){
         playersCollectionView?.reloadData()
+    }
+    @objc private func methodOfReceivedNotification_SetLayout(notification : NSNotification){
+        var vc = notification.object as! MatchCardViewController
+        switch vc.layout {
+        case .HomePlayers :
+            if elementKind == MatchPlayersReusableView.Collection.Kind.Away {
+                break
+            }
+            self.layout = .Edit
+        case .AwayPlayers :
+            if elementKind == MatchPlayersReusableView.Collection.Kind.Home {
+                break
+            }
+            self.layout = .Edit
+        default :
+            self.layout = .Standard
+        }
     }
 }
 
@@ -64,7 +99,6 @@ extension MatchPlayersReusableView : UICollectionViewDataSource,  UICollectionVi
         if (elementKind == MatchPlayersReusableView.Collection.Kind.Away) {
             var p1 = DataManager.sharedInstance.matchCard.awayTeamBag.players[indexPath.row]
             cell.button.setTitle(p1.key, forState: .Normal)
-            cell.player = p1
             if let player =  p1.player {
                 cell.button.setImage(player.imageFile, forState: .Normal)
                 cell.button.setImage(player.imageFileDark, forState: .Highlighted)
@@ -77,7 +111,6 @@ extension MatchPlayersReusableView : UICollectionViewDataSource,  UICollectionVi
         } else {
             var p2 = DataManager.sharedInstance.matchCard.homeTeamBag.players[indexPath.row]
             cell.button.setTitle(p2.key, forState: .Normal)
-            cell.player = p2
             if let player =  p2.player {
                 cell.button.setImage(player.imageFile, forState: .Normal)
                 cell.button.setImage(player.imageFileDark, forState: .Highlighted)
