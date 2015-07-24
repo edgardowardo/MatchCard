@@ -35,4 +35,8 @@ class PlayerModel : PFObjectImaged, PFSubclassing {
         }
     }
     
+    func isAddition() -> Bool {
+        return name == "+"
+    }
+    
 } 

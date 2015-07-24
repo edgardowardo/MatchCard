@@ -33,21 +33,29 @@ class TeamInClubModel : PFObjectImaged, PFSubclassing {
     }
     @NSManaged var players : [PlayerInTeamModel]?
     var club : ClubInLeagueModel?
+    var exclusion : [PlayerModel] = []
     var allPlayers : [PlayerModel]? {
         get {
             var all = [PlayerModel]()
             if let c = self.club {
                 if let ps = c.club!.players {
                     for p in ps {
+                        if contains(exclusion, p.player!) {
+                            continue
+                        }
                         all.append(p.player!)
                     }
                 }
             }
             if let ps = self.players {
                 for p in ps {
+                    if contains(exclusion, p.player!) {
+                        continue
+                    }
                     all.append(p.player!)
                 }
             }
+            all.append(PlayerModel(name: "+", image: nil))
             return all
         }
     }

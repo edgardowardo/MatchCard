@@ -10,6 +10,12 @@ import Foundation
 import UIKit
 
 class PlayersInputController : NSObject, UICollectionViewDelegate, UICollectionViewDataSource {
+    struct Notification {
+        struct Identifier {
+            static let ShowRegisteredPlayers = "NotificationIdentifierFor_ShowRegisteredPlayers"
+            static let AssignRegisteredPlayer = "NotificationIdentifierFor_AssignRegisteredPlayers"
+        }
+    }
     struct Collection {
         static let Width = CGFloat(UIScreen.mainScreen().bounds.size.width)
         static let Height = CGFloat(UIScreen.mainScreen().bounds.size.height * 2/5 )
@@ -38,13 +44,20 @@ class PlayersInputController : NSObject, UICollectionViewDelegate, UICollectionV
         cell.button.userInteractionEnabled = false
         cell.button.setTitle(player.initials, forState: .Normal)
         cell.button.setImage(player.imageFile, forState: .Normal)
-        cell.name.text = player.name
+        if player.isAddition() {
+            cell.name.text = "New Player"
+        } else {
+            cell.name.text = player.name
+        }
         return cell
     }
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         var cell = collectionView.cellForItemAtIndexPath(indexPath) as! PlayerViewCell
-        //        if (DataManager.sharedInstance.hasLeagueName == false) {
-        //            println("selected \(cell.name.text)")
-        //        }
+        cell.indexPath = indexPath
+        if (cell.player!.isAddition()) {
+            // TODO: present modal view            
+        } else {
+            NSNotificationCenter.defaultCenter().postNotificationName(Notification.Identifier.AssignRegisteredPlayer, object: cell)
+        }
     }
 }

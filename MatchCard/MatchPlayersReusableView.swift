@@ -29,6 +29,12 @@ class MatchPlayersReusableView : UICollectionReusableView {
             }
         }
     }
+    struct Notification {
+        struct Identifier {
+            static let Deselect = "NotificationIdentifierOf_Deselect"
+            static let Reload = "NotificationIdentifierOf_Reload"
+        }
+    }
     @IBOutlet weak var playersCollectionView: UICollectionView?
     var elementKind = MatchPlayersReusableView.Collection.Kind.Away
     var layouts : [LayoutType : UICollectionViewFlowLayout] = [.Standard : MatchPlayersStandardLayout(), .Edit : MatchPlayersStandardLayout()]
@@ -59,6 +65,36 @@ class MatchPlayersReusableView : UICollectionReusableView {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_Clear:", name: MenuItem.Notification.Identifier.Clear, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_SetLayout:", name: MatchCardViewController.Notification.Identifier.SetLayout, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_Deselect:", name: Notification.Identifier.Deselect, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_Reload:", name: Notification.Identifier.Reload, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_AssignRegisteredPlayer:", name:PlayersInputController.Notification.Identifier.AssignRegisteredPlayer, object: nil)
+    }
+    @objc private func methodOfReceivedNotification_AssignRegisteredPlayer(notification: NSNotification){
+        var registeredPlayerCell = notification.object as? PlayerViewCell
+        if registeredPlayerCell?.elementKind == self.elementKind {
+            if let c = playersCollectionView?.selectedCell() {
+                var cell = c as! PlayerViewCell
+                if let p = cell.playingPlayer {
+                    p.player = registeredPlayerCell?.player
+                    cell.fade()
+                    NSNotificationCenter.defaultCenter().postNotificationName(MatchCardViewController.Notification.Identifier.RemoveRegisteredPlayer, object: registeredPlayerCell)
+                }
+            }
+//            else {
+//                UIAlertView(title: "Warning", message: "Select a position above first", delegate: self, cancelButtonTitle: "OK").show()
+//            }
+        }
+     }
+    @objc private func methodOfReceivedNotification_Deselect(notification: NSNotification){
+        if let c = playersCollectionView?.selectedCell() {
+            var cell = c as! PlayerViewCell
+            let i = playersCollectionView?.indexPathForCell(cell)
+            playersCollectionView?.deselectItemAtIndexPath(i, animated: true)
+            cell.updateButton()
+        }
+    }
+    @objc private func methodOfReceivedNotification_Reload(notification: NSNotification){
+        playersCollectionView?.reloadData()
     }
     @objc private func methodOfReceivedNotification_Clear(notification: NSNotification){
         playersCollectionView?.reloadData()
@@ -82,6 +118,9 @@ class MatchPlayersReusableView : UICollectionReusableView {
     }
 }
 
+// MARK:
+// MARK: UICollectionView delegates
+// MARK:
 extension MatchPlayersReusableView : UICollectionViewDataSource,  UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if (elementKind == MatchPlayersReusableView.Collection.Kind.Away) {
@@ -98,28 +137,17 @@ extension MatchPlayersReusableView : UICollectionViewDataSource,  UICollectionVi
         cell.elementKind = self.elementKind
         if (elementKind == MatchPlayersReusableView.Collection.Kind.Away) {
             var p1 = DataManager.sharedInstance.matchCard.awayTeamBag.players[indexPath.row]
-            cell.button.setTitle(p1.key, forState: .Normal)
-            if let player =  p1.player {
-                cell.button.setImage(player.imageFile, forState: .Normal)
-                cell.button.setImage(player.imageFileDark, forState: .Highlighted)
-                cell.name.text = player.name
-            } else {
-                cell.button.setImage(nil, forState: .Normal)
-                cell.button.setImage(nil, forState: .Highlighted)
-                cell.name.text = "unknown"
-            }
+            cell.playingPlayer = p1
+            cell.buttonKey.setTitle(p1.key, forState: .Normal)
         } else {
             var p2 = DataManager.sharedInstance.matchCard.homeTeamBag.players[indexPath.row]
-            cell.button.setTitle(p2.key, forState: .Normal)
-            if let player =  p2.player {
-                cell.button.setImage(player.imageFile, forState: .Normal)
-                cell.button.setImage(player.imageFileDark, forState: .Highlighted)
-                cell.name.text = player.name
-            } else {
-                cell.button.setImage(nil, forState: .Normal)
-                cell.button.setImage(nil, forState: .Highlighted)
-                cell.name.text = "unknown"
-            }
+            cell.playingPlayer = p2
+            cell.buttonKey.setTitle(p2.key, forState: .Normal)
+        }
+        if let i = cell.player?.imageFile {
+            cell.buttonKey.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        } else {
+            cell.buttonKey.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
         }
         if (self.elementKind == MatchPlayersReusableView.Collection.Kind.Home) {
             cell.contentView.transform = CGAffineTransformMakeScale(-1, 1)
@@ -128,9 +156,28 @@ extension MatchPlayersReusableView : UICollectionViewDataSource,  UICollectionVi
     }
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         var cell = collectionView.cellForItemAtIndexPath(indexPath) as! PlayerViewCell
-        //        if (DataManager.sharedInstance.hasLeagueName == false) {
-        //            println("selected \(cell.name.text)")
-        //        }
+        NSNotificationCenter.defaultCenter().postNotificationName(PlayersInputController.Notification.Identifier.ShowRegisteredPlayers, object: cell)
+    }
+    func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
+        var cell = collectionView.cellForItemAtIndexPath(indexPath) as! PlayerViewCell
+        // unhighlight the others
+        for c in collectionView.visibleCells()  {
+            if let ce = c as? PlayerViewCell {
+                ce.updateButtonClear()
+            }
+        }
+        cell.updateButton(highlighted: true)
+    }
+    func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
+        var cell = collectionView.cellForItemAtIndexPath(indexPath) as! PlayerViewCell
+        cell.updateButton()
     }
 }
 
+// MARK:
+// MARK: UIAlertView delegates
+// MARK:
+extension MatchPlayersReusableView : UIAlertViewDelegate {
+    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
+    }
+}

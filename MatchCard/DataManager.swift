@@ -93,14 +93,8 @@ class DataManager {
     func getAllClubs() -> [ClubModel] {
         let teamGhap1Players = [PlayerInTeamModel(getElement(allPlayers, withName: "Khai")!),
             PlayerInTeamModel(getElement(allPlayers, withName: "Pete")!),
-            PlayerInTeamModel(getElement(allPlayers, withName: "Pete")!),
-            PlayerInTeamModel(getElement(allPlayers, withName: "Pete")!),
-            PlayerInTeamModel(getElement(allPlayers, withName: "Pete")!),
-            PlayerInTeamModel(getElement(allPlayers, withName: "Pete")!),
-            PlayerInTeamModel(getElement(allPlayers, withName: "Pete")!),
-            PlayerInTeamModel(getElement(allPlayers, withName: "Pete")!),
             PlayerInTeamModel(getElement(allPlayers, withName: "Someguy")!)]
-        let clubGhapPlayers = [PlayerInClubModel(getElement(allPlayers, withName: "Slawomir")!)]
+        let clubGhapPlayers = [PlayerInClubModel(getElement(allPlayers, withName: "Slawomir")!), PlayerInClubModel(getElement(allPlayers, withName: "Edgar")!)]
         let clubHeysBPlayers = [PlayerInClubModel(getElement(allPlayers, withName: "Simon Sack")!)]
         
         return [

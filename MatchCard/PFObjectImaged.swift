@@ -25,26 +25,38 @@ class PFObjectImaged : PFObject {
     var imageFileDark : UIImage? {
         get {
             if let image = self.imageFile {
-                let color = UIColor.grayColor()
-                UIGraphicsBeginImageContext(image.size)
-                let context = UIGraphicsGetCurrentContext()
-                let area = CGRectMake(0, 0, image.size.width, image.size.height)
-                CGContextScaleCTM(context, CGFloat(1), CGFloat(-1))
-                CGContextTranslateCTM(context, CGFloat(0), -area.size.height)
-                CGContextSaveGState(context)
-                CGContextClipToMask(context, area, image.CGImage)
-                color.set()
-                CGContextFillRect(context, area)
-                CGContextRestoreGState(context)
-                CGContextSetBlendMode(context, kCGBlendModeMultiply)
-                CGContextDrawImage(context, area, image.CGImage)
-                let colorizedImage = UIGraphicsGetImageFromCurrentImageContext()
-                UIGraphicsEndImageContext()
-                return colorizedImage
+                return changeImageFile(image, withColor: UIColor.grayColor())
             }
             return nil
         }
     }
+    var imageFileGreen : UIImage? {
+        get {
+            if let image = self.imageFile {
+                return changeImageFile(image, withColor: UIColor.greenColor())
+            }
+            return nil
+        }
+    }
+    func changeImageFile(image : UIImage,  withColor : UIColor) -> UIImage? {
+        UIGraphicsBeginImageContext(image.size)
+        let context = UIGraphicsGetCurrentContext()
+        let area = CGRectMake(0, 0, image.size.width, image.size.height)
+        CGContextScaleCTM(context, CGFloat(1), CGFloat(-1))
+        CGContextTranslateCTM(context, CGFloat(0), -area.size.height)
+        CGContextSaveGState(context)
+        CGContextClipToMask(context, area, image.CGImage)
+        withColor.set()
+        CGContextFillRect(context, area)
+        CGContextRestoreGState(context)
+        CGContextSetBlendMode(context, kCGBlendModeMultiply)
+    CGContextSetAlpha(context, CGFloat(0.5))
+        CGContextDrawImage(context, area, image.CGImage)
+        let colorizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return colorizedImage
+    }
+    
     var imageFile : UIImage?
 //    var imageFile: UIImage? {
 //        get {

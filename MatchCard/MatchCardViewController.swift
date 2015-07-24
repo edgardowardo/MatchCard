@@ -28,6 +28,7 @@ class MatchCardViewController : UIViewController {
         struct Identifier {
             static let ReloadData = "NotificationIdentifierOf_ReloadData"
             static let SetLayout = "NotificationIdentifierOf_SetLayout"
+            static let RemoveRegisteredPlayer = "NotificationIdentifierOf_RemoveRegisteredPlayer"
         }
     }
     struct Map {
@@ -104,8 +105,10 @@ class MatchCardViewController : UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_ShowLocations_Picker:", name:MatchHeaderReusableView.Notification.Identifier.ShowLocations_Picker, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_ShowLocations_Map:", name:MatchHeaderReusableView.Notification.Identifier.ShowLocations_Map, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_ShowTeams:", name: ScoreHeaderReusableView.Notification.Identifier.ShowTeams, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_ShowPlayers:", name:PlayerViewCell.Notification.Identifier.ShowPlayers, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_ShowRegisteredPlayers:", name:PlayersInputController.Notification.Identifier.ShowRegisteredPlayers, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_ReloadData:", name: Notification.Identifier.ReloadData, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_RemoveRegisteredPlayer:", name: Notification.Identifier.RemoveRegisteredPlayer, object: nil)
+        
         // Assemble inputViews
         // inputView is MapView for Location
         let map = MKMapView(frame: CGRectMake(0, 0, 320, 320))
@@ -128,6 +131,7 @@ class MatchCardViewController : UIViewController {
         let nibPlayer = UINib(nibName: PlayerViewCell.Collection.Nib, bundle: nil)
         playersInputView.registerNib(nibPlayer, forCellWithReuseIdentifier: PlayerViewCell.Collection.ReuseIdentifier)
         playersInputView.backgroundColor = UIColor.lightGrayColor()
+        playersInputView.delaysContentTouches = false
         self.view.addSubview(mockPlayerTextField)
         mockPlayerTextField.inputView = playersInputView
         addDoneToolbar(toTextField: mockPlayerTextField, withSelector: "doneTappedPlayer")
@@ -151,6 +155,7 @@ class MatchCardViewController : UIViewController {
     func doneTappedPlayer() {
         self.mockPlayerTextField.resignFirstResponder()
         self.layout = .Standard
+        NSNotificationCenter.defaultCenter().postNotificationName(MatchPlayersReusableView.Notification.Identifier.Deselect, object:nil)
     }
     func doneTappedGeneric() {
         self.mockLeagueTextField.resignFirstResponder()
@@ -264,7 +269,7 @@ class MatchCardViewController : UIViewController {
             fromArray: teams,
             inTextFieldWithPicker: self.mockTeamTextField)        
     }
-    @objc private func methodOfReceivedNotification_ShowPlayers(notification: NSNotification){
+    @objc private func methodOfReceivedNotification_ShowRegisteredPlayers(notification: NSNotification){
         checkLeagueBeforeDoing { () -> () in
             let cell = notification.object as! PlayerViewCell
             if cell.elementKind == MatchPlayersReusableView.Collection.Kind.Away {
@@ -286,6 +291,8 @@ class MatchCardViewController : UIViewController {
                     return
                 }
             }
+            cell.updateButton()
+            
             let cv = self.mockPlayerTextField.inputView as! UICollectionView
             cv.delegate = self.playersInputController
             cv.dataSource = self.playersInputController
@@ -297,6 +304,22 @@ class MatchCardViewController : UIViewController {
     @objc private func methodOfReceivedNotification_ReloadData(notifcation: NSNotification){
         matchCardCollectionView?.reloadData()
     }
+    @objc private func methodOfReceivedNotification_RemoveRegisteredPlayer(notification: NSNotification){
+        let cell = notification.object as! PlayerViewCell
+        let cv = self.mockPlayerTextField.inputView as! UICollectionView
+        self.deleteCellfromCollectionView(cv, withItemAtIndexPath: cell.indexPath!)
+    }
+    func deleteCellfromCollectionView( collectionView: UICollectionView, withItemAtIndexPath indexPath: NSIndexPath) {
+        var cell = collectionView.cellForItemAtIndexPath(indexPath) as! PlayerViewCell
+        if (self.playersInputController.elementKind == MatchPlayersReusableView.Collection.Kind.Away) {
+            DataManager.sharedInstance.matchCard.awayTeamBag.team!.exclusion.append(cell.player!)
+            collectionView.deleteItemsAtIndexPaths([indexPath])
+        } else {
+            DataManager.sharedInstance.matchCard.homeTeamBag.team!.exclusion.append(cell.player!)
+            collectionView.deleteItemsAtIndexPaths([indexPath])
+        }
+    }
+    
     func checkLeagueBeforeDoing( function :  () -> () ) {
         if let league = DataManager.sharedInstance.matchCard.league {
             function()
