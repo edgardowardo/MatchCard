@@ -132,6 +132,7 @@ class MatchCardViewController : UIViewController {
         playersInputView.registerNib(nibPlayer, forCellWithReuseIdentifier: PlayerViewCell.Collection.ReuseIdentifier)
         playersInputView.backgroundColor = UIColor.lightGrayColor()
         playersInputView.delaysContentTouches = false
+        self.playersInputController.delegate = self
         self.view.addSubview(mockPlayerTextField)
         mockPlayerTextField.inputView = playersInputView
         addDoneToolbar(toTextField: mockPlayerTextField, withSelector: "doneTappedPlayer")
@@ -571,6 +572,17 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
             assertionFailure("")
             return UICollectionReusableView()
         }
+    }
+}
+
+// MARK:
+// MARK: Players Input delegates
+// MARK:
+extension MatchCardViewController : PlayersInputControllerDelegate {
+    func PlayerRegistration() {
+        self.doneTappedPlayer()
+        var rvc = UIStoryboard.playerRegistrationViewController()
+        self.presentViewController(rvc!, animated: true) { () -> Void in }
     }
 }
 

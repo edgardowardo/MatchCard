@@ -154,7 +154,7 @@ extension ContainerViewController: MatchCardViewControllerDelegate {
     }
 }
 
-private extension UIStoryboard {
+extension UIStoryboard {
     class func mainStoryboard() -> UIStoryboard { return UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()) }
     
     class func leftViewController() -> SidePanelViewController? {
@@ -163,5 +163,7 @@ private extension UIStoryboard {
     class func centerViewController() -> MatchCardViewController? {
         return mainStoryboard().instantiateViewControllerWithIdentifier("MatchCardViewController") as? MatchCardViewController
     }
-    
+    class func playerRegistrationViewController() -> PlayerRegistrationViewController? {
+        return mainStoryboard().instantiateViewControllerWithIdentifier("PlayerRegistrationViewController") as? PlayerRegistrationViewController
+    }
 }

@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "MatchCard/MatchCardViewController.swift"
-            timestampString = "459365871.953289"
+            timestampString = "459433122.762324"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "441"
-            endingLineNumber = "441"
+            startingLineNumber = "442"
+            endingLineNumber = "442"
             landmarkName = "pickerView(_:didSelectRow:inComponent:)"
             landmarkType = "5">
             <Actions>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "MatchCard/MatchCardViewController.swift"
-            timestampString = "459365871.953289"
+            timestampString = "459433122.762324"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "239"
-            endingLineNumber = "239"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
             landmarkName = "methodOfReceivedNotification_ShowLocations_Map(_:)"
             landmarkType = "5">
             <Actions>
@@ -88,11 +88,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "MatchCard/MatchCardViewController.swift"
-            timestampString = "459365871.953289"
+            timestampString = "459433122.762324"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "374"
-            endingLineNumber = "374"
+            startingLineNumber = "375"
+            endingLineNumber = "375"
             landmarkName = "mapView(_:viewForAnnotation:)"
             landmarkType = "5">
             <Actions>
@@ -112,11 +112,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "MatchCard/MatchCardViewController.swift"
-            timestampString = "459365871.953289"
+            timestampString = "459433122.762324"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "366"
-            endingLineNumber = "366"
+            startingLineNumber = "367"
+            endingLineNumber = "367"
             landmarkName = "mapView(_:viewForAnnotation:)"
             landmarkType = "5">
             <Actions>
@@ -136,11 +136,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MatchCard/PlayersInputController.swift"
-            timestampString = "459273032.449902"
+            timestampString = "459433122.762324"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
             landmarkName = "collectionView(_:numberOfItemsInSection:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -152,11 +152,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MatchCard/PlayersInputController.swift"
-            timestampString = "459273032.449902"
+            timestampString = "459433122.762324"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
             landmarkName = "collectionView(_:cellForItemAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -256,11 +256,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MatchCard/MatchCardViewController.swift"
-            timestampString = "459365871.953289"
+            timestampString = "459433122.762324"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
             landmarkName = "doneTappedPlayer()"
             landmarkType = "5">
          </BreakpointContent>
@@ -294,6 +294,22 @@
             startingLineNumber = "75"
             endingLineNumber = "75"
             landmarkName = "methodOfReceivedNotification_AssignRegisteredPlayer(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MatchCard/PlayerRegistrationViewController.swift"
+            timestampString = "459739401.439728"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

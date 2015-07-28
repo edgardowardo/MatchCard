@@ -81,3 +81,38 @@ extension UIToolbar {
         static let Height = CGFloat(44 )
     }
 }
+
+
+extension UIImage {
+    static func changeImageFile(image : UIImage,  withColor : UIColor) -> UIImage? {
+        UIGraphicsBeginImageContext(image.size)
+        let context = UIGraphicsGetCurrentContext()
+        let area = CGRectMake(0, 0, image.size.width, image.size.height)
+        CGContextScaleCTM(context, CGFloat(1), CGFloat(-1))
+        CGContextTranslateCTM(context, CGFloat(0), -area.size.height)
+        CGContextSaveGState(context)
+        CGContextClipToMask(context, area, image.CGImage)
+        withColor.set()
+        CGContextFillRect(context, area)
+        CGContextRestoreGState(context)
+        CGContextSetBlendMode(context, kCGBlendModeMultiply)
+        CGContextDrawImage(context, area, image.CGImage)
+        let colorizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return colorizedImage
+    }
+    public func resize(size:CGSize, completionHandler:(resizedImage:UIImage, data:NSData)->()) {
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
+            var newSize:CGSize = size
+            let rect = CGRectMake(0, 0, newSize.width, newSize.height)
+            UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+            self.drawInRect(rect)
+            let newImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            let imageData = UIImageJPEGRepresentation(newImage, 0.5)
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                completionHandler(resizedImage: newImage, data:imageData)
+            })
+        })
+    }
+}

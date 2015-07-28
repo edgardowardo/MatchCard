@@ -9,6 +9,11 @@
 import Foundation
 import UIKit
 
+@objc
+protocol PlayersInputControllerDelegate {
+    func PlayerRegistration()
+}
+
 class PlayersInputController : NSObject, UICollectionViewDelegate, UICollectionViewDataSource {
     struct Notification {
         struct Identifier {
@@ -21,6 +26,7 @@ class PlayersInputController : NSObject, UICollectionViewDelegate, UICollectionV
         static let Height = CGFloat(UIScreen.mainScreen().bounds.size.height * 2/5 )
     }
     var elementKind = MatchPlayersReusableView.Collection.Kind.Away
+    var delegate: PlayersInputControllerDelegate?
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if (elementKind == MatchPlayersReusableView.Collection.Kind.Away) {
             return DataManager.sharedInstance.matchCard.awayTeamBag.team!.allPlayers!.count
@@ -55,7 +61,7 @@ class PlayersInputController : NSObject, UICollectionViewDelegate, UICollectionV
         var cell = collectionView.cellForItemAtIndexPath(indexPath) as! PlayerViewCell
         cell.indexPath = indexPath
         if (cell.player!.isAddition()) {
-            // TODO: present modal view            
+            delegate?.PlayerRegistration()
         } else {
             NSNotificationCenter.defaultCenter().postNotificationName(Notification.Identifier.AssignRegisteredPlayer, object: cell)
         }
