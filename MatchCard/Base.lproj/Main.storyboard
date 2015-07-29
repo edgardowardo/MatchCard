@@ -131,7 +131,7 @@
                                                 </constraints>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="18"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" keyboardType="phonePad"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reserved" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AX3-DB-Mdm">
                                                 <rect key="frame" x="8" y="371" width="83" height="22"/>
@@ -172,7 +172,7 @@
                                             <constraint firstAttribute="bottom" secondItem="GOR-hB-Vtr" secondAttribute="bottom" constant="20" id="983-bF-tck"/>
                                             <constraint firstItem="AX3-DB-Mdm" firstAttribute="leading" secondItem="nkC-GN-Z6k" secondAttribute="leading" constant="8" id="AOR-5g-kB3"/>
                                             <constraint firstAttribute="trailing" secondItem="4YR-aM-1uT" secondAttribute="trailing" constant="8" id="H2w-mS-0OI"/>
-                                            <constraint firstAttribute="centerX" secondItem="M3I-kR-MAN" secondAttribute="centerX" constant="1" id="I3G-au-dZn"/>
+                                            <constraint firstAttribute="centerX" secondItem="M3I-kR-MAN" secondAttribute="centerX" id="I3G-au-dZn"/>
                                             <constraint firstItem="YDX-eC-LBw" firstAttribute="leading" secondItem="nkC-GN-Z6k" secondAttribute="leading" constant="8" id="JSj-Ab-lsb"/>
                                             <constraint firstItem="GOR-hB-Vtr" firstAttribute="leading" secondItem="AX3-DB-Mdm" secondAttribute="trailing" constant="9" id="O2I-xE-yPq"/>
                                             <constraint firstItem="SsL-G0-K3d" firstAttribute="leading" secondItem="nkC-GN-Z6k" secondAttribute="leading" constant="8" id="RTP-nk-bzl"/>
@@ -210,6 +210,7 @@
                     <connections>
                         <outlet property="buttonSetImage" destination="M3I-kR-MAN" id="QKd-Yv-mVc"/>
                         <outlet property="contentView" destination="nkC-GN-Z6k" id="os3-rw-Idb"/>
+                        <outlet property="flagReserved" destination="GOR-hB-Vtr" id="D4c-Vt-aSY"/>
                         <outlet property="nameTextField" destination="bY0-AO-X0q" id="4Ub-B3-uZq"/>
                         <outlet property="scrollView" destination="kjn-Tq-qF5" id="1Zt-Kh-OR4"/>
                     </connections>

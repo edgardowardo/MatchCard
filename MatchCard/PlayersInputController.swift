@@ -48,8 +48,20 @@ class PlayersInputController : NSObject, UICollectionViewDelegate, UICollectionV
         }
         cell.player = player
         cell.button.userInteractionEnabled = false
-        cell.button.setTitle(player.initials, forState: .Normal)
         cell.button.setImage(player.imageFile, forState: .Normal)
+        if player.imageFile == nil {
+            if player.name == "+" {
+                cell.button.setTitle(player.initials, forState: .Normal)
+                cell.buttonKey.setTitle("", forState: .Normal)
+            } else {
+                cell.button.setTitle("", forState: .Normal)
+                cell.buttonKey.setTitle(player.initials, forState: .Normal)
+            }
+        } else {
+            cell.button.setTitle("", forState: .Normal)
+            cell.buttonKey.setTitle("", forState: .Normal)
+        }
+        cell.updateButton()
         if player.isAddition() {
             cell.name.text = "New Player"
         } else {

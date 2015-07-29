@@ -11,6 +11,12 @@ import UIKit
 
 // TODO: MatchHomePlayersLayout and MatchAwayPlayersLayout calculating left aligned and right aligned and diagonal origins
 
+@objc
+protocol MatchPlayersReusableViewDelegate {
+    func needsPositionSelected()
+    func clearPlayerPositionCell()
+}
+
 class MatchPlayersReusableView : UICollectionReusableView {
     struct Collection {
         struct  Kind {
@@ -37,6 +43,7 @@ class MatchPlayersReusableView : UICollectionReusableView {
     }
     @IBOutlet weak var playersCollectionView: UICollectionView?
     var elementKind = MatchPlayersReusableView.Collection.Kind.Away
+    var delegate : MatchPlayersReusableViewDelegate?
     var layouts : [LayoutType : UICollectionViewFlowLayout] = [.Standard : MatchPlayersStandardLayout(), .Edit : MatchPlayersStandardLayout()]
     var layout : LayoutType = .Standard {
         didSet {
@@ -80,10 +87,11 @@ class MatchPlayersReusableView : UICollectionReusableView {
                     NSNotificationCenter.defaultCenter().postNotificationName(MatchCardViewController.Notification.Identifier.RemoveRegisteredPlayer, object: registeredPlayerCell)
                 }
             }
-//            else {
-//                UIAlertView(title: "Warning", message: "Select a position above first", delegate: self, cancelButtonTitle: "OK").show()
-//            }
+            else {
+                delegate?.needsPositionSelected()
+            }
         }
+        delegate?.clearPlayerPositionCell()
      }
     @objc private func methodOfReceivedNotification_Deselect(notification: NSNotification){
         if let c = playersCollectionView?.selectedCell() {
@@ -152,6 +160,7 @@ extension MatchPlayersReusableView : UICollectionViewDataSource,  UICollectionVi
         if (self.elementKind == MatchPlayersReusableView.Collection.Kind.Home) {
             cell.contentView.transform = CGAffineTransformMakeScale(-1, 1)
         }
+        cell.updateButton()
         return cell
     }
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -171,13 +180,5 @@ extension MatchPlayersReusableView : UICollectionViewDataSource,  UICollectionVi
     func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
         var cell = collectionView.cellForItemAtIndexPath(indexPath) as! PlayerViewCell
         cell.updateButton()
-    }
-}
-
-// MARK:
-// MARK: UIAlertView delegates
-// MARK:
-extension MatchPlayersReusableView : UIAlertViewDelegate {
-    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
     }
 }

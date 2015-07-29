@@ -49,6 +49,9 @@ class PlayerViewCell : UICollectionViewCell {
             if let p = self.player {
                 self.name.text = p.name
                 self.button.setImage(p.imageFileGreen, forState: .Normal)
+                if (p.name != "+") {
+                    self.buttonKey.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
+                }
             } else {
                 self.name.text = "unknown"
                 self.button.setImage(nil, forState: .Normal)
@@ -62,12 +65,15 @@ class PlayerViewCell : UICollectionViewCell {
         if let p = self.player {
             self.name.text = p.name
             self.button.setImage(p.imageFile, forState: .Normal)
+            if (p.name != "+") {
+                self.button.backgroundColor = UIColor.grayColor()
+                self.buttonKey.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+            }
         } else {
             self.name.text = "unknown"
             self.button.setImage(nil, forState: .Normal)
         }
     }
-    
     func fade() {
         let duration = 0.25
         let startAlpha = CGFloat(0.1)

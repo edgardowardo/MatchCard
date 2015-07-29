@@ -31,7 +31,7 @@ class TeamInClubModel : PFObjectImaged, PFSubclassing {
         self.name = name
         self.players = players
     }
-    @NSManaged var players : [PlayerInTeamModel]?
+    @NSManaged var players : [PlayerInTeamModel]? 
     var club : ClubInLeagueModel?
     var exclusion : [PlayerModel] = []
     var allPlayers : [PlayerModel]? {

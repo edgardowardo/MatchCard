@@ -10,6 +10,7 @@
 		770784B71B24725900C96B40 /* MatchPlayersReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770784B61B24725900C96B40 /* MatchPlayersReusableView.swift */; };
 		770784B91B24EA1F00C96B40 /* MatchCardStandardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770784B81B24EA1F00C96B40 /* MatchCardStandardLayout.swift */; };
 		7725833F1B5ADC10006117C1 /* HomePlayersLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7725833E1B5ADC10006117C1 /* HomePlayersLayout.swift */; };
+		772D86921B6790A300F7FB9A /* UIImage+ImagePickerCrop.m in Sources */ = {isa = PBXBuildFile; fileRef = 772D86911B6790A300F7FB9A /* UIImage+ImagePickerCrop.m */; };
 		772F712F1B54541A00F1BDD1 /* ClubInLeagueModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772F712E1B54541A00F1BDD1 /* ClubInLeagueModel.swift */; };
 		773BC0FD1B3395000062CC4C /* MatchPlayersReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 773BC0FC1B3395000062CC4C /* MatchPlayersReusableView.xib */; };
 		773BC0FF1B38A4390062CC4C /* PlayerViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 773BC0FE1B38A4390062CC4C /* PlayerViewCell.xib */; };
@@ -68,6 +69,8 @@
 		770784B61B24725900C96B40 /* MatchPlayersReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchPlayersReusableView.swift; sourceTree = "<group>"; };
 		770784B81B24EA1F00C96B40 /* MatchCardStandardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchCardStandardLayout.swift; sourceTree = "<group>"; };
 		7725833E1B5ADC10006117C1 /* HomePlayersLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePlayersLayout.swift; sourceTree = "<group>"; };
+		772D86901B6790A300F7FB9A /* UIImage+ImagePickerCrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImagePickerCrop.h"; sourceTree = "<group>"; };
+		772D86911B6790A300F7FB9A /* UIImage+ImagePickerCrop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImagePickerCrop.m"; sourceTree = "<group>"; };
 		772F712E1B54541A00F1BDD1 /* ClubInLeagueModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClubInLeagueModel.swift; sourceTree = "<group>"; };
 		773BC0FC1B3395000062CC4C /* MatchPlayersReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MatchPlayersReusableView.xib; sourceTree = "<group>"; };
 		773BC0FE1B38A4390062CC4C /* PlayerViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerViewCell.xib; sourceTree = "<group>"; };
@@ -234,6 +237,8 @@
 		77D69B4B1B16394E0053EB10 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				772D86901B6790A300F7FB9A /* UIImage+ImagePickerCrop.h */,
+				772D86911B6790A300F7FB9A /* UIImage+ImagePickerCrop.m */,
 				77BC54C21B1C8D0E0046F3C4 /* MatchCard-Bridging-Header.h */,
 				77D69B4C1B16394E0053EB10 /* Info.plist */,
 				7771CE7F1B283D5C00EA3D09 /* Config.plist */,
@@ -465,6 +470,7 @@
 				779C79381B1F46D600EE68AE /* TeamInClubModel.swift in Sources */,
 				77FA4B481B277D4E0093C5CB /* MatchEntryEditLayout.swift in Sources */,
 				7771CE821B283E0000EA3D09 /* Common.swift in Sources */,
+				772D86921B6790A300F7FB9A /* UIImage+ImagePickerCrop.m in Sources */,
 				777B5E721B1F6E9400F19B8B /* TeamInMatchModel.swift in Sources */,
 				775382B11B62633800C4802D /* PlayerRegistrationViewController.swift in Sources */,
 				776DDC9D1B57F2B400AB571F /* MatchPlayersStandardLayout.swift in Sources */,

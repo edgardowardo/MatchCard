@@ -49,6 +49,7 @@ class MatchCardViewController : UIViewController {
         static let AlertNoLeague = 8
         static let AlertNoAwayTeam = 9
         static let AlertNoHomeTeam = 10
+        static let AlertNoPosition = 11
     }
     // MARK:
     // MARK: Properties
@@ -63,6 +64,7 @@ class MatchCardViewController : UIViewController {
     let mockLocPickerTextField = UITextField(frame: CGRectZero)
     let mockTeamTextField = UITextField(frame: CGRectZero)
     let mockPlayerTextField = UITextField(frame: CGRectZero)
+    var selectedPlayerPositionCell : PlayerViewCell?
     lazy var playersInputController = PlayersInputController()
     var layouts : [LayoutType : UICollectionViewLayout] = [.Standard : MatchCardStandardLayout(), .Edit : MatchEntryEditLayout(), .HomePlayers : HomePlayersLayout(), .AwayPlayers : AwayPlayersLayout()]
     var layout : LayoutType = .Standard {
@@ -300,6 +302,7 @@ class MatchCardViewController : UIViewController {
             cv.reloadData()
             self.playersInputController.elementKind = cell.elementKind
             self.mockPlayerTextField.becomeFirstResponder()
+            self.selectedPlayerPositionCell = cell
         }
     }
     @objc private func methodOfReceivedNotification_ReloadData(notifcation: NSNotification){
@@ -543,11 +546,14 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
         var matchCard = DataManager.sharedInstance.matchCard
         switch kind {
         case MatchPlayersReusableView.Collection.Kind.Away :
-            return collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchPlayersReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! MatchPlayersReusableView
+            var awayPlayers = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchPlayersReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! MatchPlayersReusableView
+            awayPlayers.delegate = self
+            return awayPlayers
         case MatchPlayersReusableView.Collection.Kind.Home :
             var homePlayers = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchPlayersReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! MatchPlayersReusableView
             homePlayers.elementKind = kind
             homePlayers.playersCollectionView!.transform = CGAffineTransformMakeScale(-1, 1) // right align
+            homePlayers.delegate = self
             return homePlayers
         case MatchHeaderReusableView.Collection.Kind :
             var headerView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchHeaderReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! MatchHeaderReusableView
@@ -582,7 +588,9 @@ extension MatchCardViewController : PlayersInputControllerDelegate {
     func PlayerRegistration() {
         self.doneTappedPlayer()
         var rvc = UIStoryboard.playerRegistrationViewController()
-        self.presentViewController(rvc!, animated: true) { () -> Void in }
+        rvc?.elementKind = self.playersInputController.elementKind
+        rvc?.delegate = self
+        self.presentViewController(rvc!, animated: true, completion: nil)
     }
 }
 
@@ -606,3 +614,37 @@ extension MatchCardViewController : UIAlertViewDelegate {
     }
 }
 
+// MARK:
+// MARK: Match Players delegates
+// MARK:
+extension MatchCardViewController : MatchPlayersReusableViewDelegate {
+    func needsPositionSelected() {
+        self.doneTappedPlayer()
+        self.clearPlayerPositionCell()
+        var a = UIAlertView(title: "Warning", message: "Select a position in the team first. This is green highlighted", delegate: self, cancelButtonTitle: "OK")
+        a.tag = Tags.AlertNoPosition
+        a.show()
+    }
+    func clearPlayerPositionCell() {
+        self.selectedPlayerPositionCell = nil
+    }
+}
+
+// MARK:
+// MARK: Player Registration delegate
+// MARK:
+extension MatchCardViewController : PlayerRegistrationDelegate {
+    func isPositionSelected() -> Bool {
+        return self.selectedPlayerPositionCell != nil
+    }
+    func assignPlayerToTeamInMatch(player: PlayerModel) {
+        if let cell = self.selectedPlayerPositionCell {
+            if let pp = cell.playingPlayer {
+                pp.player = player
+                Common.delay(1, closure: { () -> () in
+                    cell.fade()
+                })
+            }
+        }
+    }
+}
