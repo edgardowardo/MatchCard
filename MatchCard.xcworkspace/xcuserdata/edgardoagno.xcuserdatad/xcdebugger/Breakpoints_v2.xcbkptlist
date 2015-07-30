@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "MatchCard/MatchCardViewController.swift"
-            timestampString = "459807481.614837"
+            timestampString = "459873295.368348"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "445"
-            endingLineNumber = "445"
+            startingLineNumber = "459"
+            endingLineNumber = "459"
             landmarkName = "pickerView(_:didSelectRow:inComponent:)"
             landmarkType = "5">
             <Actions>
@@ -34,11 +34,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "MatchCard/MatchCardViewController.swift"
-            timestampString = "459804167.548278"
+            timestampString = "459870331.396723"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
             <Actions>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "MatchCard/MatchCardViewController.swift"
-            timestampString = "459807481.614837"
+            timestampString = "459870331.396723"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "242"
-            endingLineNumber = "242"
+            startingLineNumber = "253"
+            endingLineNumber = "253"
             landmarkName = "methodOfReceivedNotification_ShowLocations_Map(_:)"
             landmarkType = "5">
             <Actions>
@@ -88,11 +88,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "MatchCard/MatchCardViewController.swift"
-            timestampString = "459807481.614837"
+            timestampString = "459873295.368348"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "378"
-            endingLineNumber = "378"
+            startingLineNumber = "392"
+            endingLineNumber = "392"
             landmarkName = "mapView(_:viewForAnnotation:)"
             landmarkType = "5">
             <Actions>
@@ -112,11 +112,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
             filePath = "MatchCard/MatchCardViewController.swift"
-            timestampString = "459807481.614837"
+            timestampString = "459873295.368348"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "370"
-            endingLineNumber = "370"
+            startingLineNumber = "384"
+            endingLineNumber = "384"
             landmarkName = "mapView(_:viewForAnnotation:)"
             landmarkType = "5">
             <Actions>
@@ -256,11 +256,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MatchCard/MatchCardViewController.swift"
-            timestampString = "459807481.614837"
+            timestampString = "459870331.396723"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "161"
-            endingLineNumber = "161"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
             landmarkName = "doneTappedPlayer()"
             landmarkType = "5">
          </BreakpointContent>
@@ -272,7 +272,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MatchCard/MatchPlayersReusableView.swift"
-            timestampString = "459805853.443886"
+            timestampString = "459872326.429525"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "167"
@@ -288,12 +288,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MatchCard/PlayerRegistrationViewController.swift"
-            timestampString = "459815556.894987"
+            timestampString = "459906068.776312"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "doneTappedGeneric()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -304,11 +304,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MatchCard/PlayerRegistrationViewController.swift"
-            timestampString = "459815556.894987"
+            timestampString = "459906378.527131"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
             landmarkName = "keyboardDidShow(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -352,11 +352,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MatchCard/MatchCardViewController.swift"
-            timestampString = "459807122.598874"
+            timestampString = "459882254.415826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "590"
-            endingLineNumber = "590"
+            startingLineNumber = "606"
+            endingLineNumber = "606"
             landmarkName = "PlayerRegistration()"
             landmarkType = "5">
          </BreakpointContent>
@@ -400,11 +400,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MatchCard/MatchCardViewController.swift"
-            timestampString = "459815556.894987"
+            timestampString = "459882254.415826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "641"
-            endingLineNumber = "641"
+            startingLineNumber = "657"
+            endingLineNumber = "657"
             landmarkName = "assignPlayerToTeamInMatch(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -416,13 +416,101 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MatchCard/MatchCardViewController.swift"
-            timestampString = "459815622.52035"
+            timestampString = "459882254.415826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "638"
-            endingLineNumber = "638"
+            startingLineNumber = "654"
+            endingLineNumber = "654"
             landmarkName = "isPositionSelected()"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MatchCard/MatchCardViewController.swift"
+            timestampString = "459882254.415826"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "579"
+            endingLineNumber = "579"
+            landmarkName = "collectionView(_:viewForSupplementaryElementOfKind:atIndexPath:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "Yes"
+            filePath = "MatchCard/ToolTipManager.swift"
+            timestampString = "459887666.724024"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "nextOfKey(_:)"
+            landmarkType = "5">
+            <Actions>
+               <BreakpointActionProxy
+                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
+                  <ActionContent
+                     consoleCommand = "po &quot;shown PlayerPosition Tip!!!&quot;">
+                  </ActionContent>
+               </BreakpointActionProxy>
+            </Actions>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "Yes"
+            filePath = "MatchCard/ToolTipManager.swift"
+            timestampString = "459909003.057598"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "easyTipViewDidDismiss(_:)"
+            landmarkType = "5">
+            <Actions>
+               <BreakpointActionProxy
+                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
+                  <ActionContent
+                     consoleCommand = "po self.currentKey">
+                  </ActionContent>
+               </BreakpointActionProxy>
+            </Actions>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "Yes"
+            filePath = "MatchCard/ToolTipManager.swift"
+            timestampString = "459887666.724024"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "nextOfKey(_:)"
+            landmarkType = "5">
+            <Actions>
+               <BreakpointActionProxy
+                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
+                  <ActionContent
+                     consoleCommand = "po &quot;PlayerPosition is next!!!&quot;">
+                  </ActionContent>
+               </BreakpointActionProxy>
+            </Actions>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

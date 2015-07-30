@@ -51,6 +51,7 @@ class MatchCardViewController : UIViewController {
         static let AlertNoHomeTeam = 10
         static let AlertNoPosition = 11
     }
+    
     // MARK:
     // MARK: Properties
     // MARK:
@@ -138,6 +139,16 @@ class MatchCardViewController : UIViewController {
         self.view.addSubview(mockPlayerTextField)
         mockPlayerTextField.inputView = playersInputView
         addDoneToolbar(toTextField: mockPlayerTextField, withSelector: "doneTappedPlayer")
+        //
+        // Tool tip
+        //
+        var preferences = EasyTipView.Preferences()
+        preferences.font = UIFont(name: "HelveticaNeue-Light", size: 14)
+        preferences.bubbleColor = UIColor(hue:0.46, saturation:0.99, brightness:0.6, alpha:1)
+        preferences.textColor = UIColor.whiteColor()
+        preferences.textAlignment = NSTextAlignment.Justified
+        preferences.arrowPosition = EasyTipView.ArrowPosition.Top
+        EasyTipView.setGlobalPreferences(preferences)
     }
     func addPickerAndDoneToolBar(#toTextField : UITextField, withTag : Int, andSelector selector: String = "doneTappedGeneric") {
         let p = UIPickerView()
@@ -352,6 +363,9 @@ extension MatchCardViewController: SidePanelViewControllerDelegate {
         case .ClearScores :
             DataManager.sharedInstance.clearScores()
             matchCardCollectionView?.reloadData()
+        case .ResetTooltips :
+            ToolTipManager.sharedInstance.resetTooltips()
+            UIAlertView(title: "Tooltips", message: "Tool tips are now reset. Close and open the app to show.", delegate: self, cancelButtonTitle: "OK").show()
         }
         delegate?.collapseSidePanels?()
     }
@@ -548,6 +562,7 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
         case MatchPlayersReusableView.Collection.Kind.Away :
             var awayPlayers = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchPlayersReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! MatchPlayersReusableView
             awayPlayers.delegate = self
+            ToolTipManager.sharedInstance.needsDisplayTipView(ToolTipManager.Keys.PlayerPosition, forView: awayPlayers, withinSuperview: collectionView)
             return awayPlayers
         case MatchPlayersReusableView.Collection.Kind.Home :
             var homePlayers = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchPlayersReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! MatchPlayersReusableView
@@ -561,6 +576,7 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
             headerView.division.text = "\(matchCard.division)"
             headerView.location.text = matchCard.location
             headerView.date.text = matchCard.dateString
+            ToolTipManager.sharedInstance.needsDisplayTipView(ToolTipManager.Keys.MapPin, forView: headerView.locationButton, withinSuperview: collectionView)
             return headerView
         case ScoreHeaderReusableView.Collection.Kind.Home :
             var scoreHomeView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: ScoreHeaderReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! ScoreHeaderReusableView

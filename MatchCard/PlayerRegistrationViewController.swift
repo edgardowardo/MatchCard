@@ -56,7 +56,10 @@ protocol PlayerRegistrationDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var buttonSetImage: UIButton!
-    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var textFieldName: UITextField!
+    @IBOutlet weak var textFieldPhone: UITextField!
+    @IBOutlet weak var textFieldEmail: UITextField!
+    
     @IBOutlet weak var flagReserved: UISwitch!
     var activeField : UITextField?
     var imageData : NSData?
@@ -68,8 +71,23 @@ protocol PlayerRegistrationDelegate {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.whiteColor()
         self.contentView.backgroundColor = UIColor.whiteColor()
-        self.nameTextField.delegate = self
+        self.textFieldName.delegate = self
         self.buttonSetImage.layer.cornerRadius = self.buttonSetImage.frame.size.width / 2
+        addDoneToolbar(toTextField: self.textFieldEmail)
+        addDoneToolbar(toTextField: self.textFieldName)
+        addDoneToolbar(toTextField: self.textFieldPhone)
+    }
+    func addDoneToolbar(#toTextField : UITextField, withSelector selector: String = "doneTappedGeneric" ) {
+        var doneToolbar = UIToolbar(frame: CGRectMake(0, 0, UIToolbar.Size.Width, UIToolbar.Size.Height))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done", style: .Done, target: self, action: Selector(selector))
+        doneToolbar.setItems([flexibleSpace, doneButton], animated: true)
+        toTextField.inputAccessoryView = doneToolbar
+    }
+    func doneTappedGeneric() {
+        self.textFieldEmail.resignFirstResponder()
+        self.textFieldName.resignFirstResponder()
+        self.textFieldPhone.resignFirstResponder()
     }
     @IBAction func setPlayerImage(sender: AnyObject) {
         if UIImagePickerController.isSourceTypeAvailable(.Camera) || UIImagePickerController.isSourceTypeAvailable(.PhotoLibrary) {
@@ -91,7 +109,7 @@ protocol PlayerRegistrationDelegate {
         }
     }
     @IBAction func saveAndDismiss(sender: AnyObject) {
-        if count(self.nameTextField.text) > 0 {
+        if count(self.textFieldName.text) > 0 {
             if self.elementKind == MatchPlayersReusableView.Collection.Kind.Away {
                 if let awayTeam = DataManager.sharedInstance.matchCard.awayTeamBag.team {
                     assignPlayer(self.player, toTeamInClub: awayTeam)
@@ -134,12 +152,14 @@ protocol PlayerRegistrationDelegate {
         }
         delegate?.assignPlayerToTeamInMatch(player!)
     }
+    override func viewDidAppear(animated: Bool) {
+        self.textFieldName.becomeFirstResponder()
+    }
     override func viewWillAppear(animated: Bool) {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardDidShow:"), name: UIKeyboardDidShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillBeHidden:"), name: UIKeyboardWillHideNotification, object: nil)
         // Create a new player every time
         self.player = PlayerModel()
-        self.nameTextField.becomeFirstResponder()
         self.isDirty = false
     }
     override func viewWillDisappear(animated: Bool) {
@@ -176,8 +196,8 @@ extension PlayerRegistrationViewController : UITextFieldDelegate {
     }
     func textFieldDidEndEditing(textField: UITextField) {
         self.activeField = nil
-        if textField.isEqual(self.nameTextField) {
-            self.player?.name = self.nameTextField.text
+        if textField.isEqual(self.textFieldName) {
+            self.player?.name = self.textFieldName.text
         }
     }
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
