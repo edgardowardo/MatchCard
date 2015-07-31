@@ -53,8 +53,10 @@ class MatchCardModel : PFObject, PFSubclassing {
             if let c = newValue {
                 self["homeClub"] = c
                 if let homeTeam = self.homeTeamBag {
-                    homeTeam.team = c.club?.teams![0]
-                    homeTeam.clearPlayerModels()
+                    if homeTeam.team?.club != c {
+                        homeTeam.team = c.club?.teams![0]
+                        homeTeam.clearPlayerModels()
+                    }
                 }
             } else {
                 self["homeClub"] = NSNull()
