@@ -115,7 +115,7 @@ protocol PlayerRegistrationDelegate {
                     assignPlayer(self.player, toTeamInClub: awayTeam)
                 }
             } else if self.elementKind == MatchPlayersReusableView.Collection.Kind.Home {
-                if let homeTeam = DataManager.sharedInstance.matchCard.homeTeamBag.team {
+                if let homeTeam = DataManager.sharedInstance.matchCard.homeTeamBag!.team {
                     assignPlayer(self.player, toTeamInClub: homeTeam)
                 }
             }

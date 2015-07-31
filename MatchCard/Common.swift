@@ -115,4 +115,28 @@ extension UIImage {
             })
         })
     }
+    static func resizeImage(image : UIImage, size: CGSize) -> UIImage {
+        var newSize:CGSize = size
+        let rect = CGRectMake(0, 0, newSize.width, newSize.height)
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.drawInRect(rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        let imageData = UIImageJPEGRepresentation(newImage, 0.5)
+        return newImage
+    }
+    static func circularCropImage(image: UIImage) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(image.size, false, 1.0)
+        var context = UIGraphicsGetCurrentContext()
+        let radius = image.size.height / 2
+        CGContextBeginPath (context)
+        CGContextAddArc (context, radius, radius, radius, CGFloat(0), CGFloat(2*M_PI), 0)
+        CGContextClosePath (context)
+        CGContextClip (context)
+        image.drawInRect(CGRectMake(0, 0, image.size.width, image.size.height))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+    
 }

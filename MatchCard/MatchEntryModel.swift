@@ -19,10 +19,19 @@ class MatchEntryModel : PFObject, PFSubclassing {
     override init() {
         super.init()
     }
-    convenience init(homeScore : Int, awayScore : Int) {
+    convenience init(_ index : Int, homeScore : Int, awayScore : Int, homeNote: String, _ homePlayer1: PlayerInMatchModel?, _ homePlayer2: PlayerInMatchModel?, awayNote: String, _ awayPlayer1: PlayerInMatchModel?, _ awayPlayer2: PlayerInMatchModel?) {
         self.init()
+        self.index1s = index
         self.homeScore = homeScore
         self.awayScore = awayScore
+        
+        self.homeNote = homeNote
+        self.homePlayer1 = homePlayer1
+        self.homePlayer2 = homePlayer2
+        
+        self.awayNote = awayNote
+        self.awayPlayer1 = awayPlayer1
+        self.awayPlayer2 = awayPlayer2
     }
     override class func initialize() {
         var onceToken : dispatch_once_t = 0;
@@ -30,10 +39,15 @@ class MatchEntryModel : PFObject, PFSubclassing {
             self.registerSubclass()
         }
     }
-    @NSManaged var homeKey : String
+    @NSManaged var index1s : Int
+    @NSManaged var homePlayer1 : PlayerInMatchModel?
+    @NSManaged var homePlayer2 : PlayerInMatchModel?
     @NSManaged var homeScore : Int
-    @NSManaged var awayKey : String
+    @NSManaged var homeNote : String
+    @NSManaged var awayPlayer1 : PlayerInMatchModel?
+    @NSManaged var awayPlayer2 : PlayerInMatchModel?
     @NSManaged var awayScore : Int
+    @NSManaged var awayNote : String
     var homeToken : Int {
         get {
             return homeScore > awayScore ? 1 : 0

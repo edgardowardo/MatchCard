@@ -30,7 +30,26 @@ class TeamInMatchModel : PFObject, PFSubclassing {
         self.init()
         self.team = team
     }
-    @NSManaged var team : TeamInClubModel?
+    var team : TeamInClubModel? {
+        get {
+            return self["team"] as? TeamInClubModel
+        }
+        set {
+            if let t = newValue {
+                self["team"] = t
+            } else {
+                self["team"] = NSNull()
+            }
+            self.clearPlayerModels()
+        }
+    }
     @NSManaged var total : Int
-    @NSManaged var players : [PlayerInMatchModel]
+    @NSManaged var players : [PlayerInMatchModel]?
+    func clearPlayerModels() {
+        if let ps = self.players {
+            for p in ps {
+                p.player = nil
+            }
+        }
+    }
 }

@@ -24,8 +24,6 @@ class MatchCardModel : PFObject, PFSubclassing {
     }
     override init () {
         super.init()
-        addObserver(self, forKeyPath: "league", options: .New, context: nil)
-        addObserver(self, forKeyPath: "homeClub", options: .New, context: nil)
     }
     override class func initialize() {
         var onceToken : dispatch_once_t = 0;
@@ -33,28 +31,42 @@ class MatchCardModel : PFObject, PFSubclassing {
             self.registerSubclass()
         }
     }
-    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
-        var n : AnyObject? = change["new"]
-        switch keyPath {
-        case "league" :
-            if n!.isKindOfClass(LeagueModel) {
-                var l = n as! LeagueModel
+    var league : LeagueModel? {
+        get {
+            return self["league"] as? LeagueModel
+        }
+        set {
+            if let l = newValue {
+                self["league"] = l
                 self.teams = getAllTeams(l)
+            } else {
+                self["league"] = NSNull()
+                self.teams = []
             }
-        case "homeClub" :
-            if n!.isKindOfClass(ClubInLeagueModel) {
-                var c = n as! ClubInLeagueModel
-                self.homeTeamBag.team = c.club?.teams![0]
-            }
-        default :
-            break
         }
     }
-    @NSManaged var league : LeagueModel?
+    var homeClub : ClubInLeagueModel? {
+        get {
+            return self["homeClub"] as? ClubInLeagueModel
+        }
+        set {
+            if let c = newValue {
+                self["homeClub"] = c
+                if let homeTeam = self.homeTeamBag {
+                    homeTeam.team = c.club?.teams![0]
+                    homeTeam.clearPlayerModels()
+                }
+            } else {
+                self["homeClub"] = NSNull()
+                if let homeTeam = self.homeTeamBag {
+                    homeTeam.clearPlayerModels()
+                }
+            }
+        }
+    }
     @NSManaged var division : Int
     @NSManaged var date : NSDate
-    @NSManaged var homeClub : ClubInLeagueModel?
-    @NSManaged var homeTeamBag : TeamInMatchModel
+    @NSManaged var homeTeamBag : TeamInMatchModel?
     @NSManaged var awayTeamBag : TeamInMatchModel
     @NSManaged var matchEntries : [MatchEntryModel]
     lazy var teams : [TeamInClubModel] = []
@@ -74,8 +86,10 @@ class MatchCardModel : PFObject, PFSubclassing {
         var matchCard = DataManager.sharedInstance.matchCard
         matchCard.homeClub = nil
         matchCard.division = 0
-        matchCard.homeTeamBag.team = nil
+        matchCard.homeTeamBag!.team = nil
+        matchCard.homeTeamBag!.clearPlayerModels()
         matchCard.awayTeamBag.team = nil
+        matchCard.awayTeamBag.clearPlayerModels()
     }
     var leagueName : String {
         get {
@@ -104,7 +118,7 @@ class MatchCardModel : PFObject, PFSubclassing {
     }
     var homeTeamName : String {
         get {
-            if let team = self.homeTeamBag.team {
+            if let team = self.homeTeamBag!.team {
                 return team.name
             }
             return Prompts.Home

@@ -25,46 +25,50 @@ class DataManager {
         matchCard.division = 2
         matchCard.date = NSDate()
         matchCard.homeClub = c
-        matchCard.matchEntries = [
-            MatchEntryModel(homeScore: 0, awayScore: 21),
-            MatchEntryModel(homeScore: 1, awayScore: 21),
-            MatchEntryModel(homeScore: 2, awayScore: 21),
-            MatchEntryModel(homeScore: 3, awayScore: 21),
-            MatchEntryModel(homeScore: 4, awayScore: 2),
-            MatchEntryModel(homeScore: 5, awayScore: 3),
-            MatchEntryModel(homeScore: 6, awayScore: 4),
-            MatchEntryModel(homeScore: 7, awayScore: 21),
-            MatchEntryModel(homeScore: 8, awayScore: 21),
-            MatchEntryModel(homeScore: 9, awayScore: 21),
-            MatchEntryModel(homeScore: 10, awayScore: 21),
-            MatchEntryModel(homeScore: 11, awayScore: 9),
-            MatchEntryModel(homeScore: 12, awayScore: 11),
-            MatchEntryModel(homeScore: 13, awayScore: 10),
-            MatchEntryModel(homeScore: 14, awayScore: 12),
-            MatchEntryModel(homeScore: 15, awayScore: 21),
-            MatchEntryModel(homeScore: 16, awayScore: 21),
-            MatchEntryModel(homeScore: 17, awayScore: 21),
-        ]
         matchCard.homeTeamBag = TeamInMatchModel()
-        matchCard.homeTeamBag.team = t
-        matchCard.homeTeamBag.players = [
+        matchCard.homeTeamBag!.team = t
+        matchCard.homeTeamBag!.players = [
             PlayerInMatchModel("A1", getElement(allPlayers, withName: "Edgar")),
-            PlayerInMatchModel("A2"),
-            PlayerInMatchModel("B1"),
-            PlayerInMatchModel("B2"),
-            PlayerInMatchModel("C1"),
-            PlayerInMatchModel("C2")
+            PlayerInMatchModel("A2"), //, getElement(allPlayers, withName: "Slawomir")), //   ), //
+            PlayerInMatchModel("B3"), //, getElement(allPlayers, withName: "Pete")),
+            PlayerInMatchModel("B4"), //, getElement(allPlayers, withName: "Khai")),
+            PlayerInMatchModel("C5"), //, getElement(allPlayers, withName: "Simon Sack")),
+            PlayerInMatchModel("C6") //, getElement(allPlayers, withName: "Kristof"))
         ]
         matchCard.awayTeamBag = TeamInMatchModel()
         matchCard.awayTeamBag.team = l.clubs![7].club?.teams![1]  // Heys-B
         matchCard.awayTeamBag.players = [
-            PlayerInMatchModel("D1"),
-            PlayerInMatchModel("D2"),
-            PlayerInMatchModel("E1"),
-            PlayerInMatchModel("E2"),
-            PlayerInMatchModel("F1"),
-            PlayerInMatchModel("F2")
+            PlayerInMatchModel("A1"),
+            PlayerInMatchModel("A2", getElement(allPlayers, withName: "Slaw")),
+            PlayerInMatchModel("B3"),
+            PlayerInMatchModel("B4"),
+            PlayerInMatchModel("C5"),
+            PlayerInMatchModel("C6")
         ]
+        
+        let homeTeam = matchCard.homeTeamBag!
+        let awayTeam = matchCard.awayTeamBag
+        
+        matchCard.matchEntries = []
+        matchCard.matchEntries.append(MatchEntryModel(01, homeScore: 10, awayScore: 21, homeNote: "1&3",  homeTeam.players![0], homeTeam.players![2], awayNote: "1&3", awayTeam.players![0], awayTeam.players![2]))
+        matchCard.matchEntries.append(MatchEntryModel(02, homeScore: 14, awayScore: 21, homeNote: "2&5",  homeTeam.players![1], homeTeam.players![4], awayNote: "2&5", awayTeam.players![1], awayTeam.players![4]))
+        matchCard.matchEntries.append(MatchEntryModel(03, homeScore: 18, awayScore: 21, homeNote: "4&6",  homeTeam.players![3], homeTeam.players![5], awayNote: "4&6", awayTeam.players![3], awayTeam.players![5]))
+        matchCard.matchEntries.append(MatchEntryModel(04, homeScore: 19, awayScore: 21, homeNote: "3&5",  homeTeam.players![2], homeTeam.players![4], awayNote: "3&5", awayTeam.players![2], awayTeam.players![4]))
+        matchCard.matchEntries.append(MatchEntryModel(05, homeScore: 21, awayScore: 19, homeNote: "1&4",  homeTeam.players![0], homeTeam.players![3], awayNote: "1&4", awayTeam.players![0], awayTeam.players![3]))
+        matchCard.matchEntries.append(MatchEntryModel(06, homeScore: 21, awayScore: 18, homeNote: "2&6",  homeTeam.players![1], homeTeam.players![5], awayNote: "2&6", awayTeam.players![1], awayTeam.players![5]))
+        matchCard.matchEntries.append(MatchEntryModel(07, homeScore: 16, awayScore: 21, homeNote: "B",  homeTeam.players![2], homeTeam.players![3], awayNote: "A", awayTeam.players![0], awayTeam.players![1]))
+        matchCard.matchEntries.append(MatchEntryModel(08, homeScore: 18, awayScore: 21, homeNote: "A",  homeTeam.players![0], homeTeam.players![1], awayNote: "C", awayTeam.players![4], awayTeam.players![5]))
+        matchCard.matchEntries.append(MatchEntryModel(09, homeScore: 16, awayScore: 21, homeNote: "C",  homeTeam.players![4], homeTeam.players![5], awayNote: "B", awayTeam.players![3], awayTeam.players![4]))
+        matchCard.matchEntries.append(MatchEntryModel(10, homeScore: 09, awayScore: 21, homeNote: "B",  homeTeam.players![2], homeTeam.players![3], awayNote: "C", awayTeam.players![4], awayTeam.players![5]))
+        matchCard.matchEntries.append(MatchEntryModel(11, homeScore: 06, awayScore: 21, homeNote: "C",  homeTeam.players![4], homeTeam.players![5], awayNote: "A", awayTeam.players![0], awayTeam.players![1]))
+        matchCard.matchEntries.append(MatchEntryModel(12, homeScore: 19, awayScore: 21, homeNote: "A",  homeTeam.players![0], homeTeam.players![1], awayNote: "B", awayTeam.players![2], awayTeam.players![3]))
+        matchCard.matchEntries.append(MatchEntryModel(13, homeScore: 15, awayScore: 21, homeNote: "C",  homeTeam.players![4], homeTeam.players![5], awayNote: "C", awayTeam.players![4], awayTeam.players![5]))
+        matchCard.matchEntries.append(MatchEntryModel(14, homeScore: 02, awayScore: 21, homeNote: "C",  homeTeam.players![4], homeTeam.players![5], awayNote: "C", awayTeam.players![4], awayTeam.players![5]))
+        matchCard.matchEntries.append(MatchEntryModel(15, homeScore: 04, awayScore: 21, homeNote: "B",  homeTeam.players![2], homeTeam.players![3], awayNote: "B", awayTeam.players![2], awayTeam.players![3]))
+        matchCard.matchEntries.append(MatchEntryModel(16, homeScore: 19, awayScore: 21, homeNote: "B",  homeTeam.players![2], homeTeam.players![3], awayNote: "B", awayTeam.players![2], awayTeam.players![3]))
+        matchCard.matchEntries.append(MatchEntryModel(17, homeScore: 16, awayScore: 21, homeNote: "A",  homeTeam.players![0], homeTeam.players![1], awayNote: "A", awayTeam.players![0], awayTeam.players![1]))
+        matchCard.matchEntries.append(MatchEntryModel(18, homeScore: 15, awayScore: 21, homeNote: "A",  homeTeam.players![0], homeTeam.players![1], awayNote: "A", awayTeam.players![0], awayTeam.players![1]))
+
         return matchCard
     }
     func getAllPlayers() -> [PlayerModel] {
@@ -76,13 +80,15 @@ class DataManager {
             PlayerModel(name: "Pete", image: UIImage(named: "pete")),
             PlayerModel(name: "Simon Sack", image: nil),
             PlayerModel(name: "Liza Doolittle", image: nil),
-            PlayerModel(name: "Kristof", image: nil)
+            PlayerModel(name: "Kristof", image: nil),
+            PlayerModel(name: "Slaw", image: UIImage(named: "slaw")),
+            PlayerModel(name: "Mark Zuckerberg", image: UIImage(named: "markZ"))
         ]
     }
     func getElement<T:PFObject>  (fromArray:[T], withName:String) -> T? {
         let filteredArray = fromArray.filter() {
             if let type = ($0 as PFObject)["name"] as? String {
-                return type.rangeOfString(withName) != nil
+                return type == withName
             } else {
                 return false
             }
@@ -97,7 +103,8 @@ class DataManager {
             PlayerInTeamModel(getElement(allPlayers, withName: "Pete")!),
             PlayerInTeamModel(getElement(allPlayers, withName: "Someguy")!)]
         let clubGhapPlayers = [PlayerInClubModel(getElement(allPlayers, withName: "Slawomir")!), PlayerInClubModel(getElement(allPlayers, withName: "Kristof")!)]
-        let clubHeysPlayers = [PlayerInClubModel(getElement(allPlayers, withName: "Simon Sack")!), PlayerInClubModel(getElement(allPlayers, withName: "Liza Doolittle")!)]
+        let clubHeysPlayers = [PlayerInClubModel(getElement(allPlayers, withName: "Mark Zuckerberg")!), PlayerInClubModel(getElement(allPlayers, withName: "Liza Doolittle")!)]
+        let clubHeysBPlayers = [PlayerInTeamModel(getElement(allPlayers, withName: "Simon Sack")!)]
         
         return [
             // Oldham and Rochdale
@@ -125,7 +132,7 @@ class DataManager {
             ClubModel(latitude : 53.367823, longitude : -2.158017, name : "Edgeley"),
             ClubModel(latitude : 53.419537, longitude : -2.339000, name : "Forest"),
             ClubModel(latitude : 53.457945, longitude : -2.234832, name : "GHAP", teams : [TeamInClubModel("GHAP1", players : teamGhap1Players), TeamInClubModel("GHAP2"), TeamInClubModel("GHAP3")], players:clubGhapPlayers),
-            ClubModel(latitude : 53.561111, longitude : -2.272721, name : "Heys", teams : [TeamInClubModel("Heys-A"), TeamInClubModel("Heys-B" /*, players:[]*/), TeamInClubModel("Heys-C")], players: clubHeysPlayers),
+            ClubModel(latitude : 53.561111, longitude : -2.272721, name : "Heys", teams : [TeamInClubModel("Heys-A"), TeamInClubModel("Heys-B" , players:clubHeysBPlayers), TeamInClubModel("Heys-C")], players: clubHeysPlayers),
             ClubModel(latitude : 53.485997, longitude : -2.140424, name : "Medlock"),
             ClubModel(latitude : 53.468822, longitude : -2.365570, name : "Nomad"),
             ClubModel(latitude : 53.419537, longitude : -2.338984, name : "PVBC"),
@@ -202,23 +209,9 @@ class DataManager {
         self.matchCard.division = 0
         self.matchCard.homeClub = nil
         self.clearScores()
-        matchCard.homeTeamBag.team = nil
-        matchCard.homeTeamBag.players = [
-            PlayerInMatchModel("A1"),
-            PlayerInMatchModel("A2"),
-            PlayerInMatchModel("B1"),
-            PlayerInMatchModel("B2"),
-            PlayerInMatchModel("C1"),
-            PlayerInMatchModel("C2")
-        ]
+        matchCard.homeTeamBag!.team = nil
+        matchCard.homeTeamBag!.clearPlayerModels()
         matchCard.awayTeamBag.team = nil
-        matchCard.awayTeamBag.players = [
-            PlayerInMatchModel("D1"),
-            PlayerInMatchModel("D2"),
-            PlayerInMatchModel("E1"),
-            PlayerInMatchModel("E2"),
-            PlayerInMatchModel("F1"),
-            PlayerInMatchModel("F2")
-        ]
+        matchCard.awayTeamBag.clearPlayerModels()
     }
 }

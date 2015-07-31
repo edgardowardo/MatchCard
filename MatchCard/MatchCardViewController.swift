@@ -21,9 +21,9 @@ protocol MatchCardViewControllerDelegate {
 }
 
 class MatchCardViewController : UIViewController {
-    // MARK:
-    // MARK: Structured constants
-    // MARK:
+
+    // MARK:- Structured constants -
+
     struct Notification {
         struct Identifier {
             static let ReloadData = "NotificationIdentifierOf_ReloadData"
@@ -52,9 +52,8 @@ class MatchCardViewController : UIViewController {
         static let AlertNoPosition = 11
     }
     
-    // MARK:
-    // MARK: Properties
-    // MARK:
+    // MARK:- Properties -
+
     @IBOutlet weak var containingView : UIView?
     @IBOutlet weak var matchCardCollectionView : UICollectionView?
     var delegate: MatchCardViewControllerDelegate?
@@ -79,14 +78,16 @@ class MatchCardViewController : UIViewController {
             }
         }
     }
-    // MARK:
-    // MARK: View lifecycle and helpers
-    // MARK:
+
+    // MARK:- View lifecycle and helpers -
+
     override func viewDidLoad() {
         super.viewDidLoad()
         let nibHeader = UINib(nibName: MatchHeaderReusableView.Collection.Nib, bundle: nil)
         let nibScore = UINib(nibName: ScoreHeaderReusableView.Collection.Nib, bundle: nil)
         let nibMatchEntry = UINib(nibName: MatchEntryCell.Collection.Nib, bundle:nil)
+        let nibEntryAnnoteHome = UINib(nibName: EntryAnnotationReusableView.Collection.Home.Nib, bundle: nil)
+        let nibEntryAnnoteAway = UINib(nibName: EntryAnnotationReusableView.Collection.Away.Nib, bundle: nil)
         let nibPlayers = UINib(nibName: MatchPlayersReusableView.Collection.Nib, bundle: nil)
         matchCardCollectionView?.delegate = self
         matchCardCollectionView?.dataSource = self
@@ -94,6 +95,8 @@ class MatchCardViewController : UIViewController {
         matchCardCollectionView?.registerNib(nibScore, forSupplementaryViewOfKind: ScoreHeaderReusableView.Collection.Kind.Home, withReuseIdentifier: ScoreHeaderReusableView.Collection.ReuseIdentifier)
         matchCardCollectionView?.registerNib(nibScore, forSupplementaryViewOfKind: ScoreHeaderReusableView.Collection.Kind.Away, withReuseIdentifier: ScoreHeaderReusableView.Collection.ReuseIdentifier)
         matchCardCollectionView?.registerNib(nibMatchEntry, forCellWithReuseIdentifier: MatchEntryCell.Collection.ReuseIdentifier)
+        matchCardCollectionView?.registerNib(nibEntryAnnoteHome, forSupplementaryViewOfKind: EntryAnnotationReusableView.Collection.Home.Kind, withReuseIdentifier: EntryAnnotationReusableView.Collection.Home.ReuseIdentifier)
+        matchCardCollectionView?.registerNib(nibEntryAnnoteAway, forSupplementaryViewOfKind: EntryAnnotationReusableView.Collection.Away.Kind, withReuseIdentifier: EntryAnnotationReusableView.Collection.Away.ReuseIdentifier)
         matchCardCollectionView?.registerNib(nibPlayers, forSupplementaryViewOfKind: MatchPlayersReusableView.Collection.Kind.Home, withReuseIdentifier: MatchPlayersReusableView.Collection.ReuseIdentifier)
         matchCardCollectionView?.registerNib(nibPlayers, forSupplementaryViewOfKind: MatchPlayersReusableView.Collection.Kind.Away, withReuseIdentifier: MatchPlayersReusableView.Collection.ReuseIdentifier)
         matchCardCollectionView?.setCollectionViewLayout(MatchCardStandardLayout(), animated: false)
@@ -177,7 +180,7 @@ class MatchCardViewController : UIViewController {
         self.mockLocTextField.resignFirstResponder()
         self.mockLocPickerTextField.resignFirstResponder()
         self.mockTeamTextField.resignFirstResponder()
-        if let homeTeam = DataManager.sharedInstance.matchCard.homeTeamBag.team {
+        if let homeTeam = DataManager.sharedInstance.matchCard.homeTeamBag!.team {
             if let awayTeam = DataManager.sharedInstance.matchCard.awayTeamBag.team {
                 if homeTeam.name == awayTeam.name {
                     UIAlertView(title: "Warning", message: "You selected the same team as home and away", delegate: self, cancelButtonTitle: "OK").show()
@@ -271,7 +274,7 @@ class MatchCardViewController : UIViewController {
             p.tag = Tags.AwayTeam
             team = DataManager.sharedInstance.matchCard.awayTeamBag.team
         } else {
-            team = DataManager.sharedInstance.matchCard.homeTeamBag.team
+            team = DataManager.sharedInstance.matchCard.homeTeamBag!.team
             if self.hasHomeClub() {
                 p.tag = Tags.HomeTeam_Filter
                 teams = DataManager.sharedInstance.matchCard.homeClub!.club!.teams!
@@ -296,7 +299,7 @@ class MatchCardViewController : UIViewController {
                     return
                 }
             } else if cell.elementKind == MatchPlayersReusableView.Collection.Kind.Home {
-                if let homeTeam = DataManager.sharedInstance.matchCard.homeTeamBag.team {
+                if let homeTeam = DataManager.sharedInstance.matchCard.homeTeamBag!.team {
                     self.layout = .HomePlayers
                 } else {
                     var a = UIAlertView(title: "Home team is unknown", message: "Set the home team?", delegate: self, cancelButtonTitle: "Cancel", otherButtonTitles: "OK")
@@ -330,7 +333,7 @@ class MatchCardViewController : UIViewController {
             DataManager.sharedInstance.matchCard.awayTeamBag.team!.exclusion.append(cell.player!)
             collectionView.deleteItemsAtIndexPaths([indexPath])
         } else {
-            DataManager.sharedInstance.matchCard.homeTeamBag.team!.exclusion.append(cell.player!)
+            DataManager.sharedInstance.matchCard.homeTeamBag!.team!.exclusion.append(cell.player!)
             collectionView.deleteItemsAtIndexPaths([indexPath])
         }
     }
@@ -350,9 +353,9 @@ class MatchCardViewController : UIViewController {
     }
 }
 
-// MARK:
-// MARK: SidePanel delegates
-// MARK:
+
+// MARK:- SidePanel delegates -
+
 extension MatchCardViewController: SidePanelViewControllerDelegate {
     func itemSelected(item: MenuItem) {
         switch item.type {
@@ -371,13 +374,14 @@ extension MatchCardViewController: SidePanelViewControllerDelegate {
     }
 }
 
-// MARK:
-// MARK: MKMapView delegates
-// MARK:
+
+// MARK:- MKMapView delegates -
+
 extension MatchCardViewController : MKMapViewDelegate {
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
         DataManager.sharedInstance.matchCard.homeClub = view.annotation as? ClubInLeagueModel
         NSNotificationCenter.defaultCenter().postNotificationName(MatchHeaderReusableView.Notification.Identifier.FadeLabel, object: view)
+        NSNotificationCenter.defaultCenter().postNotificationName(MatchPlayersReusableView.Notification.Identifier.Reload, object: nil)
     }
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
         if annotation.isKindOfClass(ClubInLeagueModel) {
@@ -397,9 +401,9 @@ extension MatchCardViewController : MKMapViewDelegate {
     }
 }
 
-// MARK:
-// MARK: UIPickerView delegates
-// MARK:
+
+// MARK:- UIPickerView delegates -
+
 extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate {
     func hasHomeClub() -> Bool {
         if let h = DataManager.sharedInstance.matchCard.homeClub {
@@ -477,16 +481,17 @@ extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate
             DataManager.sharedInstance.matchCard.homeClub = DataManager.sharedInstance.matchCard.league!.clubs![row]
         case Tags.HomeTeam_AllTeams :
             let teamInClub = DataManager.sharedInstance.matchCard.teams[row]
-            DataManager.sharedInstance.matchCard.homeTeamBag.team = teamInClub
+            DataManager.sharedInstance.matchCard.homeTeamBag!.team = teamInClub
             DataManager.sharedInstance.matchCard.homeClub = teamInClub.club
         case Tags.HomeTeam_Filter :
-            DataManager.sharedInstance.matchCard.homeTeamBag.team = DataManager.sharedInstance.matchCard.homeClub!.club!.teams![row]
+            DataManager.sharedInstance.matchCard.homeTeamBag!.team = DataManager.sharedInstance.matchCard.homeClub!.club!.teams![row]
         case Tags.AwayTeam :
             DataManager.sharedInstance.matchCard.awayTeamBag.team = DataManager.sharedInstance.matchCard.teams[row]
         default :
             assertionFailure("picker tag unknown")
         }
         NSNotificationCenter.defaultCenter().postNotificationName(MatchHeaderReusableView.Notification.Identifier.FadeLabel, object: pickerView)
+        NSNotificationCenter.defaultCenter().postNotificationName(MatchPlayersReusableView.Notification.Identifier.Reload, object: nil)
     }
     // FIXME: Seem attributed string seem to not work...
 //    func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
@@ -496,9 +501,9 @@ extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate
 //    }
 }
 
-// MARK:
-// MARK: UICollectionView delegates
-// MARK:
+
+// MARK:- UICollectionView delegates -
+
 extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return DataManager.sharedInstance.matchCard.matchEntries.count
@@ -559,6 +564,18 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         var matchCard = DataManager.sharedInstance.matchCard
         switch kind {
+        case EntryAnnotationReusableView.Collection.Away.Kind :
+            var awayNote = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: EntryAnnotationReusableView.Collection.Away.ReuseIdentifier, forIndexPath: indexPath) as! EntryAnnotationAwayView
+            let matchEntry = DataManager.sharedInstance.matchCard.matchEntries[indexPath.row]
+            awayNote.elementKind = kind
+            awayNote.data = matchEntry
+            return awayNote
+        case EntryAnnotationReusableView.Collection.Home.Kind :
+            var homeNote = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: EntryAnnotationReusableView.Collection.Home.ReuseIdentifier, forIndexPath: indexPath) as! EntryAnnotationReusableView
+            let matchEntry = DataManager.sharedInstance.matchCard.matchEntries[indexPath.row]
+            homeNote.elementKind = kind
+            homeNote.data = matchEntry
+            return homeNote
         case MatchPlayersReusableView.Collection.Kind.Away :
             var awayPlayers = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchPlayersReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! MatchPlayersReusableView
             awayPlayers.delegate = self
@@ -597,9 +614,9 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
     }
 }
 
-// MARK:
-// MARK: Players Input delegates
-// MARK:
+
+// MARK:- Players Input delegates -
+
 extension MatchCardViewController : PlayersInputControllerDelegate {
     func PlayerRegistration() {
         self.doneTappedPlayer()
@@ -610,9 +627,9 @@ extension MatchCardViewController : PlayersInputControllerDelegate {
     }
 }
 
-// MARK:
-// MARK: UIAlertView delegates
-// MARK:
+
+// MARK:- UIAlertView delegates -
+
 extension MatchCardViewController : UIAlertViewDelegate {
     func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
         if buttonIndex == 1 {
@@ -630,9 +647,9 @@ extension MatchCardViewController : UIAlertViewDelegate {
     }
 }
 
-// MARK:
-// MARK: Match Players delegates
-// MARK:
+
+// MARK:- Match Players delegates -
+
 extension MatchCardViewController : MatchPlayersReusableViewDelegate {
     func needsPositionSelected() {
         self.doneTappedPlayer()
@@ -646,9 +663,9 @@ extension MatchCardViewController : MatchPlayersReusableViewDelegate {
     }
 }
 
-// MARK:
-// MARK: Player Registration delegate
-// MARK:
+
+// MARK:- Player Registration delegate -
+
 extension MatchCardViewController : PlayerRegistrationDelegate {
     func isPositionSelected() -> Bool {
         return self.selectedPlayerPositionCell != nil
@@ -659,6 +676,7 @@ extension MatchCardViewController : PlayerRegistrationDelegate {
                 pp.player = player
                 Common.delay(1, closure: { () -> () in
                     cell.fade()
+                    self.matchCardCollectionView?.reloadData()
                 })
             }
         }

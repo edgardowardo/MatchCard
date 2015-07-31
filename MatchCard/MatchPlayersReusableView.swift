@@ -85,6 +85,7 @@ class MatchPlayersReusableView : UICollectionReusableView {
                     p.player = registeredPlayerCell?.player
                     cell.fade()
                     NSNotificationCenter.defaultCenter().postNotificationName(MatchCardViewController.Notification.Identifier.RemoveRegisteredPlayer, object: registeredPlayerCell)
+                    NSNotificationCenter.defaultCenter().postNotificationName(MatchCardViewController.Notification.Identifier.ReloadData, object: nil)
                 }
             }
             else {
@@ -132,9 +133,9 @@ class MatchPlayersReusableView : UICollectionReusableView {
 extension MatchPlayersReusableView : UICollectionViewDataSource,  UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if (elementKind == MatchPlayersReusableView.Collection.Kind.Away) {
-            return DataManager.sharedInstance.matchCard.awayTeamBag.players.count
+            return DataManager.sharedInstance.matchCard.awayTeamBag.players!.count
         } else {
-            return DataManager.sharedInstance.matchCard.homeTeamBag.players.count
+            return DataManager.sharedInstance.matchCard.homeTeamBag!.players!.count
         }
     }
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -144,13 +145,13 @@ extension MatchPlayersReusableView : UICollectionViewDataSource,  UICollectionVi
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(PlayerViewCell.Collection.ReuseIdentifier, forIndexPath: indexPath) as! PlayerViewCell
         cell.elementKind = self.elementKind
         if (elementKind == MatchPlayersReusableView.Collection.Kind.Away) {
-            var p1 = DataManager.sharedInstance.matchCard.awayTeamBag.players[indexPath.row]
+            var p1 = DataManager.sharedInstance.matchCard.awayTeamBag.players?[indexPath.row]
             cell.playingPlayer = p1
-            cell.buttonKey.setTitle(p1.key, forState: .Normal)
+            cell.buttonKey.setTitle(p1?.key, forState: .Normal)
         } else {
-            var p2 = DataManager.sharedInstance.matchCard.homeTeamBag.players[indexPath.row]
+            var p2 = DataManager.sharedInstance.matchCard.homeTeamBag!.players?[indexPath.row]
             cell.playingPlayer = p2
-            cell.buttonKey.setTitle(p2.key, forState: .Normal)
+            cell.buttonKey.setTitle(p2?.key, forState: .Normal)
         }
         if let i = cell.player?.imageFile {
             cell.buttonKey.setTitleColor(UIColor.whiteColor(), forState: .Normal)

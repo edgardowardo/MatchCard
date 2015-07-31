@@ -22,6 +22,27 @@ class PlayerModel : PFObjectImaged, PFSubclassing {
         super.init()
     }
     
+    var imageFile15px : UIImage?
+    override var imageFile : UIImage? {
+        didSet {
+            if let i = self.imageFile {
+                let resizedImage = UIImage.resizeImage(i, size: CGSizeMake(15,15))
+                self.imageFile15px = UIImage.circularCropImage(resizedImage)
+            }
+        }
+    }
+    
+    convenience init(name : String, image : UIImage?)
+    {
+        self.init()
+        self.name = name
+        if let i = image {
+            self.imageFile = i
+            let resizedImage = UIImage.resizeImage(i, size: CGSizeMake(15,15))
+            self.imageFile15px = UIImage.circularCropImage(resizedImage)
+        }
+    }
+    
     override class func initialize() {
         var onceToken : dispatch_once_t = 0;
         dispatch_once(&onceToken) {
@@ -38,5 +59,4 @@ class PlayerModel : PFObjectImaged, PFSubclassing {
     func isAddition() -> Bool {
         return name == "+"
     }
-    
-} 
+}

@@ -31,7 +31,7 @@ class PlayersInputController : NSObject, UICollectionViewDelegate, UICollectionV
         if (elementKind == MatchPlayersReusableView.Collection.Kind.Away) {
             return DataManager.sharedInstance.matchCard.awayTeamBag.team!.allPlayers!.count
         } else {
-            return DataManager.sharedInstance.matchCard.homeTeamBag.team!.allPlayers!.count
+            return DataManager.sharedInstance.matchCard.homeTeamBag!.team!.allPlayers!.count
         }
     }
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -44,7 +44,7 @@ class PlayersInputController : NSObject, UICollectionViewDelegate, UICollectionV
         if (elementKind == MatchPlayersReusableView.Collection.Kind.Away) {
             player = DataManager.sharedInstance.matchCard.awayTeamBag.team!.allPlayers![indexPath.row]
         } else {
-            player = DataManager.sharedInstance.matchCard.homeTeamBag.team!.allPlayers![indexPath.row]
+            player = DataManager.sharedInstance.matchCard.homeTeamBag!.team!.allPlayers![indexPath.row]
         }
         cell.player = player
         cell.button.userInteractionEnabled = false

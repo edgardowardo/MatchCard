@@ -154,25 +154,54 @@ class MatchCardStandardLayout : UICollectionViewLayout{
             indexPathSelected = indexPaths[0] as! NSIndexPath
         }
         let numSections = collectionView?.numberOfSections()
+        
         var cellInfo = [NSIndexPath : AnyObject]()
         let cellKind = MatchEntryCell.Collection.Kind
         let cellSize = self.cellSize()
         let cellOriginX = UIScreen.mainScreen().bounds.size.width / 2  - self.cellSize().width / 2
+        
+        let noteSize = EntryAnnotationReusableView.Collection.Cell.Size
+        var noteHomeInfo = [NSIndexPath : AnyObject]()
+        let noteHomeKind = EntryAnnotationReusableView.Collection.Home.Kind
+        var noteAwayInfo = [NSIndexPath : AnyObject]()
+        let noteAwayKind = EntryAnnotationReusableView.Collection.Away.Kind
+        
         let numItems = collectionView?.numberOfItemsInSection(0)
         self.totalHeight = self.prepareLayoutForHeaderViews()
         for var indexItem = 0; indexItem < numItems; indexItem++ {
             var indexPath = NSIndexPath(forRow: indexItem, inSection: 0)
+            
+            // Home note
+            var noteHomeAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: noteHomeKind, withIndexPath: indexPath)
+            noteHomeAttributes.frame = CGRectMake(0, CGFloat(totalHeight), noteSize.width, noteSize.height)
+            noteHomeInfo[indexPath] = noteHomeAttributes
+            
+            // Away note
+            var noteAwayAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: noteAwayKind, withIndexPath: indexPath)
+            let noteAwayOriginX = UIScreen.mainScreen().bounds.size.width - noteSize.width
+            noteAwayAttributes.frame = CGRectMake(noteAwayOriginX, CGFloat(totalHeight), noteSize.width, noteSize.height)
+            noteAwayInfo[indexPath] = noteAwayAttributes
+            
+            // Match Entry
             var attributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
             attributes.frame = CGRectMake(cellOriginX, CGFloat(totalHeight), cellSize.width, cellSize.height)
             if indexPathSelected.isEqual(indexPath) {
                 attributes.alpha = 1.0
+                noteHomeAttributes.alpha = 1.0
+                noteAwayAttributes.alpha = 1.0
             } else {
                 attributes.alpha = self.alphaCells
+                noteHomeAttributes.alpha = self.alphaCells
+                noteAwayAttributes.alpha = self.alphaCells
             }
             cellInfo[indexPath] = attributes
+            
+            // increment next entrie's X origin
             totalHeight += cellSize.height
         }
         layoutInfo[cellKind] = cellInfo
+        layoutInfo[noteHomeKind] = noteHomeInfo
+        layoutInfo[noteAwayKind] = noteAwayInfo
         self.prepareLayoutForSupplementaryViews()
         debugMe(fromMethod: "\(__FUNCTION__)")
     }
@@ -231,9 +260,18 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         return cellInfo[indexPath] as! UICollectionViewLayoutAttributes
     }
     override func layoutAttributesForSupplementaryViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes! {
-        return self.suppsInfo[elementKind]
+        switch elementKind {
+        case EntryAnnotationReusableView.Collection.Home.Kind :
+            fallthrough
+        case EntryAnnotationReusableView.Collection.Away.Kind :
+            let noteInfo = layoutInfo[elementKind] as! [NSIndexPath : AnyObject]
+            return noteInfo[indexPath] as! UICollectionViewLayoutAttributes
+        default :
+            return self.suppsInfo[elementKind]
+        }
     }
     override func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]? {
+        // Match Entries
         let cellKind = MatchEntryCell.Collection.Kind
         var cellInfo = [NSIndexPath : AnyObject]()
         cellInfo = layoutInfo[cellKind] as! [NSIndexPath : AnyObject]
@@ -243,6 +281,26 @@ class MatchCardStandardLayout : UICollectionViewLayout{
                 elements.append(attributes as! UICollectionViewLayoutAttributes)
             }
         }
+        
+        // Home notes
+        let homeNoteKind = EntryAnnotationReusableView.Collection.Home.Kind
+        var homeInfo = layoutInfo[homeNoteKind] as! [NSIndexPath : AnyObject]
+        for (indexPath, attributes) in homeInfo {
+            if CGRectIntersectsRect(rect, attributes.frame) {
+                elements.append(attributes as! UICollectionViewLayoutAttributes)
+            }
+        }
+        
+        // Away notes
+        let awayNoteKind = EntryAnnotationReusableView.Collection.Away.Kind
+        var awayInfo = layoutInfo[awayNoteKind] as! [NSIndexPath : AnyObject]
+        for (indexPath, attributes) in awayInfo {
+            if CGRectIntersectsRect(rect, attributes.frame) {
+                elements.append(attributes as! UICollectionViewLayoutAttributes)
+            }
+        }
+        
+        // Headers and footers
         var headerAttrs = self.suppsInfo[MatchHeaderReusableView.Collection.Kind]!
         if (CGRectIntersectsRect(rect, headerAttrs.frame)) {
             elements.append(headerAttrs)

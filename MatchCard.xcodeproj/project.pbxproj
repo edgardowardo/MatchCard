@@ -14,6 +14,8 @@
 		772D86941B68EABC00F7FB9A /* EasyTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772D86931B68EABC00F7FB9A /* EasyTipView.swift */; };
 		772D86971B68FBE500F7FB9A /* ToolTipManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772D86961B68FBE500F7FB9A /* ToolTipManager.swift */; };
 		772F712F1B54541A00F1BDD1 /* ClubInLeagueModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772F712E1B54541A00F1BDD1 /* ClubInLeagueModel.swift */; };
+		7739334E1B6A1F3C00388D14 /* EntryAnnotationReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7739334D1B6A1F3C00388D14 /* EntryAnnotationReusableView.xib */; };
+		773933501B6A237E00388D14 /* EntryAnnotationReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7739334F1B6A237E00388D14 /* EntryAnnotationReusableView.swift */; };
 		773BC0FD1B3395000062CC4C /* MatchPlayersReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 773BC0FC1B3395000062CC4C /* MatchPlayersReusableView.xib */; };
 		773BC0FF1B38A4390062CC4C /* PlayerViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 773BC0FE1B38A4390062CC4C /* PlayerViewCell.xib */; };
 		773BC1011B38A5DB0062CC4C /* PlayerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773BC1001B38A5DB0062CC4C /* PlayerViewCell.swift */; };
@@ -43,6 +45,7 @@
 		77ACC7A51B2709CC0078C6FA /* MatchEntryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77ACC7A41B2709CC0078C6FA /* MatchEntryCell.xib */; };
 		77BC54C51B1C9BC80046F3C4 /* RightAlignedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BC54C41B1C9BC80046F3C4 /* RightAlignedCollectionViewCell.swift */; };
 		77BE570B1B17B4A400E88630 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BE570A1B17B4A400E88630 /* PlayerModel.swift */; };
+		77CA0D561B6B636F00A898C1 /* EntryAnnotationAwayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77CA0D551B6B636F00A898C1 /* EntryAnnotationAwayView.xib */; };
 		77D69B4E1B16394E0053EB10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D69B4D1B16394E0053EB10 /* AppDelegate.swift */; };
 		77D69B531B16394E0053EB10 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77D69B511B16394E0053EB10 /* Main.storyboard */; };
 		77D69B551B16394E0053EB10 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77D69B541B16394E0053EB10 /* Images.xcassets */; };
@@ -75,6 +78,8 @@
 		772D86931B68EABC00F7FB9A /* EasyTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyTipView.swift; sourceTree = "<group>"; };
 		772D86961B68FBE500F7FB9A /* ToolTipManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolTipManager.swift; sourceTree = "<group>"; };
 		772F712E1B54541A00F1BDD1 /* ClubInLeagueModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClubInLeagueModel.swift; sourceTree = "<group>"; };
+		7739334D1B6A1F3C00388D14 /* EntryAnnotationReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EntryAnnotationReusableView.xib; sourceTree = "<group>"; };
+		7739334F1B6A237E00388D14 /* EntryAnnotationReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryAnnotationReusableView.swift; sourceTree = "<group>"; };
 		773BC0FC1B3395000062CC4C /* MatchPlayersReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MatchPlayersReusableView.xib; sourceTree = "<group>"; };
 		773BC0FE1B38A4390062CC4C /* PlayerViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerViewCell.xib; sourceTree = "<group>"; };
 		773BC1001B38A5DB0062CC4C /* PlayerViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewCell.swift; sourceTree = "<group>"; };
@@ -105,6 +110,7 @@
 		77BC54C21B1C8D0E0046F3C4 /* MatchCard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MatchCard-Bridging-Header.h"; sourceTree = "<group>"; };
 		77BC54C41B1C9BC80046F3C4 /* RightAlignedCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightAlignedCollectionViewCell.swift; sourceTree = "<group>"; };
 		77BE570A1B17B4A400E88630 /* PlayerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
+		77CA0D551B6B636F00A898C1 /* EntryAnnotationAwayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EntryAnnotationAwayView.xib; sourceTree = "<group>"; };
 		77D69B481B16394E0053EB10 /* MatchCard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MatchCard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77D69B4C1B16394E0053EB10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77D69B4D1B16394E0053EB10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -279,6 +285,9 @@
 			children = (
 				77EB9D911B224B1E00DD93D9 /* MatchEntryCell.swift */,
 				77ACC7A41B2709CC0078C6FA /* MatchEntryCell.xib */,
+				7739334F1B6A237E00388D14 /* EntryAnnotationReusableView.swift */,
+				7739334D1B6A1F3C00388D14 /* EntryAnnotationReusableView.xib */,
+				77CA0D551B6B636F00A898C1 /* EntryAnnotationAwayView.xib */,
 				77FA4B471B277D4E0093C5CB /* MatchEntryEditLayout.swift */,
 				7725833E1B5ADC10006117C1 /* HomePlayersLayout.swift */,
 				776E05671B59B6C0003B2D2E /* AwayPlayersLayout.swift */,
@@ -388,9 +397,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77CA0D561B6B636F00A898C1 /* EntryAnnotationAwayView.xib in Resources */,
 				773BC1061B39B8320062CC4C /* MatchHeaderReusableView.xib in Resources */,
 				777A7A281B3B1F3400FF9342 /* ScoreHeaderReusableView.xib in Resources */,
 				773BC0FD1B3395000062CC4C /* MatchPlayersReusableView.xib in Resources */,
+				7739334E1B6A1F3C00388D14 /* EntryAnnotationReusableView.xib in Resources */,
 				77D69B531B16394E0053EB10 /* Main.storyboard in Resources */,
 				773BC0FF1B38A4390062CC4C /* PlayerViewCell.xib in Resources */,
 				77ACC7A51B2709CC0078C6FA /* MatchEntryCell.xib in Resources */,
@@ -487,6 +498,7 @@
 				777B5E721B1F6E9400F19B8B /* TeamInMatchModel.swift in Sources */,
 				775382B11B62633800C4802D /* PlayerRegistrationViewController.swift in Sources */,
 				776DDC9D1B57F2B400AB571F /* MatchPlayersStandardLayout.swift in Sources */,
+				773933501B6A237E00388D14 /* EntryAnnotationReusableView.swift in Sources */,
 				77A446FD1B4193EC000C5A6B /* MenuItem.swift in Sources */,
 				77D69B4E1B16394E0053EB10 /* AppDelegate.swift in Sources */,
 				773BC1011B38A5DB0062CC4C /* PlayerViewCell.swift in Sources */,
