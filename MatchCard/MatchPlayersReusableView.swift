@@ -41,8 +41,13 @@ class MatchPlayersReusableView : UICollectionReusableView {
             static let Reload = "NotificationIdentifierOf_Reload"
         }
     }
+    @IBOutlet weak var shadowRightCasted: UIImageView!
     @IBOutlet weak var playersCollectionView: UICollectionView?
-    var elementKind = MatchPlayersReusableView.Collection.Kind.Away
+    var elementKind = Collection.Kind.Away {
+        didSet {
+            self.shadowRightCasted.hidden = (elementKind == Collection.Kind.Home)
+        }
+    }
     var delegate : MatchPlayersReusableViewDelegate?
     var layouts : [LayoutType : UICollectionViewFlowLayout] = [.Standard : MatchPlayersStandardLayout(), .Edit : MatchPlayersStandardLayout()]
     var layout : LayoutType = .Standard {

@@ -51,6 +51,10 @@ class MatchCardViewController : UIViewController {
         static let AlertNoHomeTeam = 10
         static let AlertNoPosition = 11
     }
+    struct Separator {
+        static let Kind = "UICollectionElementKindSeparator"
+        static let ReuseIdentifier = "SeparatorReusableView"
+    }
     
     // MARK:- Properties -
 
@@ -99,6 +103,7 @@ class MatchCardViewController : UIViewController {
         matchCardCollectionView?.registerNib(nibEntryAnnoteAway, forSupplementaryViewOfKind: EntryAnnotationReusableView.Collection.Away.Kind, withReuseIdentifier: EntryAnnotationReusableView.Collection.Away.ReuseIdentifier)
         matchCardCollectionView?.registerNib(nibPlayers, forSupplementaryViewOfKind: MatchPlayersReusableView.Collection.Kind.Home, withReuseIdentifier: MatchPlayersReusableView.Collection.ReuseIdentifier)
         matchCardCollectionView?.registerNib(nibPlayers, forSupplementaryViewOfKind: MatchPlayersReusableView.Collection.Kind.Away, withReuseIdentifier: MatchPlayersReusableView.Collection.ReuseIdentifier)
+        matchCardCollectionView?.registerClass(UICollectionReusableView.self , forSupplementaryViewOfKind: Separator.Kind, withReuseIdentifier: Separator.ReuseIdentifier)
         matchCardCollectionView?.setCollectionViewLayout(MatchCardStandardLayout(), animated: false)
         if Common.showColorBounds() == false {
             matchCardCollectionView?.backgroundColor = UIColor.clearColor()
@@ -564,43 +569,64 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         var matchCard = DataManager.sharedInstance.matchCard
         switch kind {
+        // Separator
+        case Separator.Kind :
+            var separator = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: Separator.ReuseIdentifier, forIndexPath: indexPath) as! UICollectionReusableView
+            let sepTag = 1243
+            if let s = separator.viewWithTag(sepTag) {
+                // it's already there! if added, it'll thicken/darken more!
+            } else {
+                let sep = UIImageView(frame: CGRectMake(0, 0, 10, 18 * MatchEntryCell.Collection.Edit.Cell.Size.height + 600))
+                sep.tag = sepTag
+                sep.image = UIImage(named: "Shadow_Right")
+                separator.addSubview(sep)
+            }
+            return separator
+        // Annotation - Away
         case EntryAnnotationReusableView.Collection.Away.Kind :
             var awayNote = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: EntryAnnotationReusableView.Collection.Away.ReuseIdentifier, forIndexPath: indexPath) as! EntryAnnotationAwayView
             let matchEntry = DataManager.sharedInstance.matchCard.matchEntries[indexPath.row]
             awayNote.elementKind = kind
             awayNote.data = matchEntry
             return awayNote
+        // Annotation - Home
         case EntryAnnotationReusableView.Collection.Home.Kind :
             var homeNote = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: EntryAnnotationReusableView.Collection.Home.ReuseIdentifier, forIndexPath: indexPath) as! EntryAnnotationReusableView
             let matchEntry = DataManager.sharedInstance.matchCard.matchEntries[indexPath.row]
             homeNote.elementKind = kind
             homeNote.data = matchEntry
             return homeNote
+        // Players - Away
         case MatchPlayersReusableView.Collection.Kind.Away :
             var awayPlayers = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchPlayersReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! MatchPlayersReusableView
             awayPlayers.delegate = self
             ToolTipManager.sharedInstance.needsDisplayTipView(ToolTipManager.Keys.PlayerPosition, forView: awayPlayers, withinSuperview: collectionView)
             return awayPlayers
+        // Players - Home
         case MatchPlayersReusableView.Collection.Kind.Home :
             var homePlayers = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchPlayersReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! MatchPlayersReusableView
             homePlayers.elementKind = kind
             homePlayers.playersCollectionView!.transform = CGAffineTransformMakeScale(-1, 1) // right align
             homePlayers.delegate = self
             return homePlayers
+        // Header
         case MatchHeaderReusableView.Collection.Kind :
             var headerView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchHeaderReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! MatchHeaderReusableView
             headerView.leagueName.text = matchCard.leagueName
-            headerView.division.text = "\(matchCard.division)"
+            headerView.divisionValue.text = "\(matchCard.division)"
+            headerView.divOrdinal.text = matchCard.division.ordinal
             headerView.location.text = matchCard.location
             headerView.date.text = matchCard.dateString
             ToolTipManager.sharedInstance.needsDisplayTipView(ToolTipManager.Keys.MapPin, forView: headerView.locationButton, withinSuperview: collectionView)
             return headerView
+        // Score header - Home
         case ScoreHeaderReusableView.Collection.Kind.Home :
             var scoreHomeView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: ScoreHeaderReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! ScoreHeaderReusableView
             scoreHomeView.score.text = matchCard.homeScore
             scoreHomeView.teamName.text = matchCard.homeTeamName
             scoreHomeView.kind = kind
             return scoreHomeView
+        // Score header - Away
         case ScoreHeaderReusableView.Collection.Kind.Away :
             var scoreAwayView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: ScoreHeaderReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! ScoreHeaderReusableView
             scoreAwayView.score.text = matchCard.awayScore

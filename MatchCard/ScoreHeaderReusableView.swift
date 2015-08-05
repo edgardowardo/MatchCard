@@ -31,7 +31,14 @@ class ScoreHeaderReusableView : UICollectionReusableView, UIGestureRecognizerDel
     }
     @IBOutlet weak var score: UILabel!
     @IBOutlet weak var teamName: UILabel!
-    var kind : String = Collection.Kind.Home
+    @IBOutlet weak var shadowRightCasted: UIImageView!
+    @IBOutlet weak var shadowBottomCasted: UIImageView!
+    var kind : String = Collection.Kind.Home {
+        didSet {
+            self.shadowRightCasted.hidden = (kind == Collection.Kind.Home)
+            self.shadowBottomCasted.hidden = (kind == Collection.Kind.Home)
+        }
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         // Team name tapped

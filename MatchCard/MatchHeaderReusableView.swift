@@ -34,8 +34,9 @@ class MatchHeaderReusableView : UICollectionReusableView, UIGestureRecognizerDel
     }
     // MARK: Properties
     @IBOutlet weak var leagueName: UILabel!
-    @IBOutlet weak var div: UILabel!    
     @IBOutlet weak var division: UILabel!
+    @IBOutlet weak var divisionValue: UILabel!
+    @IBOutlet weak var divOrdinal: UILabel!
     @IBOutlet weak var location: UILabel!
     @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var date: UILabel!
@@ -58,10 +59,10 @@ class MatchHeaderReusableView : UICollectionReusableView, UIGestureRecognizerDel
         // Division tapped
         let tapDiv = UITapGestureRecognizer(target: self, action: Selector("handleShowDivisions"))
         tapDiv.delegate = self
-        self.div.userInteractionEnabled = true
-        self.div.addGestureRecognizer(tapDiv)
         self.division.userInteractionEnabled = true
         self.division.addGestureRecognizer(tapDiv)
+        self.divisionValue.userInteractionEnabled = true
+        self.divisionValue.addGestureRecognizer(tapDiv)
         // Location tapped
         let tapLocation = UITapGestureRecognizer(target: self, action: Selector("handleShowLocations_Picker"))
         self.location.userInteractionEnabled = true
@@ -91,10 +92,12 @@ class MatchHeaderReusableView : UICollectionReusableView, UIGestureRecognizerDel
             }
         case MatchCardViewController.Tags.Division :
             UIView.animateWithDuration(duration, animations: { () -> Void in
-                self.division.alpha = startAlpha
+                self.divisionValue.alpha = startAlpha
+                self.divOrdinal.alpha = startAlpha
                 }) { (Bool) -> Void in
                     NSNotificationCenter.defaultCenter().postNotificationName(MatchCardViewController.Notification.Identifier.ReloadData, object: nil)
-                    self.division.alpha = CGFloat(1)
+                    self.divisionValue.alpha = CGFloat(1)
+                    self.divOrdinal.alpha = CGFloat(1)
             }
         case MatchCardViewController.Tags.Location :
             UIView.animateWithDuration(duration, animations: { () -> Void in

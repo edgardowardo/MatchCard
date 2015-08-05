@@ -37,6 +37,24 @@ class Common {
     }
 }
 
+extension Int {
+    var ordinal : String {
+        get {
+            let sufixes = ["th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th"]
+            switch (self % 100) {
+            case 11:
+                fallthrough
+            case 12:
+                fallthrough
+            case 13:
+                return "th";
+            default:
+                return "\(sufixes[self % 10])"
+            }
+        }
+    }
+}
+
 extension UITextField {
     public override func becomeFirstResponder() -> Bool {
         ContainerViewController.isPannable = false

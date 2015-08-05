@@ -145,7 +145,7 @@ extension ContainerViewController: MatchCardViewControllerDelegate {
     }
     
     func showShadowForCenterViewController(shouldShowShadow: Bool) {
-// FIXME: This shadow will make animation choppy. Look for a shadow image instead!
+// FIXME: This shadow will make animation choppy. Look for a shadow image instead! Solution would be to change colour of side panel!
 //        if (shouldShowShadow) {
 //            centerNavigationController.view.layer.shadowOpacity = 0.8
 //        } else {

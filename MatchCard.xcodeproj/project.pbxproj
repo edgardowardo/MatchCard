@@ -42,6 +42,7 @@
 		77A446F91B418C45000C5A6B /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A446F81B418C45000C5A6B /* ContainerViewController.swift */; };
 		77A446FB1B418D8C000C5A6B /* SidePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A446FA1B418D8C000C5A6B /* SidePanelViewController.swift */; };
 		77A446FD1B4193EC000C5A6B /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A446FC1B4193EC000C5A6B /* MenuItem.swift */; };
+		77A8BAF91B6E470500FF086F /* icon-badminton in Resources */ = {isa = PBXBuildFile; fileRef = 77A8BAF81B6E470500FF086F /* icon-badminton */; };
 		77ACC7A51B2709CC0078C6FA /* MatchEntryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77ACC7A41B2709CC0078C6FA /* MatchEntryCell.xib */; };
 		77BC54C51B1C9BC80046F3C4 /* RightAlignedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BC54C41B1C9BC80046F3C4 /* RightAlignedCollectionViewCell.swift */; };
 		77BE570B1B17B4A400E88630 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BE570A1B17B4A400E88630 /* PlayerModel.swift */; };
@@ -106,6 +107,7 @@
 		77A446F81B418C45000C5A6B /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		77A446FA1B418D8C000C5A6B /* SidePanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidePanelViewController.swift; sourceTree = "<group>"; };
 		77A446FC1B4193EC000C5A6B /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
+		77A8BAF81B6E470500FF086F /* icon-badminton */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "icon-badminton"; sourceTree = "<group>"; };
 		77ACC7A41B2709CC0078C6FA /* MatchEntryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MatchEntryCell.xib; sourceTree = "<group>"; };
 		77BC54C21B1C8D0E0046F3C4 /* MatchCard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MatchCard-Bridging-Header.h"; sourceTree = "<group>"; };
 		77BC54C41B1C9BC80046F3C4 /* RightAlignedCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightAlignedCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 		77D69B4B1B16394E0053EB10 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				77A8BAF81B6E470500FF086F /* icon-badminton */,
 				772D86901B6790A300F7FB9A /* UIImage+ImagePickerCrop.h */,
 				772D86911B6790A300F7FB9A /* UIImage+ImagePickerCrop.m */,
 				77BC54C21B1C8D0E0046F3C4 /* MatchCard-Bridging-Header.h */,
@@ -405,6 +408,7 @@
 				77D69B531B16394E0053EB10 /* Main.storyboard in Resources */,
 				773BC0FF1B38A4390062CC4C /* PlayerViewCell.xib in Resources */,
 				77ACC7A51B2709CC0078C6FA /* MatchEntryCell.xib in Resources */,
+				77A8BAF91B6E470500FF086F /* icon-badminton in Resources */,
 				77D69B581B16394E0053EB10 /* LaunchScreen.xib in Resources */,
 				7771CE801B283D5C00EA3D09 /* Config.plist in Resources */,
 				77D69B551B16394E0053EB10 /* Images.xcassets in Resources */,

@@ -3,11 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "icon-more.png"
+      "filename" : "icon-ellipsis.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "icon-ellipsis@2x.png"
     },
     {
       "idiom" : "universal",

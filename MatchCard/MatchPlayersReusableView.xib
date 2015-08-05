@@ -21,14 +21,22 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Shadow_Right" id="e31-ok-BnD">
+                    <rect key="frame" x="0.0" y="0.0" width="10" height="100"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="playersCollectionView" destination="smI-V3-Qe1" id="3Wj-c5-7tV"/>
+                <outlet property="shadowRightCasted" destination="e31-ok-BnD" id="UM3-pV-hZc"/>
             </connections>
             <point key="canvasLocation" x="374" y="465"/>
         </collectionReusableView>
     </objects>
+    <resources>
+        <image name="Shadow_Right" width="5" height="1"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

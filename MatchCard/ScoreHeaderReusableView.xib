@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ScoreHeaderReusableView" id="iRk-GM-9R4" customClass="ScoreHeaderReusableView" customModule="MatchCard" customModuleProvider="target">
+        <collectionReusableView opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ScoreHeaderReusableView" id="iRk-GM-9R4" customClass="ScoreHeaderReusableView" customModule="MatchCard" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="160" height="92"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
@@ -30,22 +30,52 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Shadow_Right" translatesAutoresizingMaskIntoConstraints="NO" id="EkG-bm-Bcj">
+                    <rect key="frame" x="0.0" y="0.0" width="10" height="92"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="92" id="6gt-Eg-eUH"/>
+                        <constraint firstAttribute="width" constant="10" id="I6P-BH-75Z"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Shadow_Bottom" translatesAutoresizingMaskIntoConstraints="NO" id="vya-ml-Nk6">
+                    <rect key="frame" x="0.0" y="0.0" width="160" height="10"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="10" id="5uy-Xf-tQp"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
+                <constraint firstItem="vya-ml-Nk6" firstAttribute="leading" secondItem="iRk-GM-9R4" secondAttribute="leading" id="0K6-0U-FuG"/>
                 <constraint firstAttribute="bottom" secondItem="sET-Kf-7cA" secondAttribute="bottom" constant="8" id="3Xq-Yk-1z2"/>
                 <constraint firstItem="dWh-3h-JY7" firstAttribute="top" secondItem="iRk-GM-9R4" secondAttribute="top" constant="8" id="3jb-nV-Y3A"/>
+                <constraint firstItem="vya-ml-Nk6" firstAttribute="top" secondItem="iRk-GM-9R4" secondAttribute="top" id="40S-fL-Li8"/>
                 <constraint firstAttribute="bottom" secondItem="dWh-3h-JY7" secondAttribute="bottom" constant="28" id="4hN-zC-hPR"/>
                 <constraint firstAttribute="trailing" secondItem="sET-Kf-7cA" secondAttribute="trailing" constant="8" id="5Kg-0S-4yD"/>
+                <constraint firstItem="EkG-bm-Bcj" firstAttribute="leading" secondItem="iRk-GM-9R4" secondAttribute="leading" id="P4E-3a-Bzw"/>
                 <constraint firstItem="sET-Kf-7cA" firstAttribute="leading" secondItem="iRk-GM-9R4" secondAttribute="leading" constant="8" id="X7S-hO-fGY"/>
+                <constraint firstItem="EkG-bm-Bcj" firstAttribute="top" secondItem="iRk-GM-9R4" secondAttribute="top" id="Yqw-2q-VhS"/>
+                <constraint firstAttribute="bottom" secondItem="EkG-bm-Bcj" secondAttribute="bottom" id="ZMA-KJ-sfy"/>
+                <constraint firstAttribute="trailing" secondItem="vya-ml-Nk6" secondAttribute="trailing" id="cDa-N0-hjU"/>
                 <constraint firstAttribute="trailing" secondItem="dWh-3h-JY7" secondAttribute="trailing" constant="54" id="l6c-PE-3So"/>
                 <constraint firstItem="dWh-3h-JY7" firstAttribute="leading" secondItem="iRk-GM-9R4" secondAttribute="leading" constant="55" id="xxP-9m-HXP"/>
             </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="ZMA-KJ-sfy"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="score" destination="dWh-3h-JY7" id="Rb8-EV-lq3"/>
+                <outlet property="shadowBottomCasted" destination="vya-ml-Nk6" id="FD6-x7-F53"/>
+                <outlet property="shadowRightCasted" destination="EkG-bm-Bcj" id="Z3c-Jj-5Cy"/>
                 <outlet property="teamName" destination="sET-Kf-7cA" id="SoS-DH-3zB"/>
             </connections>
             <point key="canvasLocation" x="206" y="297"/>
         </collectionReusableView>
     </objects>
+    <resources>
+        <image name="Shadow_Bottom" width="1" height="5"/>
+        <image name="Shadow_Right" width="5" height="1"/>
+    </resources>
 </document>

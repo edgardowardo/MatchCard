@@ -239,7 +239,7 @@ class MatchCardStandardLayout : UICollectionViewLayout{
             yOfPlayersView(), homePlayersSize().width, homePlayersSize().height)
         homePlayersAttributes.zIndex += 3
         self.suppsInfo[homePlayersKind] = homePlayersAttributes
-       // Away
+        // Away
         let awayPlayersKind = MatchPlayersReusableView.Collection.Kind.Away
         var awayPlayersAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: awayPlayersKind, withIndexPath: NSIndexPath(forRow: 0, inSection: 0))
         awayPlayersAttributes.alpha = 1
@@ -247,6 +247,11 @@ class MatchCardStandardLayout : UICollectionViewLayout{
             yOfPlayersView(), awayPlayersSize().width, awayPlayersSize().height)
         awayPlayersAttributes.zIndex += 3
         self.suppsInfo[awayPlayersKind] = awayPlayersAttributes
+        // Separator
+        let separatorKind = MatchCardViewController.Separator.Kind
+        var separatorAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: separatorKind, withIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+        separatorAttributes.frame = CGRectMake(UIScreen.mainScreen().bounds.size.width / 2, 0, 10, self.totalHeight)
+        self.suppsInfo[separatorKind] = separatorAttributes
     }
     override func collectionViewContentSize() -> CGSize {
         let count : Int? = collectionView?.numberOfItemsInSection(0)
@@ -308,7 +313,8 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         elements.append(self.suppsInfo[MatchPlayersReusableView.Collection.Kind.Home]!)
         elements.append(self.suppsInfo[MatchPlayersReusableView.Collection.Kind.Away]!)
         elements.append(self.suppsInfo[ScoreHeaderReusableView.Collection.Kind.Home]!)
-        elements.append(self.suppsInfo[ScoreHeaderReusableView.Collection.Kind.Away]!)
+        elements.append(self.suppsInfo[ScoreHeaderReusableView.Collection.Kind.Away]!)        
+        elements.append(self.suppsInfo[MatchCardViewController.Separator.Kind]!)
         return elements
     }
     override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
