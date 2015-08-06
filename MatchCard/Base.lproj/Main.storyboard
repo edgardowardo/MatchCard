@@ -14,7 +14,7 @@
                         <viewControllerLayoutGuide type="bottom" id="3U9-vG-xPx"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="BEZ-Ae-41M">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="nFB-bz-1qK">
@@ -37,6 +37,7 @@
                             <constraint firstItem="nFB-bz-1qK" firstAttribute="top" secondItem="BEZ-Ae-41M" secondAttribute="top" id="wJf-AD-JmW"/>
                         </constraints>
                     </view>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <outlet property="containingView" destination="BEZ-Ae-41M" id="ROJ-fr-v5x"/>
                         <outlet property="matchCardCollectionView" destination="nFB-bz-1qK" id="Yu9-BD-0yZ"/>

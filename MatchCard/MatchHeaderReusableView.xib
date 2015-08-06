@@ -30,7 +30,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Name of Long League Name" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="72N-dR-xA4" userLabel="League Name">
-                    <rect key="frame" x="41" y="8" width="231" height="47"/>
+                    <rect key="frame" x="41" y="13" width="231" height="47"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="47" id="3ri-oK-XMF"/>
                         <constraint firstAttribute="width" constant="231" id="Jvc-iu-Cxq"/>
@@ -73,7 +73,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="division" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vsl-2B-uNz" userLabel="Division">
-                    <rect key="frame" x="274" y="44" width="31" height="11"/>
+                    <rect key="frame" x="274" y="49" width="31" height="11"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="11" id="2vU-Rf-F3Y"/>
                         <constraint firstAttribute="width" constant="31" id="rbJ-Ct-Dlo"/>
@@ -83,7 +83,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k4A-fv-DaH" userLabel="Division Value">
-                    <rect key="frame" x="280" y="8" width="19" height="35"/>
+                    <rect key="frame" x="280" y="13" width="19" height="35"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="19" id="SIj-yF-joq"/>
                         <constraint firstAttribute="height" constant="35" id="jI7-pa-yVn"/>
@@ -93,7 +93,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="XX" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7t4-Ok-PrC" userLabel="Div Ordinal">
-                    <rect key="frame" x="301" y="16" width="11" height="11"/>
+                    <rect key="frame" x="301" y="21" width="11" height="11"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="11" id="FB1-uv-pWa"/>
                         <constraint firstAttribute="height" constant="11" id="ce0-Kd-qVw"/>
@@ -110,15 +110,15 @@
                 <constraint firstItem="Vsl-2B-uNz" firstAttribute="top" secondItem="k4A-fv-DaH" secondAttribute="bottom" id="4r0-50-tF6"/>
                 <constraint firstAttribute="bottom" secondItem="j1M-M4-tZg" secondAttribute="bottom" constant="8" id="4xY-w5-n1j"/>
                 <constraint firstItem="7t4-Ok-PrC" firstAttribute="top" secondItem="ffY-Ez-JZ2" secondAttribute="top" constant="13" id="7M1-O3-iNC"/>
-                <constraint firstItem="k4A-fv-DaH" firstAttribute="top" secondItem="ffY-Ez-JZ2" secondAttribute="top" constant="8" id="7fJ-GX-zxP"/>
-                <constraint firstItem="7t4-Ok-PrC" firstAttribute="top" secondItem="ffY-Ez-JZ2" secondAttribute="top" constant="16" id="8Kh-SP-YJK"/>
+                <constraint firstItem="k4A-fv-DaH" firstAttribute="top" secondItem="ffY-Ez-JZ2" secondAttribute="top" constant="13" id="7fJ-GX-zxP"/>
+                <constraint firstItem="7t4-Ok-PrC" firstAttribute="top" secondItem="ffY-Ez-JZ2" secondAttribute="top" constant="21" id="8Kh-SP-YJK"/>
                 <constraint firstItem="j1M-M4-tZg" firstAttribute="leading" secondItem="ffY-Ez-JZ2" secondAttribute="leading" constant="8" id="8VJ-od-PQZ"/>
                 <constraint firstItem="Vsl-2B-uNz" firstAttribute="top" secondItem="k4A-fv-DaH" secondAttribute="bottom" constant="1" id="Bo3-SC-rOE"/>
                 <constraint firstItem="7t4-Ok-PrC" firstAttribute="leading" secondItem="k4A-fv-DaH" secondAttribute="trailing" constant="2" id="DKa-X8-hR5"/>
                 <constraint firstItem="Vsl-2B-uNz" firstAttribute="top" secondItem="k4A-fv-DaH" secondAttribute="bottom" constant="1" id="FmY-ac-Ag3"/>
                 <constraint firstItem="Tjg-mx-xm8" firstAttribute="top" secondItem="Vsl-2B-uNz" secondAttribute="bottom" constant="2" id="KER-dS-lkD"/>
                 <constraint firstItem="j1M-M4-tZg" firstAttribute="top" secondItem="Znz-IY-eYq" secondAttribute="bottom" constant="13" id="R1J-cd-xpU"/>
-                <constraint firstItem="72N-dR-xA4" firstAttribute="top" secondItem="ffY-Ez-JZ2" secondAttribute="top" constant="8" id="Sab-zW-anV"/>
+                <constraint firstItem="72N-dR-xA4" firstAttribute="top" secondItem="ffY-Ez-JZ2" secondAttribute="top" constant="13" id="Sab-zW-anV"/>
                 <constraint firstItem="7t4-Ok-PrC" firstAttribute="leading" secondItem="k4A-fv-DaH" secondAttribute="trailing" constant="1" id="SoE-fr-bUx"/>
                 <constraint firstAttribute="bottom" secondItem="Ehz-D2-RzK" secondAttribute="bottom" constant="8" id="UvH-YI-c0x"/>
                 <constraint firstItem="72N-dR-xA4" firstAttribute="leading" secondItem="ffY-Ez-JZ2" secondAttribute="leading" constant="8" id="WJ2-zz-H7S"/>
@@ -161,6 +161,7 @@
                 <outlet property="leagueName" destination="72N-dR-xA4" id="zS3-Yc-gB8"/>
                 <outlet property="location" destination="j1M-M4-tZg" id="MC1-0z-xid"/>
                 <outlet property="locationButton" destination="Ehz-D2-RzK" id="QK1-C9-AE9"/>
+                <outlet property="moreButton" destination="Znz-IY-eYq" id="npZ-i6-xtK"/>
             </connections>
             <point key="canvasLocation" x="195" y="208"/>
         </collectionReusableView>

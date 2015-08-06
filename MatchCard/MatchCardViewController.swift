@@ -93,6 +93,7 @@ class MatchCardViewController : UIViewController {
         let nibEntryAnnoteHome = UINib(nibName: EntryAnnotationReusableView.Collection.Home.Nib, bundle: nil)
         let nibEntryAnnoteAway = UINib(nibName: EntryAnnotationReusableView.Collection.Away.Nib, bundle: nil)
         let nibPlayers = UINib(nibName: MatchPlayersReusableView.Collection.Nib, bundle: nil)
+        matchCardCollectionView?.scrollsToTop = true
         matchCardCollectionView?.delegate = self
         matchCardCollectionView?.dataSource = self
         matchCardCollectionView?.registerNib(nibHeader, forSupplementaryViewOfKind: MatchHeaderReusableView.Collection.Kind, withReuseIdentifier: MatchHeaderReusableView.Collection.ReuseIdentifier)
@@ -506,6 +507,25 @@ extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate
 //    }
 }
 
+// MARK: UIScrollView delegates
+
+extension MatchCardViewController : UIScrollViewDelegate {
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        
+        let yOffset = scrollView.contentOffset.y
+        let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.size.height
+        let headerSummarySize = MatchHeaderReusableView.Collection.Cell.Size
+        let threshold = (headerSummarySize.height - statusBarHeight*2 )
+        let divisor = yOffset + statusBarHeight
+        let dividend = threshold
+        var ratio = 1 - divisor / dividend
+        if ratio < 0 {
+            ratio = 0
+        }
+        // println("ratio=\(ratio), divisor=\(divisor), dividend=\(dividend), threshold=\(threshold) ")
+        NSNotificationCenter.defaultCenter().postNotificationName(MatchHeaderReusableView.Notification.Identifier.ScrollToAlpha, object: ratio)
+    }
+}
 
 // MARK:- UICollectionView delegates -
 

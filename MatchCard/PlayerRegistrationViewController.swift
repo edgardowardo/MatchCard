@@ -175,9 +175,9 @@ protocol PlayerRegistrationDelegate {
                 self.scrollView.scrollIndicatorInsets = contentInsets
                 var aRect = self.view.frame
                 aRect.size.height -= kbRect.size.height
-                let p = af.frame.origin
-                let f = af.frame
-                self.scrollView.scrollRectToVisible(f, animated: true)
+//                let p = af.frame.origin
+//                let f = af.frame
+                self.scrollView.scrollRectToVisible(af.frame, animated: true)
                 //            if !CGRectContainsPoint(aRect, p!) {
                 //                self.scrollView.scrollRectToVisible(f!, animated: true)
                 //            }

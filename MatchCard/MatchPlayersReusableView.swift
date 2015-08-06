@@ -59,6 +59,7 @@ class MatchPlayersReusableView : UICollectionReusableView {
         super.awakeFromNib()
         let nibPlayer = UINib(nibName: PlayerViewCell.Collection.Nib, bundle: nil)
         playersCollectionView?.registerNib(nibPlayer, forCellWithReuseIdentifier: PlayerViewCell.Collection.ReuseIdentifier)
+        playersCollectionView?.scrollsToTop = false
         playersCollectionView?.delegate = self
         playersCollectionView?.dataSource = self
 

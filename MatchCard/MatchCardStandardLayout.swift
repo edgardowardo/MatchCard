@@ -54,17 +54,30 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         }
     }
     func yOfHeadersView(_ proposedContentOffset: CGPoint? = nil) -> CGFloat {
+        let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.size.height
+        
+        // NB. when pushed upwards the contentOffset.y gains positive. otherwise when pulled down, it becomes negative
+        
+        // When pulled down, the Y should be content offset which is the iPhone's frame
         var yHeader = self.collectionView?.contentOffset.y
+        // proposed content offset is overridden during animation and must supercede the former (above)
         if (proposedContentOffset != nil) {
             yHeader = proposedContentOffset!.y
         }
-        // If pulled upwards pull it upwards. If pulled downwards, don't let it past the screen so it sticks on the CGPointZero
-        if yHeader > CGFloat(0) {
-            yHeader = CGFloat(0)
+
+        let threshold = (headerSummarySize().height - statusBarHeight*2 )
+        // Pushed upwards, hence offset becomes positive
+        if yHeader >= threshold {
+            yHeader = yHeader! - (headerSummarySize().height - statusBarHeight)
+        } else if yHeader >= -(statusBarHeight) {
+            yHeader = -(statusBarHeight)
         }
+        
         return yHeader!
     }
     func yOfScoreView(_ proposedContentOffset: CGPoint? = nil) -> CGFloat {
+        let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.size.height
+        
         var yScore = yOfHeadersView(proposedContentOffset) + headerSummarySize().height
         var yOffset = self.collectionView?.contentOffset.y
         if (proposedContentOffset != nil) {
@@ -73,7 +86,7 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         // If pushed upwards, don't let it disappear from the screen!
         if (yOffset >= headerSummarySize().height
             && self.layout! != .Edit) {
-            yScore = yOffset!
+            yScore = yOffset! + statusBarHeight
         }
         return yScore
     }
@@ -125,12 +138,16 @@ class MatchCardStandardLayout : UICollectionViewLayout{
     }
     func targetContentOffsetForProposedContentOffsetWrappedFunction(proposedContentOffset : CGPoint) -> CGPoint {
         var newContentOffset = proposedContentOffset
-        if (proposedContentOffset.y < headerSummarySize().height / 2) {
-            newContentOffset.y = 0
-        } else if proposedContentOffset.y >= headerSummarySize().height / 2
-            && proposedContentOffset.y <= headerSummarySize().height {
-                newContentOffset.y = headerSummarySize().height
+        let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.size.height
+        let threshold = (headerSummarySize().height - statusBarHeight*2 ) / 2
+        if (proposedContentOffset.y < threshold) {
+            newContentOffset.y = (-statusBarHeight)
+        } else if proposedContentOffset.y >= threshold
+            && proposedContentOffset.y <= (headerSummarySize().height - statusBarHeight*2 ) {
+            newContentOffset.y = (headerSummarySize().height - statusBarHeight*2 )
         }
+        var headerAttrs = self.suppsInfo[MatchHeaderReusableView.Collection.Kind]
+        headerAttrs?.frame.origin.y = yOfHeadersView(newContentOffset)
         var homePlayersAttrs = self.suppsInfo[MatchPlayersReusableView.Collection.Kind.Home]
         homePlayersAttrs!.frame.origin.y = yOfPlayersView(newContentOffset)
         var awayPlayersAttrs = self.suppsInfo[MatchPlayersReusableView.Collection.Kind.Away]
@@ -227,8 +244,10 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         scoreAwayAttributes.frame = CGRectMake(scoreSize().width, yOfScoreView(), scoreSize().width, scoreSize().height)
         scoreAwayAttributes.zIndex += 2
         self.suppsInfo[scoreAwayKind] = scoreAwayAttributes
+
+        let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.size.height
         // Return the total height for content size computation
-        return headerSummarySize().height + scoreSize().height
+        return headerSummarySize().height + scoreSize().height - statusBarHeight
     }
     func prepareLayoutForSupplementaryViews() {
         // Home

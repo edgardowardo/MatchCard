@@ -30,9 +30,11 @@ class MatchHeaderReusableView : UICollectionReusableView, UIGestureRecognizerDel
             static let ShowLocations_Map = "NotificationIdentifierOfShowLocationsMap"
             static let ShowLocations_Picker = "NotificationIdentifierOfShowLocationsPicker"
             static let FadeLabel = "NotificationIdentifierFadeLabel"
+            static let ScrollToAlpha = "NotificationIdentifier_ScrollToAlpha"
         }
     }
     // MARK: Properties
+    @IBOutlet weak var moreButton: UIButton!
     @IBOutlet weak var leagueName: UILabel!
     @IBOutlet weak var division: UILabel!
     @IBOutlet weak var divisionValue: UILabel!
@@ -69,6 +71,7 @@ class MatchHeaderReusableView : UICollectionReusableView, UIGestureRecognizerDel
         self.location.addGestureRecognizer(tapLocation)
         // Notifications
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("methodOfReceivedNotification_FadeLabel:"), name:MatchHeaderReusableView.Notification.Identifier.FadeLabel, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("methodOfReceivedNotification_ScrollToAlpha:"), name:MatchHeaderReusableView.Notification.Identifier.ScrollToAlpha, object: nil)
     }
     // MARK: Helpers
     func checkLeagueBeforeDoing( function :  () -> () ) {
@@ -77,6 +80,17 @@ class MatchHeaderReusableView : UICollectionReusableView, UIGestureRecognizerDel
         } else {
             UIAlertView(title: "League is unknown", message: "Set the league?", delegate: self, cancelButtonTitle: "Cancel", otherButtonTitles: "OK").show()
         }
+    }
+    @objc private func methodOfReceivedNotification_ScrollToAlpha(notification : NSNotification){
+        let alphalpha = notification.object as! CGFloat
+        self.moreButton.alpha = alphalpha
+        self.leagueName.alpha = alphalpha
+        self.division.alpha = alphalpha
+        self.divisionValue.alpha = alphalpha
+        self.divOrdinal.alpha = alphalpha
+        self.location.alpha = alphalpha
+        self.locationButton.alpha = alphalpha
+        self.date.alpha = alphalpha
     }
     @objc private func methodOfReceivedNotification_FadeLabel(notification : NSNotification){
         let duration = 0.25

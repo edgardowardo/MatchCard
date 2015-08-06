@@ -169,7 +169,7 @@ class DataManager {
                     ClubInLeagueModel(getElement(allClubs, withName:"MMCBC")!)
                 ]
             ),
-            LeagueModel("Manchester  Badminton League", image: nil, divisions : 4,
+            LeagueModel("Manchester Badminton League", image: nil, divisions : 4,
                 clubs : [
                     ClubInLeagueModel(getElement(allClubs, withName:"Blue Triangle")!),
                     ClubInLeagueModel(getElement(allClubs, withName:"Carrington")!),
