@@ -75,10 +75,17 @@ class MatchCardViewController : UIViewController {
         didSet {
             self.matchCardCollectionView?.setCollectionViewLayout(self.layouts[self.layout]!, animated: true)
             NSNotificationCenter.defaultCenter().postNotificationName(Notification.Identifier.SetLayout, object: self)
-            if layout == .AwayPlayers || layout == .HomePlayers {
+            switch layout {
+            case .AwayPlayers :
+                fallthrough
+            case .HomePlayers :
                 self.matchCardCollectionView?.scrollEnabled = false
-            } else {
+                self.matchCardCollectionView?.scrollsToTop = false
+            case .Edit :
+                self.matchCardCollectionView?.scrollsToTop = false
+            default :
                 self.matchCardCollectionView?.scrollEnabled = true
+                self.matchCardCollectionView?.scrollsToTop = true
             }
         }
     }
@@ -159,6 +166,42 @@ class MatchCardViewController : UIViewController {
         preferences.arrowPosition = EasyTipView.ArrowPosition.Top
         EasyTipView.setGlobalPreferences(preferences)
     }
+    override func viewWillAppear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardDidShow:"), name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillBeHidden:"), name: UIKeyboardWillHideNotification, object: nil)
+    }
+    override func viewWillDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    // MARK: Helpers so as not to overlap the match entry cell against the keyboard
+    
+    func keyboardDidShow(notification: NSNotification) {
+        if self.layout == .Edit {
+            if let keyboardRect = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+                if let activeCell = self.matchCardCollectionView?.selectedCell() {
+                    let kbRect = self.matchCardCollectionView?.convertRect(keyboardRect, fromView: nil)
+                    let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.size.height
+                    let contentInsets = UIEdgeInsets(top: statusBarHeight, left: 0, bottom: kbRect!.size.height, right: 0)
+                    self.matchCardCollectionView?.contentInset = contentInsets
+                    var aRect = self.view.frame
+                    aRect.size.height -= kbRect!.size.height
+                    self.matchCardCollectionView?.scrollRectToVisible(activeCell.frame, animated: true)
+                }
+            }
+        }
+    }
+    func keyboardWillBeHidden(notification: NSNotification) {
+        if self.layout == .Standard {
+            let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.size.height
+            let contentInsets = UIEdgeInsets(top: statusBarHeight, left: 0, bottom: 0, right: 0)
+            self.matchCardCollectionView!.contentInset = contentInsets
+        }
+    }
+    
+    // MARK: Picker helpers
+    
     func addPickerAndDoneToolBar(#toTextField : UITextField, withTag : Int, andSelector selector: String = "doneTappedGeneric") {
         let p = UIPickerView()
         p.delegate = self
