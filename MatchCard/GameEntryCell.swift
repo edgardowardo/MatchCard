@@ -1,5 +1,5 @@
 //
-//  MatchEntryCollectionViewCell.swift
+//  GameEntryCollectionViewCell.swift
 //  MatchCard
 //
 //  Created by EDGARDO AGNO on 05/06/2015.
@@ -9,11 +9,11 @@
 import Foundation
 import UIKit
 
-class MatchEntryCell : UICollectionViewCell {
+class GameEntryCell : UICollectionViewCell {
     struct Collection {
-        static let ReuseIdentifier = "MatchEntryCell"
+        static let ReuseIdentifier = "GameEntryCell"
         static let Nib = Collection.ReuseIdentifier
-        static let Kind = "MatchEntryCellKind"
+        static let Kind = "GameEntryCellKind"
         struct Default {
             struct Font {
                 static let Size : CGFloat = 22
@@ -38,7 +38,7 @@ class MatchEntryCell : UICollectionViewCell {
     @IBOutlet weak var awayScore : UILabel!
     @IBOutlet weak var awayBar   : UIView!
     
-    weak var data : MatchEntryModel?
+    weak var data : GameEntryModel?
     let duration = 0.25
     let startAlpha = CGFloat(0.1)
     
@@ -67,8 +67,8 @@ class MatchEntryCell : UICollectionViewCell {
                     self.homeScore.transform = CGAffineTransformScale(self.homeScore.transform, CGFloat(2), CGFloat(2))
                     self.awayScore.transform = CGAffineTransformScale(self.awayScore.transform, CGFloat(2), CGFloat(2))
                 } else {
-                    self.homeScore.font = self.homeScore.font.fontWithSize(MatchEntryCell.Collection.Edit.Font.Size)
-                    self.awayScore.font = self.awayScore.font.fontWithSize(MatchEntryCell.Collection.Edit.Font.Size)
+                    self.homeScore.font = self.homeScore.font.fontWithSize(GameEntryCell.Collection.Edit.Font.Size)
+                    self.awayScore.font = self.awayScore.font.fontWithSize(GameEntryCell.Collection.Edit.Font.Size)
                 }
             })
         default:
@@ -77,8 +77,8 @@ class MatchEntryCell : UICollectionViewCell {
                     self.homeScore.transform = CGAffineTransformScale(self.homeScore.transform, CGFloat(0.5), CGFloat(0.5))
                     self.awayScore.transform = CGAffineTransformScale(self.awayScore.transform, CGFloat(0.5), CGFloat(0.5))
                 } else {
-                    self.homeScore.font = self.homeScore.font.fontWithSize(MatchEntryCell.Collection.Default.Font.Size)
-                    self.awayScore.font = self.awayScore.font.fontWithSize(MatchEntryCell.Collection.Default.Font.Size)
+                    self.homeScore.font = self.homeScore.font.fontWithSize(GameEntryCell.Collection.Default.Font.Size)
+                    self.awayScore.font = self.awayScore.font.fontWithSize(GameEntryCell.Collection.Default.Font.Size)
                 }
             })
         }

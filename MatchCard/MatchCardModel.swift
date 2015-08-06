@@ -70,7 +70,7 @@ class MatchCardModel : PFObject, PFSubclassing {
     @NSManaged var date : NSDate
     @NSManaged var homeTeamBag : TeamInMatchModel?
     @NSManaged var awayTeamBag : TeamInMatchModel
-    @NSManaged var matchEntries : [MatchEntryModel]
+    @NSManaged var gameEntries : [GameEntryModel]
     lazy var teams : [TeamInClubModel] = []
     func getAllTeams(fromLeague : LeagueModel) -> [TeamInClubModel] {
         var teams = [TeamInClubModel]()
@@ -128,7 +128,7 @@ class MatchCardModel : PFObject, PFSubclassing {
     }
     var homeScore : String {
         get {
-            return "\(self.matchEntries.reduce(0, combine: { $0 + $1.homeToken }))"
+            return "\(self.gameEntries.reduce(0, combine: { $0 + $1.homeToken }))"
         }
     }
     var awayTeamName : String {
@@ -141,7 +141,7 @@ class MatchCardModel : PFObject, PFSubclassing {
     }
     var awayScore : String {
         get {
-            return "\(self.matchEntries.reduce(0, combine: { $0 + $1.awayToken }))"
+            return "\(self.gameEntries.reduce(0, combine: { $0 + $1.awayToken }))"
         }
     }
     func clear() {

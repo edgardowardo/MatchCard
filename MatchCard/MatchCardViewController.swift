@@ -39,7 +39,7 @@ class MatchCardViewController : UIViewController {
     // These tags are used to identify which textfield owns the picker view
     struct Tags {
         static let Nothing = 0
-        static let MatchEntry  = 1
+        static let GameEntry  = 1
         static let League = 2
         static let Division = 3
         static let Location = 4
@@ -61,7 +61,7 @@ class MatchCardViewController : UIViewController {
     @IBOutlet weak var containingView : UIView?
     @IBOutlet weak var matchCardCollectionView : UICollectionView?
     var delegate: MatchCardViewControllerDelegate?
-    let mockMatchEntryTextField = UITextField(frame: CGRectZero)
+    let mockGameEntryTextField = UITextField(frame: CGRectZero)
     let mockLeagueTextField = UITextField(frame: CGRectZero)
     let mockDivTextField = UITextField(frame: CGRectZero)
     let mockLocTextField = UITextField(frame: CGRectZero)
@@ -70,7 +70,7 @@ class MatchCardViewController : UIViewController {
     let mockPlayerTextField = UITextField(frame: CGRectZero)
     var selectedPlayerPositionCell : PlayerViewCell?
     lazy var playersInputController = PlayersInputController()
-    var layouts : [LayoutType : UICollectionViewLayout] = [.Standard : MatchCardStandardLayout(), .Edit : MatchEntryEditLayout(), .HomePlayers : HomePlayersLayout(), .AwayPlayers : AwayPlayersLayout()]
+    var layouts : [LayoutType : UICollectionViewLayout] = [.Standard : MatchCardStandardLayout(), .Edit : GameEntryEditLayout(), .HomePlayers : HomePlayersLayout(), .AwayPlayers : AwayPlayersLayout()]
     var layout : LayoutType = .Standard {
         didSet {
             self.matchCardCollectionView?.setCollectionViewLayout(self.layouts[self.layout]!, animated: true)
@@ -96,7 +96,7 @@ class MatchCardViewController : UIViewController {
         super.viewDidLoad()
         let nibHeader = UINib(nibName: MatchHeaderReusableView.Collection.Nib, bundle: nil)
         let nibScore = UINib(nibName: ScoreHeaderReusableView.Collection.Nib, bundle: nil)
-        let nibMatchEntry = UINib(nibName: MatchEntryCell.Collection.Nib, bundle:nil)
+        let nibGameEntry = UINib(nibName: GameEntryCell.Collection.Nib, bundle:nil)
         let nibEntryAnnoteHome = UINib(nibName: EntryAnnotationReusableView.Collection.Home.Nib, bundle: nil)
         let nibEntryAnnoteAway = UINib(nibName: EntryAnnotationReusableView.Collection.Away.Nib, bundle: nil)
         let nibPlayers = UINib(nibName: MatchPlayersReusableView.Collection.Nib, bundle: nil)
@@ -106,7 +106,7 @@ class MatchCardViewController : UIViewController {
         matchCardCollectionView?.registerNib(nibHeader, forSupplementaryViewOfKind: MatchHeaderReusableView.Collection.Kind, withReuseIdentifier: MatchHeaderReusableView.Collection.ReuseIdentifier)
         matchCardCollectionView?.registerNib(nibScore, forSupplementaryViewOfKind: ScoreHeaderReusableView.Collection.Kind.Home, withReuseIdentifier: ScoreHeaderReusableView.Collection.ReuseIdentifier)
         matchCardCollectionView?.registerNib(nibScore, forSupplementaryViewOfKind: ScoreHeaderReusableView.Collection.Kind.Away, withReuseIdentifier: ScoreHeaderReusableView.Collection.ReuseIdentifier)
-        matchCardCollectionView?.registerNib(nibMatchEntry, forCellWithReuseIdentifier: MatchEntryCell.Collection.ReuseIdentifier)
+        matchCardCollectionView?.registerNib(nibGameEntry, forCellWithReuseIdentifier: GameEntryCell.Collection.ReuseIdentifier)
         matchCardCollectionView?.registerNib(nibEntryAnnoteHome, forSupplementaryViewOfKind: EntryAnnotationReusableView.Collection.Home.Kind, withReuseIdentifier: EntryAnnotationReusableView.Collection.Home.ReuseIdentifier)
         matchCardCollectionView?.registerNib(nibEntryAnnoteAway, forSupplementaryViewOfKind: EntryAnnotationReusableView.Collection.Away.Kind, withReuseIdentifier: EntryAnnotationReusableView.Collection.Away.ReuseIdentifier)
         matchCardCollectionView?.registerNib(nibPlayers, forSupplementaryViewOfKind: MatchPlayersReusableView.Collection.Kind.Home, withReuseIdentifier: MatchPlayersReusableView.Collection.ReuseIdentifier)
@@ -140,7 +140,7 @@ class MatchCardViewController : UIViewController {
         addPickerAndDoneToolBar(toTextField: mockDivTextField, withTag: Tags.Division )
         addPickerAndDoneToolBar(toTextField: mockLocPickerTextField, withTag: Tags.Location)
         addPickerAndDoneToolBar(toTextField: mockTeamTextField, withTag: Tags.Nothing)
-        addPickerAndDoneToolBar(toTextField: mockMatchEntryTextField, withTag: Tags.MatchEntry, andSelector : "doneTappedMatchEntry")
+        addPickerAndDoneToolBar(toTextField: mockGameEntryTextField, withTag: Tags.GameEntry, andSelector : "doneTappedGameEntry")
         //
         // Players Input View
         //
@@ -237,12 +237,12 @@ class MatchCardViewController : UIViewController {
             }
         }
     }
-    func doneTappedMatchEntry() {
+    func doneTappedGameEntry() {
         if self.layout == .Edit {
             // TO STANDARD MODE
             self.layout = .Standard
-            mockMatchEntryTextField.resignFirstResponder()
-            let cell = matchCardCollectionView!.selectedCell() as! MatchEntryCell
+            mockGameEntryTextField.resignFirstResponder()
+            let cell = matchCardCollectionView!.selectedCell() as! GameEntryCell
             cell.layer.borderColor = UIColor.clearColor().CGColor
             cell.setFontSize(.Standard)
             cell.layer.borderColor = UIColor.clearColor().CGColor
@@ -462,7 +462,7 @@ extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate
     }
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         switch pickerView.tag {
-        case Tags.MatchEntry :
+        case Tags.GameEntry :
             return 2
         default :
             return 1
@@ -470,7 +470,7 @@ extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate
     }
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch pickerView.tag {
-        case Tags.MatchEntry :
+        case Tags.GameEntry :
             return 31
         case Tags.League :
             return DataManager.sharedInstance.allLeagues.count
@@ -490,7 +490,7 @@ extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate
     }
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
         switch pickerView.tag {
-        case Tags.MatchEntry :
+        case Tags.GameEntry :
             return "\(row)"
         case Tags.League :
             return DataManager.sharedInstance.allLeagues[row].name
@@ -510,8 +510,8 @@ extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate
     }
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch pickerView.tag {
-        case Tags.MatchEntry :
-            let cell = matchCardCollectionView!.selectedCell() as! MatchEntryCell
+        case Tags.GameEntry :
+            let cell = matchCardCollectionView!.selectedCell() as! GameEntryCell
             let data = cell.data!
             if component == 0 {
                 data.homeScore = row
@@ -574,17 +574,17 @@ extension MatchCardViewController : UIScrollViewDelegate {
 
 extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return DataManager.sharedInstance.matchCard.matchEntries.count
+        return DataManager.sharedInstance.matchCard.gameEntries.count
     }
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell = collectionView.dequeueReusableCellWithReuseIdentifier(MatchEntryCell.Collection.ReuseIdentifier, forIndexPath: indexPath) as! MatchEntryCell
-        let matchEntry = DataManager.sharedInstance.matchCard.matchEntries[indexPath.row]
-        cell.data = matchEntry
-        cell.homeScore.text = "\(matchEntry.homeScore)"
-        cell.awayScore.text = "\(matchEntry.awayScore)"
+        var cell = collectionView.dequeueReusableCellWithReuseIdentifier(GameEntryCell.Collection.ReuseIdentifier, forIndexPath: indexPath) as! GameEntryCell
+        let GameEntry = DataManager.sharedInstance.matchCard.gameEntries[indexPath.row]
+        cell.data = GameEntry
+        cell.homeScore.text = "\(GameEntry.homeScore)"
+        cell.awayScore.text = "\(GameEntry.awayScore)"
         if Common.showColorBounds() {
             cell.layer.borderWidth = 1
             cell.layer.cornerRadius = 10
@@ -599,13 +599,13 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
         return cell
     }
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath){
-        var cell = collectionView.cellForItemAtIndexPath(indexPath) as! MatchEntryCell
+        var cell = collectionView.cellForItemAtIndexPath(indexPath) as! GameEntryCell
         if self.layout == .Standard {
             // TO EDIT MODE
             self.layout = .Edit
             cell.layer.borderColor = UIColor.lightGrayColor().CGColor
-            mockMatchEntryTextField.becomeFirstResponder()
-            var picker = mockMatchEntryTextField.inputView as! UIPickerView
+            mockGameEntryTextField.becomeFirstResponder()
+            var picker = mockGameEntryTextField.inputView as! UIPickerView
             picker.selectRow(cell.homeScore.text!.toInt()! , inComponent: 0, animated: true)
             picker.selectRow(cell.awayScore.text!.toInt()! , inComponent: 1, animated: true)
             cell.setFontSize(.Edit)
@@ -613,7 +613,7 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
             // TO STANDARD MODE
             self.layout = .Standard
             cell.layer.borderColor = UIColor.clearColor().CGColor
-            mockMatchEntryTextField.resignFirstResponder()
+            mockGameEntryTextField.resignFirstResponder()
             cell.setFontSize(.Standard)
         }
     }
@@ -639,7 +639,7 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
             if let s = separator.viewWithTag(sepTag) {
                 // it's already there! if added, it'll thicken/darken more!
             } else {
-                let sep = UIImageView(frame: CGRectMake(0, 0, 10, 18 * MatchEntryCell.Collection.Edit.Cell.Size.height + 600))
+                let sep = UIImageView(frame: CGRectMake(0, 0, 10, 18 * GameEntryCell.Collection.Edit.Cell.Size.height + 600))
                 sep.tag = sepTag
                 sep.image = UIImage(named: "Shadow_Right")
                 separator.addSubview(sep)
@@ -648,16 +648,16 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
         // Annotation - Away
         case EntryAnnotationReusableView.Collection.Away.Kind :
             var awayNote = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: EntryAnnotationReusableView.Collection.Away.ReuseIdentifier, forIndexPath: indexPath) as! EntryAnnotationAwayView
-            let matchEntry = DataManager.sharedInstance.matchCard.matchEntries[indexPath.row]
+            let GameEntry = DataManager.sharedInstance.matchCard.gameEntries[indexPath.row]
             awayNote.elementKind = kind
-            awayNote.data = matchEntry
+            awayNote.data = GameEntry
             return awayNote
         // Annotation - Home
         case EntryAnnotationReusableView.Collection.Home.Kind :
             var homeNote = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: EntryAnnotationReusableView.Collection.Home.ReuseIdentifier, forIndexPath: indexPath) as! EntryAnnotationReusableView
-            let matchEntry = DataManager.sharedInstance.matchCard.matchEntries[indexPath.row]
+            let GameEntry = DataManager.sharedInstance.matchCard.gameEntries[indexPath.row]
             homeNote.elementKind = kind
-            homeNote.data = matchEntry
+            homeNote.data = GameEntry
             return homeNote
         // Players - Away
         case MatchPlayersReusableView.Collection.Kind.Away :

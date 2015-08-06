@@ -31,7 +31,7 @@
 		777A7A261B3B1CFD00FF9342 /* ScoreHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777A7A251B3B1CFD00FF9342 /* ScoreHeaderReusableView.swift */; };
 		777A7A281B3B1F3400FF9342 /* ScoreHeaderReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 777A7A271B3B1F3300FF9342 /* ScoreHeaderReusableView.xib */; };
 		777B5E721B1F6E9400F19B8B /* TeamInMatchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777B5E711B1F6E9400F19B8B /* TeamInMatchModel.swift */; };
-		777B5E741B20BA7B00F19B8B /* MatchEntryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777B5E731B20BA7B00F19B8B /* MatchEntryModel.swift */; };
+		777B5E741B20BA7B00F19B8B /* GameEntryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777B5E731B20BA7B00F19B8B /* GameEntryModel.swift */; };
 		7792F2E31B545F8D0007C0F2 /* PlayerInTeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7792F2E21B545F8D0007C0F2 /* PlayerInTeamModel.swift */; };
 		779864041B1CC7C400B3B748 /* PlayerInMatchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779864031B1CC7C400B3B748 /* PlayerInMatchModel.swift */; };
 		779C79321B1F394100EE68AE /* LeagueModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779C79311B1F394100EE68AE /* LeagueModel.swift */; };
@@ -43,7 +43,7 @@
 		77A446FB1B418D8C000C5A6B /* SidePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A446FA1B418D8C000C5A6B /* SidePanelViewController.swift */; };
 		77A446FD1B4193EC000C5A6B /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A446FC1B4193EC000C5A6B /* MenuItem.swift */; };
 		77A8BAF91B6E470500FF086F /* icon-badminton in Resources */ = {isa = PBXBuildFile; fileRef = 77A8BAF81B6E470500FF086F /* icon-badminton */; };
-		77ACC7A51B2709CC0078C6FA /* MatchEntryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77ACC7A41B2709CC0078C6FA /* MatchEntryCell.xib */; };
+		77ACC7A51B2709CC0078C6FA /* GameEntryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77ACC7A41B2709CC0078C6FA /* GameEntryCell.xib */; };
 		77BC54C51B1C9BC80046F3C4 /* RightAlignedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BC54C41B1C9BC80046F3C4 /* RightAlignedCollectionViewCell.swift */; };
 		77BE570B1B17B4A400E88630 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BE570A1B17B4A400E88630 /* PlayerModel.swift */; };
 		77CA0D561B6B636F00A898C1 /* EntryAnnotationAwayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77CA0D551B6B636F00A898C1 /* EntryAnnotationAwayView.xib */; };
@@ -52,10 +52,10 @@
 		77D69B551B16394E0053EB10 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77D69B541B16394E0053EB10 /* Images.xcassets */; };
 		77D69B581B16394E0053EB10 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77D69B561B16394E0053EB10 /* LaunchScreen.xib */; };
 		77D69B641B16394E0053EB10 /* MatchCardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D69B631B16394E0053EB10 /* MatchCardTests.swift */; };
-		77EB9D921B224B1E00DD93D9 /* MatchEntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EB9D911B224B1E00DD93D9 /* MatchEntryCell.swift */; };
+		77EB9D921B224B1E00DD93D9 /* GameEntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EB9D911B224B1E00DD93D9 /* GameEntryCell.swift */; };
 		77EB9D941B225A4B00DD93D9 /* MatchCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EB9D931B225A4B00DD93D9 /* MatchCardViewController.swift */; };
 		77EFCA381B1BEAFC00779BAF /* MatchCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EFCA371B1BEAFC00779BAF /* MatchCardModel.swift */; };
-		77FA4B481B277D4E0093C5CB /* MatchEntryEditLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FA4B471B277D4E0093C5CB /* MatchEntryEditLayout.swift */; };
+		77FA4B481B277D4E0093C5CB /* GameEntryEditLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FA4B471B277D4E0093C5CB /* GameEntryEditLayout.swift */; };
 		B543514E4F1418C41BDAC0EA /* Pods_MatchCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8FD260B4B1249FB3F441E3F /* Pods_MatchCard.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -96,7 +96,7 @@
 		777A7A251B3B1CFD00FF9342 /* ScoreHeaderReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreHeaderReusableView.swift; sourceTree = "<group>"; };
 		777A7A271B3B1F3300FF9342 /* ScoreHeaderReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoreHeaderReusableView.xib; sourceTree = "<group>"; };
 		777B5E711B1F6E9400F19B8B /* TeamInMatchModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamInMatchModel.swift; sourceTree = "<group>"; };
-		777B5E731B20BA7B00F19B8B /* MatchEntryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchEntryModel.swift; sourceTree = "<group>"; };
+		777B5E731B20BA7B00F19B8B /* GameEntryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameEntryModel.swift; sourceTree = "<group>"; };
 		7792F2E21B545F8D0007C0F2 /* PlayerInTeamModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerInTeamModel.swift; sourceTree = "<group>"; };
 		779864031B1CC7C400B3B748 /* PlayerInMatchModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerInMatchModel.swift; sourceTree = "<group>"; };
 		779C79311B1F394100EE68AE /* LeagueModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeagueModel.swift; sourceTree = "<group>"; };
@@ -108,7 +108,7 @@
 		77A446FA1B418D8C000C5A6B /* SidePanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidePanelViewController.swift; sourceTree = "<group>"; };
 		77A446FC1B4193EC000C5A6B /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		77A8BAF81B6E470500FF086F /* icon-badminton */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "icon-badminton"; sourceTree = "<group>"; };
-		77ACC7A41B2709CC0078C6FA /* MatchEntryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MatchEntryCell.xib; sourceTree = "<group>"; };
+		77ACC7A41B2709CC0078C6FA /* GameEntryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameEntryCell.xib; sourceTree = "<group>"; };
 		77BC54C21B1C8D0E0046F3C4 /* MatchCard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MatchCard-Bridging-Header.h"; sourceTree = "<group>"; };
 		77BC54C41B1C9BC80046F3C4 /* RightAlignedCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightAlignedCollectionViewCell.swift; sourceTree = "<group>"; };
 		77BE570A1B17B4A400E88630 /* PlayerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
@@ -122,10 +122,10 @@
 		77D69B5D1B16394E0053EB10 /* MatchCardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MatchCardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		77D69B621B16394E0053EB10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77D69B631B16394E0053EB10 /* MatchCardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchCardTests.swift; sourceTree = "<group>"; };
-		77EB9D911B224B1E00DD93D9 /* MatchEntryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchEntryCell.swift; sourceTree = "<group>"; };
+		77EB9D911B224B1E00DD93D9 /* GameEntryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameEntryCell.swift; sourceTree = "<group>"; };
 		77EB9D931B225A4B00DD93D9 /* MatchCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchCardViewController.swift; sourceTree = "<group>"; };
 		77EFCA371B1BEAFC00779BAF /* MatchCardModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchCardModel.swift; sourceTree = "<group>"; };
-		77FA4B471B277D4E0093C5CB /* MatchEntryEditLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchEntryEditLayout.swift; sourceTree = "<group>"; };
+		77FA4B471B277D4E0093C5CB /* GameEntryEditLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameEntryEditLayout.swift; sourceTree = "<group>"; };
 		B927FA666368235DAA5E4C56 /* Pods-MatchCard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MatchCard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MatchCard/Pods-MatchCard.debug.xcconfig"; sourceTree = "<group>"; };
 		C8FD260B4B1249FB3F441E3F /* Pods_MatchCard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MatchCard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -207,7 +207,7 @@
 				7792F2E21B545F8D0007C0F2 /* PlayerInTeamModel.swift */,
 				779864031B1CC7C400B3B748 /* PlayerInMatchModel.swift */,
 				77EFCA371B1BEAFC00779BAF /* MatchCardModel.swift */,
-				777B5E731B20BA7B00F19B8B /* MatchEntryModel.swift */,
+				777B5E731B20BA7B00F19B8B /* GameEntryModel.swift */,
 			);
 			name = DataModel;
 			sourceTree = "<group>";
@@ -286,12 +286,12 @@
 		77F6A70A1B20E5C600ADDA57 /* MatchCard */ = {
 			isa = PBXGroup;
 			children = (
-				77EB9D911B224B1E00DD93D9 /* MatchEntryCell.swift */,
-				77ACC7A41B2709CC0078C6FA /* MatchEntryCell.xib */,
+				77EB9D911B224B1E00DD93D9 /* GameEntryCell.swift */,
+				77ACC7A41B2709CC0078C6FA /* GameEntryCell.xib */,
 				7739334F1B6A237E00388D14 /* EntryAnnotationReusableView.swift */,
 				7739334D1B6A1F3C00388D14 /* EntryAnnotationReusableView.xib */,
 				77CA0D551B6B636F00A898C1 /* EntryAnnotationAwayView.xib */,
-				77FA4B471B277D4E0093C5CB /* MatchEntryEditLayout.swift */,
+				77FA4B471B277D4E0093C5CB /* GameEntryEditLayout.swift */,
 				7725833E1B5ADC10006117C1 /* HomePlayersLayout.swift */,
 				776E05671B59B6C0003B2D2E /* AwayPlayersLayout.swift */,
 				770784B81B24EA1F00C96B40 /* MatchCardStandardLayout.swift */,
@@ -407,7 +407,7 @@
 				7739334E1B6A1F3C00388D14 /* EntryAnnotationReusableView.xib in Resources */,
 				77D69B531B16394E0053EB10 /* Main.storyboard in Resources */,
 				773BC0FF1B38A4390062CC4C /* PlayerViewCell.xib in Resources */,
-				77ACC7A51B2709CC0078C6FA /* MatchEntryCell.xib in Resources */,
+				77ACC7A51B2709CC0078C6FA /* GameEntryCell.xib in Resources */,
 				77A8BAF91B6E470500FF086F /* icon-badminton in Resources */,
 				77D69B581B16394E0053EB10 /* LaunchScreen.xib in Resources */,
 				7771CE801B283D5C00EA3D09 /* Config.plist in Resources */,
@@ -483,7 +483,7 @@
 				77A446F91B418C45000C5A6B /* ContainerViewController.swift in Sources */,
 				779864041B1CC7C400B3B748 /* PlayerInMatchModel.swift in Sources */,
 				779C79341B1F42C100EE68AE /* ClubModel.swift in Sources */,
-				777B5E741B20BA7B00F19B8B /* MatchEntryModel.swift in Sources */,
+				777B5E741B20BA7B00F19B8B /* GameEntryModel.swift in Sources */,
 				77EFCA381B1BEAFC00779BAF /* MatchCardModel.swift in Sources */,
 				77A1A9591B594B6900C20835 /* PlayerInClubModel.swift in Sources */,
 				772D86971B68FBE500F7FB9A /* ToolTipManager.swift in Sources */,
@@ -496,7 +496,7 @@
 				777A7A261B3B1CFD00FF9342 /* ScoreHeaderReusableView.swift in Sources */,
 				776E05681B59B6C0003B2D2E /* AwayPlayersLayout.swift in Sources */,
 				779C79381B1F46D600EE68AE /* TeamInClubModel.swift in Sources */,
-				77FA4B481B277D4E0093C5CB /* MatchEntryEditLayout.swift in Sources */,
+				77FA4B481B277D4E0093C5CB /* GameEntryEditLayout.swift in Sources */,
 				7771CE821B283E0000EA3D09 /* Common.swift in Sources */,
 				772D86921B6790A300F7FB9A /* UIImage+ImagePickerCrop.m in Sources */,
 				777B5E721B1F6E9400F19B8B /* TeamInMatchModel.swift in Sources */,
@@ -507,7 +507,7 @@
 				77D69B4E1B16394E0053EB10 /* AppDelegate.swift in Sources */,
 				773BC1011B38A5DB0062CC4C /* PlayerViewCell.swift in Sources */,
 				7725833F1B5ADC10006117C1 /* HomePlayersLayout.swift in Sources */,
-				77EB9D921B224B1E00DD93D9 /* MatchEntryCell.swift in Sources */,
+				77EB9D921B224B1E00DD93D9 /* GameEntryCell.swift in Sources */,
 				770784B71B24725900C96B40 /* MatchPlayersReusableView.swift in Sources */,
 				776E05661B599766003B2D2E /* PlayersInputController.swift in Sources */,
 				7771D8831B3DA01300C24FF9 /* DataManager.swift in Sources */,

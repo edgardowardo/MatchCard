@@ -1,5 +1,5 @@
 //
-//  MatchEntryModel
+//  GameEntryModel
 //  MatchCard
 //
 //  Created by EDGARDO AGNO on 04/06/2015.
@@ -10,11 +10,11 @@ import Foundation
 import Parse
 
 /*
- Data representation of a match entry.
+ Data representation of a game entry.
 */
-class MatchEntryModel : PFObject, PFSubclassing {
+class GameEntryModel : PFObject, PFSubclassing {
     static func parseClassName() -> String {
-        return "MatchEntry"
+        return "GameEntry"
     }
     override init() {
         super.init()

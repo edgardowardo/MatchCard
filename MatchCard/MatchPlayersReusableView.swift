@@ -1,5 +1,5 @@
 //
-//  MatchEntryCollectionHeaderViewCell.swift
+//  MatchPlayersReusableView
 //  MatchCard
 //
 //  Created by EDGARDO AGNO on 07/06/2015.

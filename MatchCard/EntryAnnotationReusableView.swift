@@ -17,7 +17,7 @@ class EntryAnnotationReusableView : UICollectionReusableView {
     @IBOutlet weak var player2: UIButton!
     @IBOutlet weak var note: UILabel!
     var elementKind : String? = Collection.Home.Kind
-    var data : MatchEntryModel? {
+    var data : GameEntryModel? {
         didSet {
             if let ek = elementKind {
                 if ek == Collection.Home.Kind {

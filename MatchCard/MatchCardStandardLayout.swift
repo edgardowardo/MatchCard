@@ -25,7 +25,7 @@ class MatchCardStandardLayout : UICollectionViewLayout{
     }
     var layout : LayoutType? {
         get {
-            if (self.isKindOfClass(MatchEntryEditLayout)) {
+            if (self.isKindOfClass(GameEntryEditLayout)) {
                 return .Edit
             } else if (self.isKindOfClass(MatchCardStandardLayout)) {
                 return .Standard
@@ -91,7 +91,7 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         return yScore
     }
     func cellSize() -> CGSize {
-        return MatchEntryCell.Collection.Default.Cell.Size
+        return GameEntryCell.Collection.Default.Cell.Size
     }
     func homePlayersSize() -> CGSize {
         return MatchPlayersReusableView.Collection.Cell.Size
@@ -173,7 +173,7 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         let numSections = collectionView?.numberOfSections()
         
         var cellInfo = [NSIndexPath : AnyObject]()
-        let cellKind = MatchEntryCell.Collection.Kind
+        let cellKind = GameEntryCell.Collection.Kind
         let cellSize = self.cellSize()
         let cellOriginX = UIScreen.mainScreen().bounds.size.width / 2  - self.cellSize().width / 2
         
@@ -279,7 +279,7 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         return CGSizeMake(UIScreen.mainScreen().bounds.size.width, self.totalHeight + cellSize.height * CGFloat(2.5))
     }
     override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes! {
-        let cellKind = MatchEntryCell.Collection.Kind
+        let cellKind = GameEntryCell.Collection.Kind
         var cellInfo = layoutInfo[cellKind] as! [NSIndexPath : AnyObject]
         return cellInfo[indexPath] as! UICollectionViewLayoutAttributes
     }
@@ -296,7 +296,7 @@ class MatchCardStandardLayout : UICollectionViewLayout{
     }
     override func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]? {
         // Match Entries
-        let cellKind = MatchEntryCell.Collection.Kind
+        let cellKind = GameEntryCell.Collection.Kind
         var cellInfo = [NSIndexPath : AnyObject]()
         cellInfo = layoutInfo[cellKind] as! [NSIndexPath : AnyObject]
         var elements = [UICollectionViewLayoutAttributes]()

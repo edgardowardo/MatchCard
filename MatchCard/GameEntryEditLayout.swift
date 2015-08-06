@@ -1,5 +1,5 @@
 //
-//  MatchEntryEditLayout.swift
+//  GameEntryEditLayout.swift
 //  MatchCard
 //
 //  Created by EDGARDO AGNO on 09/06/2015.
@@ -9,9 +9,9 @@
 import Foundation
 import UIKit
 
-class MatchEntryEditLayout : MatchCardStandardLayout {
+class GameEntryEditLayout : MatchCardStandardLayout {
     override func cellSize() -> CGSize {
-        return MatchEntryCell.Collection.Edit.Cell.Size
+        return GameEntryCell.Collection.Edit.Cell.Size
     }
     override var alphaCells : CGFloat {
         get {

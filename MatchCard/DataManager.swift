@@ -49,25 +49,25 @@ class DataManager {
         let homeTeam = matchCard.homeTeamBag!
         let awayTeam = matchCard.awayTeamBag
         
-        matchCard.matchEntries = []
-        matchCard.matchEntries.append(MatchEntryModel(01, homeScore: 10, awayScore: 21, homeNote: "1&3",  homeTeam.players![0], homeTeam.players![2], awayNote: "1&3", awayTeam.players![0], awayTeam.players![2]))
-        matchCard.matchEntries.append(MatchEntryModel(02, homeScore: 14, awayScore: 21, homeNote: "2&5",  homeTeam.players![1], homeTeam.players![4], awayNote: "2&5", awayTeam.players![1], awayTeam.players![4]))
-        matchCard.matchEntries.append(MatchEntryModel(03, homeScore: 18, awayScore: 21, homeNote: "4&6",  homeTeam.players![3], homeTeam.players![5], awayNote: "4&6", awayTeam.players![3], awayTeam.players![5]))
-        matchCard.matchEntries.append(MatchEntryModel(04, homeScore: 19, awayScore: 21, homeNote: "3&5",  homeTeam.players![2], homeTeam.players![4], awayNote: "3&5", awayTeam.players![2], awayTeam.players![4]))
-        matchCard.matchEntries.append(MatchEntryModel(05, homeScore: 21, awayScore: 19, homeNote: "1&4",  homeTeam.players![0], homeTeam.players![3], awayNote: "1&4", awayTeam.players![0], awayTeam.players![3]))
-        matchCard.matchEntries.append(MatchEntryModel(06, homeScore: 21, awayScore: 18, homeNote: "2&6",  homeTeam.players![1], homeTeam.players![5], awayNote: "2&6", awayTeam.players![1], awayTeam.players![5]))
-        matchCard.matchEntries.append(MatchEntryModel(07, homeScore: 16, awayScore: 21, homeNote: "B",  homeTeam.players![2], homeTeam.players![3], awayNote: "A", awayTeam.players![0], awayTeam.players![1]))
-        matchCard.matchEntries.append(MatchEntryModel(08, homeScore: 18, awayScore: 21, homeNote: "A",  homeTeam.players![0], homeTeam.players![1], awayNote: "C", awayTeam.players![4], awayTeam.players![5]))
-        matchCard.matchEntries.append(MatchEntryModel(09, homeScore: 16, awayScore: 21, homeNote: "C",  homeTeam.players![4], homeTeam.players![5], awayNote: "B", awayTeam.players![3], awayTeam.players![4]))
-        matchCard.matchEntries.append(MatchEntryModel(10, homeScore: 09, awayScore: 21, homeNote: "B",  homeTeam.players![2], homeTeam.players![3], awayNote: "C", awayTeam.players![4], awayTeam.players![5]))
-        matchCard.matchEntries.append(MatchEntryModel(11, homeScore: 06, awayScore: 21, homeNote: "C",  homeTeam.players![4], homeTeam.players![5], awayNote: "A", awayTeam.players![0], awayTeam.players![1]))
-        matchCard.matchEntries.append(MatchEntryModel(12, homeScore: 19, awayScore: 21, homeNote: "A",  homeTeam.players![0], homeTeam.players![1], awayNote: "B", awayTeam.players![2], awayTeam.players![3]))
-        matchCard.matchEntries.append(MatchEntryModel(13, homeScore: 15, awayScore: 21, homeNote: "C",  homeTeam.players![4], homeTeam.players![5], awayNote: "C", awayTeam.players![4], awayTeam.players![5]))
-        matchCard.matchEntries.append(MatchEntryModel(14, homeScore: 02, awayScore: 21, homeNote: "C",  homeTeam.players![4], homeTeam.players![5], awayNote: "C", awayTeam.players![4], awayTeam.players![5]))
-        matchCard.matchEntries.append(MatchEntryModel(15, homeScore: 04, awayScore: 21, homeNote: "B",  homeTeam.players![2], homeTeam.players![3], awayNote: "B", awayTeam.players![2], awayTeam.players![3]))
-        matchCard.matchEntries.append(MatchEntryModel(16, homeScore: 19, awayScore: 21, homeNote: "B",  homeTeam.players![2], homeTeam.players![3], awayNote: "B", awayTeam.players![2], awayTeam.players![3]))
-        matchCard.matchEntries.append(MatchEntryModel(17, homeScore: 16, awayScore: 21, homeNote: "A",  homeTeam.players![0], homeTeam.players![1], awayNote: "A", awayTeam.players![0], awayTeam.players![1]))
-        matchCard.matchEntries.append(MatchEntryModel(18, homeScore: 15, awayScore: 21, homeNote: "A",  homeTeam.players![0], homeTeam.players![1], awayNote: "A", awayTeam.players![0], awayTeam.players![1]))
+        matchCard.gameEntries = []
+        matchCard.gameEntries.append(GameEntryModel(01, homeScore: 10, awayScore: 21, homeNote: "1&3",  homeTeam.players![0], homeTeam.players![2], awayNote: "1&3", awayTeam.players![0], awayTeam.players![2]))
+        matchCard.gameEntries.append(GameEntryModel(02, homeScore: 14, awayScore: 21, homeNote: "2&5",  homeTeam.players![1], homeTeam.players![4], awayNote: "2&5", awayTeam.players![1], awayTeam.players![4]))
+        matchCard.gameEntries.append(GameEntryModel(03, homeScore: 18, awayScore: 21, homeNote: "4&6",  homeTeam.players![3], homeTeam.players![5], awayNote: "4&6", awayTeam.players![3], awayTeam.players![5]))
+        matchCard.gameEntries.append(GameEntryModel(04, homeScore: 19, awayScore: 21, homeNote: "3&5",  homeTeam.players![2], homeTeam.players![4], awayNote: "3&5", awayTeam.players![2], awayTeam.players![4]))
+        matchCard.gameEntries.append(GameEntryModel(05, homeScore: 21, awayScore: 19, homeNote: "1&4",  homeTeam.players![0], homeTeam.players![3], awayNote: "1&4", awayTeam.players![0], awayTeam.players![3]))
+        matchCard.gameEntries.append(GameEntryModel(06, homeScore: 21, awayScore: 18, homeNote: "2&6",  homeTeam.players![1], homeTeam.players![5], awayNote: "2&6", awayTeam.players![1], awayTeam.players![5]))
+        matchCard.gameEntries.append(GameEntryModel(07, homeScore: 16, awayScore: 21, homeNote: "B",  homeTeam.players![2], homeTeam.players![3], awayNote: "A", awayTeam.players![0], awayTeam.players![1]))
+        matchCard.gameEntries.append(GameEntryModel(08, homeScore: 18, awayScore: 21, homeNote: "A",  homeTeam.players![0], homeTeam.players![1], awayNote: "C", awayTeam.players![4], awayTeam.players![5]))
+        matchCard.gameEntries.append(GameEntryModel(09, homeScore: 16, awayScore: 21, homeNote: "C",  homeTeam.players![4], homeTeam.players![5], awayNote: "B", awayTeam.players![3], awayTeam.players![4]))
+        matchCard.gameEntries.append(GameEntryModel(10, homeScore: 09, awayScore: 21, homeNote: "B",  homeTeam.players![2], homeTeam.players![3], awayNote: "C", awayTeam.players![4], awayTeam.players![5]))
+        matchCard.gameEntries.append(GameEntryModel(11, homeScore: 06, awayScore: 21, homeNote: "C",  homeTeam.players![4], homeTeam.players![5], awayNote: "A", awayTeam.players![0], awayTeam.players![1]))
+        matchCard.gameEntries.append(GameEntryModel(12, homeScore: 19, awayScore: 21, homeNote: "A",  homeTeam.players![0], homeTeam.players![1], awayNote: "B", awayTeam.players![2], awayTeam.players![3]))
+        matchCard.gameEntries.append(GameEntryModel(13, homeScore: 15, awayScore: 21, homeNote: "C",  homeTeam.players![4], homeTeam.players![5], awayNote: "C", awayTeam.players![4], awayTeam.players![5]))
+        matchCard.gameEntries.append(GameEntryModel(14, homeScore: 02, awayScore: 21, homeNote: "C",  homeTeam.players![4], homeTeam.players![5], awayNote: "C", awayTeam.players![4], awayTeam.players![5]))
+        matchCard.gameEntries.append(GameEntryModel(15, homeScore: 04, awayScore: 21, homeNote: "B",  homeTeam.players![2], homeTeam.players![3], awayNote: "B", awayTeam.players![2], awayTeam.players![3]))
+        matchCard.gameEntries.append(GameEntryModel(16, homeScore: 19, awayScore: 21, homeNote: "B",  homeTeam.players![2], homeTeam.players![3], awayNote: "B", awayTeam.players![2], awayTeam.players![3]))
+        matchCard.gameEntries.append(GameEntryModel(17, homeScore: 16, awayScore: 21, homeNote: "A",  homeTeam.players![0], homeTeam.players![1], awayNote: "A", awayTeam.players![0], awayTeam.players![1]))
+        matchCard.gameEntries.append(GameEntryModel(18, homeScore: 15, awayScore: 21, homeNote: "A",  homeTeam.players![0], homeTeam.players![1], awayNote: "A", awayTeam.players![0], awayTeam.players![1]))
 
         return matchCard
     }
@@ -201,7 +201,7 @@ class DataManager {
     }
     func clearScores() {
         for i in 0 ..< 18 {
-            self.matchCard.matchEntries[i].clear()
+            self.matchCard.gameEntries[i].clear()
         }
     }
     func clear() {
