@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		770784B71B24725900C96B40 /* MatchPlayersReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770784B61B24725900C96B40 /* MatchPlayersReusableView.swift */; };
 		770784B91B24EA1F00C96B40 /* MatchCardStandardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770784B81B24EA1F00C96B40 /* MatchCardStandardLayout.swift */; };
+		770F02631B73AE7F00F597C7 /* MatchEntryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F02621B73AE7F00F597C7 /* MatchEntryModel.swift */; };
 		7725833F1B5ADC10006117C1 /* HomePlayersLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7725833E1B5ADC10006117C1 /* HomePlayersLayout.swift */; };
 		772D86921B6790A300F7FB9A /* UIImage+ImagePickerCrop.m in Sources */ = {isa = PBXBuildFile; fileRef = 772D86911B6790A300F7FB9A /* UIImage+ImagePickerCrop.m */; };
 		772D86941B68EABC00F7FB9A /* EasyTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772D86931B68EABC00F7FB9A /* EasyTipView.swift */; };
@@ -73,6 +74,7 @@
 		02EA6AD91C2F3833AAE93969 /* Pods-MatchCard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MatchCard.release.xcconfig"; path = "Pods/Target Support Files/Pods-MatchCard/Pods-MatchCard.release.xcconfig"; sourceTree = "<group>"; };
 		770784B61B24725900C96B40 /* MatchPlayersReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchPlayersReusableView.swift; sourceTree = "<group>"; };
 		770784B81B24EA1F00C96B40 /* MatchCardStandardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchCardStandardLayout.swift; sourceTree = "<group>"; };
+		770F02621B73AE7F00F597C7 /* MatchEntryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchEntryModel.swift; sourceTree = "<group>"; };
 		7725833E1B5ADC10006117C1 /* HomePlayersLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePlayersLayout.swift; sourceTree = "<group>"; };
 		772D86901B6790A300F7FB9A /* UIImage+ImagePickerCrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImagePickerCrop.h"; sourceTree = "<group>"; };
 		772D86911B6790A300F7FB9A /* UIImage+ImagePickerCrop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImagePickerCrop.m"; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 				7792F2E21B545F8D0007C0F2 /* PlayerInTeamModel.swift */,
 				779864031B1CC7C400B3B748 /* PlayerInMatchModel.swift */,
 				77EFCA371B1BEAFC00779BAF /* MatchCardModel.swift */,
+				770F02621B73AE7F00F597C7 /* MatchEntryModel.swift */,
 				777B5E731B20BA7B00F19B8B /* GameEntryModel.swift */,
 			);
 			name = DataModel;
@@ -483,6 +486,7 @@
 				77A446F91B418C45000C5A6B /* ContainerViewController.swift in Sources */,
 				779864041B1CC7C400B3B748 /* PlayerInMatchModel.swift in Sources */,
 				779C79341B1F42C100EE68AE /* ClubModel.swift in Sources */,
+				770F02631B73AE7F00F597C7 /* MatchEntryModel.swift in Sources */,
 				777B5E741B20BA7B00F19B8B /* GameEntryModel.swift in Sources */,
 				77EFCA381B1BEAFC00779BAF /* MatchCardModel.swift in Sources */,
 				77A1A9591B594B6900C20835 /* PlayerInClubModel.swift in Sources */,

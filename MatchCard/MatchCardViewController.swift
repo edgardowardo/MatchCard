@@ -188,6 +188,7 @@ class MatchCardViewController : UIViewController {
                     var aRect = self.view.frame
                     aRect.size.height -= kbRect!.size.height
                     self.matchCardCollectionView?.scrollRectToVisible(activeCell.frame, animated: true)
+                    self.matchCardCollectionView?.scrollEnabled = false
                 }
             }
         }
@@ -197,6 +198,7 @@ class MatchCardViewController : UIViewController {
             let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.size.height
             let contentInsets = UIEdgeInsets(top: statusBarHeight, left: 0, bottom: 0, right: 0)
             self.matchCardCollectionView!.contentInset = contentInsets
+            self.matchCardCollectionView?.scrollEnabled = true
         }
     }
     
@@ -408,6 +410,10 @@ class MatchCardViewController : UIViewController {
 extension MatchCardViewController: SidePanelViewControllerDelegate {
     func itemSelected(item: MenuItem) {
         switch item.type {
+        case .LoadOpen :
+            DataManager.sharedInstance.loadMatchCard_Open(DataManager.sharedInstance.matchCard)
+            matchCardCollectionView?.reloadData()
+            NSNotificationCenter.defaultCenter().postNotificationName(MatchPlayersReusableView.Notification.Identifier.Reload, object: nil)
         case .Clear :
             DataManager.sharedInstance.clear()
             matchCardCollectionView?.reloadData()
@@ -574,14 +580,14 @@ extension MatchCardViewController : UIScrollViewDelegate {
 
 extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return DataManager.sharedInstance.matchCard.gameEntries.count
+        return DataManager.sharedInstance.matchCard.matchEntries[section].gameEntries.count
     }
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 1
+        return DataManager.sharedInstance.matchCard.matchEntries.count
     }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         var cell = collectionView.dequeueReusableCellWithReuseIdentifier(GameEntryCell.Collection.ReuseIdentifier, forIndexPath: indexPath) as! GameEntryCell
-        let GameEntry = DataManager.sharedInstance.matchCard.gameEntries[indexPath.row]
+        let GameEntry = DataManager.sharedInstance.matchCard.matchEntries[indexPath.section].gameEntries[indexPath.row]
         cell.data = GameEntry
         cell.homeScore.text = "\(GameEntry.homeScore)"
         cell.awayScore.text = "\(GameEntry.awayScore)"
@@ -648,14 +654,14 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
         // Annotation - Away
         case EntryAnnotationReusableView.Collection.Away.Kind :
             var awayNote = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: EntryAnnotationReusableView.Collection.Away.ReuseIdentifier, forIndexPath: indexPath) as! EntryAnnotationAwayView
-            let GameEntry = DataManager.sharedInstance.matchCard.gameEntries[indexPath.row]
+            let GameEntry = DataManager.sharedInstance.matchCard.matchEntries[indexPath.section].gameEntries[indexPath.row]
             awayNote.elementKind = kind
             awayNote.data = GameEntry
             return awayNote
         // Annotation - Home
         case EntryAnnotationReusableView.Collection.Home.Kind :
             var homeNote = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: EntryAnnotationReusableView.Collection.Home.ReuseIdentifier, forIndexPath: indexPath) as! EntryAnnotationReusableView
-            let GameEntry = DataManager.sharedInstance.matchCard.gameEntries[indexPath.row]
+            let GameEntry = DataManager.sharedInstance.matchCard.matchEntries[indexPath.section].gameEntries[indexPath.row]
             homeNote.elementKind = kind
             homeNote.data = GameEntry
             return homeNote
@@ -685,14 +691,14 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
         // Score header - Home
         case ScoreHeaderReusableView.Collection.Kind.Home :
             var scoreHomeView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: ScoreHeaderReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! ScoreHeaderReusableView
-            scoreHomeView.score.text = matchCard.homeScore
+            scoreHomeView.score.text = "\(matchCard.homeScore)"
             scoreHomeView.teamName.text = matchCard.homeTeamName
             scoreHomeView.kind = kind
             return scoreHomeView
         // Score header - Away
         case ScoreHeaderReusableView.Collection.Kind.Away :
             var scoreAwayView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: ScoreHeaderReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! ScoreHeaderReusableView
-            scoreAwayView.score.text = matchCard.awayScore
+            scoreAwayView.score.text = "\(matchCard.awayScore)"
             scoreAwayView.teamName.text = matchCard.awayTeamName
             scoreAwayView.kind = kind
             return scoreAwayView

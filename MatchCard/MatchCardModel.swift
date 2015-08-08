@@ -13,6 +13,9 @@ import Parse
  Data representation of a match card.
 */
 class MatchCardModel : PFObject, PFSubclassing {
+    enum CardType : Int {
+        case Open = 0,  RoundRobin, ThreeDiscipline
+    }
     struct Prompts {
         static let League = "Set the league here"
         static let Location = "Set home venue here"
@@ -24,6 +27,7 @@ class MatchCardModel : PFObject, PFSubclassing {
     }
     override init () {
         super.init()
+        self.cardType = .Open
     }
     override class func initialize() {
         var onceToken : dispatch_once_t = 0;
@@ -66,11 +70,23 @@ class MatchCardModel : PFObject, PFSubclassing {
             }
         }
     }
+    var cardType : CardType? {
+        get {
+            return CardType(rawValue: self["cardType"] as! Int)
+        }
+        set {
+            if let t = newValue {
+                self["cardType"] = t.rawValue
+            } else {
+                self["cardType"] = NSNull()
+            }
+        }
+    }
     @NSManaged var division : Int
     @NSManaged var date : NSDate
     @NSManaged var homeTeamBag : TeamInMatchModel?
     @NSManaged var awayTeamBag : TeamInMatchModel
-    @NSManaged var gameEntries : [GameEntryModel]
+    @NSManaged var matchEntries : [MatchEntryModel]
     lazy var teams : [TeamInClubModel] = []
     func getAllTeams(fromLeague : LeagueModel) -> [TeamInClubModel] {
         var teams = [TeamInClubModel]()
@@ -126,9 +142,22 @@ class MatchCardModel : PFObject, PFSubclassing {
             return Prompts.Home
         }
     }
-    var homeScore : String {
+    var homeScore : Int {
         get {
-            return "\(self.gameEntries.reduce(0, combine: { $0 + $1.homeToken }))"
+            if let type = cardType {
+                switch type {
+                case .RoundRobin :
+                    return self.matchEntries.reduce(0, combine: { $0 + $1.homeToken })
+                case .ThreeDiscipline :
+                    fallthrough
+                case .Open :
+                    return self.matchEntries.reduce(0, combine: { $0 + $1.homeScore })
+                default :
+                    return 0
+                }                
+            } else {
+                return 0
+            }
         }
     }
     var awayTeamName : String {
@@ -139,9 +168,22 @@ class MatchCardModel : PFObject, PFSubclassing {
             return Prompts.Away
         }
     }
-    var awayScore : String {
+    var awayScore : Int {
         get {
-            return "\(self.gameEntries.reduce(0, combine: { $0 + $1.awayToken }))"
+            if let type = cardType {
+                switch type {
+                case .RoundRobin :
+                    return self.matchEntries.reduce(0, combine: { $0 + $1.awayToken })
+                case .ThreeDiscipline :
+                    fallthrough
+                case .Open :
+                    return self.matchEntries.reduce(0, combine: { $0 + $1.awayScore })
+                default :
+                    return 0
+                }
+            } else {
+                return 0
+            }
         }
     }
     func clear() {
