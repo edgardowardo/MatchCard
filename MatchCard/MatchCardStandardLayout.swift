@@ -140,8 +140,10 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         var newContentOffset = proposedContentOffset
         let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.size.height
         let threshold = (headerSummarySize().height - statusBarHeight*2 ) / 2
+        ContainerViewController.isPannable = false        
         if (proposedContentOffset.y < threshold) {
             newContentOffset.y = (-statusBarHeight)
+            ContainerViewController.isPannable = true
         } else if proposedContentOffset.y >= threshold
             && proposedContentOffset.y <= (headerSummarySize().height - statusBarHeight*2 ) {
             newContentOffset.y = (headerSummarySize().height - statusBarHeight*2 )
