@@ -292,6 +292,13 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         var separatorAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: separatorKind, withIndexPath: NSIndexPath(forRow: 0, inSection: 0))
         separatorAttributes.frame = CGRectMake(UIScreen.mainScreen().bounds.size.width / 2, 0, 10, self.totalHeight)
         self.suppsInfo[separatorKind] = separatorAttributes
+        // Game Totals
+        let totalSize = GameTotalsReusableView.Collection.Cell.Size
+        let totalKind = GameTotalsReusableView.Collection.Kind
+        var totalAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: totalKind, withIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+        totalAttributes.frame = CGRectMake(0, self.totalHeight, totalSize.width, totalSize.height)
+        self.totalHeight += totalSize.height
+        self.suppsInfo[totalKind] = totalAttributes
     }
     override func collectionViewContentSize() -> CGSize {
         let count : Int? = collectionView?.numberOfItemsInSection(0)
@@ -355,6 +362,10 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         elements.append(self.suppsInfo[ScoreHeaderReusableView.Collection.Kind.Home]!)
         elements.append(self.suppsInfo[ScoreHeaderReusableView.Collection.Kind.Away]!)        
         elements.append(self.suppsInfo[MatchCardViewController.Separator.Kind]!)
+        let totalAttrs = self.suppsInfo[GameTotalsReusableView.Collection.Kind]!
+        if (CGRectIntersectsRect(rect, totalAttrs.frame)) {
+            elements.append(totalAttrs)
+        }
         return elements
     }
     override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {

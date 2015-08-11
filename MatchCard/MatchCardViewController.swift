@@ -102,6 +102,7 @@ class MatchCardViewController : UIViewController {
         let nibEntryAnnoteHome = UINib(nibName: EntryAnnotationReusableView.Collection.Home.Nib, bundle: nil)
         let nibEntryAnnoteAway = UINib(nibName: EntryAnnotationReusableView.Collection.Away.Nib, bundle: nil)
         let nibPlayers = UINib(nibName: MatchPlayersReusableView.Collection.Nib, bundle: nil)
+        let nibTotals = UINib(nibName: GameTotalsReusableView.Collection.Nib, bundle: nil)
         matchCardCollectionView?.scrollsToTop = true
         matchCardCollectionView?.delegate = self
         matchCardCollectionView?.dataSource = self
@@ -113,6 +114,7 @@ class MatchCardViewController : UIViewController {
         matchCardCollectionView?.registerNib(nibEntryAnnoteAway, forSupplementaryViewOfKind: EntryAnnotationReusableView.Collection.Away.Kind, withReuseIdentifier: EntryAnnotationReusableView.Collection.Away.ReuseIdentifier)
         matchCardCollectionView?.registerNib(nibPlayers, forSupplementaryViewOfKind: MatchPlayersReusableView.Collection.Kind.Home, withReuseIdentifier: MatchPlayersReusableView.Collection.ReuseIdentifier)
         matchCardCollectionView?.registerNib(nibPlayers, forSupplementaryViewOfKind: MatchPlayersReusableView.Collection.Kind.Away, withReuseIdentifier: MatchPlayersReusableView.Collection.ReuseIdentifier)
+        matchCardCollectionView?.registerNib(nibTotals, forSupplementaryViewOfKind: GameTotalsReusableView.Collection.Kind, withReuseIdentifier: GameTotalsReusableView.Collection.ReuseIdentifier)
         matchCardCollectionView?.registerClass(UICollectionReusableView.self , forSupplementaryViewOfKind: Separator.Kind, withReuseIdentifier: Separator.ReuseIdentifier)
         matchCardCollectionView?.setCollectionViewLayout(MatchCardStandardLayout(), animated: false)
         if Common.showColorBounds() == false {
@@ -719,7 +721,8 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
             if let s = separator.viewWithTag(sepTag) {
                 // it's already there! if added, it'll thicken/darken more!
             } else {
-                let sep = UIImageView(frame: CGRectMake(0, 0, 10, 18 * GameEntryCell.Collection.Edit.Cell.Size.height + 600))
+                let count = CGFloat(matchCard.matchEntries.reduce(0, combine: { $0 + $1.gameEntries.count }))
+                let sep = UIImageView(frame: CGRectMake(0, 0, 10, count * GameEntryCell.Collection.Edit.Cell.Size.height + 600))
                 sep.tag = sepTag
                 sep.image = UIImage(named: "Shadow_Right")
                 separator.addSubview(sep)
@@ -790,6 +793,12 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
             scoreAwayView.teamName.text = matchCard.awayTeamName
             scoreAwayView.kind = kind
             return scoreAwayView
+        // Game Totals Footer
+        case GameTotalsReusableView.Collection.Kind :
+            var totalsView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: GameTotalsReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! GameTotalsReusableView
+            totalsView.homeTotal.text = "\(matchCard.homeTotal)"
+            totalsView.awayTotal.text = "\(matchCard.awayTotal)"
+            return totalsView
         default :
             assertionFailure("")
             return UICollectionReusableView()

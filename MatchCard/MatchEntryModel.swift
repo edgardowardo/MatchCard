@@ -70,4 +70,14 @@ class MatchEntryModel : PFObject, PFSubclassing {
             return homeScore < awayScore ? 1 : 0
         }
     }
+    var homeTotal : Int {
+        get {
+            return self.gameEntries.reduce(0, combine: { $0 + $1.homeScore })
+        }
+    }
+    var awayTotal : Int {
+        get {
+            return self.gameEntries.reduce(0, combine: { $0 + $1.awayScore })
+        }
+    }
 }

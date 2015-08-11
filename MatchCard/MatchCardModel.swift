@@ -171,6 +171,11 @@ class MatchCardModel : PFObject, PFSubclassing {
             }
         }
     }
+    var homeTotal : Int {
+        get {
+            return self.matchEntries.reduce(0, combine: { $0 + $1.homeTotal })
+        }
+    }
     var awayTeamName : String {
         get {
             if let team = self.awayTeamBag.team {
@@ -190,6 +195,11 @@ class MatchCardModel : PFObject, PFSubclassing {
             } else {
                 return 0
             }
+        }
+    }
+    var awayTotal : Int {
+        get {
+            return self.matchEntries.reduce(0, combine: { $0 + $1.awayTotal })
         }
     }
     func clear() {

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GameTotalsReusableView" id="hQl-FR-7ZG" customClass="GameTotalsReusableView" customModule="MatchCard" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="swV-aF-gE6" userLabel=" Line View">
+                    <rect key="frame" x="8" y="8" width="304" height="1"/>
+                    <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="ECr-tc-Skf"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fPt-A9-vWH">
+                    <rect key="frame" x="100" y="11" width="120" height="27"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WCI-jK-9Ni" userLabel="Home Score">
+                            <rect key="frame" x="0.0" y="0.0" width="60" height="27"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="60" id="BXJ-u4-4cN"/>
+                                <constraint firstAttribute="height" constant="27" id="v3q-6j-ank"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tQe-Jy-Lpg" userLabel="Away Score">
+                            <rect key="frame" x="60" y="0.0" width="60" height="27"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="60" id="8K2-JR-dZd"/>
+                                <constraint firstAttribute="height" constant="27" id="Gqw-V7-o1o"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="tQe-Jy-Lpg" secondAttribute="trailing" id="54q-lR-BWO"/>
+                        <constraint firstAttribute="bottom" secondItem="WCI-jK-9Ni" secondAttribute="bottom" id="Bdo-qb-eWo"/>
+                        <constraint firstItem="tQe-Jy-Lpg" firstAttribute="leading" secondItem="WCI-jK-9Ni" secondAttribute="trailing" id="FhV-Lu-hG1"/>
+                        <constraint firstItem="WCI-jK-9Ni" firstAttribute="top" secondItem="fPt-A9-vWH" secondAttribute="top" id="GIi-KB-Ff2"/>
+                        <constraint firstAttribute="bottom" secondItem="tQe-Jy-Lpg" secondAttribute="bottom" id="aaF-di-N0m"/>
+                        <constraint firstItem="WCI-jK-9Ni" firstAttribute="leading" secondItem="fPt-A9-vWH" secondAttribute="leading" id="blf-3I-NsD"/>
+                        <constraint firstItem="tQe-Jy-Lpg" firstAttribute="leading" secondItem="WCI-jK-9Ni" secondAttribute="trailing" id="o4J-DG-o1g"/>
+                        <constraint firstAttribute="width" constant="120" id="sZf-h8-PMZ"/>
+                        <constraint firstAttribute="height" constant="27" id="vXr-KW-67H"/>
+                        <constraint firstItem="tQe-Jy-Lpg" firstAttribute="top" secondItem="fPt-A9-vWH" secondAttribute="top" id="woU-9e-Ho4"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="swV-aF-gE6" firstAttribute="top" secondItem="hQl-FR-7ZG" secondAttribute="top" constant="8" id="Cbn-R0-ptI"/>
+                <constraint firstItem="swV-aF-gE6" firstAttribute="leading" secondItem="hQl-FR-7ZG" secondAttribute="leading" constant="8" id="HAV-vi-OEb"/>
+                <constraint firstAttribute="centerX" secondItem="fPt-A9-vWH" secondAttribute="centerX" id="eDL-o5-79X"/>
+                <constraint firstAttribute="trailing" secondItem="swV-aF-gE6" secondAttribute="trailing" constant="8" id="khq-dY-yHm"/>
+                <constraint firstItem="fPt-A9-vWH" firstAttribute="top" secondItem="swV-aF-gE6" secondAttribute="bottom" constant="2" id="w5R-SA-UvW"/>
+            </constraints>
+            <connections>
+                <outlet property="awayTotal" destination="tQe-Jy-Lpg" id="uLR-Hj-600"/>
+                <outlet property="homeTotal" destination="WCI-jK-9Ni" id="DxW-8u-6aV"/>
+            </connections>
+            <point key="canvasLocation" x="56" y="232"/>
+        </collectionReusableView>
+    </objects>
+</document>
