@@ -496,7 +496,7 @@ extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch pickerView.tag {
         case Tags.GameEntry :
-            return 31
+            return 31 + 3
         case Tags.League :
             return DataManager.sharedInstance.allLeagues.count
         case Tags.Division :
@@ -516,7 +516,16 @@ extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
         switch pickerView.tag {
         case Tags.GameEntry :
-            return "\(row)"
+            switch row {
+            case GameEntryModel.Incident.Disqualified.rawValue:
+                return GameEntryModel.Incident.longName(.Disqualified)
+            case GameEntryModel.Incident.Retired.rawValue:
+                return GameEntryModel.Incident.longName(.Retired)
+            case GameEntryModel.Incident.Walkover.rawValue:
+                return GameEntryModel.Incident.longName(.Walkover)
+            default :
+                return "\(row)"
+            }
         case Tags.League :
             return DataManager.sharedInstance.allLeagues[row].name
         case Tags.Division :
@@ -539,11 +548,41 @@ extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate
             let cell = matchCardCollectionView!.selectedCell() as! GameEntryCell
             let data = cell.data!
             if component == 0 {
-                data.homeScore = row
-                cell.updateHomeScore(toScore: "\(row)")
+                switch row {
+                case GameEntryModel.Incident.Disqualified.rawValue:
+                    data.homeIncident = .Disqualified
+                case GameEntryModel.Incident.Retired.rawValue:
+                    data.homeIncident = .Retired
+                case GameEntryModel.Incident.Walkover.rawValue:
+                    data.homeIncident = .Walkover
+                    data.awayScore = 0
+                    cell.updateAwayScore(toScore: "0")
+                    pickerView.selectRow(0, inComponent: 1, animated: true)
+                default :
+                    data.homeScore = row
+                    cell.updateHomeScore(toScore: "\(row)")
+                }
+                if let hi = data.homeIncident {
+                    cell.updateHomeScore(toScore: hi.shortName())
+                }
             } else {
-                data.awayScore = row
-                cell.updateAwayScore(toScore: "\(row)")
+                switch row {
+                case GameEntryModel.Incident.Disqualified.rawValue:
+                    data.awayIncident = .Disqualified
+                case GameEntryModel.Incident.Retired.rawValue:
+                    data.awayIncident = .Retired
+                case GameEntryModel.Incident.Walkover.rawValue:
+                    data.awayIncident = .Walkover
+                    data.homeScore = 0
+                    cell.updateHomeScore(toScore: "0")
+                    pickerView.selectRow(0, inComponent: 0, animated: true)
+                default :
+                    data.awayScore = row
+                    cell.updateAwayScore(toScore: "\(row)")
+                }
+                if let ai = data.awayIncident {
+                    cell.updateAwayScore(toScore: ai.shortName())
+                }
             }
             // update the home and away annotation views
             let matchCard = DataManager.sharedInstance.matchCard
@@ -616,10 +655,8 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
     }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         var cell = collectionView.dequeueReusableCellWithReuseIdentifier(GameEntryCell.Collection.ReuseIdentifier, forIndexPath: indexPath) as! GameEntryCell
-        let GameEntry = DataManager.sharedInstance.matchCard.matchEntries[indexPath.section].gameEntries[indexPath.row]
-        cell.data = GameEntry
-        cell.homeScore.text = "\(GameEntry.homeScore)"
-        cell.awayScore.text = "\(GameEntry.awayScore)"
+        let gameEntry = DataManager.sharedInstance.matchCard.matchEntries[indexPath.section].gameEntries[indexPath.row]
+        cell.data = gameEntry
         if Common.showColorBounds() {
             cell.layer.borderWidth = 1
             cell.layer.cornerRadius = 10
@@ -641,8 +678,16 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
             cell.layer.borderColor = UIColor.lightGrayColor().CGColor
             mockGameEntryTextField.becomeFirstResponder()
             var picker = mockGameEntryTextField.inputView as! UIPickerView
-            picker.selectRow(cell.homeScore.text!.toInt()! , inComponent: 0, animated: true)
-            picker.selectRow(cell.awayScore.text!.toInt()! , inComponent: 1, animated: true)
+            if let hi = cell.data?.homeIncident {
+                picker.selectRow(hi.rawValue, inComponent: 0, animated: true)
+            } else {
+                picker.selectRow(cell.homeScore.text!.toInt()! , inComponent: 0, animated: true)
+            }
+            if let ai = cell.data?.awayIncident {
+                picker.selectRow(ai.rawValue, inComponent: 1, animated: true)
+            } else {
+                picker.selectRow(cell.awayScore.text!.toInt()! , inComponent: 1, animated: true)
+            }
             cell.setFontSize(.Edit)
         } else if  self.layout == .Edit {
             // TO STANDARD MODE

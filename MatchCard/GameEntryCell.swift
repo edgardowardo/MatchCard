@@ -38,7 +38,12 @@ class GameEntryCell : UICollectionViewCell {
     @IBOutlet weak var awayScore : UILabel!
     @IBOutlet weak var awayBar   : UIView!
     
-    weak var data : GameEntryModel?
+    var data : GameEntryModel? {
+        didSet {
+            homeScore.text = data?.homeEntry
+            awayScore.text = data?.awayEntry
+        }
+    }
     let duration = 0.25
     let startAlpha = CGFloat(0.1)
     
@@ -84,10 +89,10 @@ class GameEntryCell : UICollectionViewCell {
         }
     }
     func updateBars() {
-        if (data?.homeScore > data?.awayScore) {
+        if (data?.homeToken > data?.awayToken) {
             self.homeBar.backgroundColor = UIColor.greenColor()
             self.awayBar.backgroundColor = UIColor.clearColor()
-        } else if (data?.homeScore < data?.awayScore) {
+        } else if (data?.homeToken < data?.awayToken) {
             self.homeBar.backgroundColor = UIColor.clearColor()
             self.awayBar.backgroundColor = UIColor.greenColor()
         } else {

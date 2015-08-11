@@ -58,7 +58,7 @@ class DataManager {
             mc.matchEntries[7].gameEntries[0].setScores(18, 21)
             mc.matchEntries[7].gameEntries[1].setScores(21, 16)
             mc.matchEntries[8].gameEntries[0].setScores(21, 10)
-            mc.matchEntries[8].gameEntries[1].setScores(21, 23)
+            mc.matchEntries[8].gameEntries[1].homeIncident = .Walkover
             
         } else {
             assertionFailure("loading the wrong type")

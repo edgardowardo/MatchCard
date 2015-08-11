@@ -31,7 +31,6 @@ class MatchCardModel : PFObject, PFSubclassing {
             default : return false
             }
         }
-        
     }
     struct Prompts {
         static let League = "Set the league here"
