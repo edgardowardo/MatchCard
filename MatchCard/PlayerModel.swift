@@ -22,12 +22,12 @@ class PlayerModel : PFObjectImaged, PFSubclassing {
         super.init()
     }
     
-    var imageFile15px : UIImage?
+    var imageFile15pt : UIImage?
     override var imageFile : UIImage? {
         didSet {
             if let i = self.imageFile {
-                let resizedImage = UIImage.resizeImage(i, size: CGSizeMake(15,15))
-                self.imageFile15px = UIImage.circularCropImage(resizedImage)
+                let resizedImage = UIImage.resizeImage(i, size: CGSizeMake(30,30))
+                self.imageFile15pt = UIImage.circularCropImage(resizedImage)
             }
         }
     }
@@ -38,8 +38,8 @@ class PlayerModel : PFObjectImaged, PFSubclassing {
         self.name = name
         if let i = image {
             self.imageFile = i
-            let resizedImage = UIImage.resizeImage(i, size: CGSizeMake(15,15))
-            self.imageFile15px = UIImage.circularCropImage(resizedImage)
+            let resizedImage = UIImage.resizeImage(i, size: CGSizeMake(30,30))
+            self.imageFile15pt = UIImage.circularCropImage(resizedImage)
         }
     }
     

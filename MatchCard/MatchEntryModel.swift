@@ -23,11 +23,9 @@ class MatchEntryModel : PFObject, PFSubclassing {
         self.init()
         self.index1s = index
     }
-    convenience init(_ index : Int, homeScore : Int, awayScore : Int, homeNote: String, _ homePlayer1: PlayerInMatchModel?, _ homePlayer2: PlayerInMatchModel?, awayNote: String, _ awayPlayer1: PlayerInMatchModel?, _ awayPlayer2: PlayerInMatchModel?) {
+    convenience init(_ index : Int, homeNote: String?, homePlayer1: PlayerInMatchModel?, homePlayer2: PlayerInMatchModel?, awayNote: String?, awayPlayer1: PlayerInMatchModel?, awayPlayer2: PlayerInMatchModel?) {
         self.init()
         self.index1s = index
-//        self.homeScore = homeScore
-//        self.awayScore = awayScore
         
         self.homeNote = homeNote
         self.homePlayer1 = homePlayer1
@@ -37,21 +35,6 @@ class MatchEntryModel : PFObject, PFSubclassing {
         self.awayPlayer1 = awayPlayer1
         self.awayPlayer2 = awayPlayer2
     }
-    
-    
-    
-//    convenience init(_ index : Int, _ homeNote: String?, _ homePlayer1: PlayerInMatchModel?, _ homePlayer2: PlayerInMatchModel?, _ awayNote: String?, _ awayPlayer1: PlayerInMatchModel?, _ awayPlayer2: PlayerInMatchModel?) {
-//        self.init()
-//        self.index1s = index
-//        
-//        self.homeNote = homeNote
-//        self.homePlayer1 = homePlayer1
-//        self.homePlayer2 = homePlayer2
-//        
-//        self.awayNote = awayNote
-//        self.awayPlayer1 = awayPlayer1
-//        self.awayPlayer2 = awayPlayer2
-//    }
     override class func initialize() {
         var onceToken : dispatch_once_t = 0;
         dispatch_once(&onceToken) {

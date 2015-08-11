@@ -15,6 +15,23 @@ import Parse
 class MatchCardModel : PFObject, PFSubclassing {
     enum CardType : Int {
         case Open = 0,  RoundRobin, ThreeDiscipline
+        // is aggregated means there's an aggregated subgrouping against the game entries into match entries sections. so each match points are sums of each game entries        
+        func isMatchPointAggregated() -> Bool {
+            switch self {
+            case .RoundRobin : return true
+            default : return false
+            }
+        }
+        func isRepeatedNoteSuppressed() -> Bool {
+            switch self {
+            case .RoundRobin :
+                fallthrough
+            case .ThreeDiscipline :
+                return true
+            default : return false
+            }
+        }
+        
     }
     struct Prompts {
         static let League = "Set the league here"
@@ -145,16 +162,11 @@ class MatchCardModel : PFObject, PFSubclassing {
     var homeScore : Int {
         get {
             if let type = cardType {
-                switch type {
-                case .RoundRobin :
+                if type.isMatchPointAggregated() {
                     return self.matchEntries.reduce(0, combine: { $0 + $1.homeToken })
-                case .ThreeDiscipline :
-                    fallthrough
-                case .Open :
+                } else {
                     return self.matchEntries.reduce(0, combine: { $0 + $1.homeScore })
-                default :
-                    return 0
-                }                
+                }
             } else {
                 return 0
             }
@@ -171,15 +183,10 @@ class MatchCardModel : PFObject, PFSubclassing {
     var awayScore : Int {
         get {
             if let type = cardType {
-                switch type {
-                case .RoundRobin :
+                if type.isMatchPointAggregated() {
                     return self.matchEntries.reduce(0, combine: { $0 + $1.awayToken })
-                case .ThreeDiscipline :
-                    fallthrough
-                case .Open :
+                } else {
                     return self.matchEntries.reduce(0, combine: { $0 + $1.awayScore })
-                default :
-                    return 0
                 }
             } else {
                 return 0

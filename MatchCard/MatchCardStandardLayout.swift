@@ -182,45 +182,66 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         let noteHomeKind = EntryAnnotationReusableView.Collection.Home.Kind
         var noteAwayInfo = [NSIndexPath : AnyObject]()
         let noteAwayKind = EntryAnnotationReusableView.Collection.Away.Kind
-        
-        let numItems = collectionView?.numberOfItemsInSection(0)
+
         self.totalHeight = self.prepareLayoutForHeaderViews()
-        for var indexItem = 0; indexItem < numItems; indexItem++ {
-            var indexPath = NSIndexPath(forRow: indexItem, inSection: 0)
-            
-            // Home note
-            var noteHomeAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: noteHomeKind, withIndexPath: indexPath)
-            noteHomeAttributes.frame = CGRectMake(0, CGFloat(totalHeight), noteSize.width, noteSize.height)
-            noteHomeInfo[indexPath] = noteHomeAttributes
-            
-            // Away note
-            var noteAwayAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: noteAwayKind, withIndexPath: indexPath)
-            let noteAwayOriginX = UIScreen.mainScreen().bounds.size.width - noteSize.width
-            noteAwayAttributes.frame = CGRectMake(noteAwayOriginX, CGFloat(totalHeight), noteSize.width, noteSize.height)
-            noteAwayInfo[indexPath] = noteAwayAttributes
-            
-            // Match Entry
-            var attributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
-            attributes.frame = CGRectMake(cellOriginX, CGFloat(totalHeight), cellSize.width, cellSize.height)
-            if indexPathSelected.isEqual(indexPath) {
-                attributes.alpha = 1.0
-                noteHomeAttributes.alpha = 1.0
-                noteAwayAttributes.alpha = 1.0
-            } else {
-                attributes.alpha = self.alphaCells
-                noteHomeAttributes.alpha = self.alphaCells
-                noteAwayAttributes.alpha = self.alphaCells
+
+        for var section = 0; section < numSections!; section++ {
+            let numItems = collectionView?.numberOfItemsInSection(section)
+            for var row = 0; row < numItems; row++ {
+                var indexPath = NSIndexPath(forRow: row, inSection: section)
+                
+                // Home note
+                var noteHomeAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: noteHomeKind, withIndexPath: indexPath)
+                noteHomeAttributes.frame = CGRectMake(0, CGFloat(totalHeight), noteSize.width, noteSize.height)
+                noteHomeInfo[indexPath] = noteHomeAttributes
+                
+                // Away note
+                var noteAwayAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: noteAwayKind, withIndexPath: indexPath)
+                let noteAwayOriginX = UIScreen.mainScreen().bounds.size.width - noteSize.width
+                noteAwayAttributes.frame = CGRectMake(noteAwayOriginX, CGFloat(totalHeight), noteSize.width, noteSize.height)
+                noteAwayInfo[indexPath] = noteAwayAttributes
+                
+                // Game Entry
+                var attributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
+                attributes.frame = CGRectMake(cellOriginX, CGFloat(totalHeight), cellSize.width, cellSize.height)
+                
+                if indexPathSelected.isEqual(indexPath) {
+                    attributes.alpha = 1.0
+                    setAlphaTo(noteHomeAttributes, andAwayNotes: noteAwayAttributes, whenSelected: true, atIndexPath: indexPath)
+                } else {
+                    attributes.alpha = self.alphaCells
+                    setAlphaTo(noteHomeAttributes, andAwayNotes: noteAwayAttributes, whenSelected: false, atIndexPath: indexPath)
+                }
+                cellInfo[indexPath] = attributes
+                
+                // increment next entrie's X origin
+                totalHeight += cellSize.height
             }
-            cellInfo[indexPath] = attributes
-            
-            // increment next entrie's X origin
-            totalHeight += cellSize.height
         }
         layoutInfo[cellKind] = cellInfo
         layoutInfo[noteHomeKind] = noteHomeInfo
         layoutInfo[noteAwayKind] = noteAwayInfo
         self.prepareLayoutForSupplementaryViews()
         debugMe(fromMethod: "\(__FUNCTION__)")
+    }
+    func setAlphaTo(homeNotes : UICollectionViewLayoutAttributes, andAwayNotes awayNotes : UICollectionViewLayoutAttributes, whenSelected : Bool, atIndexPath indexPath : NSIndexPath) {
+        if whenSelected {
+            homeNotes.alpha = 1.0
+            awayNotes.alpha = 1.0
+            // on round robin, when setting to standard, set the non-section view to invisible. this is not the case on edit as we want to show the annotations. hence upon override in Edit mode, this condition will be set to alpha 1, regardless of the condition below!
+            if DataManager.sharedInstance.matchCard.cardType!.isRepeatedNoteSuppressed() && indexPath.row > 0 {
+                homeNotes.alpha = 0.0
+                awayNotes.alpha = 0.0
+            }
+        } else {
+            if DataManager.sharedInstance.matchCard.cardType!.isRepeatedNoteSuppressed() && indexPath.row > 0 {
+                homeNotes.alpha = 0.0
+                awayNotes.alpha = 0.0
+            } else { // on open alpha is nearly invisible
+                homeNotes.alpha = alphaCells
+                awayNotes.alpha = alphaCells
+            }
+        }
     }
     func prepareLayoutForHeaderViews() -> CGFloat {
         // Header Summary

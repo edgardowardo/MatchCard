@@ -18,6 +18,13 @@ class GameEntryEditLayout : MatchCardStandardLayout {
             return 0.1
         }
     }
+    override func setAlphaTo(homeNotes : UICollectionViewLayoutAttributes, andAwayNotes awayNotes : UICollectionViewLayoutAttributes, whenSelected : Bool, atIndexPath indexPath : NSIndexPath) {
+        super.setAlphaTo(homeNotes, andAwayNotes: awayNotes, whenSelected: whenSelected, atIndexPath: indexPath)
+        if whenSelected {
+            homeNotes.alpha = 1.0
+            awayNotes.alpha = 1.0
+        }
+    }
     override func prepareLayoutForSupplementaryViews() {
         super.prepareLayoutForSupplementaryViews()
         var awayPlayersAttributes = self.suppsInfo[MatchPlayersReusableView.Collection.Kind.Away]!

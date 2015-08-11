@@ -83,6 +83,8 @@ class MatchCardViewController : UIViewController {
                 self.matchCardCollectionView?.scrollsToTop = false
             case .Edit :
                 self.matchCardCollectionView?.scrollsToTop = false
+            case .Standard :
+                fallthrough
             default :
                 self.matchCardCollectionView?.scrollEnabled = true
                 self.matchCardCollectionView?.scrollsToTop = true
@@ -409,21 +411,38 @@ class MatchCardViewController : UIViewController {
 
 extension MatchCardViewController: SidePanelViewControllerDelegate {
     func itemSelected(item: MenuItem) {
+        var reload = true
         switch item.type {
-        case .LoadOpen :
-            DataManager.sharedInstance.loadMatchCard_Open(DataManager.sharedInstance.matchCard)
-            matchCardCollectionView?.reloadData()
-            NSNotificationCenter.defaultCenter().postNotificationName(MatchPlayersReusableView.Notification.Identifier.Reload, object: nil)
+        case .LoadSample :
+            let matchCard = DataManager.sharedInstance.matchCard
+            switch matchCard.cardType! {
+            case .Open:
+                DataManager.sharedInstance.loadMatchCard_Open(matchCard)
+            case .RoundRobin:
+                DataManager.sharedInstance.loadMatchCard_RoundRobin(matchCard)
+            case .ThreeDiscipline:
+                DataManager.sharedInstance.loadMatchCard_3Discipline(matchCard)
+            default:
+                assertionFailure("unknown card type to load!")
+            }
+        case .NewOpen :
+            DataManager.sharedInstance.matchCard = DataManager.sharedInstance.newMatchCard_Open()
+        case .NewRoundRobin :
+            DataManager.sharedInstance.matchCard = DataManager.sharedInstance.newMatchCard_RoundRobin()            
+        case .New3Discipline :
+            DataManager.sharedInstance.matchCard = DataManager.sharedInstance.newMatchCard_3Discipline()
         case .Clear :
             DataManager.sharedInstance.clear()
-            matchCardCollectionView?.reloadData()
-            NSNotificationCenter.defaultCenter().postNotificationName(MenuItem.Notification.Identifier.Clear, object: nil)
         case .ClearScores :
             DataManager.sharedInstance.clearScores()
-            matchCardCollectionView?.reloadData()
         case .ResetTooltips :
             ToolTipManager.sharedInstance.resetTooltips()
             UIAlertView(title: "Tooltips", message: "Tool tips are now reset. Close and open the app to show.", delegate: self, cancelButtonTitle: "OK").show()
+            reload = false
+        }
+        if reload {
+            matchCardCollectionView?.reloadData()
+            NSNotificationCenter.defaultCenter().postNotificationName(MatchPlayersReusableView.Notification.Identifier.Reload, object: nil)
         }
         delegate?.collapseSidePanels?()
     }
@@ -524,7 +543,17 @@ extension MatchCardViewController : UIPickerViewDataSource, UIPickerViewDelegate
                 cell.updateHomeScore(toScore: "\(row)")
             } else {
                 data.awayScore = row
-                cell.updateAwayScore(toScore:  "\(row)")
+                cell.updateAwayScore(toScore: "\(row)")
+            }
+            // update the home and away annotation views
+            let matchCard = DataManager.sharedInstance.matchCard
+            if matchCard.cardType!.isRepeatedNoteSuppressed() {
+                let indexPaths : NSArray = matchCardCollectionView!.indexPathsForSelectedItems()
+                if indexPaths.count > 0 {
+                    let indexPath : NSIndexPath = indexPaths[0] as! NSIndexPath
+                    let matchEntry = matchCard.matchEntries[indexPath.section]
+                    NSNotificationCenter.defaultCenter().postNotificationName(EntryAnnotationReusableView.Notification.Identifier.ChangedMatchEntry, object: matchEntry)
+                }
             }
         case Tags.League :
             DataManager.sharedInstance.matchCard.league = DataManager.sharedInstance.allLeagues[row]
@@ -654,16 +683,30 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
         // Annotation - Away
         case EntryAnnotationReusableView.Collection.Away.Kind :
             var awayNote = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: EntryAnnotationReusableView.Collection.Away.ReuseIdentifier, forIndexPath: indexPath) as! EntryAnnotationAwayView
-            let GameEntry = DataManager.sharedInstance.matchCard.matchEntries[indexPath.section].gameEntries[indexPath.row]
+            awayNote.medalMatchWin.hidden = (!matchCard.cardType!.isMatchPointAggregated())
             awayNote.elementKind = kind
-            awayNote.data = GameEntry
+            if matchCard.cardType!.isRepeatedNoteSuppressed() {
+                let matchEntry = matchCard.matchEntries[indexPath.section]
+                awayNote.match = matchEntry
+                awayNote.medalMatchWin.hidden = (indexPath.row > 0) || (!matchCard.cardType!.isMatchPointAggregated())
+            } else {
+                let gameEntry = matchCard.matchEntries[indexPath.section].gameEntries[indexPath.row]
+                awayNote.game = gameEntry
+            }
             return awayNote
         // Annotation - Home
         case EntryAnnotationReusableView.Collection.Home.Kind :
             var homeNote = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: EntryAnnotationReusableView.Collection.Home.ReuseIdentifier, forIndexPath: indexPath) as! EntryAnnotationReusableView
-            let GameEntry = DataManager.sharedInstance.matchCard.matchEntries[indexPath.section].gameEntries[indexPath.row]
             homeNote.elementKind = kind
-            homeNote.data = GameEntry
+            homeNote.medalMatchWin.hidden = (!matchCard.cardType!.isMatchPointAggregated())
+            if matchCard.cardType!.isRepeatedNoteSuppressed() {
+                let matchEntry = matchCard.matchEntries[indexPath.section]
+                homeNote.match = matchEntry
+                homeNote.medalMatchWin.hidden = (indexPath.row > 0) || (!matchCard.cardType!.isMatchPointAggregated())
+            } else {
+                let gameEntry = matchCard.matchEntries[indexPath.section].gameEntries[indexPath.row]
+                homeNote.game = gameEntry
+            }
             return homeNote
         // Players - Away
         case MatchPlayersReusableView.Collection.Kind.Away :

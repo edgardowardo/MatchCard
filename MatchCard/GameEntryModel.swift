@@ -19,6 +19,12 @@ class GameEntryModel : PFObject, PFSubclassing {
     override init() {
         super.init()
     }
+    convenience init(_ index : Int, homeScore : Int, awayScore : Int) {
+        self.init()
+        self.index1s = index
+        self.homeScore = homeScore
+        self.awayScore = awayScore
+    }
     convenience init(_ index : Int, homeScore : Int, awayScore : Int, homeNote: String, _ homePlayer1: PlayerInMatchModel?, _ homePlayer2: PlayerInMatchModel?, awayNote: String, _ awayPlayer1: PlayerInMatchModel?, _ awayPlayer2: PlayerInMatchModel?) {
         self.init()
         self.index1s = index
@@ -43,11 +49,11 @@ class GameEntryModel : PFObject, PFSubclassing {
     @NSManaged var homePlayer1 : PlayerInMatchModel?
     @NSManaged var homePlayer2 : PlayerInMatchModel?
     @NSManaged var homeScore : Int
-    @NSManaged var homeNote : String
+    @NSManaged var homeNote : String?
     @NSManaged var awayPlayer1 : PlayerInMatchModel?
     @NSManaged var awayPlayer2 : PlayerInMatchModel?
     @NSManaged var awayScore : Int
-    @NSManaged var awayNote : String
+    @NSManaged var awayNote : String?
     func setScores(home : Int,_ away : Int) {
         self.homeScore = home
         self.awayScore = away
