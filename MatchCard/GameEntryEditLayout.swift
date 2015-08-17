@@ -25,8 +25,8 @@ class GameEntryEditLayout : MatchCardStandardLayout {
             awayNotes.alpha = 1.0
         }
     }
-    override func prepareLayoutForSupplementaryViews() {
-        super.prepareLayoutForSupplementaryViews()
+    override func prepareLayoutForFooterViews() {
+        super.prepareLayoutForFooterViews()
         var awayPlayersAttributes = self.suppsInfo[MatchPlayersReusableView.Collection.Kind.Away]!
         awayPlayersAttributes.frame.origin.x += awayPlayersAttributes.frame.size.width
         var homePlayersAttributes = self.suppsInfo[MatchPlayersReusableView.Collection.Kind.Home]!

@@ -26,7 +26,7 @@ class DataManager {
             mc.homeClub = c
 
             mc.homeTeamBag!.team = t    // Shire1
-            mc.homeTeamBag!.players![0].player = getElement(allPlayers, withName: "Edgar")
+            mc.homeTeamBag!.players![0].player = getElement(allPlayers, withName: "Ed")
             mc.homeTeamBag!.players![1].player = getElement(allPlayers, withName: "Slawomir")
             mc.homeTeamBag!.players![2].player = getElement(allPlayers, withName: "Kristof")
             mc.homeTeamBag!.players![3].player = getElement(allPlayers, withName: "Khai")
@@ -74,7 +74,7 @@ class DataManager {
             mc.league = l
             mc.homeClub = c
             mc.homeTeamBag!.team = t    // Shire1
-            mc.homeTeamBag!.players![0].player = getElement(allPlayers, withName: "Edgar")
+            mc.homeTeamBag!.players![0].player = getElement(allPlayers, withName: "Ed")
             mc.awayTeamBag.team = l.clubs![7].club?.teams![1]  // Heys-B
             mc.awayTeamBag.players![1].player = getElement(allPlayers, withName: "Slaw")
             for var i = 0; i < 18; i++ {
@@ -116,7 +116,7 @@ class DataManager {
             mc.league = l
             mc.homeClub = c
             mc.homeTeamBag!.team = t    // Shire1
-            mc.homeTeamBag!.players![0].player = getElement(allPlayers, withName: "Edgar")
+            mc.homeTeamBag!.players![0].player = getElement(allPlayers, withName: "Ed")
             mc.homeTeamBag!.players![1].player = getElement(allPlayers, withName: "Slawomir")
             mc.homeTeamBag!.players![2].player = getElement(allPlayers, withName: "Kristof")
             mc.homeTeamBag!.players![3].player = getElement(allPlayers, withName: "Khai")
@@ -398,7 +398,7 @@ class DataManager {
     
     func getAllPlayers() -> [PlayerModel] {
         return [
-            PlayerModel(name: "Edgar", image: UIImage(named: "edgar")),
+            PlayerModel(name: "Ed", image: UIImage(named: "edgar")),
             PlayerModel(name: "Slawomir", image: UIImage(named: "slavo")),
             PlayerModel(name: "Someguy", image: UIImage(named: "watch")),
             PlayerModel(name: "Khai", image: UIImage(named: "khai")),
@@ -430,7 +430,7 @@ class DataManager {
     func getAllClubs() -> [ClubModel] {
         // Shire players
         let clubShirePlayers = [
-            PlayerInClubModel(getElement(allPlayers, withName: "Edgar")!),
+            PlayerInClubModel(getElement(allPlayers, withName: "Ed")!),
             PlayerInClubModel(getElement(allPlayers, withName: "Slawomir")!),
             PlayerInClubModel(getElement(allPlayers, withName: "Kristof")!)]
         let teamShire1Players = [

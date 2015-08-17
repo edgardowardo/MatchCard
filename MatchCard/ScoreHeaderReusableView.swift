@@ -25,6 +25,7 @@ class ScoreHeaderReusableView : UICollectionReusableView, UIGestureRecognizerDel
     }
     struct Notification {
         struct Identifier {
+            static let ToggleRoundrobin = "NotificationIdentifierOf_ToggleRoundrobin"
             static let ShowTeams = "NotificationIdentifierOfShowTeams"
             static let FadeLabel = MatchHeaderReusableView.Notification.Identifier.FadeLabel
         }
@@ -33,11 +34,16 @@ class ScoreHeaderReusableView : UICollectionReusableView, UIGestureRecognizerDel
     @IBOutlet weak var teamName: UILabel!
     @IBOutlet weak var shadowRightCasted: UIImageView!
     @IBOutlet weak var shadowBottomCasted: UIImageView!
+    @IBOutlet weak var matrixButton: UIButton!
     var kind : String = Collection.Kind.Home {
         didSet {
             self.shadowRightCasted.hidden = (kind == Collection.Kind.Home)
             self.shadowBottomCasted.hidden = (kind == Collection.Kind.Home)
+            self.matrixButton.hidden = (kind == Collection.Kind.Away || DataManager.sharedInstance.matchCard.cardType != .RoundRobin)
         }
+    }
+    @IBAction func handleMatrixTap(sender: AnyObject) {
+        NSNotificationCenter.defaultCenter().postNotificationName(Notification.Identifier.ToggleRoundrobin, object: nil)
     }
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -48,6 +54,7 @@ class ScoreHeaderReusableView : UICollectionReusableView, UIGestureRecognizerDel
         self.teamName.addGestureRecognizer(tapTeam)
         // Notifications
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("methodOfReceivedNotification_FadeLabel:"), name:MatchHeaderReusableView.Notification.Identifier.FadeLabel, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_SetLayout:", name: MatchCardViewController.Notification.Identifier.SetLayout, object: nil)        
     }
     func handleShowTeamsTap() {
         if let league = DataManager.sharedInstance.matchCard.league {
@@ -83,6 +90,16 @@ class ScoreHeaderReusableView : UICollectionReusableView, UIGestureRecognizerDel
             }
         default :
             break
+        }
+    }
+    @objc private func methodOfReceivedNotification_SetLayout(notification : NSNotification){
+        var vc = notification.object as! MatchCardViewController
+        if DataManager.sharedInstance.matchCard.cardType == .RoundRobin {
+            if vc.layout == .Standard {
+                self.matrixButton.setImage(UIImage(named: "icon-matrix"), forState: .Normal)
+            } else if vc.layout == .Matrix {
+                self.matrixButton.setImage(UIImage(named: "icon-table"), forState: .Normal)
+            }            
         }
     }
 }

@@ -37,6 +37,7 @@ class GameEntryCell : UICollectionViewCell {
     @IBOutlet weak var homeScore : UILabel!
     @IBOutlet weak var awayScore : UILabel!
     @IBOutlet weak var awayBar   : UIView!
+    @IBOutlet weak var semicolon: UILabel!
     
     var data : GameEntryModel? {
         didSet {

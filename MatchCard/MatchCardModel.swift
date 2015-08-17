@@ -104,6 +104,45 @@ class MatchCardModel : PFObject, PFSubclassing {
     @NSManaged var awayTeamBag : TeamInMatchModel
     @NSManaged var matchEntries : [MatchEntryModel]
     lazy var teams : [TeamInClubModel] = []
+    lazy var mockedHomePairs : [PlayerModel] = self.buildMockedPairs(fromPlayingTeam : self.homeTeamBag!)
+    lazy var mockedAwayPairs : [PlayerModel] = self.buildMockedPairs(fromPlayingTeam : self.awayTeamBag)
+    // TODO: if the list is changed in edit mode, the above initialisation must be refreshed!
+    /* Build the pairs form the current playing team. We know that there are 3 pairs in a team  */
+    func buildMockedPairs(fromPlayingTeam team : TeamInMatchModel) -> [PlayerModel] {
+        var mockedPlayers : [PlayerModel] = []
+        if let players = team.players {
+            for var i = 0; i < players.count / 2; i++ {
+                let p1 = team.players?[i*2].player!
+                let p2 = team.players?[i*2 + 1].player!
+                let w = CGFloat(160)
+                let h = CGFloat(160)
+                
+                // Some core graphics manipulation
+                UIGraphicsBeginImageContextWithOptions(CGSizeMake(w, h), false, 1.0)
+                var context = UIGraphicsGetCurrentContext()
+                if let image1 = p1?.imageFile {
+                    let leftImage = UIImage(CGImage: CGImageCreateWithImageInRect(image1.CGImage, CGRectMake(w/4-2, CGFloat(0), w/2-2, h)))
+                    leftImage?.drawInRect(CGRectMake(CGFloat(0), CGFloat(0), w/2-4, h))
+                }
+                if let image2 = p2?.imageFile {
+                    let rightImage = UIImage(CGImage: CGImageCreateWithImageInRect(image2.CGImage, CGRectMake(w/4-2, CGFloat(0), w/2-2, h)))
+                    rightImage?.drawInRect(CGRectMake(w/2+4, CGFloat(0), w/2, h))
+                }
+                let combinedImgRef = CGBitmapContextCreateImage(context)
+                let newImage = UIGraphicsGetImageFromCurrentImageContext()
+                UIGraphicsEndImageContext()
+                
+                let p1Name = p1!.name
+                let p2Name = p2!.name
+                let p1Name3 = ( count(p1Name) > 3 ? p1Name.substringToIndex(advance(p1Name.startIndex, 3)) : p1Name )
+                let p2Name3 = ( count(p2Name) > 3 ? p2Name.substringToIndex(advance(p2Name.startIndex, 3)) : p2Name )
+                let mockedName = "\(p1Name3) / \(p2Name3)"
+                let mockedPlayer = PlayerModel(name: mockedName, image: newImage)
+                mockedPlayers.append(mockedPlayer)
+            }
+        }
+        return mockedPlayers
+    }
     func getAllTeams(fromLeague : LeagueModel) -> [TeamInClubModel] {
         var teams = [TeamInClubModel]()
         for club in fromLeague.clubs! {

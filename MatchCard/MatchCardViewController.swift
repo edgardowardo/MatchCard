@@ -11,7 +11,7 @@ import UIKit
 import MapKit
 
 enum LayoutType {
-    case Standard, Edit, HomePlayers, AwayPlayers, Matrix
+    case Standard, Edit, HomePlayers, AwayPlayers, Matrix, MatrixHomePlayers, MatrixAwayPlayers
 }
 
 @objc
@@ -70,7 +70,7 @@ class MatchCardViewController : UIViewController {
     let mockPlayerTextField = UITextField(frame: CGRectZero)
     var selectedPlayerPositionCell : PlayerViewCell?
     lazy var playersInputController = PlayersInputController()
-    var layouts : [LayoutType : UICollectionViewLayout] = [.Standard : MatchCardStandardLayout(), .Edit : GameEntryEditLayout(), .HomePlayers : HomePlayersLayout(), .AwayPlayers : AwayPlayersLayout()]
+    var layouts : [LayoutType : UICollectionViewLayout] = [.Standard : MatchCardStandardLayout(), .Edit : GameEntryEditLayout(), .HomePlayers : HomePlayersLayout(), .AwayPlayers : AwayPlayersLayout(), .Matrix : MatrixLayout()]
     var layout : LayoutType = .Standard {
         didSet {
             self.matchCardCollectionView?.setCollectionViewLayout(self.layouts[self.layout]!, animated: true)
@@ -85,10 +85,13 @@ class MatchCardViewController : UIViewController {
                 self.matchCardCollectionView?.scrollsToTop = false
             case .Standard :
                 fallthrough
+            case .Matrix :
+                fallthrough
             default :
                 self.matchCardCollectionView?.scrollEnabled = true
                 self.matchCardCollectionView?.scrollsToTop = true
             }
+//            println("contentOffset.0 = \(self.matchCardCollectionView?.contentOffset), contentInset=\(self.matchCardCollectionView!.contentInset.bottom)")
         }
     }
 
@@ -131,6 +134,7 @@ class MatchCardViewController : UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_ShowRegisteredPlayers:", name:PlayersInputController.Notification.Identifier.ShowRegisteredPlayers, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_ReloadData:", name: Notification.Identifier.ReloadData, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_RemoveRegisteredPlayer:", name: Notification.Identifier.RemoveRegisteredPlayer, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_ToggleRoundrobin:", name: ScoreHeaderReusableView.Notification.Identifier.ToggleRoundrobin, object: nil)
         
         // Assemble inputViews
         // inputView is MapView for Location
@@ -189,8 +193,6 @@ class MatchCardViewController : UIViewController {
                     let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.size.height
                     let contentInsets = UIEdgeInsets(top: statusBarHeight, left: 0, bottom: kbRect!.size.height, right: 0)
                     self.matchCardCollectionView?.contentInset = contentInsets
-                    var aRect = self.view.frame
-                    aRect.size.height -= kbRect!.size.height
                     self.matchCardCollectionView?.scrollRectToVisible(activeCell.frame, animated: true)
                     self.matchCardCollectionView?.scrollEnabled = false
                 }
@@ -268,6 +270,25 @@ class MatchCardViewController : UIViewController {
     //
     // Notification handlers
     //
+    @objc private func methodOfReceivedNotification_ToggleRoundrobin(notification: NSNotification){
+        // Toggle the layout indeed!
+        if self.layout == .Standard {
+            self.layout = .Matrix
+        } else if self.layout == .Matrix {
+            self.layout = .Standard
+        }
+        
+        // Scroll up to to hide upper header and reclaim space
+        let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.size.height
+        let headerHeight = MatchHeaderReusableView.Collection.Cell.Size.height
+        let screenHeight = UIScreen.mainScreen().bounds.size.height
+        let point = CGPointMake(0, (headerHeight - statusBarHeight*2 ))
+        Common.delay(0.4, closure: { () -> () in
+            self.matchCardCollectionView?.scrollRectToVisible(CGRectMake(0, screenHeight + headerHeight - statusBarHeight*2, 1, 1), animated: true)
+            ContainerViewController.isPannable = false
+            self.matchCardCollectionView?.reloadData()
+        })
+    }
     @objc private func methodOfReceivedNotification_More(notification: NSNotification){
         delegate?.toggleLeftPanel?()
     }
@@ -669,7 +690,11 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
             cell.homeScore?.backgroundColor = UIColor.clearColor()
             cell.awayScore?.backgroundColor = UIColor.clearColor()
         }
+        cell.homeBar.hidden = (self.layout == .Matrix)
+        cell.awayBar.hidden = (self.layout == .Matrix)
+        cell.semicolon.hidden = (self.layout != .Matrix)
         cell.updateBars()
+        
         return cell
     }
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath){
@@ -759,14 +784,20 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
         // Players - Away
         case MatchPlayersReusableView.Collection.Kind.Away :
             var awayPlayers = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchPlayersReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! MatchPlayersReusableView
-            awayPlayers.delegate = self
+            awayPlayers.delegate = self            
+            awayPlayers.layer.zPosition = 20
             ToolTipManager.sharedInstance.needsDisplayTipView(ToolTipManager.Keys.PlayerPosition, forView: awayPlayers, withinSuperview: collectionView)
             return awayPlayers
         // Players - Home
         case MatchPlayersReusableView.Collection.Kind.Home :
             var homePlayers = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchPlayersReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! MatchPlayersReusableView
             homePlayers.elementKind = kind
-            homePlayers.playersCollectionView!.transform = CGAffineTransformMakeScale(-1, 1) // right align
+            if self.layout == .Matrix {
+                homePlayers.layer.zPosition = 9
+            } else {
+                homePlayers.layer.zPosition = 20
+                homePlayers.playersCollectionView!.transform = CGAffineTransformMakeScale(-1, 1) // right align
+            }
             homePlayers.delegate = self
             return homePlayers
         // Header
@@ -778,6 +809,7 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
             headerView.location.text = matchCard.location
             headerView.date.text = matchCard.dateString
             ToolTipManager.sharedInstance.needsDisplayTipView(ToolTipManager.Keys.MapPin, forView: headerView.locationButton, withinSuperview: collectionView)
+            headerView.layer.zPosition = 10
             return headerView
         // Score header - Home
         case ScoreHeaderReusableView.Collection.Kind.Home :
@@ -785,6 +817,7 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
             scoreHomeView.score.text = "\(matchCard.homeScore)"
             scoreHomeView.teamName.text = matchCard.homeTeamName
             scoreHomeView.kind = kind
+            scoreHomeView.layer.zPosition = 10
             return scoreHomeView
         // Score header - Away
         case ScoreHeaderReusableView.Collection.Kind.Away :
@@ -792,6 +825,7 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
             scoreAwayView.score.text = "\(matchCard.awayScore)"
             scoreAwayView.teamName.text = matchCard.awayTeamName
             scoreAwayView.kind = kind
+            scoreAwayView.layer.zPosition = 10
             return scoreAwayView
         // Game Totals Footer
         case GameTotalsReusableView.Collection.Kind :

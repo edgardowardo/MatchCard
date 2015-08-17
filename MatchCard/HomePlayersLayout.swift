@@ -15,8 +15,8 @@ class HomePlayersLayout : MatchCardStandardLayout {
             return 0.1
         }
     }
-    override func prepareLayoutForSupplementaryViews() {
-        super.prepareLayoutForSupplementaryViews()
+    override func prepareLayoutForFooterViews() {
+        super.prepareLayoutForFooterViews()
         var yOffset : CGFloat? = self.collectionView?.contentOffset.y
         var homePlayersAttributes = self.suppsInfo[MatchPlayersReusableView.Collection.Kind.Home]!
         homePlayersAttributes.alpha = 1

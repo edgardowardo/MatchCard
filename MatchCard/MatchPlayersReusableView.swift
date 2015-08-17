@@ -9,8 +9,6 @@
 import Foundation
 import UIKit
 
-// TODO: MatchHomePlayersLayout and MatchAwayPlayersLayout calculating left aligned and right aligned and diagonal origins
-
 @objc
 protocol MatchPlayersReusableViewDelegate {
     func needsPositionSelected()
@@ -25,6 +23,20 @@ class MatchPlayersReusableView : UICollectionReusableView {
         }
         static let ReuseIdentifier = "MatchPlayersReusableView"
         static let Nib = Collection.ReuseIdentifier
+        struct Matrix{
+            struct  Cell {
+                struct Away {
+                    static let Width = CGFloat(UIScreen.mainScreen().bounds.size.width)
+                    static let Height = Collection.Cell.Height
+                    static let Size = CGSizeMake(Width, Height)
+                }
+                struct Home {
+                    static let Width = CGFloat(UIScreen.mainScreen().bounds.size.width / 4)
+                    static let Height = GameEntryCell.Collection.Default.Cell.Height * 9
+                    static let Size = CGSizeMake(Width, Height)
+                }
+            }
+        }
         struct Cell {
             static let Width = CGFloat(UIScreen.mainScreen().bounds.size.width / 2)
             static let Height = CGFloat(100)
@@ -49,12 +61,13 @@ class MatchPlayersReusableView : UICollectionReusableView {
         }
     }
     var delegate : MatchPlayersReusableViewDelegate?
-    var layouts : [LayoutType : UICollectionViewFlowLayout] = [.Standard : MatchPlayersStandardLayout(), .Edit : MatchPlayersStandardLayout()]
+    var layouts : [LayoutType : UICollectionViewFlowLayout] = [.Standard : MatchPlayersStandardLayout(), .Edit : MatchPlayersStandardLayout(), .MatrixHomePlayers : MatchPlayersStandardLayout(), .MatrixAwayPlayers : MatchPlayersStandardLayout()]
     var layout : LayoutType = .Standard {
         didSet {
             self.playersCollectionView?.setCollectionViewLayout(self.layouts[self.layout]!, animated: true)
         }
     }
+    var layoutOfMatchCard : LayoutType = .Standard
     override func awakeFromNib() {
         super.awakeFromNib()
         let nibPlayer = UINib(nibName: PlayerViewCell.Collection.Nib, bundle: nil)
@@ -73,6 +86,16 @@ class MatchPlayersReusableView : UICollectionReusableView {
         editLayout.itemSize = PlayerViewCell.Collection.Size
         editLayout.minimumLineSpacing = CGFloat(10)
         editLayout.sectionInset = UIEdgeInsetsMake(25, 50, 0, 50)
+        
+        var matrixHomeLayout = self.layouts[.MatrixHomePlayers]!
+        matrixHomeLayout.scrollDirection = .Vertical
+        matrixHomeLayout.itemSize = PlayerViewCell.Collection.Size
+        matrixHomeLayout.minimumLineSpacing = CGFloat(50) // TODO: calculate depending on screen size! and adjusted with the text result of a match entry result
+        
+        var matrixAwayLayout = self.layouts[.MatrixAwayPlayers]!
+        matrixAwayLayout.scrollDirection = .Horizontal
+        matrixAwayLayout.itemSize = PlayerViewCell.Collection.Size
+        matrixAwayLayout.minimumLineSpacing = CGFloat(0)
         
         self.layout = .Standard
         
@@ -115,7 +138,9 @@ class MatchPlayersReusableView : UICollectionReusableView {
         playersCollectionView?.reloadData()
     }
     @objc private func methodOfReceivedNotification_SetLayout(notification : NSNotification){
+        self.playersCollectionView?.scrollEnabled = true
         var vc = notification.object as! MatchCardViewController
+        self.layoutOfMatchCard = vc.layout
         switch vc.layout {
         case .HomePlayers :
             if elementKind == MatchPlayersReusableView.Collection.Kind.Away {
@@ -127,8 +152,20 @@ class MatchPlayersReusableView : UICollectionReusableView {
                 break
             }
             self.layout = .Edit
+            self.shadowRightCasted.hidden = true
+        case .Matrix :
+            self.shadowRightCasted.hidden = true
+            self.playersCollectionView?.scrollEnabled = false
+            self.playersCollectionView?.reloadData()
+            if self.elementKind == MatchPlayersReusableView.Collection.Kind.Home {
+                self.layout = .MatrixHomePlayers
+            } else if self.elementKind == MatchPlayersReusableView.Collection.Kind.Away {
+                self.layout = .MatrixAwayPlayers
+            }
         default :
+            self.playersCollectionView?.reloadData()
             self.layout = .Standard
+            self.shadowRightCasted.hidden = (elementKind == Collection.Kind.Home)
         }
     }
 }
@@ -139,9 +176,17 @@ class MatchPlayersReusableView : UICollectionReusableView {
 extension MatchPlayersReusableView : UICollectionViewDataSource,  UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if (elementKind == MatchPlayersReusableView.Collection.Kind.Away) {
-            return DataManager.sharedInstance.matchCard.awayTeamBag.players!.count
+            if self.layoutOfMatchCard == .Matrix {
+                return DataManager.sharedInstance.matchCard.mockedAwayPairs.count
+            } else {
+                return DataManager.sharedInstance.matchCard.awayTeamBag.players!.count
+            }
         } else {
-            return DataManager.sharedInstance.matchCard.homeTeamBag!.players!.count
+            if self.layoutOfMatchCard == .Matrix {
+                return DataManager.sharedInstance.matchCard.mockedHomePairs.count
+            } else {
+                return DataManager.sharedInstance.matchCard.homeTeamBag!.players!.count
+            }
         }
     }
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -150,14 +195,22 @@ extension MatchPlayersReusableView : UICollectionViewDataSource,  UICollectionVi
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(PlayerViewCell.Collection.ReuseIdentifier, forIndexPath: indexPath) as! PlayerViewCell
         cell.elementKind = self.elementKind
-        if (elementKind == MatchPlayersReusableView.Collection.Kind.Away) {
-            var p1 = DataManager.sharedInstance.matchCard.awayTeamBag.players?[indexPath.row]
-            cell.playingPlayer = p1
-            cell.buttonKey.setTitle(p1?.key, forState: .Normal)
+        if self.layoutOfMatchCard == .Matrix {
+            if (elementKind == MatchPlayersReusableView.Collection.Kind.Home) {
+                cell.player = DataManager.sharedInstance.matchCard.mockedHomePairs[indexPath.row]
+            } else {
+                cell.player = DataManager.sharedInstance.matchCard.mockedAwayPairs[indexPath.row]
+            }
         } else {
-            var p2 = DataManager.sharedInstance.matchCard.homeTeamBag!.players?[indexPath.row]
-            cell.playingPlayer = p2
-            cell.buttonKey.setTitle(p2?.key, forState: .Normal)
+            if (elementKind == MatchPlayersReusableView.Collection.Kind.Away) {
+                var p1 = DataManager.sharedInstance.matchCard.awayTeamBag.players?[indexPath.row]
+                cell.playingPlayer = p1
+                cell.buttonKey.setTitle(p1?.key, forState: .Normal)
+            } else {
+                var p2 = DataManager.sharedInstance.matchCard.homeTeamBag!.players?[indexPath.row]
+                cell.playingPlayer = p2
+                cell.buttonKey.setTitle(p2?.key, forState: .Normal)
+            }
         }
         if let i = cell.player?.imageFile {
             cell.buttonKey.setTitleColor(UIColor.whiteColor(), forState: .Normal)
@@ -169,6 +222,12 @@ extension MatchPlayersReusableView : UICollectionViewDataSource,  UICollectionVi
         }
         cell.updateButton()
         return cell
+    }
+    func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return self.layoutOfMatchCard != .Matrix
+    }
+    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return self.layoutOfMatchCard != .Matrix
     }
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         var cell = collectionView.cellForItemAtIndexPath(indexPath) as! PlayerViewCell

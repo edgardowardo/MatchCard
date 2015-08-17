@@ -47,6 +47,13 @@
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=":" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fcS-Pd-k3m" userLabel="Semicolon">
+                        <rect key="frame" x="1" y="8" width="160" height="26"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="22"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
@@ -57,6 +64,7 @@
                 <outlet property="awayScore" destination="geW-Hw-UEp" id="LOp-Dw-An2"/>
                 <outlet property="homeBar" destination="Pdq-9C-lVi" id="zqz-gf-lE2"/>
                 <outlet property="homeScore" destination="5us-tw-D6q" id="J7q-gg-bB2"/>
+                <outlet property="semicolon" destination="fcS-Pd-k3m" id="wcX-l9-TlM"/>
             </connections>
             <point key="canvasLocation" x="42" y="54.5"/>
         </collectionViewCell>
