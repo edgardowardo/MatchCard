@@ -61,13 +61,21 @@ class MatchPlayersReusableView : UICollectionReusableView {
         }
     }
     var delegate : MatchPlayersReusableViewDelegate?
-    var layouts : [LayoutType : UICollectionViewFlowLayout] = [.Standard : MatchPlayersStandardLayout(), .Edit : MatchPlayersStandardLayout(), .MatrixHomePlayers : MatchPlayersStandardLayout(), .MatrixAwayPlayers : MatchPlayersStandardLayout()]
+    var layouts : [LayoutType : UICollectionViewFlowLayout] = [.Standard : MatchPlayersStandardLayout(), .Edit : PlayersEditLayout(), .MatrixHomePlayers : HomePlayersMatrixLayout(), .MatrixAwayPlayers : AwayPlayersMatrixLayout()]
     var layout : LayoutType = .Standard {
         didSet {
             self.playersCollectionView?.setCollectionViewLayout(self.layouts[self.layout]!, animated: true)
+            if layout == .Standard {
+                // Calculate the content inset so the 2 players are even on a standard layout, since minimum line spacing is applied either left or right but not at the same time.
+                let containerWidth = MatchPlayersReusableView.Collection.Cell.Width
+                let width2Players = PlayerViewCell.Collection.Size.width * 2
+                let leftInset = CGFloat( (containerWidth - width2Players) / 3 )
+                playersCollectionView?.contentInset = UIEdgeInsetsMake(0, leftInset, 0, 0 )
+            }
         }
     }
     var layoutOfMatchCard : LayoutType = .Standard
+    var scoreFadeCount = 0
     override func awakeFromNib() {
         super.awakeFromNib()
         let nibPlayer = UINib(nibName: PlayerViewCell.Collection.Nib, bundle: nil)
@@ -75,27 +83,6 @@ class MatchPlayersReusableView : UICollectionReusableView {
         playersCollectionView?.scrollsToTop = false
         playersCollectionView?.delegate = self
         playersCollectionView?.dataSource = self
-
-        var standardLayout = self.layouts[.Standard]!
-        standardLayout.scrollDirection = .Horizontal
-        standardLayout.itemSize = PlayerViewCell.Collection.Size
-        standardLayout.minimumLineSpacing = CGFloat(0)
-        
-        var editLayout = self.layouts[.Edit]!
-        editLayout.scrollDirection = .Vertical
-        editLayout.itemSize = PlayerViewCell.Collection.Size
-        editLayout.minimumLineSpacing = CGFloat(10)
-        editLayout.sectionInset = UIEdgeInsetsMake(25, 50, 0, 50)
-        
-        var matrixHomeLayout = self.layouts[.MatrixHomePlayers]!
-        matrixHomeLayout.scrollDirection = .Vertical
-        matrixHomeLayout.itemSize = PlayerViewCell.Collection.Size
-        matrixHomeLayout.minimumLineSpacing = CGFloat(50) // TODO: calculate depending on screen size! and adjusted with the text result of a match entry result
-        
-        var matrixAwayLayout = self.layouts[.MatrixAwayPlayers]!
-        matrixAwayLayout.scrollDirection = .Horizontal
-        matrixAwayLayout.itemSize = PlayerViewCell.Collection.Size
-        matrixAwayLayout.minimumLineSpacing = CGFloat(0)
         
         self.layout = .Standard
         
@@ -154,6 +141,7 @@ class MatchPlayersReusableView : UICollectionReusableView {
             self.layout = .Edit
             self.shadowRightCasted.hidden = true
         case .Matrix :
+            self.scoreFadeCount = 0
             self.shadowRightCasted.hidden = true
             self.playersCollectionView?.scrollEnabled = false
             self.playersCollectionView?.reloadData()
@@ -221,6 +209,33 @@ extension MatchPlayersReusableView : UICollectionViewDataSource,  UICollectionVi
             cell.contentView.transform = CGAffineTransformMakeScale(-1, 1)
         }
         cell.updateButton()
+        if self.layoutOfMatchCard == .Matrix {
+            cell.button.backgroundColor = UIColor.clearColor()
+            cell.buttonKey.backgroundColor = UIColor.clearColor()
+            var indexAdjustment = 0
+            if (elementKind == MatchPlayersReusableView.Collection.Kind.Home) {
+                indexAdjustment = 1
+            }
+            let index = indexPath.row + indexAdjustment
+            switch index {
+            case 0:
+                cell.buttonKey.setTitle("", forState: .Normal)
+                if scoreFadeCount < 2 {
+                    Common.delay(0.4, closure: { () -> () in
+                        cell.fade()
+                        self.scoreFadeCount++
+                    })
+                }
+            case 1:
+                cell.buttonKey.setTitle("A", forState: .Normal)
+            case 2:
+                cell.buttonKey.setTitle("B", forState: .Normal)
+            case 3:
+                cell.buttonKey.setTitle("C", forState: .Normal)
+            default :
+                assertionFailure("index is out of bounds calculating the cell names")
+            }
+        }        
         return cell
     }
     func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {

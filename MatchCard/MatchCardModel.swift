@@ -105,13 +105,18 @@ class MatchCardModel : PFObject, PFSubclassing {
     @NSManaged var matchEntries : [MatchEntryModel]
     lazy var teams : [TeamInClubModel] = []
     lazy var mockedHomePairs : [PlayerModel] = self.buildMockedPairs(fromPlayingTeam : self.homeTeamBag!)
-    lazy var mockedAwayPairs : [PlayerModel] = self.buildMockedPairs(fromPlayingTeam : self.awayTeamBag)
+    lazy var mockedAwayPairs : [PlayerModel] = self.buildMockedPairs(fromPlayingTeam : self.awayTeamBag, isAway: true)
     // TODO: if the list is changed in edit mode, the above initialisation must be refreshed!
     /* Build the pairs form the current playing team. We know that there are 3 pairs in a team  */
-    func buildMockedPairs(fromPlayingTeam team : TeamInMatchModel) -> [PlayerModel] {
+    func buildMockedPairs(fromPlayingTeam team : TeamInMatchModel, isAway : Bool = false) -> [PlayerModel] {
         var mockedPlayers : [PlayerModel] = []
+        var isMockedScoresExisting = false
         if let players = team.players {
             for var i = 0; i < players.count / 2; i++ {
+                if isAway && isMockedScoresExisting == false {
+                    mockedPlayers.append(buildMockedScores())
+                    isMockedScoresExisting = true
+                }
                 let p1 = team.players?[i*2].player!
                 let p2 = team.players?[i*2 + 1].player!
                 let w = CGFloat(160)
@@ -120,13 +125,24 @@ class MatchCardModel : PFObject, PFSubclassing {
                 // Some core graphics manipulation
                 UIGraphicsBeginImageContextWithOptions(CGSizeMake(w, h), false, 1.0)
                 var context = UIGraphicsGetCurrentContext()
+                let rgb = CGFloat(109)/CGFloat(255)
+                let leftRect = CGRectMake(CGFloat(0), CGFloat(0), w/2-4, h)
                 if let image1 = p1?.imageFile {
                     let leftImage = UIImage(CGImage: CGImageCreateWithImageInRect(image1.CGImage, CGRectMake(w/4-2, CGFloat(0), w/2-2, h)))
-                    leftImage?.drawInRect(CGRectMake(CGFloat(0), CGFloat(0), w/2-4, h))
+                    leftImage?.drawInRect(leftRect)
+                } else {
+                    CGContextSetRGBFillColor(context, rgb, rgb, rgb, 1.0)
+                    CGContextSetRGBStrokeColor(context, rgb, rgb, rgb, 1.0)
+                    CGContextFillRect(context, leftRect)
                 }
+                let rightRect = CGRectMake(w/2+4, CGFloat(0), w/2, h)
                 if let image2 = p2?.imageFile {
                     let rightImage = UIImage(CGImage: CGImageCreateWithImageInRect(image2.CGImage, CGRectMake(w/4-2, CGFloat(0), w/2-2, h)))
-                    rightImage?.drawInRect(CGRectMake(w/2+4, CGFloat(0), w/2, h))
+                    rightImage?.drawInRect(rightRect)
+                } else {
+                    CGContextSetRGBFillColor(context, rgb, rgb, rgb, 1.0)
+                    CGContextSetRGBStrokeColor(context, rgb, rgb, rgb, 1.0)
+                    CGContextFillRect(context, rightRect)
                 }
                 let combinedImgRef = CGBitmapContextCreateImage(context)
                 let newImage = UIGraphicsGetImageFromCurrentImageContext()
@@ -134,14 +150,19 @@ class MatchCardModel : PFObject, PFSubclassing {
                 
                 let p1Name = p1!.name
                 let p2Name = p2!.name
-                let p1Name3 = ( count(p1Name) > 3 ? p1Name.substringToIndex(advance(p1Name.startIndex, 3)) : p1Name )
-                let p2Name3 = ( count(p2Name) > 3 ? p2Name.substringToIndex(advance(p2Name.startIndex, 3)) : p2Name )
-                let mockedName = "\(p1Name3) / \(p2Name3)"
+                let mockedName = "\(String.threeChars(ofString: p1Name)  ) / \(String.threeChars(ofString: p2Name))"
                 let mockedPlayer = PlayerModel(name: mockedName, image: newImage)
                 mockedPlayers.append(mockedPlayer)
             }
         }
         return mockedPlayers
+    }
+    func buildMockedScores() -> PlayerModel {
+        var image = UIImageView(frame: CGRectMake(0, 0, 70, 70))
+        let division = (Double(homeScore) / Double(9))
+        let percentageIn = Int32( division * 100 )
+        image.applyCircleWithPersentage(percentageIn , andText: "\(self.homeScore):\(self.awayScore)",  andTintColor: UIColor.yellowColor())
+        return PlayerModel(name: "\(String.threeChars(ofString: homeTeamName)) / \(String.threeChars(ofString: awayTeamName))", image: image.image)
     }
     func getAllTeams(fromLeague : LeagueModel) -> [TeamInClubModel] {
         var teams = [TeamInClubModel]()
@@ -192,7 +213,7 @@ class MatchCardModel : PFObject, PFSubclassing {
     var homeTeamName : String {
         get {
             if let team = self.homeTeamBag!.team {
-                return team.name
+                return "\(team.name) (Home)"
             }
             return Prompts.Home
         }
@@ -218,7 +239,7 @@ class MatchCardModel : PFObject, PFSubclassing {
     var awayTeamName : String {
         get {
             if let team = self.awayTeamBag.team {
-                return team.name
+                return "\(team.name) (Away)"
             }
             return Prompts.Away
         }

@@ -37,6 +37,12 @@ class Common {
     }
 }
 
+extension String {
+    static func threeChars(ofString s : String)  -> String {
+        return ( count(s) > 3 ? s.substringToIndex(advance(s.startIndex, 3)) : s )
+    }
+}
+
 extension Int {
     var ordinal : String {
         get {

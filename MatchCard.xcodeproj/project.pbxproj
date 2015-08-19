@@ -10,6 +10,7 @@
 		770784B71B24725900C96B40 /* MatchPlayersReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770784B61B24725900C96B40 /* MatchPlayersReusableView.swift */; };
 		770784B91B24EA1F00C96B40 /* MatchCardStandardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770784B81B24EA1F00C96B40 /* MatchCardStandardLayout.swift */; };
 		770F02631B73AE7F00F597C7 /* MatchEntryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 770F02621B73AE7F00F597C7 /* MatchEntryModel.swift */; };
+		771EFFD51B8237DD002B3013 /* UIImageView+PersentageCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 771EFFD41B8237DD002B3013 /* UIImageView+PersentageCircle.m */; };
 		7725833F1B5ADC10006117C1 /* HomePlayersLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7725833E1B5ADC10006117C1 /* HomePlayersLayout.swift */; };
 		772D86921B6790A300F7FB9A /* UIImage+ImagePickerCrop.m in Sources */ = {isa = PBXBuildFile; fileRef = 772D86911B6790A300F7FB9A /* UIImage+ImagePickerCrop.m */; };
 		772D86941B68EABC00F7FB9A /* EasyTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772D86931B68EABC00F7FB9A /* EasyTipView.swift */; };
@@ -78,6 +79,8 @@
 		770784B61B24725900C96B40 /* MatchPlayersReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchPlayersReusableView.swift; sourceTree = "<group>"; };
 		770784B81B24EA1F00C96B40 /* MatchCardStandardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchCardStandardLayout.swift; sourceTree = "<group>"; };
 		770F02621B73AE7F00F597C7 /* MatchEntryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchEntryModel.swift; sourceTree = "<group>"; };
+		771EFFD31B8237DD002B3013 /* UIImageView+PersentageCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+PersentageCircle.h"; sourceTree = "<group>"; };
+		771EFFD41B8237DD002B3013 /* UIImageView+PersentageCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+PersentageCircle.m"; sourceTree = "<group>"; };
 		7725833E1B5ADC10006117C1 /* HomePlayersLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePlayersLayout.swift; sourceTree = "<group>"; };
 		772D86901B6790A300F7FB9A /* UIImage+ImagePickerCrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImagePickerCrop.h"; sourceTree = "<group>"; };
 		772D86911B6790A300F7FB9A /* UIImage+ImagePickerCrop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImagePickerCrop.m"; sourceTree = "<group>"; };
@@ -265,6 +268,8 @@
 		77D69B4B1B16394E0053EB10 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				771EFFD31B8237DD002B3013 /* UIImageView+PersentageCircle.h */,
+				771EFFD41B8237DD002B3013 /* UIImageView+PersentageCircle.m */,
 				77A8BAF81B6E470500FF086F /* icon-badminton */,
 				772D86901B6790A300F7FB9A /* UIImage+ImagePickerCrop.h */,
 				772D86911B6790A300F7FB9A /* UIImage+ImagePickerCrop.m */,
@@ -506,6 +511,7 @@
 				77EB9D941B225A4B00DD93D9 /* MatchCardViewController.swift in Sources */,
 				77A446FB1B418D8C000C5A6B /* SidePanelViewController.swift in Sources */,
 				77BE570B1B17B4A400E88630 /* PlayerModel.swift in Sources */,
+				771EFFD51B8237DD002B3013 /* UIImageView+PersentageCircle.m in Sources */,
 				779C79361B1F443900EE68AE /* PFObjectImaged.swift in Sources */,
 				772F712F1B54541A00F1BDD1 /* ClubInLeagueModel.swift in Sources */,
 				777A7A261B3B1CFD00FF9342 /* ScoreHeaderReusableView.swift in Sources */,
