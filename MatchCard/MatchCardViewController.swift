@@ -106,6 +106,7 @@ class MatchCardViewController : UIViewController {
         let nibEntryAnnoteAway = UINib(nibName: EntryAnnotationReusableView.Collection.Away.Nib, bundle: nil)
         let nibPlayers = UINib(nibName: MatchPlayersReusableView.Collection.Nib, bundle: nil)
         let nibTotals = UINib(nibName: GameTotalsReusableView.Collection.Nib, bundle: nil)
+        let nibCorner = UINib(nibName: MatrixCornerReusableView.Collection.Nib, bundle: nil)
         matchCardCollectionView?.scrollsToTop = true
         matchCardCollectionView?.delegate = self
         matchCardCollectionView?.dataSource = self
@@ -119,6 +120,7 @@ class MatchCardViewController : UIViewController {
         matchCardCollectionView?.registerNib(nibPlayers, forSupplementaryViewOfKind: MatchPlayersReusableView.Collection.Kind.Away, withReuseIdentifier: MatchPlayersReusableView.Collection.ReuseIdentifier)
         matchCardCollectionView?.registerNib(nibTotals, forSupplementaryViewOfKind: GameTotalsReusableView.Collection.Kind, withReuseIdentifier: GameTotalsReusableView.Collection.ReuseIdentifier)
         matchCardCollectionView?.registerClass(UICollectionReusableView.self , forSupplementaryViewOfKind: Separator.Kind, withReuseIdentifier: Separator.ReuseIdentifier)
+        matchCardCollectionView?.registerNib(nibCorner, forSupplementaryViewOfKind: MatrixCornerReusableView.Collection.Kind, withReuseIdentifier: MatrixCornerReusableView.Collection.ReuseIdentifier)        
         matchCardCollectionView?.setCollectionViewLayout(MatchCardStandardLayout(), animated: false)
         if Common.showColorBounds() == false {
             matchCardCollectionView?.backgroundColor = UIColor.clearColor()
@@ -833,6 +835,15 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
             totalsView.homeTotal.text = "\(matchCard.homeTotal)"
             totalsView.awayTotal.text = "\(matchCard.awayTotal)"
             return totalsView
+        // Matrix Corner
+        case MatrixCornerReusableView.Collection.Kind :
+            var corner = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatrixCornerReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! MatrixCornerReusableView
+            corner.homeScore.text = "\(matchCard.homeScore)"
+            corner.homeTeam.text = "\(String.substring(ofString: matchCard.homeTeamName, withCount: 4))(Home)"
+            corner.awayScore.text = "\(matchCard.awayScore)"
+            corner.awayTeam.text = "\(String.substring(ofString: matchCard.awayTeamName, withCount: 4))(Away)"
+            corner.layer.zPosition = 20
+            return corner
         default :
             assertionFailure("")
             return UICollectionReusableView()

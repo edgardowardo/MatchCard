@@ -99,6 +99,9 @@ class MatchCardStandardLayout : UICollectionViewLayout{
     func cellSize() -> CGSize {
         return GameEntryCell.Collection.Default.Cell.Size
     }
+    func cornerSize() -> CGSize {
+        return MatrixCornerReusableView.Collection.Cell.Size
+    }
     func homePlayersSize() -> CGSize {
         return MatchPlayersReusableView.Collection.Cell.Size
     }
@@ -290,6 +293,13 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         // empty code to be overridden
     }
     func prepareLayoutForFooterViews() {
+        // Corner
+        let cornerKind = MatrixCornerReusableView.Collection.Kind
+        var cornerAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: cornerKind, withIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+        cornerAttributes.frame = CGRectMake(homePlayersSize().width, yOfAwayPlayersView(), cornerSize().width, cornerSize().height)
+        cornerAttributes.alpha = 0
+        self.suppsInfo[cornerKind] = cornerAttributes        
+        
         // Home
         let homePlayersKind = MatchPlayersReusableView.Collection.Kind.Home
         var homePlayersAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: homePlayersKind, withIndexPath: NSIndexPath(forRow: 0, inSection: 0))
@@ -299,7 +309,7 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         let awayPlayersKind = MatchPlayersReusableView.Collection.Kind.Away
         var awayPlayersAttributes = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: awayPlayersKind, withIndexPath: NSIndexPath(forRow: 0, inSection: 0))
         awayPlayersAttributes.alpha = 1
-        awayPlayersAttributes.frame = CGRectMake(awayPlayersSize().width, yOfAwayPlayersView(), awayPlayersSize().width, awayPlayersSize().height)
+        awayPlayersAttributes.frame = CGRectMake(homePlayersSize().width, yOfAwayPlayersView(), awayPlayersSize().width, awayPlayersSize().height)
         self.suppsInfo[awayPlayersKind] = awayPlayersAttributes
         // Separator
         let separatorKind = MatchCardViewController.Separator.Kind
@@ -383,6 +393,7 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         elements.append(self.suppsInfo[ScoreHeaderReusableView.Collection.Kind.Home]!)
         elements.append(self.suppsInfo[ScoreHeaderReusableView.Collection.Kind.Away]!)        
         elements.append(self.suppsInfo[MatchCardViewController.Separator.Kind]!)
+        elements.append(self.suppsInfo[MatrixCornerReusableView.Collection.Kind]!)
         let totalAttrs = self.suppsInfo[GameTotalsReusableView.Collection.Kind]!
         if (CGRectIntersectsRect(rect, totalAttrs.frame)) {
             elements.append(totalAttrs)

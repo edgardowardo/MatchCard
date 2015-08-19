@@ -105,18 +105,13 @@ class MatchCardModel : PFObject, PFSubclassing {
     @NSManaged var matchEntries : [MatchEntryModel]
     lazy var teams : [TeamInClubModel] = []
     lazy var mockedHomePairs : [PlayerModel] = self.buildMockedPairs(fromPlayingTeam : self.homeTeamBag!)
-    lazy var mockedAwayPairs : [PlayerModel] = self.buildMockedPairs(fromPlayingTeam : self.awayTeamBag, isAway: true)
+    lazy var mockedAwayPairs : [PlayerModel] = self.buildMockedPairs(fromPlayingTeam : self.awayTeamBag)
     // TODO: if the list is changed in edit mode, the above initialisation must be refreshed!
     /* Build the pairs form the current playing team. We know that there are 3 pairs in a team  */
-    func buildMockedPairs(fromPlayingTeam team : TeamInMatchModel, isAway : Bool = false) -> [PlayerModel] {
+    func buildMockedPairs(fromPlayingTeam team : TeamInMatchModel) -> [PlayerModel] {
         var mockedPlayers : [PlayerModel] = []
-        var isMockedScoresExisting = false
         if let players = team.players {
             for var i = 0; i < players.count / 2; i++ {
-                if isAway && isMockedScoresExisting == false {
-                    mockedPlayers.append(buildMockedScores())
-                    isMockedScoresExisting = true
-                }
                 let p1 = team.players?[i*2].player!
                 let p2 = team.players?[i*2 + 1].player!
                 let w = CGFloat(160)
@@ -156,13 +151,6 @@ class MatchCardModel : PFObject, PFSubclassing {
             }
         }
         return mockedPlayers
-    }
-    func buildMockedScores() -> PlayerModel {
-        var image = UIImageView(frame: CGRectMake(0, 0, 70, 70))
-        let division = (Double(homeScore) / Double(9))
-        let percentageIn = Int32( division * 100 )
-        image.applyCircleWithPersentage(percentageIn , andText: "\(self.homeScore):\(self.awayScore)",  andTintColor: UIColor.yellowColor())
-        return PlayerModel(name: "\(String.threeChars(ofString: homeTeamName)) / \(String.threeChars(ofString: awayTeamName))", image: image.image)
     }
     func getAllTeams(fromLeague : LeagueModel) -> [TeamInClubModel] {
         var teams = [TeamInClubModel]()

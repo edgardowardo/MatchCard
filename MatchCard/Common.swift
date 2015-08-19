@@ -38,8 +38,11 @@ class Common {
 }
 
 extension String {
+    static func substring(ofString s : String, withCount : Int)  -> String {
+        return ( count(s) > withCount ? s.substringToIndex(advance(s.startIndex, withCount)) : s )
+    }
     static func threeChars(ofString s : String)  -> String {
-        return ( count(s) > 3 ? s.substringToIndex(advance(s.startIndex, 3)) : s )
+        return String.substring(ofString: s, withCount: 3)
     }
 }
 

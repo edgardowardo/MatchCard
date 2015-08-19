@@ -75,7 +75,6 @@ class MatchPlayersReusableView : UICollectionReusableView {
         }
     }
     var layoutOfMatchCard : LayoutType = .Standard
-    var scoreFadeCount = 0
     override func awakeFromNib() {
         super.awakeFromNib()
         let nibPlayer = UINib(nibName: PlayerViewCell.Collection.Nib, bundle: nil)
@@ -141,7 +140,6 @@ class MatchPlayersReusableView : UICollectionReusableView {
             self.layout = .Edit
             self.shadowRightCasted.hidden = true
         case .Matrix :
-            self.scoreFadeCount = 0
             self.shadowRightCasted.hidden = true
             self.playersCollectionView?.scrollEnabled = false
             self.playersCollectionView?.reloadData()
@@ -212,25 +210,12 @@ extension MatchPlayersReusableView : UICollectionViewDataSource,  UICollectionVi
         if self.layoutOfMatchCard == .Matrix {
             cell.button.backgroundColor = UIColor.clearColor()
             cell.buttonKey.backgroundColor = UIColor.clearColor()
-            var indexAdjustment = 0
-            if (elementKind == MatchPlayersReusableView.Collection.Kind.Home) {
-                indexAdjustment = 1
-            }
-            let index = indexPath.row + indexAdjustment
-            switch index {
+            switch indexPath.row {
             case 0:
-                cell.buttonKey.setTitle("", forState: .Normal)
-                if scoreFadeCount < 2 {
-                    Common.delay(0.4, closure: { () -> () in
-                        cell.fade()
-                        self.scoreFadeCount++
-                    })
-                }
-            case 1:
                 cell.buttonKey.setTitle("A", forState: .Normal)
-            case 2:
+            case 1:
                 cell.buttonKey.setTitle("B", forState: .Normal)
-            case 3:
+            case 2:
                 cell.buttonKey.setTitle("C", forState: .Normal)
             default :
                 assertionFailure("index is out of bounds calculating the cell names")

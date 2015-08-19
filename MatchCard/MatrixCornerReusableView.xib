@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MatrixCornerReusableView" id="q1s-4R-uKc" customClass="MatrixCornerReusableView" customModule="MatchCard" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="80" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Udw-ae-m81" userLabel="Divider Image View">
+                    <rect key="frame" x="0.0" y="0.0" width="80" height="100"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GfX-NL-9Ur" userLabel="Home Team">
+                    <rect key="frame" x="0.0" y="84" width="64" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="16" id="NXb-BB-LLL"/>
+                        <constraint firstAttribute="width" constant="64" id="cJs-BI-nYi"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="13"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BmU-ck-84b" userLabel="AwayScore">
+                    <rect key="frame" x="48" y="17" width="21" height="36"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="36" id="0wf-ft-YqZ"/>
+                        <constraint firstAttribute="width" constant="21" id="1sW-Xu-fqU"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="30"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F3e-IS-kIk" userLabel="Home Team">
+                    <rect key="frame" x="16" y="0.0" width="64" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="16" id="Duz-Qu-G2y"/>
+                        <constraint firstAttribute="width" constant="64" id="SHT-xd-wey"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="13"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zEI-4g-LY1" userLabel="Invisible Center View">
+                    <rect key="frame" x="39" y="0.0" width="1" height="100"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="1" id="Sp4-mc-ZIf"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="X" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="djv-AW-udz" userLabel="HomeScore">
+                    <rect key="frame" x="11" y="47" width="21" height="36"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="21" id="0sa-LP-vxb"/>
+                        <constraint firstAttribute="height" constant="36" id="DiZ-ss-Piu"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="30"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="BmU-ck-84b" secondAttribute="trailing" id="1N3-M3-sW7"/>
+                <constraint firstItem="BmU-ck-84b" firstAttribute="top" secondItem="F3e-IS-kIk" secondAttribute="bottom" constant="1" id="58P-wY-6eb"/>
+                <constraint firstAttribute="bottom" secondItem="zEI-4g-LY1" secondAttribute="bottom" id="HOv-6R-WWG"/>
+                <constraint firstItem="BmU-ck-84b" firstAttribute="leading" secondItem="zEI-4g-LY1" secondAttribute="trailing" constant="8" id="KOd-36-LtB"/>
+                <constraint firstItem="djv-AW-udz" firstAttribute="leading" secondItem="q1s-4R-uKc" secondAttribute="leading" id="Rhd-yc-Tsb"/>
+                <constraint firstItem="BmU-ck-84b" firstAttribute="top" secondItem="F3e-IS-kIk" secondAttribute="bottom" constant="1" id="Vfo-xK-vd8"/>
+                <constraint firstItem="GfX-NL-9Ur" firstAttribute="leading" secondItem="q1s-4R-uKc" secondAttribute="leading" id="Zrd-tQ-Q3q"/>
+                <constraint firstItem="zEI-4g-LY1" firstAttribute="leading" secondItem="djv-AW-udz" secondAttribute="trailing" constant="7" id="ebR-JH-VdF"/>
+                <constraint firstAttribute="trailing" secondItem="F3e-IS-kIk" secondAttribute="trailing" id="oAT-eP-twE"/>
+                <constraint firstItem="F3e-IS-kIk" firstAttribute="top" secondItem="q1s-4R-uKc" secondAttribute="top" id="oUW-Ul-VSF"/>
+                <constraint firstAttribute="centerX" secondItem="zEI-4g-LY1" secondAttribute="centerX" id="ous-wE-m7P"/>
+                <constraint firstItem="GfX-NL-9Ur" firstAttribute="top" secondItem="djv-AW-udz" secondAttribute="bottom" constant="1" id="upJ-O8-uO1"/>
+                <constraint firstAttribute="bottom" secondItem="GfX-NL-9Ur" secondAttribute="bottom" id="vwQ-Sl-BMF"/>
+                <constraint firstItem="zEI-4g-LY1" firstAttribute="top" secondItem="q1s-4R-uKc" secondAttribute="top" id="z93-LI-fEG"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="Rhd-yc-Tsb"/>
+                    <exclude reference="1N3-M3-sW7"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="awayScore" destination="BmU-ck-84b" id="hdJ-An-0ym"/>
+                <outlet property="awayTeam" destination="F3e-IS-kIk" id="5uV-pT-lXi"/>
+                <outlet property="diagonalLineImage" destination="Udw-ae-m81" id="HVq-Uz-wig"/>
+                <outlet property="homeScore" destination="djv-AW-udz" id="Ptl-kr-WfD"/>
+                <outlet property="homeTeam" destination="GfX-NL-9Ur" id="QGl-NT-Sgc"/>
+            </connections>
+            <point key="canvasLocation" x="704" y="294"/>
+        </collectionReusableView>
+    </objects>
+</document>

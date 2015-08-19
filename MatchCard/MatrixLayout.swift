@@ -28,10 +28,21 @@ class MatrixLayout : MatchCardStandardLayout {
     override func prepareLayoutForHeaderViews() -> CGFloat {
         var someTotalHeight = super.prepareLayoutForHeaderViews()
         super.prepareLayoutForFooterViews()
+        
+        // Corner
+        var cornerAttributes = self.suppsInfo[MatrixCornerReusableView.Collection.Kind]!
+        cornerAttributes.alpha = CGFloat(1)
+        cornerAttributes.frame = CGRectMake(0, yOfAwayPlayersView(), cornerSize().width, cornerSize().height)
+        
+        // Change away players
         var awayPlayersAttrs = self.suppsInfo[MatchPlayersReusableView.Collection.Kind.Away]!
-        awayPlayersAttrs.frame = CGRectMake(0, yOfAwayPlayersView(), awayPlayersSize().width, awayPlayersSize().height)
+        let xOfAway = homePlayersSize().width 
+        awayPlayersAttrs.frame = CGRectMake(xOfAway, yOfAwayPlayersView(), awayPlayersSize().width, awayPlayersSize().height)
+        
+        // Change home players
         var homePlayersAttrs = self.suppsInfo[MatchPlayersReusableView.Collection.Kind.Home]!
         homePlayersAttrs.frame = CGRectMake(0, yOfHomePlayersView(), homePlayersSize().width, homePlayersSize().height)
+        
         // don't add home because it's a vertical view running along item cells
         return someTotalHeight + awayPlayersSize().height
     }

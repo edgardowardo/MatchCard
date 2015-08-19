@@ -24,6 +24,8 @@
 		773BC1041B39B7700062CC4C /* MatchHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773BC1031B39B7700062CC4C /* MatchHeaderReusableView.swift */; };
 		773BC1061B39B8320062CC4C /* MatchHeaderReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 773BC1051B39B8320062CC4C /* MatchHeaderReusableView.xib */; };
 		775382B11B62633800C4802D /* PlayerRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775382B01B62633800C4802D /* PlayerRegistrationViewController.swift */; };
+		775F4E6D1B8496920053D787 /* MatrixCornerReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 775F4E6C1B8496920053D787 /* MatrixCornerReusableView.xib */; };
+		775F4E6F1B8496B50053D787 /* MatrixCornerReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775F4E6E1B8496B50053D787 /* MatrixCornerReusableView.swift */; };
 		7764714A1B7A516F008037F9 /* GameTotalsReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 776471491B7A516F008037F9 /* GameTotalsReusableView.xib */; };
 		7764714C1B7A5214008037F9 /* GameTotalsReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7764714B1B7A5214008037F9 /* GameTotalsReusableView.swift */; };
 		776DDC9D1B57F2B400AB571F /* MatchPlayersStandardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776DDC9C1B57F2B400AB571F /* MatchPlayersStandardLayout.swift */; };
@@ -95,6 +97,8 @@
 		773BC1031B39B7700062CC4C /* MatchHeaderReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchHeaderReusableView.swift; sourceTree = "<group>"; };
 		773BC1051B39B8320062CC4C /* MatchHeaderReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MatchHeaderReusableView.xib; sourceTree = "<group>"; };
 		775382B01B62633800C4802D /* PlayerRegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerRegistrationViewController.swift; sourceTree = "<group>"; };
+		775F4E6C1B8496920053D787 /* MatrixCornerReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MatrixCornerReusableView.xib; sourceTree = "<group>"; };
+		775F4E6E1B8496B50053D787 /* MatrixCornerReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatrixCornerReusableView.swift; sourceTree = "<group>"; };
 		776471491B7A516F008037F9 /* GameTotalsReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameTotalsReusableView.xib; sourceTree = "<group>"; };
 		7764714B1B7A5214008037F9 /* GameTotalsReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTotalsReusableView.swift; sourceTree = "<group>"; };
 		776DDC9C1B57F2B400AB571F /* MatchPlayersStandardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchPlayersStandardLayout.swift; sourceTree = "<group>"; };
@@ -176,8 +180,21 @@
 				773BC1051B39B8320062CC4C /* MatchHeaderReusableView.xib */,
 				777A7A251B3B1CFD00FF9342 /* ScoreHeaderReusableView.swift */,
 				777A7A271B3B1F3300FF9342 /* ScoreHeaderReusableView.xib */,
+				775F4E6E1B8496B50053D787 /* MatrixCornerReusableView.swift */,
+				775F4E6C1B8496920053D787 /* MatrixCornerReusableView.xib */,
 			);
 			name = Headers;
+			sourceTree = "<group>";
+		};
+		775F4E9E1B84D2000053D787 /* Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				770784B81B24EA1F00C96B40 /* MatchCardStandardLayout.swift */,
+				7725833E1B5ADC10006117C1 /* HomePlayersLayout.swift */,
+				776E05671B59B6C0003B2D2E /* AwayPlayersLayout.swift */,
+				778B38CE1B7AD494009483FA /* MatrixLayout.swift */,
+			);
+			name = Layouts;
 			sourceTree = "<group>";
 		};
 		77ACC7A11B264FED0078C6FA /* Common */ = {
@@ -308,11 +325,8 @@
 				7764714B1B7A5214008037F9 /* GameTotalsReusableView.swift */,
 				776471491B7A516F008037F9 /* GameTotalsReusableView.xib */,
 				77FA4B471B277D4E0093C5CB /* GameEntryEditLayout.swift */,
-				7725833E1B5ADC10006117C1 /* HomePlayersLayout.swift */,
-				776E05671B59B6C0003B2D2E /* AwayPlayersLayout.swift */,
-				778B38CE1B7AD494009483FA /* MatrixLayout.swift */,
-				770784B81B24EA1F00C96B40 /* MatchCardStandardLayout.swift */,
 				77EB9D931B225A4B00DD93D9 /* MatchCardViewController.swift */,
+				775F4E9E1B84D2000053D787 /* Layouts */,
 			);
 			name = MatchCard;
 			sourceTree = "<group>";
@@ -430,6 +444,7 @@
 				7764714A1B7A516F008037F9 /* GameTotalsReusableView.xib in Resources */,
 				7771CE801B283D5C00EA3D09 /* Config.plist in Resources */,
 				77D69B551B16394E0053EB10 /* Images.xcassets in Resources */,
+				775F4E6D1B8496920053D787 /* MatrixCornerReusableView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -530,6 +545,7 @@
 				7725833F1B5ADC10006117C1 /* HomePlayersLayout.swift in Sources */,
 				77EB9D921B224B1E00DD93D9 /* GameEntryCell.swift in Sources */,
 				778B38CF1B7AD494009483FA /* MatrixLayout.swift in Sources */,
+				775F4E6F1B8496B50053D787 /* MatrixCornerReusableView.swift in Sources */,
 				770784B71B24725900C96B40 /* MatchPlayersReusableView.swift in Sources */,
 				776E05661B599766003B2D2E /* PlayersInputController.swift in Sources */,
 				7771D8831B3DA01300C24FF9 /* DataManager.swift in Sources */,
