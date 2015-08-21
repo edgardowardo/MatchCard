@@ -15,6 +15,16 @@ class AwayPlayersLayout : MatchCardStandardLayout {
             return 0.1
         }
     }
+    override func prepareLayoutForHeaderViews() -> CGFloat {
+        let height = super.prepareLayoutForHeaderViews()
+        var headerAttributes = self.suppsInfo[MatchHeaderReusableView.Collection.Kind]!
+        headerAttributes.alpha = 0
+        var scoreHomeAttributes = self.suppsInfo[ScoreHeaderReusableView.Collection.Kind.Home]!
+        scoreHomeAttributes.frame.origin.x -= scoreHomeAttributes.frame.size.width
+        var scoreAwayAttributes = self.suppsInfo[ScoreHeaderReusableView.Collection.Kind.Away]!
+        scoreAwayAttributes.frame.origin.x += scoreAwayAttributes.frame.size.width
+        return height
+    }
     override func prepareLayoutForFooterViews() {
         super.prepareLayoutForFooterViews()
         var yOffset : CGFloat? = self.collectionView?.contentOffset.y

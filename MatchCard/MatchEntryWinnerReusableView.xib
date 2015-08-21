@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MatchEntryWinnerReusableView" id="OjS-45-0Rb" customClass="MatchEntryWinnerReusableView" customModule="MatchCard" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="80" height="160"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6op-6b-Xrw" userLabel="Left Medal">
+                    <rect key="frame" x="0.0" y="130" width="15" height="15"/>
+                    <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="15" id="hip-Wk-myq"/>
+                        <constraint firstAttribute="width" constant="15" id="y43-IS-FB6"/>
+                    </constraints>
+                    <state key="normal" image="icon-medal">
+                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Result" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ESZ-S4-NwL" userLabel="Winner Text">
+                    <rect key="frame" x="19" y="128" width="61" height="19"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="19" id="mpU-6P-vV6"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="16"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="ESZ-S4-NwL" secondAttribute="bottom" constant="13" id="6OX-Iv-2nC"/>
+                <constraint firstItem="ESZ-S4-NwL" firstAttribute="leading" secondItem="6op-6b-Xrw" secondAttribute="trailing" constant="4" id="O0o-sf-99z"/>
+                <constraint firstAttribute="trailing" secondItem="ESZ-S4-NwL" secondAttribute="trailing" id="aLe-FI-KUo"/>
+                <constraint firstItem="6op-6b-Xrw" firstAttribute="leading" secondItem="OjS-45-0Rb" secondAttribute="leading" id="gbX-U1-Kfi"/>
+                <constraint firstAttribute="bottom" secondItem="6op-6b-Xrw" secondAttribute="bottom" constant="15" id="hZP-hR-klU"/>
+            </constraints>
+            <connections>
+                <outlet property="leftMedal" destination="6op-6b-Xrw" id="TBy-vr-Yhd"/>
+                <outlet property="winnerText" destination="ESZ-S4-NwL" id="ZgR-i4-ulm"/>
+            </connections>
+            <point key="canvasLocation" x="17" y="113"/>
+        </collectionReusableView>
+    </objects>
+    <resources>
+        <image name="icon-medal" width="40" height="40"/>
+    </resources>
+</document>

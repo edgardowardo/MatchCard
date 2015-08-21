@@ -32,7 +32,7 @@ class MatchPlayersReusableView : UICollectionReusableView {
                 }
                 struct Home {
                     static let Width = CGFloat(UIScreen.mainScreen().bounds.size.width / 4)
-                    static let Height = GameEntryCell.Collection.Default.Cell.Height * 9
+                    static let Height = GameEntryCell.Collection.Default.Cell.Height * (9 + 3 + 4)
                     static let Size = CGSizeMake(Width, Height)
                 }
             }
@@ -125,6 +125,7 @@ class MatchPlayersReusableView : UICollectionReusableView {
     }
     @objc private func methodOfReceivedNotification_SetLayout(notification : NSNotification){
         self.playersCollectionView?.scrollEnabled = true
+        
         var vc = notification.object as! MatchCardViewController
         self.layoutOfMatchCard = vc.layout
         switch vc.layout {
@@ -144,7 +145,7 @@ class MatchPlayersReusableView : UICollectionReusableView {
             self.playersCollectionView?.scrollEnabled = false
             self.playersCollectionView?.reloadData()
             if self.elementKind == MatchPlayersReusableView.Collection.Kind.Home {
-                self.layout = .MatrixHomePlayers
+                self.layout = .MatrixHomePlayers                
             } else if self.elementKind == MatchPlayersReusableView.Collection.Kind.Away {
                 self.layout = .MatrixAwayPlayers
             }

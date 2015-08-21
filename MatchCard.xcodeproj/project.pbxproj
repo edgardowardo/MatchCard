@@ -53,6 +53,8 @@
 		77ACC7A51B2709CC0078C6FA /* GameEntryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77ACC7A41B2709CC0078C6FA /* GameEntryCell.xib */; };
 		77BC54C51B1C9BC80046F3C4 /* RightAlignedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BC54C41B1C9BC80046F3C4 /* RightAlignedCollectionViewCell.swift */; };
 		77BE570B1B17B4A400E88630 /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77BE570A1B17B4A400E88630 /* PlayerModel.swift */; };
+		77C3A94F1B84F62B00B54B94 /* MatchEntryWinnerReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C3A94E1B84F62B00B54B94 /* MatchEntryWinnerReusableView.swift */; };
+		77C3A9511B84F66800B54B94 /* MatchEntryWinnerReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77C3A9501B84F66800B54B94 /* MatchEntryWinnerReusableView.xib */; };
 		77CA0D561B6B636F00A898C1 /* EntryAnnotationAwayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77CA0D551B6B636F00A898C1 /* EntryAnnotationAwayView.xib */; };
 		77D69B4E1B16394E0053EB10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D69B4D1B16394E0053EB10 /* AppDelegate.swift */; };
 		77D69B531B16394E0053EB10 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77D69B511B16394E0053EB10 /* Main.storyboard */; };
@@ -127,6 +129,8 @@
 		77BC54C21B1C8D0E0046F3C4 /* MatchCard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MatchCard-Bridging-Header.h"; sourceTree = "<group>"; };
 		77BC54C41B1C9BC80046F3C4 /* RightAlignedCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightAlignedCollectionViewCell.swift; sourceTree = "<group>"; };
 		77BE570A1B17B4A400E88630 /* PlayerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
+		77C3A94E1B84F62B00B54B94 /* MatchEntryWinnerReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchEntryWinnerReusableView.swift; sourceTree = "<group>"; };
+		77C3A9501B84F66800B54B94 /* MatchEntryWinnerReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MatchEntryWinnerReusableView.xib; sourceTree = "<group>"; };
 		77CA0D551B6B636F00A898C1 /* EntryAnnotationAwayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EntryAnnotationAwayView.xib; sourceTree = "<group>"; };
 		77D69B481B16394E0053EB10 /* MatchCard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MatchCard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77D69B4C1B16394E0053EB10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -190,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				770784B81B24EA1F00C96B40 /* MatchCardStandardLayout.swift */,
+				77FA4B471B277D4E0093C5CB /* GameEntryEditLayout.swift */,
 				7725833E1B5ADC10006117C1 /* HomePlayersLayout.swift */,
 				776E05671B59B6C0003B2D2E /* AwayPlayersLayout.swift */,
 				778B38CE1B7AD494009483FA /* MatrixLayout.swift */,
@@ -324,7 +329,8 @@
 				77CA0D551B6B636F00A898C1 /* EntryAnnotationAwayView.xib */,
 				7764714B1B7A5214008037F9 /* GameTotalsReusableView.swift */,
 				776471491B7A516F008037F9 /* GameTotalsReusableView.xib */,
-				77FA4B471B277D4E0093C5CB /* GameEntryEditLayout.swift */,
+				77C3A94E1B84F62B00B54B94 /* MatchEntryWinnerReusableView.swift */,
+				77C3A9501B84F66800B54B94 /* MatchEntryWinnerReusableView.xib */,
 				77EB9D931B225A4B00DD93D9 /* MatchCardViewController.swift */,
 				775F4E9E1B84D2000053D787 /* Layouts */,
 			);
@@ -440,6 +446,7 @@
 				773BC0FF1B38A4390062CC4C /* PlayerViewCell.xib in Resources */,
 				77ACC7A51B2709CC0078C6FA /* GameEntryCell.xib in Resources */,
 				77A8BAF91B6E470500FF086F /* icon-badminton in Resources */,
+				77C3A9511B84F66800B54B94 /* MatchEntryWinnerReusableView.xib in Resources */,
 				77D69B581B16394E0053EB10 /* LaunchScreen.xib in Resources */,
 				7764714A1B7A516F008037F9 /* GameTotalsReusableView.xib in Resources */,
 				7771CE801B283D5C00EA3D09 /* Config.plist in Resources */,
@@ -517,6 +524,7 @@
 				77A446F91B418C45000C5A6B /* ContainerViewController.swift in Sources */,
 				779864041B1CC7C400B3B748 /* PlayerInMatchModel.swift in Sources */,
 				779C79341B1F42C100EE68AE /* ClubModel.swift in Sources */,
+				77C3A94F1B84F62B00B54B94 /* MatchEntryWinnerReusableView.swift in Sources */,
 				770F02631B73AE7F00F597C7 /* MatchEntryModel.swift in Sources */,
 				777B5E741B20BA7B00F19B8B /* GameEntryModel.swift in Sources */,
 				77EFCA381B1BEAFC00779BAF /* MatchCardModel.swift in Sources */,

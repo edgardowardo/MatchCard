@@ -53,7 +53,9 @@ class HomePlayersMatrixLayout : MatchPlayersStandardLayout {
     override init() {
         super.init()
         scrollDirection = .Vertical
-        minimumLineSpacing = CGFloat(50) // TODO: calculate depending on screen size! and adjusted with the text result of a match entry result
+        minimumLineSpacing = CGFloat(80)
+        let topMargin = (MatchEntryWinnerReusableView.Collection.Cell.Height / 5) + (GameEntryCell.Collection.Default.Cell.Height * 4)
+        sectionInset = UIEdgeInsetsMake(topMargin, 0, 0, 0)
     }
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

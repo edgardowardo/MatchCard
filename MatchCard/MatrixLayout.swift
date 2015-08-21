@@ -41,7 +41,8 @@ class MatrixLayout : MatchCardStandardLayout {
         
         // Change home players
         var homePlayersAttrs = self.suppsInfo[MatchPlayersReusableView.Collection.Kind.Home]!
-        homePlayersAttrs.frame = CGRectMake(0, yOfHomePlayersView(), homePlayersSize().width, homePlayersSize().height)
+        let yHomeAdjustment = GameEntryCell.Collection.Default.Cell.Height * 4
+        homePlayersAttrs.frame = CGRectMake(0, yOfHomePlayersView() - yHomeAdjustment, homePlayersSize().width, homePlayersSize().height)
         
         // don't add home because it's a vertical view running along item cells
         return someTotalHeight + awayPlayersSize().height
@@ -52,17 +53,32 @@ class MatrixLayout : MatchCardStandardLayout {
         return headerSummarySize().height + scoreSize().height - statusBarHeight + awayPlayersSize().height
     }
     
-    override func yOfAwayPlayersView(_ proposedContentOffset: CGPoint? = nil) -> CGFloat {
+    override func targetContentOffsetAdjustment(proposedContentOffset: CGPoint) -> CGPoint {
+        var newContentOffset = super.targetContentOffsetAdjustment(proposedContentOffset)
         let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.size.height
-        var y = yOfScoreView(proposedContentOffset) + scoreSize().height
-        var yOffset = self.collectionView?.contentOffset.y
-        if (proposedContentOffset != nil) {
-            yOffset = proposedContentOffset?.y
+        let upperLimit = headerSummarySize().height + scoreSize().height  - (statusBarHeight * 2)
+        let midLimit = upperLimit - (scoreSize().height / 2)
+        let lowLimit = headerSummarySize().height - (statusBarHeight * 2)
+        if (newContentOffset.y >= midLimit && newContentOffset.y < upperLimit) {
+            newContentOffset.y = upperLimit
+        } else if (newContentOffset.y >= lowLimit && newContentOffset.y < midLimit) {
+            newContentOffset.y = lowLimit
         }
-        // If pushed upwards, don't let it disappear from the screen nor past the score headers
-        if (yOffset >= headerSummarySize().height + scoreSize().height
-            && self.layout != .Edit ) {
-            y = yOffset! + statusBarHeight + scoreSize().height
+        return newContentOffset
+    }
+    
+    override func yOfAwayPlayersView(_ proposedContentOffset: CGPoint? = nil) -> CGFloat {
+        var offset = self.collectionView?.contentOffset
+        if (proposedContentOffset != nil) {
+            offset = proposedContentOffset!
+        }
+        let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.size.height
+        let upperLimit = headerSummarySize().height + scoreSize().height  - (statusBarHeight * 2)
+        var y = headerSummarySize().height + scoreSize().height  - statusBarHeight
+        if offset!.y >= upperLimit  { // prevent from being pushed out of the status bar
+            y = offset!.y + statusBarHeight
+        } else if offset!.y < 0 { // prevent from being pulled away from score headers
+            y = yOfScoreView(offset) + scoreSize().height
         }
         return y
     }
@@ -79,10 +95,18 @@ class MatrixLayout : MatchCardStandardLayout {
     override func didPrepareLayoutForFooterViews() {
     }
     
-    override func didPrepareSection(section: Int) {
+    override func didPrepareSection(section: Int, withSectionAttributes sectionAttrs : UICollectionViewLayoutAttributes) {
         if (section + 1) % 3 == 0 {
-            self.totalHeight += cellSize().height * 3
+            self.totalHeight += cellSize().height * 4
         }
+        
+        // calculate the correct X origin within the matrix.
+        let widthQuarter = UIScreen.mainScreen().bounds.size.width / 4
+        let xFactor = CGFloat( (section) % 3 )
+        let xAdjustment = widthQuarter
+        let x = xAdjustment + xFactor * widthQuarter
+        sectionAttrs.frame.origin.x = x
+        sectionAttrs.alpha = 1
     }
     
     override func didSetCellAttributes(attrs: UICollectionViewLayoutAttributes, withIndexPath indexPath: NSIndexPath) {
@@ -96,6 +120,18 @@ class MatrixLayout : MatchCardStandardLayout {
         var newRect = CGRectMake(x , y , cellSize().width, cellSize().height)
         attrs.frame = newRect
     }
-    
+    override func collectionViewContentSize() -> CGSize {
+        let count : Int? = collectionView?.numberOfItemsInSection(0)
+        let numSections = collectionView?.numberOfSections()
+        let cellSize = self.cellSize()
+        
+        // allow auto scrolling upon matrix layout. problem is in iPhone6 and + there's too much space...
+        var heightAdjustment = headerSummarySize().height +  scoreSize().height - 20
+        let threshold = totalHeight - heightAdjustment
+        if UIScreen.mainScreen().bounds.size.height < threshold {
+            heightAdjustment = 0
+        }
+        return CGSizeMake(UIScreen.mainScreen().bounds.size.width, self.totalHeight + heightAdjustment)
+    }
 }
 

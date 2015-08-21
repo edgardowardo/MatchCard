@@ -107,6 +107,7 @@ class MatchCardViewController : UIViewController {
         let nibPlayers = UINib(nibName: MatchPlayersReusableView.Collection.Nib, bundle: nil)
         let nibTotals = UINib(nibName: GameTotalsReusableView.Collection.Nib, bundle: nil)
         let nibCorner = UINib(nibName: MatrixCornerReusableView.Collection.Nib, bundle: nil)
+        let nibMatchEntry = UINib(nibName: MatchEntryWinnerReusableView.Collection.Nib, bundle: nil)
         matchCardCollectionView?.scrollsToTop = true
         matchCardCollectionView?.delegate = self
         matchCardCollectionView?.dataSource = self
@@ -121,6 +122,7 @@ class MatchCardViewController : UIViewController {
         matchCardCollectionView?.registerNib(nibTotals, forSupplementaryViewOfKind: GameTotalsReusableView.Collection.Kind, withReuseIdentifier: GameTotalsReusableView.Collection.ReuseIdentifier)
         matchCardCollectionView?.registerClass(UICollectionReusableView.self , forSupplementaryViewOfKind: Separator.Kind, withReuseIdentifier: Separator.ReuseIdentifier)
         matchCardCollectionView?.registerNib(nibCorner, forSupplementaryViewOfKind: MatrixCornerReusableView.Collection.Kind, withReuseIdentifier: MatrixCornerReusableView.Collection.ReuseIdentifier)        
+        matchCardCollectionView?.registerNib(nibMatchEntry, forSupplementaryViewOfKind: MatchEntryWinnerReusableView.Collection.Kind, withReuseIdentifier: MatchEntryWinnerReusableView.Collection.ReuseIdentifier)
         matchCardCollectionView?.setCollectionViewLayout(MatchCardStandardLayout(), animated: false)
         if Common.showColorBounds() == false {
             matchCardCollectionView?.backgroundColor = UIColor.clearColor()
@@ -282,11 +284,11 @@ class MatchCardViewController : UIViewController {
         
         // Scroll up to to hide upper header and reclaim space
         let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.size.height
-        let headerHeight = MatchHeaderReusableView.Collection.Cell.Size.height
+        let headersHeight = MatchHeaderReusableView.Collection.Cell.Size.height + ScoreHeaderReusableView.Collection.Cell.Size.height
         let screenHeight = UIScreen.mainScreen().bounds.size.height
-        let point = CGPointMake(0, (headerHeight - statusBarHeight*2 ))
+        let point = CGPointMake(0, (headersHeight - statusBarHeight*2 ))
         Common.delay(0.4, closure: { () -> () in
-            self.matchCardCollectionView?.scrollRectToVisible(CGRectMake(0, screenHeight + headerHeight - statusBarHeight*2, 1, 1), animated: true)
+            self.matchCardCollectionView?.scrollRectToVisible(CGRectMake(0, screenHeight + headersHeight - statusBarHeight*2, 1, 1), animated: true)
             ContainerViewController.isPannable = false
             self.matchCardCollectionView?.reloadData()
         })
@@ -787,17 +789,13 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
         case MatchPlayersReusableView.Collection.Kind.Away :
             var awayPlayers = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchPlayersReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! MatchPlayersReusableView
             awayPlayers.delegate = self            
-            awayPlayers.layer.zPosition = 20
             ToolTipManager.sharedInstance.needsDisplayTipView(ToolTipManager.Keys.PlayerPosition, forView: awayPlayers, withinSuperview: collectionView)
             return awayPlayers
         // Players - Home
         case MatchPlayersReusableView.Collection.Kind.Home :
             var homePlayers = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchPlayersReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! MatchPlayersReusableView
             homePlayers.elementKind = kind
-            if self.layout == .Matrix {
-                homePlayers.layer.zPosition = 9
-            } else {
-                homePlayers.layer.zPosition = 20
+            if self.layout != .Matrix {
                 homePlayers.playersCollectionView!.transform = CGAffineTransformMakeScale(-1, 1) // right align
             }
             homePlayers.delegate = self
@@ -811,7 +809,6 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
             headerView.location.text = matchCard.location
             headerView.date.text = matchCard.dateString
             ToolTipManager.sharedInstance.needsDisplayTipView(ToolTipManager.Keys.MapPin, forView: headerView.locationButton, withinSuperview: collectionView)
-            headerView.layer.zPosition = 10
             return headerView
         // Score header - Home
         case ScoreHeaderReusableView.Collection.Kind.Home :
@@ -819,7 +816,6 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
             scoreHomeView.score.text = "\(matchCard.homeScore)"
             scoreHomeView.teamName.text = matchCard.homeTeamName
             scoreHomeView.kind = kind
-            scoreHomeView.layer.zPosition = 10
             return scoreHomeView
         // Score header - Away
         case ScoreHeaderReusableView.Collection.Kind.Away :
@@ -827,7 +823,6 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
             scoreAwayView.score.text = "\(matchCard.awayScore)"
             scoreAwayView.teamName.text = matchCard.awayTeamName
             scoreAwayView.kind = kind
-            scoreAwayView.layer.zPosition = 10
             return scoreAwayView
         // Game Totals Footer
         case GameTotalsReusableView.Collection.Kind :
@@ -842,10 +837,15 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
             corner.homeTeam.text = "\(String.substring(ofString: matchCard.homeTeamName, withCount: 4))(Home)"
             corner.awayScore.text = "\(matchCard.awayScore)"
             corner.awayTeam.text = "\(String.substring(ofString: matchCard.awayTeamName, withCount: 4))(Away)"
-            corner.layer.zPosition = 20
             return corner
+        // Match Entry Results
+        case MatchEntryWinnerReusableView.Collection.Kind :
+            var entry = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MatchEntryWinnerReusableView.Collection.ReuseIdentifier, forIndexPath: indexPath) as! MatchEntryWinnerReusableView
+            entry.data = matchCard.matchEntries[indexPath.section]
+            entry.updateBackgroundColorWithSection(indexPath.section)
+            return entry
         default :
-            assertionFailure("")
+            assertionFailure("you're not the right kind!")
             return UICollectionReusableView()
         }
     }

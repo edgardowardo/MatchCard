@@ -473,7 +473,7 @@ class DataManager {
             ClubModel(latitude : 53.445897, longitude : -2.248568, name : "Dome"),
             ClubModel(latitude : 53.367823, longitude : -2.158017, name : "Edgeley"),
             ClubModel(latitude : 53.419537, longitude : -2.339000, name : "Forest"),
-            ClubModel(latitude : 53.457945, longitude : -2.234832, name : "Shire", teams : [TeamInClubModel("Shire1", players : teamShire1Players), TeamInClubModel("Shire2"), TeamInClubModel("Shire3")], players:clubShirePlayers),
+            ClubModel(latitude : 53.457945, longitude : -2.234832, name : "Shire", teams : [TeamInClubModel("Shire12345", players : teamShire1Players), TeamInClubModel("Shire2"), TeamInClubModel("Shire3")], players:clubShirePlayers),
             ClubModel(latitude : 53.561111, longitude : -2.272721, name : "Heys", teams : [TeamInClubModel("Heys-A"), TeamInClubModel("Heys-B" , players:teamHeysBPlayers), TeamInClubModel("Heys-C")], players: clubHeysPlayers),
             ClubModel(latitude : 53.485997, longitude : -2.140424, name : "Medlock"),
             ClubModel(latitude : 53.468822, longitude : -2.365570, name : "Nomad"),
