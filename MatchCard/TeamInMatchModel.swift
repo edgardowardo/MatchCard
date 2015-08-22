@@ -41,6 +41,7 @@ class TeamInMatchModel : PFObject, PFSubclassing {
                 self["team"] = NSNull()
             }
             self.clearPlayerModels()
+            NSNotificationCenter.defaultCenter().postNotificationName(DataManager.Notification.Identifier.DidsetTeam, object: self)
         }
     }
     @NSManaged var total : Int

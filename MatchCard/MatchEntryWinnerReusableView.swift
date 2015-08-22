@@ -46,6 +46,8 @@ class MatchEntryWinnerReusableView : UICollectionReusableView {
             winnerText.text = String.substring(ofString: matchCard.homeTeamName, withCount: 7)
         } else if data?.awayToken > 0 {
             winnerText.text = String.substring(ofString: matchCard.awayTeamName, withCount: 7)
+        } else {
+            winnerText.text = "Result"
         }
     }
     

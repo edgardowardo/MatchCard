@@ -51,6 +51,7 @@ class MatchCardModel : PFObject, PFSubclassing {
             self.registerSubclass()
         }
     }
+    var isMockedPairsBuildable = false
     var league : LeagueModel? {
         get {
             return self["league"] as? LeagueModel
@@ -63,6 +64,7 @@ class MatchCardModel : PFObject, PFSubclassing {
                 self["league"] = NSNull()
                 self.teams = []
             }
+            self.tryRebuildingMockedPairs()
         }
     }
     var homeClub : ClubInLeagueModel? {
@@ -106,14 +108,33 @@ class MatchCardModel : PFObject, PFSubclassing {
     lazy var teams : [TeamInClubModel] = []
     lazy var mockedHomePairs : [PlayerModel] = self.buildMockedPairs(fromPlayingTeam : self.homeTeamBag!)
     lazy var mockedAwayPairs : [PlayerModel] = self.buildMockedPairs(fromPlayingTeam : self.awayTeamBag)
-    // TODO: if the list is changed in edit mode, the above initialisation must be refreshed!
+
+    /* Rebuilds are called from property observers that listens to match card changes */
+    func tryRebuildingMockedPairs() {
+        if let ct = self.cardType {
+            if ct == .RoundRobin && isMockedPairsBuildable {
+                self.mockedAwayPairs = self.buildMockedPairs(fromPlayingTeam : self.awayTeamBag)
+                self.mockedHomePairs = self.buildMockedPairs(fromPlayingTeam : self.homeTeamBag!)
+            }
+        }
+    }
     /* Build the pairs form the current playing team. We know that there are 3 pairs in a team  */
     func buildMockedPairs(fromPlayingTeam team : TeamInMatchModel) -> [PlayerModel] {
         var mockedPlayers : [PlayerModel] = []
         if let players = team.players {
             for var i = 0; i < players.count / 2; i++ {
-                let p1 = team.players?[i*2].player!
-                let p2 = team.players?[i*2 + 1].player!
+                let p1 : PlayerModel?
+                if let p = team.players?[i*2].player {
+                    p1 = p
+                } else {
+                    p1 = PlayerModel(name: "nil", image: nil)
+                }
+                let p2 : PlayerModel?
+                if let p = team.players?[i*2 + 1].player {
+                    p2 = p
+                } else {
+                    p2 = PlayerModel(name : "nil", image: nil)
+                }
                 let w = CGFloat(160)
                 let h = CGFloat(160)
                 

@@ -36,6 +36,18 @@ class PlayerInMatchModel : PFObject, PFSubclassing {
         self.key = key
     }
     
-    @NSManaged var player : PlayerModel?
+    var player : PlayerModel? {
+        get {
+            return self["player"] as? PlayerModel
+        }
+        set {
+            if let t = newValue {
+                self["player"] = t
+            } else {
+                self["player"] = NSNull()
+            }
+            NSNotificationCenter.defaultCenter().postNotificationName(DataManager.Notification.Identifier.DidsetPlayer, object: self)
+        }
+    }
     @NSManaged var key : String
 }

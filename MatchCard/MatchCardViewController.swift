@@ -183,8 +183,7 @@ class MatchCardViewController : UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillBeHidden:"), name: UIKeyboardWillHideNotification, object: nil)
     }
     override func viewWillDisappear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     // MARK: Helpers so as not to overlap the match entry cell against the keyboard
@@ -438,6 +437,9 @@ class MatchCardViewController : UIViewController {
 
 extension MatchCardViewController: SidePanelViewControllerDelegate {
     func itemSelected(item: MenuItem) {
+        if self.layout == .Matrix {
+            self.layout = .Standard
+        }
         var reload = true
         switch item.type {
         case .LoadSample :
@@ -468,8 +470,16 @@ extension MatchCardViewController: SidePanelViewControllerDelegate {
             reload = false
         }
         if reload {
-            matchCardCollectionView?.reloadData()
-            NSNotificationCenter.defaultCenter().postNotificationName(MatchPlayersReusableView.Notification.Identifier.Reload, object: nil)
+            // delay reload as processing above may not be complete, and hence reload won't work.
+            let matchCard = DataManager.sharedInstance.matchCard
+            var delay = 0.0
+            if matchCard.cardType == .RoundRobin {
+                delay = 0.5
+            }
+            Common.delay(delay, closure: { () -> () in
+                self.matchCardCollectionView?.reloadData()
+                NSNotificationCenter.defaultCenter().postNotificationName(MatchPlayersReusableView.Notification.Identifier.Reload, object: nil)
+            })
         }
         delegate?.collapseSidePanels?()
     }

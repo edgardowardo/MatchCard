@@ -53,7 +53,7 @@ class PlayerViewCell : UICollectionViewCell {
                     self.buttonKey.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
                 }
             } else {
-                self.name.text = "unknown"
+                self.name.text = "nil"
                 self.button.setImage(nil, forState: .Normal)
             }
         } else {
@@ -70,7 +70,7 @@ class PlayerViewCell : UICollectionViewCell {
                 self.buttonKey.setTitleColor(UIColor.whiteColor(), forState: .Normal)
             }
         } else {
-            self.name.text = "unknown"
+            self.name.text = "nil"
             self.button.setImage(nil, forState: .Normal)
         }
     }

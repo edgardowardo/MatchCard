@@ -10,12 +10,46 @@ import Foundation
 import Parse
 
 class DataManager {
+    
+    // MARK:- Structured constants -
+    
+    struct Notification {
+        struct Identifier {
+            static let DidsetPlayer = "NotificationIdentifierOf_DidsetPlayer"
+            static let DidsetTeam = "NotificationIdentifierOf_DidsetTeam"
+        }
+    }
+    
+    // MARK:- Properties -
+    
     static let sharedInstance = DataManager()
     lazy var allLeagues = DataManager.sharedInstance.getAllLeagues()
     lazy var allClubs = DataManager.sharedInstance.getAllClubs()
     lazy var allPlayers = DataManager.sharedInstance.getAllPlayers()
-    lazy var matchCard = DataManager.sharedInstance.newMatchCard_RoundRobin(true) //.newMatchCard_RoundRobin() //.newMatchCard_Open() // .newMatchCard_3Discipline()
+    lazy var matchCard = DataManager.sharedInstance.newMatchCard_RoundRobin(true)
+    //.newMatchCard_RoundRobin() //.newMatchCard_Open() // .newMatchCard_3Discipline()
+    var isMockedPairsBuildable = false
     
+    // MARK:- Methods -
+    
+    required init() {
+        // Notifications Received
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_DidsetPlayer:", name:Notification.Identifier.DidsetPlayer, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_DidsetTeam:", name:Notification.Identifier.DidsetPlayer, object: nil)
+    }
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    @objc private func methodOfReceivedNotification_DidsetPlayer(notification: NSNotification){
+        if isMockedPairsBuildable {
+            self.matchCard.tryRebuildingMockedPairs()
+        }
+    }
+    @objc private func methodOfReceivedNotification_DidsetTeam(notification: NSNotification){
+        if isMockedPairsBuildable {
+            self.matchCard.tryRebuildingMockedPairs()
+        }
+    }
     func loadMatchCard_3Discipline(mc: MatchCardModel) {
         if mc.cardType == .ThreeDiscipline {
             let l = allLeagues[1]       // Manchester Badminton League
@@ -338,6 +372,7 @@ class DataManager {
     }
     
     func newMatchCard_RoundRobin(_ loadSample : Bool = false) -> MatchCardModel {
+        self.isMockedPairsBuildable = false
         var mc = MatchCardModel()
         mc.cardType = .RoundRobin
         mc.date = NSDate()
@@ -393,6 +428,8 @@ class DataManager {
         if loadSample {
             loadMatchCard_RoundRobin(mc)
         }
+        mc.isMockedPairsBuildable = true
+        self.isMockedPairsBuildable = true
         return mc
     }
     
