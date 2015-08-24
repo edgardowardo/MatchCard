@@ -3,4 +3,3 @@
 //
 
 #import "UIImage+ImagePickerCrop.h"
-#import "UIImageView+PersentageCircle.h"
