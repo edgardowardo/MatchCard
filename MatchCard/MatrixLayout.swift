@@ -131,7 +131,9 @@ class MatrixLayout : MatchCardStandardLayout {
         if UIScreen.mainScreen().bounds.size.height < threshold {
             heightAdjustment = 0
         }
-        return CGSizeMake(UIScreen.mainScreen().bounds.size.width, self.totalHeight + heightAdjustment)
+        
+        let size = CGSizeMake(UIScreen.mainScreen().bounds.size.width, self.totalHeight + heightAdjustment)
+        return size
     }
 }
 

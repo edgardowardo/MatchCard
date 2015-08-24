@@ -303,8 +303,8 @@ class DataManager {
             
             var matchEntry = MatchEntryModel(++idx1, homeNote: homeNote,  homePlayer1: homePlayer1, homePlayer2: homePlayer2, awayNote: awayNote, awayPlayer1: awayPlayer1, awayPlayer2: awayPlayer2)
             matchEntry.gameEntries = []
-            matchEntry.gameEntries.append(GameEntryModel(1, homeScore: 0, awayScore:0))
-            matchEntry.gameEntries.append(GameEntryModel(2, homeScore: 0, awayScore:0))
+            matchEntry.gameEntries.append(GameEntryModel(01, homeScore: 0, awayScore: 0, homeNote: "?",  homePlayer1, homePlayer2, awayNote: "?", awayPlayer1, awayPlayer2))
+            matchEntry.gameEntries.append(GameEntryModel(02, homeScore: 0, awayScore: 0, homeNote: "?",  homePlayer1, homePlayer2, awayNote: "?", awayPlayer1, awayPlayer2))
             mc.matchEntries.append(matchEntry)
         }
         
@@ -419,9 +419,9 @@ class DataManager {
                 let awayPlayer2 = awayTeam.players![j*2+1]
                 var matchEntry = MatchEntryModel(++idx1, homeNote: homeNote,  homePlayer1: homePlayer1, homePlayer2: homePlayer2, awayNote: awayNote, awayPlayer1: awayPlayer1, awayPlayer2: awayPlayer2)
                 matchEntry.gameEntries = []
-                matchEntry.gameEntries.append(GameEntryModel(1, homeScore: 0, awayScore:0))
-                matchEntry.gameEntries.append(GameEntryModel(2, homeScore: 0, awayScore:0))
-                matchEntry.gameEntries.append(GameEntryModel(3, homeScore: 0, awayScore:0))
+                matchEntry.gameEntries.append(GameEntryModel(01, homeScore: 0, awayScore: 0, homeNote: "?",  homePlayer1, homePlayer2, awayNote: "?", awayPlayer1, awayPlayer2))
+                matchEntry.gameEntries.append(GameEntryModel(02, homeScore: 0, awayScore: 0, homeNote: "?",  homePlayer1, homePlayer2, awayNote: "?", awayPlayer1, awayPlayer2))
+                matchEntry.gameEntries.append(GameEntryModel(03, homeScore: 0, awayScore: 0, homeNote: "?",  homePlayer1, homePlayer2, awayNote: "?", awayPlayer1, awayPlayer2))
                 mc.matchEntries.append(matchEntry)
             }
         }

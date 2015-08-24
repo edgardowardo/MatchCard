@@ -90,6 +90,73 @@ class MatchPlayersReusableView : UICollectionReusableView {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_Deselect:", name: Notification.Identifier.Deselect, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_Reload:", name: Notification.Identifier.Reload, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_AssignRegisteredPlayer:", name:PlayersInputController.Notification.Identifier.AssignRegisteredPlayer, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_GameEntryHighlighted:", name: MatchCardViewController.Notification.Identifier.GameEntryHighlighted, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_TouchedAwayPairs:", name: EntryAnnotationReusableView.Notification.Identifier.TouchedAwayPairs, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_TouchedHomePairs:", name: EntryAnnotationReusableView.Notification.Identifier.TouchedHomePairs, object: nil)
+    }
+    func showAwayPairPlaying(inGameEntry gameEntry: GameEntryModel) {
+        let matchCard = DataManager.sharedInstance.matchCard
+        let firstPath = NSIndexPath(forRow: 0, inSection: 0)
+        let secondPath = NSIndexPath(forRow: 1, inSection: 0)
+        
+        let indexOfPlayer1 = find(matchCard.awayTeamBag.players!, gameEntry.awayPlayer1!)!
+        let player1 = matchCard.awayTeamBag.players![indexOfPlayer1]
+        let indexPath1 = NSIndexPath(forRow: indexOfPlayer1, inSection: 0)
+        matchCard.awayTeamBag.players!.removeAtIndex(indexOfPlayer1)
+        matchCard.awayTeamBag.players!.insert(player1, atIndex: 0)
+        playersCollectionView?.moveItemAtIndexPath(indexPath1, toIndexPath: firstPath)
+        
+        let indexOfPlayer2 = find(matchCard.awayTeamBag.players!, gameEntry.awayPlayer2!)!
+        let player2 = matchCard.awayTeamBag.players![indexOfPlayer2]
+        let indexPath2 = NSIndexPath(forRow: indexOfPlayer2, inSection: 0)
+        matchCard.awayTeamBag.players!.removeAtIndex(indexOfPlayer2)
+        matchCard.awayTeamBag.players!.insert(player2, atIndex: 1)
+        playersCollectionView?.moveItemAtIndexPath(indexPath2, toIndexPath: secondPath)
+    }
+    func showHomePairPlaying(inGameEntry gameEntry: GameEntryModel) {
+        let matchCard = DataManager.sharedInstance.matchCard
+        let firstPath = NSIndexPath(forRow: 0, inSection: 0)
+        let secondPath = NSIndexPath(forRow: 1, inSection: 0)
+        
+        let indexOfPlayer1 = find(matchCard.homeTeamBag!.players!, gameEntry.homePlayer1!)!
+        let player1 = matchCard.homeTeamBag!.players![indexOfPlayer1]
+        let indexPath1 = NSIndexPath(forRow: indexOfPlayer1, inSection: 0)
+        matchCard.homeTeamBag!.players!.removeAtIndex(indexOfPlayer1)
+        matchCard.homeTeamBag!.players!.insert(player1, atIndex: 0)
+        playersCollectionView?.moveItemAtIndexPath(indexPath1, toIndexPath: firstPath)
+        
+        let indexOfPlayer2 = find(matchCard.homeTeamBag!.players!, gameEntry.homePlayer2!)!
+        let player2 = matchCard.homeTeamBag!.players![indexOfPlayer2]
+        let indexPath2 = NSIndexPath(forRow: indexOfPlayer2, inSection: 0)
+        matchCard.homeTeamBag!.players!.removeAtIndex(indexOfPlayer2)
+        matchCard.homeTeamBag!.players!.insert(player2, atIndex: 1)
+        playersCollectionView?.moveItemAtIndexPath(indexPath2, toIndexPath: secondPath)
+    }
+    @objc private func methodOfReceivedNotification_TouchedAwayPairs(notification: NSNotification){
+        if self.elementKind == Collection.Kind.Away {
+            var gameEntry = notification.object as? GameEntryModel
+            showAwayPairPlaying(inGameEntry: gameEntry!)
+        }
+    }
+    @objc private func methodOfReceivedNotification_TouchedHomePairs(notification: NSNotification){
+        var gameEntry = notification.object as? GameEntryModel
+        if self.elementKind == Collection.Kind.Home {
+            var gameEntry = notification.object as? GameEntryModel
+            showHomePairPlaying(inGameEntry: gameEntry!)
+        }
+    }    
+    @objc private func methodOfReceivedNotification_GameEntryHighlighted(notification: NSNotification){
+        /*
+            Highlight game entry and players reorders to position 1 & 2 depending on the players playing on the game.
+        */
+        var gameEntry = notification.object as? GameEntryModel
+        if self.elementKind == Collection.Kind.Away {
+            showAwayPairPlaying(inGameEntry: gameEntry!)
+        } else if self.elementKind == Collection.Kind.Home {
+            showHomePairPlaying(inGameEntry: gameEntry!)
+        } else {
+            assertionFailure("wrong kind here")
+        }
     }
     @objc private func methodOfReceivedNotification_AssignRegisteredPlayer(notification: NSNotification){
         var registeredPlayerCell = notification.object as? PlayerViewCell

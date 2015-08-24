@@ -34,6 +34,8 @@ class EntryAnnotationReusableView : UICollectionReusableView {
     struct Notification {
         struct Identifier {
             static let ChangedMatchEntry = "NotificationIdentifierOf_ChangedMatchEntry"
+            static let TouchedAwayPairs = "NotificationIdentifierOf_TouchedAwayPairs"
+            static let TouchedHomePairs = "NotificationIdentifierOf_TouchedHomePairs"
         }
     }
     
@@ -80,6 +82,30 @@ class EntryAnnotationReusableView : UICollectionReusableView {
     
     // MARK:- Lifecycles -
     
+    @IBAction func touchDownAway(sender: AnyObject) {
+        var gameEntryObject : GameEntryModel?
+        if let data = game {
+            gameEntryObject = data
+        } else if let data = match {
+            gameEntryObject = data.gameEntries[0]
+        }
+        NSNotificationCenter.defaultCenter().postNotificationName(Notification.Identifier.TouchedAwayPairs, object: gameEntryObject!)
+        Common.delay(0.5) { () -> () in
+            NSNotificationCenter.defaultCenter().postNotificationName(Notification.Identifier.TouchedHomePairs, object: gameEntryObject!)
+        }
+    }
+    @IBAction func touchDownHome(sender: AnyObject) {
+        var gameEntryObject : GameEntryModel?
+        if let data = game {
+            gameEntryObject = data
+        } else if let data = match {
+            gameEntryObject = data.gameEntries[0]
+        }
+        NSNotificationCenter.defaultCenter().postNotificationName(Notification.Identifier.TouchedHomePairs, object: gameEntryObject!)
+        Common.delay(0.5) { () -> () in
+            NSNotificationCenter.defaultCenter().postNotificationName(Notification.Identifier.TouchedAwayPairs, object: gameEntryObject!)
+        }
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         self.player1.layer.cornerRadius = self.player1.frame.size.width / 2

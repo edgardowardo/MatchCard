@@ -10,6 +10,9 @@ import Foundation
 import UIKit
 
 class GameEntryCell : UICollectionViewCell {
+    
+    // MARK:- Constants -
+    
     struct Collection {
         static let ReuseIdentifier = "GameEntryCell"
         static let Nib = Collection.ReuseIdentifier
@@ -33,6 +36,9 @@ class GameEntryCell : UICollectionViewCell {
             }
         }
     }
+        
+    // MARK:- Properties -
+    
     @IBOutlet weak var homeBar   : UIView!
     @IBOutlet weak var homeScore : UILabel!
     @IBOutlet weak var awayScore : UILabel!
@@ -43,10 +49,23 @@ class GameEntryCell : UICollectionViewCell {
         didSet {
             homeScore.text = data?.homeEntry
             awayScore.text = data?.awayEntry
+            self.updateBars()
+            if Common.showColorBounds() {
+                self.layer.borderWidth = 1
+                self.layer.cornerRadius = 10
+                self.layer.borderColor = UIColor.redColor().CGColor
+            }
+            else {
+                self.backgroundColor? = UIColor.clearColor()
+                self.homeScore?.backgroundColor = UIColor.clearColor()
+                self.awayScore?.backgroundColor = UIColor.clearColor()
+            }
         }
     }
     let duration = 0.25
     let startAlpha = CGFloat(0.1)
+    
+    // MARK:- Methods -
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -57,7 +76,18 @@ class GameEntryCell : UICollectionViewCell {
         self.homeScore.layer.anchorPoint = CGPointMake(0.5, 0.5)
         self.homeScore.transform = CGAffineTransformScale(self.homeScore.transform, CGFloat(0.5), CGFloat(0.5))
         self.awayScore.layer.anchorPoint = CGPointMake(0.5, 0.5)
-        self.awayScore.transform = CGAffineTransformScale(self.awayScore.transform, CGFloat(0.5), CGFloat(0.5))        
+        self.awayScore.transform = CGAffineTransformScale(self.awayScore.transform, CGFloat(0.5), CGFloat(0.5))
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "methodOfReceivedNotification_SetLayout:", name: MatchCardViewController.Notification.Identifier.SetLayout, object: nil)        
+    }
+    
+    @objc private func methodOfReceivedNotification_SetLayout(notification : NSNotification){
+        var vc = notification.object as! MatchCardViewController
+        updateWithLayout(vc.layout)
+    }
+    func updateWithLayout(layout : LayoutType) {
+        self.homeBar.hidden = (layout == .Matrix)
+        self.awayBar.hidden = (layout == .Matrix)
+        self.semicolon.hidden = (layout != .Matrix)
     }
     func setFontSize(layout : LayoutType) {
         let scale = true
@@ -126,5 +156,14 @@ class GameEntryCell : UICollectionViewCell {
                 self.homeBar.alpha = 1
                 self.awayBar.alpha = 1
         }
-    }    
+    }
+    func blink() {
+        UIView.animateWithDuration(duration, animations: { () -> Void in
+            self.homeScore.alpha = 0
+            self.awayScore.alpha = 0
+        }) { (Bool) -> Void in
+            self.homeScore.alpha = 1
+            self.awayScore.alpha = 1
+        }
+    }
 }

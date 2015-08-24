@@ -59,6 +59,17 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U6J-XU-pcD">
+                    <rect key="frame" x="0.0" y="0.0" width="91" height="26"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <state key="normal">
+                        <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="touchDownAway:" destination="6Cy-ph-3kN" eventType="touchDown" id="ibn-YH-OGb"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
@@ -67,8 +78,12 @@
                 <constraint firstItem="ua9-SU-YNe" firstAttribute="top" secondItem="6Cy-ph-3kN" secondAttribute="top" constant="3" id="Fpc-XX-QZR"/>
                 <constraint firstItem="KT5-bI-IkK" firstAttribute="leading" secondItem="yEg-IP-O3i" secondAttribute="trailing" constant="4" id="HFm-Sy-gpm"/>
                 <constraint firstItem="yEg-IP-O3i" firstAttribute="top" secondItem="6Cy-ph-3kN" secondAttribute="top" constant="5" id="Pgd-r8-FmU"/>
+                <constraint firstAttribute="bottom" secondItem="U6J-XU-pcD" secondAttribute="bottom" id="ZI0-mq-12R"/>
                 <constraint firstItem="KT5-bI-IkK" firstAttribute="top" secondItem="6Cy-ph-3kN" secondAttribute="top" constant="3" id="dkB-SD-I3U"/>
+                <constraint firstItem="U6J-XU-pcD" firstAttribute="top" secondItem="6Cy-ph-3kN" secondAttribute="top" id="foB-ud-uw2"/>
                 <constraint firstItem="yEg-IP-O3i" firstAttribute="leading" secondItem="ua9-SU-YNe" secondAttribute="trailing" constant="4" id="iL0-wQ-7qf"/>
+                <constraint firstItem="U6J-XU-pcD" firstAttribute="leading" secondItem="6Cy-ph-3kN" secondAttribute="leading" id="mon-7W-atW"/>
+                <constraint firstAttribute="trailing" secondItem="U6J-XU-pcD" secondAttribute="trailing" id="t2n-k1-NpW"/>
                 <constraint firstItem="ZC4-oA-tiQ" firstAttribute="leading" secondItem="KT5-bI-IkK" secondAttribute="trailing" constant="4" id="wfO-ci-2dh"/>
             </constraints>
             <connections>

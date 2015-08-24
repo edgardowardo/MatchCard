@@ -18,7 +18,7 @@
                         <constraint firstAttribute="width" constant="15" id="ogu-Pd-2aN"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="8"/>
-                    <state key="normal" title="X1">
+                    <state key="normal" title="X2">
                         <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -31,7 +31,7 @@
                         <constraint firstAttribute="width" constant="15" id="oQe-kq-ZH5"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="8"/>
-                    <state key="normal" title="X2">
+                    <state key="normal" title="X1">
                         <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -57,6 +57,17 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CpS-R9-AeQ">
+                    <rect key="frame" x="0.0" y="0.0" width="91" height="26"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <state key="normal">
+                        <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="touchDownHome:" destination="JI7-JR-zl7" eventType="touchDown" id="JXl-nT-EsZ"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
@@ -78,8 +89,8 @@
             <connections>
                 <outlet property="medalMatchWin" destination="xOc-Cp-myW" id="5Cf-6L-0Nz"/>
                 <outlet property="note" destination="Ayf-3U-IbA" id="MbX-PE-nFh"/>
-                <outlet property="player1" destination="gTj-iy-bsl" id="GgV-Fk-EkL"/>
-                <outlet property="player2" destination="u5C-FB-cZq" id="lro-Ss-lmT"/>
+                <outlet property="player1" destination="u5C-FB-cZq" id="7wg-a7-kot"/>
+                <outlet property="player2" destination="gTj-iy-bsl" id="ZU7-VI-IUz"/>
             </connections>
             <point key="canvasLocation" x="94.5" y="228"/>
         </collectionReusableView>

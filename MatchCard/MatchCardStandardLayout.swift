@@ -379,7 +379,8 @@ class MatchCardStandardLayout : UICollectionViewLayout{
         let count : Int? = collectionView?.numberOfItemsInSection(0)
         let numSections = collectionView?.numberOfSections()
         let cellSize = self.cellSize()
-        return CGSizeMake(UIScreen.mainScreen().bounds.size.width, self.totalHeight + cellSize.height * CGFloat(2.5))
+        let size = CGSizeMake(UIScreen.mainScreen().bounds.size.width, self.totalHeight + cellSize.height * CGFloat(2.5))
+        return size
     }
     override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes! {
         let cellKind = GameEntryCell.Collection.Kind

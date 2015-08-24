@@ -12,6 +12,16 @@ import MapKit
 
 enum LayoutType {
     case Standard, Edit, HomePlayers, AwayPlayers, Matrix, MatrixHomePlayers, MatrixAwayPlayers
+    func isEditable() -> Bool {
+        switch self {
+        case .Standard :
+            fallthrough
+        case .Matrix :
+            return true
+        default :
+            return false
+        }
+    }
 }
 
 @objc
@@ -29,6 +39,7 @@ class MatchCardViewController : UIViewController {
             static let ReloadData = "NotificationIdentifierOf_ReloadData"
             static let SetLayout = "NotificationIdentifierOf_SetLayout"
             static let RemoveRegisteredPlayer = "NotificationIdentifierOf_RemoveRegisteredPlayer"
+            static let GameEntryHighlighted = "NotificationIdentifierOf_GameEntryHighlighted"
         }
     }
     struct Map {
@@ -71,7 +82,13 @@ class MatchCardViewController : UIViewController {
     var selectedPlayerPositionCell : PlayerViewCell?
     lazy var playersInputController = PlayersInputController()
     var layouts : [LayoutType : UICollectionViewLayout] = [.Standard : MatchCardStandardLayout(), .Edit : GameEntryEditLayout(), .HomePlayers : HomePlayersLayout(), .AwayPlayers : AwayPlayersLayout(), .Matrix : MatrixLayout()]
+    var lastLayoutBeforeEditing : LayoutType = .Standard
     var layout : LayoutType = .Standard {
+        willSet {
+            if newValue == .Edit {
+                self.lastLayoutBeforeEditing = self.layout
+            }
+        }
         didSet {
             self.matchCardCollectionView?.setCollectionViewLayout(self.layouts[self.layout]!, animated: true)
             NSNotificationCenter.defaultCenter().postNotificationName(Notification.Identifier.SetLayout, object: self)
@@ -249,14 +266,25 @@ class MatchCardViewController : UIViewController {
         }
     }
     func doneTappedGameEntry() {
+        doneEditGameEntry()
+    }
+    func doneEditGameEntry(gameEntry : GameEntryCell? = nil) {
         if self.layout == .Edit {
-            // TO STANDARD MODE
-            self.layout = .Standard
+            self.layout = self.lastLayoutBeforeEditing
             mockGameEntryTextField.resignFirstResponder()
-            let cell = matchCardCollectionView!.selectedCell() as! GameEntryCell
+            var cell : GameEntryCell
+            if let c = gameEntry {
+                cell = c
+            } else {
+                cell = matchCardCollectionView!.selectedCell() as! GameEntryCell
+            }
             cell.layer.borderColor = UIColor.clearColor().CGColor
             cell.setFontSize(.Standard)
-            cell.layer.borderColor = UIColor.clearColor().CGColor
+            if self.layout == .Matrix {
+                Common.delay(0.5, closure: { () -> () in
+                    cell.blink()
+                })
+            }
         }
     }
     func selectElement<T:Equatable>(elementy : T?, fromArray : [T], inTextFieldWithPicker textfield : UITextField) {
@@ -694,26 +722,23 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
         var cell = collectionView.dequeueReusableCellWithReuseIdentifier(GameEntryCell.Collection.ReuseIdentifier, forIndexPath: indexPath) as! GameEntryCell
         let gameEntry = DataManager.sharedInstance.matchCard.matchEntries[indexPath.section].gameEntries[indexPath.row]
         cell.data = gameEntry
-        if Common.showColorBounds() {
-            cell.layer.borderWidth = 1
-            cell.layer.cornerRadius = 10
-            cell.layer.borderColor = UIColor.redColor().CGColor
-        }
-        else {
-            cell.backgroundColor? = UIColor.clearColor()
-            cell.homeScore?.backgroundColor = UIColor.clearColor()
-            cell.awayScore?.backgroundColor = UIColor.clearColor()
-        }
-        cell.homeBar.hidden = (self.layout == .Matrix)
-        cell.awayBar.hidden = (self.layout == .Matrix)
-        cell.semicolon.hidden = (self.layout != .Matrix)
-        cell.updateBars()
-        
+        cell.updateWithLayout(self.layout)
         return cell
+    }
+    func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
+        var cell = collectionView.cellForItemAtIndexPath(indexPath) as! GameEntryCell
+        if self.layout != .Matrix {
+            cell.backgroundColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.1)
+            NSNotificationCenter.defaultCenter().postNotificationName(MatchCardViewController.Notification.Identifier.GameEntryHighlighted, object: cell.data)
+        }
+    }
+    func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
+        var cell = collectionView.cellForItemAtIndexPath(indexPath) as! GameEntryCell
+        cell.backgroundColor = UIColor.clearColor()
     }
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath){
         var cell = collectionView.cellForItemAtIndexPath(indexPath) as! GameEntryCell
-        if self.layout == .Standard {
+        if self.layout.isEditable() {
             // TO EDIT MODE
             self.layout = .Edit
             cell.layer.borderColor = UIColor.lightGrayColor().CGColor
@@ -730,16 +755,12 @@ extension MatchCardViewController : UICollectionViewDelegate, UICollectionViewDa
                 picker.selectRow(cell.awayScore.text!.toInt()! , inComponent: 1, animated: true)
             }
             cell.setFontSize(.Edit)
-        } else if  self.layout == .Edit {
-            // TO STANDARD MODE
-            self.layout = .Standard
-            cell.layer.borderColor = UIColor.clearColor().CGColor
-            mockGameEntryTextField.resignFirstResponder()
-            cell.setFontSize(.Standard)
+        } else if self.layout == .Edit {
+            self.doneEditGameEntry(gameEntry: cell)
         }
     }
     func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        if self.layout == .Standard {
+        if self.layout.isEditable() {
             return true
         }
         let indexPaths : NSArray = collectionView.indexPathsForSelectedItems()
